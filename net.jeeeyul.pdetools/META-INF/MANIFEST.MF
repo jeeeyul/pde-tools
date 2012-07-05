@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PDE Tools
+Bundle-SymbolicName: net.jeeeyul.pdetools
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.jeeeyul.pdetools.Activator
+Bundle-Vendor: Jeeeyul
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
