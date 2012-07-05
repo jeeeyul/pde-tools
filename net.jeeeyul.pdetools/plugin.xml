@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="id1"
+         point="org.eclipse.core.resources.builders">
+      <builder></builder>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="net.jeeeyul.pdetools.ProjectNature1">
+         </run>
+      </runtime>
+   </extension>
+
+</plugin>
