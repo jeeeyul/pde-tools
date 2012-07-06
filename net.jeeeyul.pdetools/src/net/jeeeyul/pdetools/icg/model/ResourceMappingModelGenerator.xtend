@@ -8,11 +8,14 @@ import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
+import net.jeeeyul.pdetools.icg.ICGConfiguration
 
 class ResourceMappingModelGenerator {
 	Stack<GenerationContext> stack
+	ICGConfiguration config
 	
-	new(){
+	new(ICGConfiguration config){
+		this.config = config
 		stack = new Stack<GenerationContext>();
 		pushContext(null);
 	}
@@ -27,9 +30,9 @@ class ResourceMappingModelGenerator {
 	
 		pushContext(palette);
 		{
-			folder.sortedMember.filter(typeof(IFolder)).forEach[it.generatePalette];
+			folder.validMembers.filter(typeof(IFolder)).forEach[it.generatePalette];
 			
-			for(eachFile : folder.sortedMember.filter(typeof(IFile))){
+			for(eachFile : folder.validMembers.filter(typeof(IFile))){
 				palette.imageFiles += eachFile.generateImageFile();	
 			}
 		}
@@ -82,8 +85,16 @@ class ResourceMappingModelGenerator {
 		return result;
 	}
 	
-	def private IResource[] sortedMember(IFolder folder){
-		folder.members.sort[a, b|
+	def private IResource[] validMembers(IFolder folder){
+		var list = folder.members.filter[
+			if(it instanceof IFolder){
+				 true;
+			}else{
+				config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
+			}
+		];
+		
+		list.sort[a, b|
 			if(a instanceof IFolder && b instanceof IFile){
 				return -1;
 			}

@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
+import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.model.GenerationContext;
 import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner;
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
@@ -17,8 +18,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
@@ -26,7 +29,10 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 public class ResourceMappingModelGenerator {
   private Stack<GenerationContext> stack;
   
-  public ResourceMappingModelGenerator() {
+  private ICGConfiguration config;
+  
+  public ResourceMappingModelGenerator(final ICGConfiguration config) {
+    this.config = config;
     Stack<GenerationContext> _stack = new Stack<GenerationContext>();
     this.stack = _stack;
     this.pushContext(null);
@@ -49,16 +55,16 @@ public class ResourceMappingModelGenerator {
     }
     this.pushContext(palette);
     {
-      IResource[] _sortedMember = this.sortedMember(folder);
-      Iterable<IFolder> _filter = Iterables.<IFolder>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_sortedMember)), IFolder.class);
+      IResource[] _validMembers = this.validMembers(folder);
+      Iterable<IFolder> _filter = Iterables.<IFolder>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_validMembers)), IFolder.class);
       final Procedure1<IFolder> _function = new Procedure1<IFolder>() {
           public void apply(final IFolder it) {
             ResourceMappingModelGenerator.this.generatePalette(it);
           }
         };
       IterableExtensions.<IFolder>forEach(_filter, _function);
-      IResource[] _sortedMember_1 = this.sortedMember(folder);
-      Iterable<IFile> _filter_1 = Iterables.<IFile>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_sortedMember_1)), IFile.class);
+      IResource[] _validMembers_1 = this.validMembers(folder);
+      Iterable<IFile> _filter_1 = Iterables.<IFile>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_validMembers_1)), IFile.class);
       for (final IFile eachFile : _filter_1) {
         EList<ImageFile> _imageFiles = palette.getImageFiles();
         ImageFile _generateImageFile = this.generateImageFile(eachFile);
@@ -156,42 +162,69 @@ public class ResourceMappingModelGenerator {
     return result;
   }
   
-  private IResource[] sortedMember(final IFolder folder) {
+  private IResource[] validMembers(final IFolder folder) {
     try {
-      IResource[] _members = folder.members();
-      final Function2<IResource,IResource,Integer> _function = new Function2<IResource,IResource,Integer>() {
-          public Integer apply(final IResource a, final IResource b) {
-            boolean _and = false;
-            if (!(a instanceof IFolder)) {
-              _and = false;
-            } else {
-              _and = ((a instanceof IFolder) && (b instanceof IFile));
-            }
-            if (_and) {
-              return (-1);
-            } else {
-              boolean _and_1 = false;
-              if (!(a instanceof IFile)) {
-                _and_1 = false;
+      List<IResource> _xblockexpression = null;
+      {
+        IResource[] _members = folder.members();
+        final Function1<IResource,Boolean> _function = new Function1<IResource,Boolean>() {
+            public Boolean apply(final IResource it) {
+              boolean _xifexpression = false;
+              if ((it instanceof IFolder)) {
+                _xifexpression = true;
               } else {
-                _and_1 = ((a instanceof IFile) && (b instanceof IFolder));
+                String[] _imageFileExtensions = ResourceMappingModelGenerator.this.config.getImageFileExtensions();
+                final Function1<String,String> _function = new Function1<String,String>() {
+                    public String apply(final String it) {
+                      String _lowerCase = it.toLowerCase();
+                      return _lowerCase;
+                    }
+                  };
+                List _map = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(_imageFileExtensions)), _function);
+                String _fileExtension = it.getFileExtension();
+                String _lowerCase = _fileExtension.toLowerCase();
+                boolean _contains = _map.contains(_lowerCase);
+                _xifexpression = _contains;
               }
-              if (_and_1) {
-                return 1;
+              return Boolean.valueOf(_xifexpression);
+            }
+          };
+        Iterable<IResource> list = IterableExtensions.<IResource>filter(((Iterable<IResource>)Conversions.doWrapArray(_members)), _function);
+        final Function2<IResource,IResource,Integer> _function_1 = new Function2<IResource,IResource,Integer>() {
+            public Integer apply(final IResource a, final IResource b) {
+              boolean _and = false;
+              if (!(a instanceof IFolder)) {
+                _and = false;
               } else {
-                String _name = a.getName();
-                String _name_1 = b.getName();
-                return _name.compareTo(_name_1);
+                _and = ((a instanceof IFolder) && (b instanceof IFile));
+              }
+              if (_and) {
+                return (-1);
+              } else {
+                boolean _and_1 = false;
+                if (!(a instanceof IFile)) {
+                  _and_1 = false;
+                } else {
+                  _and_1 = ((a instanceof IFile) && (b instanceof IFolder));
+                }
+                if (_and_1) {
+                  return 1;
+                } else {
+                  String _name = a.getName();
+                  String _name_1 = b.getName();
+                  return _name.compareTo(_name_1);
+                }
               }
             }
-          }
-        };
-      List<IResource> _sort = IterableExtensions.<IResource>sort(((Iterable<IResource>)Conversions.doWrapArray(_members)), new Comparator<IResource>() {
-          public int compare(IResource o1,IResource o2) {
-            return _function.apply(o1,o2);
-          }
-      });
-      return ((IResource[])Conversions.unwrapArray(_sort, IResource.class));
+          };
+        List<IResource> _sort = IterableExtensions.<IResource>sort(list, new Comparator<IResource>() {
+            public int compare(IResource o1,IResource o2) {
+              return _function_1.apply(o1,o2);
+            }
+        });
+        _xblockexpression = (_sort);
+      }
+      return ((IResource[])Conversions.unwrapArray(_xblockexpression, IResource.class));
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);
     }

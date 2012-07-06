@@ -26,7 +26,7 @@ public class ICGBuilder extends IncrementalProjectBuilder {
     IFolder _monitoringFolder = cfg.getMonitoringFolder();
     boolean _exists = _monitoringFolder.exists();
     if (_exists) {
-      ResourceMappingModelGenerator _resourceMappingModelGenerator = new ResourceMappingModelGenerator();
+      ResourceMappingModelGenerator _resourceMappingModelGenerator = new ResourceMappingModelGenerator(cfg);
       ResourceMappingModelGenerator mg = _resourceMappingModelGenerator;
       IFolder _monitoringFolder_1 = cfg.getMonitoringFolder();
       Palette palette = mg.generatePalette(_monitoringFolder_1);
