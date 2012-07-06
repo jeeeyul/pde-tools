@@ -16,6 +16,10 @@ class ICGBuilder extends IncrementalProjectBuilder {
 		if(cfg.monitoringFolder.exists){
 			var mg = new net.jeeeyul.pdetools.icg.model.ResourceMappingModelGenerator()
 			var palette = mg.generatePalette(cfg.monitoringFolder);
+			var generator = new ImageCosntantGenerator();
+			generator.rootPalette = palette;
+			generator.config = cfg
+			println(generator.generate())
 		}
 		
 		return new ArrayList<IProject>()

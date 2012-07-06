@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.icg;
 import java.util.ArrayList;
 import java.util.Map;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
+import net.jeeeyul.pdetools.icg.ImageCosntantGenerator;
 import net.jeeeyul.pdetools.icg.model.ResourceMappingModelGenerator;
 import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
 import org.eclipse.core.resources.IFolder;
@@ -11,6 +12,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 
 @SuppressWarnings("all")
 public class ICGBuilder extends IncrementalProjectBuilder {
@@ -28,6 +30,12 @@ public class ICGBuilder extends IncrementalProjectBuilder {
       ResourceMappingModelGenerator mg = _resourceMappingModelGenerator;
       IFolder _monitoringFolder_1 = cfg.getMonitoringFolder();
       Palette palette = mg.generatePalette(_monitoringFolder_1);
+      ImageCosntantGenerator _imageCosntantGenerator = new ImageCosntantGenerator();
+      ImageCosntantGenerator generator = _imageCosntantGenerator;
+      generator.setRootPalette(palette);
+      generator.setConfig(cfg);
+      CharSequence _generate = generator.generate();
+      InputOutput.<CharSequence>println(_generate);
     }
     ArrayList<IProject> _arrayList = new ArrayList<IProject>();
     return ((IProject[])Conversions.unwrapArray(_arrayList, IProject.class));
