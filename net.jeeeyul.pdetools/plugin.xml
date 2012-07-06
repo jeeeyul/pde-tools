@@ -6,8 +6,10 @@
          name="Image Constants Generator"
          point="org.eclipse.core.resources.builders">
       <builder
+            callOnEmptyDelta="false"
             hasNature="true"
-            isConfigurable="true">
+            isConfigurable="true"
+            supportsConfigurations="true">
          <run
                class="net.jeeeyul.pdetools.icg.ICGBuilder">
          </run></builder>
@@ -24,6 +26,9 @@
       <requires-nature
             id="org.eclipse.pde.PluginNature">
       </requires-nature>
+      <builder
+            id="net.jeeeyul.pdetools.icg.builder">
+      </builder>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
