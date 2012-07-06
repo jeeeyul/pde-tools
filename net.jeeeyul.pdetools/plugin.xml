@@ -2,18 +2,28 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="id1"
+         id="net.jeeeyul.pdetools.icg.builder"
+         name="Image Constants Generator"
          point="org.eclipse.core.resources.builders">
-      <builder></builder>
+      <builder
+            hasNature="true"
+            isConfigurable="true">
+         <run
+               class="net.jeeeyul.pdetools.icg.ICGBuilder">
+         </run></builder>
    </extension>
    <extension
-         id="id1"
+         id="net.jeeeyul.pdetools.icg.nature"
+         name="Managed Image Constants Project"
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="net.jeeeyul.pdetools.ProjectNature1">
+               class="net.jeeeyul.pdetools.icg.ICGNature">
          </run>
       </runtime>
+      <requires-nature
+            id="org.eclipse.pde.PluginNature">
+      </requires-nature>
    </extension>
 
 </plugin>
