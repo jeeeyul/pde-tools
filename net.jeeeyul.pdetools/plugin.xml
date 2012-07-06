@@ -78,7 +78,8 @@
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            class="net.jeeeyul.pdetools.WorkbenchPropertyPage1"
+            category="org.eclipse.pde.internal.ui.properties.pluginDevelopmentPage"
+            class="net.jeeeyul.pdetools.icg.ICGPropertyPage"
             id="net.jeeeyul.pdetools.page1"
             name="Image Constants Generator">
          <enabledWhen>

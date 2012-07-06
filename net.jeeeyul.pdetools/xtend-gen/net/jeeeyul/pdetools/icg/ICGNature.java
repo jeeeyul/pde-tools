@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.icg;
 
 import com.google.common.base.Objects;
 import java.util.List;
+import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.ICGConstants;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
@@ -9,6 +10,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -46,6 +48,12 @@ public class ICGNature implements IProjectNature {
     IProject _project_1 = this.getProject();
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
     _project_1.setDescription(description, _nullProgressMonitor);
+    IProject _project_2 = this.getProject();
+    ICGConfiguration _iCGConfiguration = new ICGConfiguration(_project_2);
+    ICGConfiguration config = _iCGConfiguration;
+    Path _path = new Path("icons");
+    config.setMonitoringFolder(_path);
+    config.save();
   }
   
   public void deconfigure() throws CoreException {
