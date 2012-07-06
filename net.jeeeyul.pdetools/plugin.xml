@@ -75,5 +75,25 @@
          </command>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="net.jeeeyul.pdetools.WorkbenchPropertyPage1"
+            id="net.jeeeyul.pdetools.page1"
+            name="Image Constants Generator">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+               <instanceof
+                     value="org.eclipse.core.resources.IProject">
+               </instanceof>
+               <test
+                     property="org.eclipse.core.resources.projectNature"
+                     value="net.jeeeyul.pdetools.icg.nature">
+               </test>
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
 
 </plugin>
