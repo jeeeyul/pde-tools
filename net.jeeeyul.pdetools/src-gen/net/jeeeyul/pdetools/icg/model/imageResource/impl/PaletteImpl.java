@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -33,8 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getFieldName <em>Field Name</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getId <em>Id</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getFolder <em>Folder</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getSubPalettes <em>Sub Palettes</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getImageFiles <em>Image Files</em>}</li>
@@ -46,24 +45,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
 {
   /**
-   * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The default value of the '{@link #getFieldName() <em>Field Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getFieldName()
    * @generated
    * @ordered
    */
-  protected static final String ID_EDEFAULT = null;
+  protected static final String FIELD_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The cached value of the '{@link #getFieldName() <em>Field Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getFieldName()
    * @generated
    * @ordered
    */
-  protected String id = ID_EDEFAULT;
+  protected String fieldName = FIELD_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getFolder() <em>Folder</em>}' attribute.
@@ -131,6 +130,29 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getFieldName()
+  {
+    return fieldName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFieldName(String newFieldName)
+  {
+    String oldFieldName = fieldName;
+    fieldName = newFieldName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__FIELD_NAME, oldFieldName, fieldName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Palette getParent()
   {
     if (eContainerFeatureID() != ImageResourcePackage.PALETTE__PARENT) return null;
@@ -169,29 +191,6 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__PARENT, newParent, newParent));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getId()
-  {
-    return id;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setId(String newId)
-  {
-    String oldId = id;
-    id = newId;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__ID, oldId, id));
   }
 
   /**
@@ -314,10 +313,10 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
+      case ImageResourcePackage.PALETTE__FIELD_NAME:
+        return getFieldName();
       case ImageResourcePackage.PALETTE__PARENT:
         return getParent();
-      case ImageResourcePackage.PALETTE__ID:
-        return getId();
       case ImageResourcePackage.PALETTE__FOLDER:
         return getFolder();
       case ImageResourcePackage.PALETTE__SUB_PALETTES:
@@ -339,11 +338,11 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
+      case ImageResourcePackage.PALETTE__FIELD_NAME:
+        setFieldName((String)newValue);
+        return;
       case ImageResourcePackage.PALETTE__PARENT:
         setParent((Palette)newValue);
-        return;
-      case ImageResourcePackage.PALETTE__ID:
-        setId((String)newValue);
         return;
       case ImageResourcePackage.PALETTE__FOLDER:
         setFolder((IFolder)newValue);
@@ -370,11 +369,11 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
+      case ImageResourcePackage.PALETTE__FIELD_NAME:
+        setFieldName(FIELD_NAME_EDEFAULT);
+        return;
       case ImageResourcePackage.PALETTE__PARENT:
         setParent((Palette)null);
-        return;
-      case ImageResourcePackage.PALETTE__ID:
-        setId(ID_EDEFAULT);
         return;
       case ImageResourcePackage.PALETTE__FOLDER:
         setFolder(FOLDER_EDEFAULT);
@@ -399,10 +398,10 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
+      case ImageResourcePackage.PALETTE__FIELD_NAME:
+        return FIELD_NAME_EDEFAULT == null ? fieldName != null : !FIELD_NAME_EDEFAULT.equals(fieldName);
       case ImageResourcePackage.PALETTE__PARENT:
         return getParent() != null;
-      case ImageResourcePackage.PALETTE__ID:
-        return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
       case ImageResourcePackage.PALETTE__FOLDER:
         return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
       case ImageResourcePackage.PALETTE__SUB_PALETTES:
@@ -424,8 +423,8 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (id: ");
-    result.append(id);
+    result.append(" (fieldName: ");
+    result.append(fieldName);
     result.append(", folder: ");
     result.append(folder);
     result.append(')');

@@ -6,8 +6,6 @@ import org.eclipse.core.resources.IFolder;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Palette</b></em>'.
@@ -17,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getId <em>Id</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getFolder <em>Folder</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getSubPalettes <em>Sub Palettes</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getImageFiles <em>Image Files</em>}</li>
@@ -28,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Palette extends EObject
+public interface Palette extends FieldNameOwner
 {
   /**
    * Returns the value of the '<em><b>Parent</b></em>' container reference.
@@ -57,32 +54,6 @@ public interface Palette extends EObject
    * @generated
    */
   void setParent(Palette value);
-
-  /**
-   * Returns the value of the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Id</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Id</em>' attribute.
-   * @see #setId(String)
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getPalette_Id()
-   * @model unique="false" id="true"
-   * @generated
-   */
-  String getId();
-
-  /**
-   * Sets the value of the '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getId <em>Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id</em>' attribute.
-   * @see #getId()
-   * @generated
-   */
-  void setId(String value);
 
   /**
    * Returns the value of the '<em><b>Folder</b></em>' attribute.

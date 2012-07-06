@@ -101,5 +101,12 @@
          </enabledWhen>
       </page>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage"
+            uri="http://jeeeyul.net/pde-tools/icg/ir">
+      </package>
+   </extension>
 
 </plugin>

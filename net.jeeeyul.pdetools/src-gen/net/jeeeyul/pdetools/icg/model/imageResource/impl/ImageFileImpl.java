@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getFieldName <em>Field Name</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getId <em>Id</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
@@ -37,24 +37,24 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class ImageFileImpl extends MinimalEObjectImpl.Container implements ImageFile
 {
   /**
-   * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The default value of the '{@link #getFieldName() <em>Field Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getFieldName()
    * @generated
    * @ordered
    */
-  protected static final String ID_EDEFAULT = null;
+  protected static final String FIELD_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The cached value of the '{@link #getFieldName() <em>Field Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getFieldName()
    * @generated
    * @ordered
    */
-  protected String id = ID_EDEFAULT;
+  protected String fieldName = FIELD_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getFile() <em>File</em>}' attribute.
@@ -102,6 +102,29 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getFieldName()
+  {
+    return fieldName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFieldName(String newFieldName)
+  {
+    String oldFieldName = fieldName;
+    fieldName = newFieldName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__FIELD_NAME, oldFieldName, fieldName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Palette getParent()
   {
     if (eContainerFeatureID() != ImageResourcePackage.IMAGE_FILE__PARENT) return null;
@@ -140,29 +163,6 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__PARENT, newParent, newParent));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getId()
-  {
-    return id;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setId(String newId)
-  {
-    String oldId = id;
-    id = newId;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__ID, oldId, id));
   }
 
   /**
@@ -248,10 +248,10 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
+      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+        return getFieldName();
       case ImageResourcePackage.IMAGE_FILE__PARENT:
         return getParent();
-      case ImageResourcePackage.IMAGE_FILE__ID:
-        return getId();
       case ImageResourcePackage.IMAGE_FILE__FILE:
         return getFile();
     }
@@ -268,11 +268,11 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
+      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+        setFieldName((String)newValue);
+        return;
       case ImageResourcePackage.IMAGE_FILE__PARENT:
         setParent((Palette)newValue);
-        return;
-      case ImageResourcePackage.IMAGE_FILE__ID:
-        setId((String)newValue);
         return;
       case ImageResourcePackage.IMAGE_FILE__FILE:
         setFile((IFile)newValue);
@@ -291,11 +291,11 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
+      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+        setFieldName(FIELD_NAME_EDEFAULT);
+        return;
       case ImageResourcePackage.IMAGE_FILE__PARENT:
         setParent((Palette)null);
-        return;
-      case ImageResourcePackage.IMAGE_FILE__ID:
-        setId(ID_EDEFAULT);
         return;
       case ImageResourcePackage.IMAGE_FILE__FILE:
         setFile(FILE_EDEFAULT);
@@ -314,10 +314,10 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
+      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+        return FIELD_NAME_EDEFAULT == null ? fieldName != null : !FIELD_NAME_EDEFAULT.equals(fieldName);
       case ImageResourcePackage.IMAGE_FILE__PARENT:
         return getParent() != null;
-      case ImageResourcePackage.IMAGE_FILE__ID:
-        return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
       case ImageResourcePackage.IMAGE_FILE__FILE:
         return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
     }
@@ -335,8 +335,8 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (id: ");
-    result.append(id);
+    result.append(" (fieldName: ");
+    result.append(fieldName);
     result.append(", file: ");
     result.append(file);
     result.append(')');

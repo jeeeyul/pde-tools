@@ -1,5 +1,6 @@
 
 @GenModel(basePackage="net.jeeeyul.pdetools.icg.model")
+@Ecore(nsURI="http://jeeeyul.net/pde-tools/icg/ir", nsPrefix="ir")
 package imageResource
 
 import org.eclipse.core.resources.IFile
@@ -25,21 +26,23 @@ convert
 	it.fullPath.toPortableString
 }
 
-class Palette
+interface FieldNameOwner{
+	String fieldName
+}
+
+class Palette extends FieldNameOwner
 {
 	container Palette parent opposite subPalettes
 	
-	id String ^id
 	Folder folder
 	
 	contains Palette[] subPalettes opposite parent
 	contains ImageFile[] imageFiles opposite parent
 }
 
-class ImageFile
+class ImageFile extends FieldNameOwner
 {
 	container Palette parent opposite imageFiles
 	
-	id String ^id
 	File file
 }

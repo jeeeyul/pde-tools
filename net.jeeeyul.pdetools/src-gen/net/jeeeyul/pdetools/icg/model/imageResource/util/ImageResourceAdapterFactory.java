@@ -75,6 +75,11 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
     new ImageResourceSwitch<Adapter>()
     {
       @Override
+      public Adapter caseFieldNameOwner(FieldNameOwner object)
+      {
+        return createFieldNameOwnerAdapter();
+      }
+      @Override
       public Adapter casePalette(Palette object)
       {
         return createPaletteAdapter();
@@ -105,6 +110,21 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
     return modelSwitch.doSwitch((EObject)target);
   }
 
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+   * @generated
+   */
+  public Adapter createFieldNameOwnerAdapter()
+  {
+    return null;
+  }
 
   /**
    * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette <em>Palette</em>}'.

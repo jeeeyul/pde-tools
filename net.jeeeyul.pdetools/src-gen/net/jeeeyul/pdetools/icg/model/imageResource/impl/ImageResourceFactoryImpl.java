@@ -40,7 +40,7 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
   {
     try
     {
-      ImageResourceFactory theImageResourceFactory = (ImageResourceFactory)EPackage.Registry.INSTANCE.getEFactory("imageResource"); 
+      ImageResourceFactory theImageResourceFactory = (ImageResourceFactory)EPackage.Registry.INSTANCE.getEFactory("http://jeeeyul.net/pde-tools/icg/ir"); 
       if (theImageResourceFactory != null)
       {
         return theImageResourceFactory;

@@ -41,7 +41,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI = "imageResource";
+  String eNS_URI = "http://jeeeyul.net/pde-tools/icg/ir";
 
   /**
    * The package namespace name.
@@ -49,7 +49,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_PREFIX = "imageResource";
+  String eNS_PREFIX = "ir";
 
   /**
    * The singleton instance of the package.
@@ -60,6 +60,43 @@ public interface ImageResourcePackage extends EPackage
   ImageResourcePackage eINSTANCE = net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl.init();
 
   /**
+   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFieldNameOwner()
+   * @generated
+   */
+  int FIELD_NAME_OWNER = 0;
+
+  /**
+   * The feature id for the '<em><b>Field Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_NAME_OWNER__FIELD_NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Field Name Owner</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_NAME_OWNER_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Field Name Owner</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_NAME_OWNER_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl <em>Palette</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -67,7 +104,16 @@ public interface ImageResourcePackage extends EPackage
    * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getPalette()
    * @generated
    */
-  int PALETTE = 0;
+  int PALETTE = 1;
+
+  /**
+   * The feature id for the '<em><b>Field Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PALETTE__FIELD_NAME = FIELD_NAME_OWNER__FIELD_NAME;
 
   /**
    * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -76,16 +122,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE__PARENT = 0;
-
-  /**
-   * The feature id for the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PALETTE__ID = 1;
+  int PALETTE__PARENT = FIELD_NAME_OWNER_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Folder</b></em>' attribute.
@@ -94,7 +131,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE__FOLDER = 2;
+  int PALETTE__FOLDER = FIELD_NAME_OWNER_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Sub Palettes</b></em>' containment reference list.
@@ -103,7 +140,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE__SUB_PALETTES = 3;
+  int PALETTE__SUB_PALETTES = FIELD_NAME_OWNER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Image Files</b></em>' containment reference list.
@@ -112,7 +149,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE__IMAGE_FILES = 4;
+  int PALETTE__IMAGE_FILES = FIELD_NAME_OWNER_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Palette</em>' class.
@@ -121,7 +158,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE_FEATURE_COUNT = 5;
+  int PALETTE_FEATURE_COUNT = FIELD_NAME_OWNER_FEATURE_COUNT + 4;
 
   /**
    * The number of operations of the '<em>Palette</em>' class.
@@ -130,7 +167,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PALETTE_OPERATION_COUNT = 0;
+  int PALETTE_OPERATION_COUNT = FIELD_NAME_OWNER_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl <em>Image File</em>}' class.
@@ -140,7 +177,16 @@ public interface ImageResourcePackage extends EPackage
    * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getImageFile()
    * @generated
    */
-  int IMAGE_FILE = 1;
+  int IMAGE_FILE = 2;
+
+  /**
+   * The feature id for the '<em><b>Field Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMAGE_FILE__FIELD_NAME = FIELD_NAME_OWNER__FIELD_NAME;
 
   /**
    * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -149,16 +195,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMAGE_FILE__PARENT = 0;
-
-  /**
-   * The feature id for the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMAGE_FILE__ID = 1;
+  int IMAGE_FILE__PARENT = FIELD_NAME_OWNER_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>File</b></em>' attribute.
@@ -167,7 +204,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMAGE_FILE__FILE = 2;
+  int IMAGE_FILE__FILE = FIELD_NAME_OWNER_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Image File</em>' class.
@@ -176,7 +213,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMAGE_FILE_FEATURE_COUNT = 3;
+  int IMAGE_FILE_FEATURE_COUNT = FIELD_NAME_OWNER_FEATURE_COUNT + 2;
 
   /**
    * The number of operations of the '<em>Image File</em>' class.
@@ -185,7 +222,7 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMAGE_FILE_OPERATION_COUNT = 0;
+  int IMAGE_FILE_OPERATION_COUNT = FIELD_NAME_OWNER_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '<em>File</em>' data type.
@@ -195,7 +232,7 @@ public interface ImageResourcePackage extends EPackage
    * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFile()
    * @generated
    */
-  int FILE = 2;
+  int FILE = 3;
 
   /**
    * The meta object id for the '<em>Folder</em>' data type.
@@ -205,8 +242,29 @@ public interface ImageResourcePackage extends EPackage
    * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFolder()
    * @generated
    */
-  int FOLDER = 3;
+  int FOLDER = 4;
 
+
+  /**
+   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Field Name Owner</em>'.
+   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+   * @generated
+   */
+  EClass getFieldNameOwner();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName <em>Field Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Field Name</em>'.
+   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName()
+   * @see #getFieldNameOwner()
+   * @generated
+   */
+  EAttribute getFieldNameOwner_FieldName();
 
   /**
    * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette <em>Palette</em>}'.
@@ -228,17 +286,6 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    */
   EReference getPalette_Parent();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getId <em>Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Id</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette#getId()
-   * @see #getPalette()
-   * @generated
-   */
-  EAttribute getPalette_Id();
 
   /**
    * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getFolder <em>Folder</em>}'.
@@ -293,17 +340,6 @@ public interface ImageResourcePackage extends EPackage
    * @generated
    */
   EReference getImageFile_Parent();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getId <em>Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Id</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getId()
-   * @see #getImageFile()
-   * @generated
-   */
-  EAttribute getImageFile_Id();
 
   /**
    * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getFile <em>File</em>}'.
@@ -365,6 +401,24 @@ public interface ImageResourcePackage extends EPackage
   interface Literals
   {
     /**
+     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFieldNameOwner()
+     * @generated
+     */
+    EClass FIELD_NAME_OWNER = eINSTANCE.getFieldNameOwner();
+
+    /**
+     * The meta object literal for the '<em><b>Field Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FIELD_NAME_OWNER__FIELD_NAME = eINSTANCE.getFieldNameOwner_FieldName();
+
+    /**
      * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl <em>Palette</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -381,14 +435,6 @@ public interface ImageResourcePackage extends EPackage
      * @generated
      */
     EReference PALETTE__PARENT = eINSTANCE.getPalette_Parent();
-
-    /**
-     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PALETTE__ID = eINSTANCE.getPalette_Id();
 
     /**
      * The meta object literal for the '<em><b>Folder</b></em>' attribute feature.
@@ -431,14 +477,6 @@ public interface ImageResourcePackage extends EPackage
      * @generated
      */
     EReference IMAGE_FILE__PARENT = eINSTANCE.getImageFile_Parent();
-
-    /**
-     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMAGE_FILE__ID = eINSTANCE.getImageFile_Id();
 
     /**
      * The meta object literal for the '<em><b>File</b></em>' attribute feature.

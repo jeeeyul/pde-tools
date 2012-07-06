@@ -4,8 +4,6 @@ package net.jeeeyul.pdetools.icg.model.imageResource;
 
 import org.eclipse.core.resources.IFile;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Image File</b></em>'.
@@ -15,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getId <em>Id</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getFile <em>File</em>}</li>
  * </ul>
  * </p>
@@ -24,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ImageFile extends EObject
+public interface ImageFile extends FieldNameOwner
 {
   /**
    * Returns the value of the '<em><b>Parent</b></em>' container reference.
@@ -53,32 +50,6 @@ public interface ImageFile extends EObject
    * @generated
    */
   void setParent(Palette value);
-
-  /**
-   * Returns the value of the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Id</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Id</em>' attribute.
-   * @see #setId(String)
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getImageFile_Id()
-   * @model unique="false" id="true"
-   * @generated
-   */
-  String getId();
-
-  /**
-   * Sets the value of the '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getId <em>Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id</em>' attribute.
-   * @see #getId()
-   * @generated
-   */
-  void setId(String value);
 
   /**
    * Returns the value of the '<em><b>File</b></em>' attribute.

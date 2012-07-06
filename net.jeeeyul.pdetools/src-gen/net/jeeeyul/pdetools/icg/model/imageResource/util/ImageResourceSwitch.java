@@ -72,10 +72,18 @@ public class ImageResourceSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
+      case ImageResourcePackage.FIELD_NAME_OWNER:
+      {
+        FieldNameOwner fieldNameOwner = (FieldNameOwner)theEObject;
+        T result = caseFieldNameOwner(fieldNameOwner);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ImageResourcePackage.PALETTE:
       {
         Palette palette = (Palette)theEObject;
         T result = casePalette(palette);
+        if (result == null) result = caseFieldNameOwner(palette);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -83,11 +91,28 @@ public class ImageResourceSwitch<T> extends Switch<T>
       {
         ImageFile imageFile = (ImageFile)theEObject;
         T result = caseImageFile(imageFile);
+        if (result == null) result = caseFieldNameOwner(imageFile);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       default: return defaultCase(theEObject);
     }
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Field Name Owner</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Field Name Owner</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFieldNameOwner(FieldNameOwner object)
+  {
+    return null;
   }
 
   /**
