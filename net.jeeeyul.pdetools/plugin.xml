@@ -80,7 +80,7 @@
       <page
             category="org.eclipse.pde.internal.ui.properties.pluginDevelopmentPage"
             class="net.jeeeyul.pdetools.icg.ICGPropertyPage"
-            id="net.jeeeyul.pdetools.page1"
+            id="net.jeeeyul.pdetools.icg.propertyPage"
             name="Image Constants Generator">
          <enabledWhen>
             <adapt

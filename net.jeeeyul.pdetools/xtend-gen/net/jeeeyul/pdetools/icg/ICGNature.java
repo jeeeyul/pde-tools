@@ -1,22 +1,17 @@
 package net.jeeeyul.pdetools.icg;
 
 import com.google.common.base.Objects;
-import java.util.List;
-import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.ICGConstants;
+import net.jeeeyul.pdetools.icg.InstallNatureJob;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class ICGNature implements IProjectNature {
@@ -32,28 +27,8 @@ public class ICGNature implements IProjectNature {
   
   public void configure() throws CoreException {
     IProject _project = this.getProject();
-    IProjectDescription description = _project.getDescription();
-    ICommand[] _buildSpec = description.getBuildSpec();
-    List<ICommand> buildCommands = CollectionLiterals.<ICommand>newArrayList(_buildSpec);
-    ICommand _newCommand = description.newCommand();
-    final Procedure1<ICommand> _function = new Procedure1<ICommand>() {
-        public void apply(final ICommand it) {
-          it.setBuilderName(ICGConstants.BUILDER_ID);
-        }
-      };
-    ICommand _doubleArrow = ObjectExtensions.<ICommand>operator_doubleArrow(_newCommand, _function);
-    buildCommands.add(_doubleArrow);
-    final List<ICommand> _converted_buildCommands = (List<ICommand>)buildCommands;
-    description.setBuildSpec(((ICommand[])Conversions.unwrapArray(_converted_buildCommands, ICommand.class)));
-    IProject _project_1 = this.getProject();
-    NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-    _project_1.setDescription(description, _nullProgressMonitor);
-    IProject _project_2 = this.getProject();
-    ICGConfiguration _iCGConfiguration = new ICGConfiguration(_project_2);
-    ICGConfiguration config = _iCGConfiguration;
-    Path _path = new Path("icons");
-    config.setMonitoringFolder(_path);
-    config.save();
+    InstallNatureJob _installNatureJob = new InstallNatureJob(_project);
+    _installNatureJob.schedule();
   }
   
   public void deconfigure() throws CoreException {
