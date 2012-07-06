@@ -1,0 +1,45 @@
+
+@GenModel(basePackage="net.jeeeyul.pdetools.icg.model")
+package imageResource
+
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.resources.IFolder
+
+type File wraps IFile create
+{
+	ResourcesPlugin::workspace.root.getFile(new Path(it) )
+}
+convert
+{ 
+	it.fullPath.toPortableString
+}
+
+type Folder wraps IFolder create
+{ 
+	ResourcesPlugin::workspace.root.getFolder(new Path(it))
+}
+convert
+{ 
+	it.fullPath.toPortableString
+}
+
+class Palette
+{
+	container Palette parent opposite subPalettes
+	
+	id String ^id
+	Folder folder
+	
+	contains Palette[] subPalettes opposite parent
+	contains ImageFile[] imageFiles opposite parent
+}
+
+class ImageFile
+{
+	container Palette parent opposite imageFiles
+	
+	id String ^id
+	File file
+}

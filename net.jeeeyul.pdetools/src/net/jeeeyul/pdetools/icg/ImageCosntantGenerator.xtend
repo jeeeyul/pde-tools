@@ -1,7 +1,8 @@
 package net.jeeeyul.pdetools.icg
 
 class ImageCosntantGenerator {
-	ICGConfiguration config
+	ICGConfiguration config;
+
 	def generate()'''
 	package «config.generatePackageName»;
 	
