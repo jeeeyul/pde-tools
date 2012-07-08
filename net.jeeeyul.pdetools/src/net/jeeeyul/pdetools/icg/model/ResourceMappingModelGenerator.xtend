@@ -16,7 +16,7 @@ class ResourceMappingModelGenerator {
 	
 	new(ICGConfiguration config){
 		this.config = config
-		stack = new Stack<GenerationContext>();
+		stack = new Stack<GenerationContext>(); 
 		pushContext(null);
 	}
 	
