@@ -34,6 +34,9 @@ class Palette extends FieldNameOwner
 {
 	container Palette parent opposite subPalettes
 	
+	/**
+	 * 팔레트가 표현하는 워크스페이스상의 폴더.
+	 */
 	Folder folder
 	
 	contains Palette[] subPalettes opposite parent
@@ -44,5 +47,8 @@ class ImageFile extends FieldNameOwner
 {
 	container Palette parent opposite imageFiles
 	
+	/**
+	 * 워크스페이스 상의 실제 IFile
+	 */
 	File file
 }

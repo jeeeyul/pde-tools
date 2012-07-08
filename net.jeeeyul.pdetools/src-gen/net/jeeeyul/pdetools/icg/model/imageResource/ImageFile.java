@@ -59,6 +59,10 @@ public interface ImageFile extends FieldNameOwner
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * *
+   * 워크스페이스 상의 실제 IFile
+   * <!-- end-model-doc -->
    * @return the value of the '<em>File</em>' attribute.
    * @see #setFile(IFile)
    * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getImageFile_File()

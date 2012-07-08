@@ -63,6 +63,10 @@ public interface Palette extends FieldNameOwner
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * *
+   * 팔레트가 표현하는 워크스페이스상의 폴더.
+   * <!-- end-model-doc -->
    * @return the value of the '<em>Folder</em>' attribute.
    * @see #setFolder(IFolder)
    * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getPalette_Folder()
