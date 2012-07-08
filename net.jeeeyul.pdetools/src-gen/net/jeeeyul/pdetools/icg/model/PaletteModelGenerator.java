@@ -25,13 +25,16 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
+/**
+ * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.
+ */
 @SuppressWarnings("all")
-public class ResourceMappingModelGenerator {
+public class PaletteModelGenerator {
   private Stack<GenerationContext> stack;
   
   private ICGConfiguration config;
   
-  public ResourceMappingModelGenerator(final ICGConfiguration config) {
+  public PaletteModelGenerator(final ICGConfiguration config) {
     this.config = config;
     Stack<GenerationContext> _stack = new Stack<GenerationContext>();
     this.stack = _stack;
@@ -59,7 +62,7 @@ public class ResourceMappingModelGenerator {
       Iterable<IFolder> _filter = Iterables.<IFolder>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_validMembers)), IFolder.class);
       final Procedure1<IFolder> _function = new Procedure1<IFolder>() {
           public void apply(final IFolder it) {
-            ResourceMappingModelGenerator.this.generatePalette(it);
+            PaletteModelGenerator.this.generatePalette(it);
           }
         };
       IterableExtensions.<IFolder>forEach(_filter, _function);
@@ -83,8 +86,8 @@ public class ResourceMappingModelGenerator {
           IPath _fullPath = file.getFullPath();
           IPath _removeFileExtension = _fullPath.removeFileExtension();
           String _lastSegment = _removeFileExtension.lastSegment();
-          String _safeFieldName = ResourceMappingModelGenerator.this.safeFieldName(_lastSegment);
-          ResourceMappingModelGenerator.this.assigneFieldName(it, _safeFieldName);
+          String _safeFieldName = PaletteModelGenerator.this.safeFieldName(_lastSegment);
+          PaletteModelGenerator.this.assigneFieldName(it, _safeFieldName);
         }
       };
     return ObjectExtensions.<ImageFile>operator_doubleArrow(_createImageFile, _function);
@@ -173,7 +176,7 @@ public class ResourceMappingModelGenerator {
               if ((it instanceof IFolder)) {
                 _xifexpression = true;
               } else {
-                String[] _imageFileExtensions = ResourceMappingModelGenerator.this.config.getImageFileExtensions();
+                String[] _imageFileExtensions = PaletteModelGenerator.this.config.getImageFileExtensions();
                 final Function1<String,String> _function = new Function1<String,String>() {
                     public String apply(final String it) {
                       String _lowerCase = it.toLowerCase();

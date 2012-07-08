@@ -10,7 +10,10 @@ import org.eclipse.core.resources.IResource
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
 import net.jeeeyul.pdetools.icg.ICGConfiguration
 
-class ResourceMappingModelGenerator {
+/**
+ * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.
+ */
+class PaletteModelGenerator {
 	Stack<GenerationContext> stack
 	ICGConfiguration config
 	

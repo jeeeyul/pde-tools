@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.ImageCosntantGenerator;
-import net.jeeeyul.pdetools.icg.model.ResourceMappingModelGenerator;
+import net.jeeeyul.pdetools.icg.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -26,8 +26,8 @@ public class ICGBuilder extends IncrementalProjectBuilder {
     IFolder _monitoringFolder = cfg.getMonitoringFolder();
     boolean _exists = _monitoringFolder.exists();
     if (_exists) {
-      ResourceMappingModelGenerator _resourceMappingModelGenerator = new ResourceMappingModelGenerator(cfg);
-      ResourceMappingModelGenerator mg = _resourceMappingModelGenerator;
+      PaletteModelGenerator _paletteModelGenerator = new PaletteModelGenerator(cfg);
+      PaletteModelGenerator mg = _paletteModelGenerator;
       IFolder _monitoringFolder_1 = cfg.getMonitoringFolder();
       Palette palette = mg.generatePalette(_monitoringFolder_1);
       ImageCosntantGenerator _imageCosntantGenerator = new ImageCosntantGenerator();
