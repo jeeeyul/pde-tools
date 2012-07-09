@@ -1,4 +1,3 @@
-
 @GenModel(basePackage="net.jeeeyul.pdetools.icg.builder.model")
 @Ecore(nsURI="http://jeeeyul.net/pde-tools/icg/palette", nsPrefix="p")
 package palette
