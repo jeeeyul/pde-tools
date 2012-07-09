@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="default">
-	<target name="default" description="description">
-		<property name="build" location="build" />
-		<property name="repository-name" value="PDE-Tools" />
+	<property name="build" location="${basedir}/build" />
+	<property name="repository-name" value="PDE-Tools" />
 
-		<eclipse.buildScript elements="feature@net.jeeeyul.pdetools.feature" baselocation="C:/eclipse-4.2" builddirectory="${basedir}/../" />
+	<target name="default" description="description" depends="clean">
+		<eclipse.buildScript elements="feature@net.jeeeyul.pdetools.feature" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
 		<antcall target="executeBuildScripts" />
-		<antcall target="clean-script-trash" />
+		<antcall target="remove-generated-script" />
 
 		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="Jeeeyul's Eclipse Tools" artifactrepositoryname="Jeeeyul's Eclipse Tools">
 			<features dir="${build}/features" includes="*.jar" />
@@ -18,7 +18,6 @@
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
-
 	<target name="executeBuildScripts">
 		<ant antfile="../net.jeeeyul.pdetools.feature/build.xml" inheritall="false">
 			<property name="javacSource" value="1.6" />
@@ -29,7 +28,15 @@
 		</ant>
 	</target>
 
-	<target name="clean-script-trash">
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${build}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="remove-generated-script">
 		<delete includeemptydirs="true">
 			<fileset dir="${basedir}/..">
 				<include name="*/build.xml" />
@@ -47,7 +54,6 @@
 				<include name="package*.xml" />
 			</fileset>
 		</delete>
-		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
 </project>
