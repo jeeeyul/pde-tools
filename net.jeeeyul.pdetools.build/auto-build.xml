@@ -42,6 +42,10 @@
 				<include name="*/@dot" />
 				<include name="*/compilation.problem" />
 			</fileset>
+			<fileset dir="${basedir}/..">
+				<include name="assemble*.xml" />
+				<include name="package*.xml" />
+			</fileset>
 		</delete>
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
