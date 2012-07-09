@@ -1,10 +1,10 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.impl;
+package net.jeeeyul.pdetools.icg.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage;
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFile;
 
@@ -26,9 +26,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getFieldName <em>Field Name</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl#getFile <em>File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getFieldName <em>Field Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,7 +94,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   @Override
   protected EClass eStaticClass()
   {
-    return ImageResourcePackage.Literals.IMAGE_FILE;
+    return PalettePackage.Literals.IMAGE_FILE;
   }
 
   /**
@@ -117,7 +117,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
     String oldFieldName = fieldName;
     fieldName = newFieldName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__FIELD_NAME, oldFieldName, fieldName));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.IMAGE_FILE__FIELD_NAME, oldFieldName, fieldName));
   }
 
   /**
@@ -127,7 +127,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
    */
   public Palette getParent()
   {
-    if (eContainerFeatureID() != ImageResourcePackage.IMAGE_FILE__PARENT) return null;
+    if (eContainerFeatureID() != PalettePackage.IMAGE_FILE__PARENT) return null;
     return (Palette)eContainer();
   }
 
@@ -138,7 +138,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
    */
   public NotificationChain basicSetParent(Palette newParent, NotificationChain msgs)
   {
-    msgs = eBasicSetContainer((InternalEObject)newParent, ImageResourcePackage.IMAGE_FILE__PARENT, msgs);
+    msgs = eBasicSetContainer((InternalEObject)newParent, PalettePackage.IMAGE_FILE__PARENT, msgs);
     return msgs;
   }
 
@@ -149,7 +149,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
    */
   public void setParent(Palette newParent)
   {
-    if (newParent != eInternalContainer() || (eContainerFeatureID() != ImageResourcePackage.IMAGE_FILE__PARENT && newParent != null))
+    if (newParent != eInternalContainer() || (eContainerFeatureID() != PalettePackage.IMAGE_FILE__PARENT && newParent != null))
     {
       if (EcoreUtil.isAncestor(this, newParent))
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -157,12 +157,12 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
       if (eInternalContainer() != null)
         msgs = eBasicRemoveFromContainer(msgs);
       if (newParent != null)
-        msgs = ((InternalEObject)newParent).eInverseAdd(this, ImageResourcePackage.PALETTE__IMAGE_FILES, Palette.class, msgs);
+        msgs = ((InternalEObject)newParent).eInverseAdd(this, PalettePackage.PALETTE__IMAGE_FILES, Palette.class, msgs);
       msgs = basicSetParent(newParent, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__PARENT, newParent, newParent));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.IMAGE_FILE__PARENT, newParent, newParent));
   }
 
   /**
@@ -185,7 +185,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
     IFile oldFile = file;
     file = newFile;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.IMAGE_FILE__FILE, oldFile, file));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.IMAGE_FILE__FILE, oldFile, file));
   }
 
   /**
@@ -198,7 +198,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetParent((Palette)otherEnd, msgs);
@@ -216,7 +216,7 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         return basicSetParent(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -232,8 +232,8 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (eContainerFeatureID())
     {
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
-        return eInternalContainer().eInverseRemove(this, ImageResourcePackage.PALETTE__IMAGE_FILES, Palette.class, msgs);
+      case PalettePackage.IMAGE_FILE__PARENT:
+        return eInternalContainer().eInverseRemove(this, PalettePackage.PALETTE__IMAGE_FILES, Palette.class, msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
   }
@@ -248,11 +248,11 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+      case PalettePackage.IMAGE_FILE__FIELD_NAME:
         return getFieldName();
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         return getParent();
-      case ImageResourcePackage.IMAGE_FILE__FILE:
+      case PalettePackage.IMAGE_FILE__FILE:
         return getFile();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -268,13 +268,13 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+      case PalettePackage.IMAGE_FILE__FIELD_NAME:
         setFieldName((String)newValue);
         return;
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         setParent((Palette)newValue);
         return;
-      case ImageResourcePackage.IMAGE_FILE__FILE:
+      case PalettePackage.IMAGE_FILE__FILE:
         setFile((IFile)newValue);
         return;
     }
@@ -291,13 +291,13 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+      case PalettePackage.IMAGE_FILE__FIELD_NAME:
         setFieldName(FIELD_NAME_EDEFAULT);
         return;
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         setParent((Palette)null);
         return;
-      case ImageResourcePackage.IMAGE_FILE__FILE:
+      case PalettePackage.IMAGE_FILE__FILE:
         setFile(FILE_EDEFAULT);
         return;
     }
@@ -314,11 +314,11 @@ public class ImageFileImpl extends MinimalEObjectImpl.Container implements Image
   {
     switch (featureID)
     {
-      case ImageResourcePackage.IMAGE_FILE__FIELD_NAME:
+      case PalettePackage.IMAGE_FILE__FIELD_NAME:
         return FIELD_NAME_EDEFAULT == null ? fieldName != null : !FIELD_NAME_EDEFAULT.equals(fieldName);
-      case ImageResourcePackage.IMAGE_FILE__PARENT:
+      case PalettePackage.IMAGE_FILE__PARENT:
         return getParent() != null;
-      case ImageResourcePackage.IMAGE_FILE__FILE:
+      case PalettePackage.IMAGE_FILE__FILE:
         return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
     }
     return super.eIsSet(featureID);

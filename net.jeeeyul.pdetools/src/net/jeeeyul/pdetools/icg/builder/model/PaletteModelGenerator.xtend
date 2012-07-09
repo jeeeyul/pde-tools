@@ -1,30 +1,30 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.Stack
-import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourceFactory
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette
+import net.jeeeyul.pdetools.icg.ICGConfiguration
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
-import net.jeeeyul.pdetools.icg.ICGConfiguration
+import net.jeeeyul.pdetools.icg.model.palette.Palette
+import net.jeeeyul.pdetools.icg.model.palette.PaletteFactory
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile
+import net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
 
 /**
  * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.
  */
 class PaletteModelGenerator {
-	Stack<GenerationContext> stack
+	Stack<PaletteModelGenerationContext> stack
 	ICGConfiguration config
 	
 	new(ICGConfiguration config){
 		this.config = config
-		stack = new Stack<GenerationContext>(); 
+		stack = new Stack<PaletteModelGenerationContext>(); 
 		pushContext(null);
 	}
 	
 	def Palette generatePalette(IFolder folder){
-		var palette = ImageResourceFactory::eINSTANCE.createPalette();
+		var palette = PaletteFactory::eINSTANCE.createPalette();
 		palette.folder = folder
 		palette.assigneFieldName(folder.name.safeFieldName);
 		if(currentContext.palette != null){
@@ -45,7 +45,7 @@ class PaletteModelGenerator {
 	}
 	
 	def ImageFile generateImageFile(IFile file) {
-		return  ImageResourceFactory::eINSTANCE.createImageFile() => [
+		return  PaletteFactory::eINSTANCE.createImageFile() => [
 			it.file = file
 			assigneFieldName(file.fullPath.removeFileExtension.lastSegment.safeFieldName)
 		]
@@ -77,7 +77,7 @@ class PaletteModelGenerator {
 	}
 	
 	def private pushContext(Palette palette){
-		stack.push(new GenerationContext(palette));
+		stack.push(new net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerationContext(palette));
 	}
 	
 	def private safeFieldName(String preferName){

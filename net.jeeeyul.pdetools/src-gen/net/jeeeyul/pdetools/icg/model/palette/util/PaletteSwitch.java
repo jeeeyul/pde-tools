@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.util;
+package net.jeeeyul.pdetools.icg.model.palette.util;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.*;
+import net.jeeeyul.pdetools.icg.model.palette.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage
+ * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage
  * @generated
  */
-public class ImageResourceSwitch<T> extends Switch<T>
+public class PaletteSwitch<T> extends Switch<T>
 {
   /**
    * The cached model package
@@ -30,7 +30,7 @@ public class ImageResourceSwitch<T> extends Switch<T>
    * <!-- end-user-doc -->
    * @generated
    */
-  protected static ImageResourcePackage modelPackage;
+  protected static PalettePackage modelPackage;
 
   /**
    * Creates an instance of the switch.
@@ -38,11 +38,11 @@ public class ImageResourceSwitch<T> extends Switch<T>
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImageResourceSwitch()
+  public PaletteSwitch()
   {
     if (modelPackage == null)
     {
-      modelPackage = ImageResourcePackage.eINSTANCE;
+      modelPackage = PalettePackage.eINSTANCE;
     }
   }
 
@@ -72,14 +72,14 @@ public class ImageResourceSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case ImageResourcePackage.FIELD_NAME_OWNER:
+      case PalettePackage.FIELD_NAME_OWNER:
       {
         FieldNameOwner fieldNameOwner = (FieldNameOwner)theEObject;
         T result = caseFieldNameOwner(fieldNameOwner);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ImageResourcePackage.PALETTE:
+      case PalettePackage.PALETTE:
       {
         Palette palette = (Palette)theEObject;
         T result = casePalette(palette);
@@ -87,7 +87,7 @@ public class ImageResourceSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ImageResourcePackage.IMAGE_FILE:
+      case PalettePackage.IMAGE_FILE:
       {
         ImageFile imageFile = (ImageFile)theEObject;
         T result = caseImageFile(imageFile);
@@ -164,4 +164,4 @@ public class ImageResourceSwitch<T> extends Switch<T>
     return null;
   }
 
-} //ImageResourceSwitch
+} //PaletteSwitch

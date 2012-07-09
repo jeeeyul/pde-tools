@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.impl;
+package net.jeeeyul.pdetools.icg.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.*;
+import net.jeeeyul.pdetools.icg.model.palette.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResourceFactory
+public class PaletteFactoryImpl extends EFactoryImpl implements PaletteFactory
 {
   /**
    * Creates the default factory implementation.
@@ -36,21 +36,21 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
    * <!-- end-user-doc -->
    * @generated
    */
-  public static ImageResourceFactory init()
+  public static PaletteFactory init()
   {
     try
     {
-      ImageResourceFactory theImageResourceFactory = (ImageResourceFactory)EPackage.Registry.INSTANCE.getEFactory("http://jeeeyul.net/pde-tools/icg/ir"); 
-      if (theImageResourceFactory != null)
+      PaletteFactory thePaletteFactory = (PaletteFactory)EPackage.Registry.INSTANCE.getEFactory("http://jeeeyul.net/pde-tools/icg/palette"); 
+      if (thePaletteFactory != null)
       {
-        return theImageResourceFactory;
+        return thePaletteFactory;
       }
     }
     catch (Exception exception)
     {
       EcorePlugin.INSTANCE.log(exception);
     }
-    return new ImageResourceFactoryImpl();
+    return new PaletteFactoryImpl();
   }
 
   /**
@@ -59,7 +59,7 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImageResourceFactoryImpl()
+  public PaletteFactoryImpl()
   {
     super();
   }
@@ -74,8 +74,8 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
   {
     switch (eClass.getClassifierID())
     {
-      case ImageResourcePackage.PALETTE: return createPalette();
-      case ImageResourcePackage.IMAGE_FILE: return createImageFile();
+      case PalettePackage.PALETTE: return createPalette();
+      case PalettePackage.IMAGE_FILE: return createImageFile();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -91,9 +91,9 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
   {
     switch (eDataType.getClassifierID())
     {
-      case ImageResourcePackage.FILE:
+      case PalettePackage.FILE:
         return createFileFromString(eDataType, initialValue);
-      case ImageResourcePackage.FOLDER:
+      case PalettePackage.FOLDER:
         return createFolderFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -110,9 +110,9 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
   {
     switch (eDataType.getClassifierID())
     {
-      case ImageResourcePackage.FILE:
+      case PalettePackage.FILE:
         return convertFileToString(eDataType, instanceValue);
-      case ImageResourcePackage.FOLDER:
+      case PalettePackage.FOLDER:
         return convertFolderToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -238,9 +238,9 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImageResourcePackage getImageResourcePackage()
+  public PalettePackage getPalettePackage()
   {
-    return (ImageResourcePackage)getEPackage();
+    return (PalettePackage)getEPackage();
   }
 
   /**
@@ -250,9 +250,9 @@ public class ImageResourceFactoryImpl extends EFactoryImpl implements ImageResou
    * @generated
    */
   @Deprecated
-  public static ImageResourcePackage getPackage()
+  public static PalettePackage getPackage()
   {
-    return ImageResourcePackage.eINSTANCE;
+    return PalettePackage.eINSTANCE;
   }
 
-} //ImageResourceFactoryImpl
+} //PaletteFactoryImpl

@@ -1,6 +1,6 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource;
+package net.jeeeyul.pdetools.icg.model.palette;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -12,11 +12,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName <em>Field Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner#getFieldName <em>Field Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getFieldNameOwner()
+ * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage#getFieldNameOwner()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -32,14 +32,14 @@ public interface FieldNameOwner extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Field Name</em>' attribute.
    * @see #setFieldName(String)
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#getFieldNameOwner_FieldName()
+   * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage#getFieldNameOwner_FieldName()
    * @model unique="false"
    * @generated
    */
   String getFieldName();
 
   /**
-   * Sets the value of the '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName <em>Field Name</em>}' attribute.
+   * Sets the value of the '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner#getFieldName <em>Field Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Field Name</em>' attribute.

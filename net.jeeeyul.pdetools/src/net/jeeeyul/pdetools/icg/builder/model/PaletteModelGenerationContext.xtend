@@ -1,9 +1,9 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette
 import java.util.HashSet
+import net.jeeeyul.pdetools.icg.model.palette.Palette
 
-class GenerationContext {
+class PaletteModelGenerationContext {
 	Palette palette
 	HashSet<String> takenNames
 	

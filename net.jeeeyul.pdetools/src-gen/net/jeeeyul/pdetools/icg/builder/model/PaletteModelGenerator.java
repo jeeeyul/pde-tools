@@ -6,11 +6,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
-import net.jeeeyul.pdetools.icg.builder.model.GenerationContext;
-import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourceFactory;
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerationContext;
+import net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner;
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.PaletteFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -30,28 +30,28 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
  */
 @SuppressWarnings("all")
 public class PaletteModelGenerator {
-  private Stack<GenerationContext> stack;
+  private Stack<PaletteModelGenerationContext> stack;
   
   private ICGConfiguration config;
   
   public PaletteModelGenerator(final ICGConfiguration config) {
     this.config = config;
-    Stack<GenerationContext> _stack = new Stack<GenerationContext>();
+    Stack<PaletteModelGenerationContext> _stack = new Stack<PaletteModelGenerationContext>();
     this.stack = _stack;
     this.pushContext(null);
   }
   
   public Palette generatePalette(final IFolder folder) {
-    Palette palette = ImageResourceFactory.eINSTANCE.createPalette();
+    Palette palette = PaletteFactory.eINSTANCE.createPalette();
     palette.setFolder(folder);
     String _name = folder.getName();
     String _safeFieldName = this.safeFieldName(_name);
     this.assigneFieldName(palette, _safeFieldName);
-    GenerationContext _currentContext = this.currentContext();
+    PaletteModelGenerationContext _currentContext = this.currentContext();
     Palette _palette = _currentContext.getPalette();
     boolean _notEquals = (!Objects.equal(_palette, null));
     if (_notEquals) {
-      GenerationContext _currentContext_1 = this.currentContext();
+      PaletteModelGenerationContext _currentContext_1 = this.currentContext();
       Palette _palette_1 = _currentContext_1.getPalette();
       EList<Palette> _subPalettes = _palette_1.getSubPalettes();
       _subPalettes.add(palette);
@@ -79,7 +79,7 @@ public class PaletteModelGenerator {
   }
   
   public ImageFile generateImageFile(final IFile file) {
-    ImageFile _createImageFile = ImageResourceFactory.eINSTANCE.createImageFile();
+    ImageFile _createImageFile = PaletteFactory.eINSTANCE.createImageFile();
     final Procedure1<ImageFile> _function = new Procedure1<ImageFile>() {
         public void apply(final ImageFile it) {
           it.setFile(file);
@@ -93,21 +93,21 @@ public class PaletteModelGenerator {
     return ObjectExtensions.<ImageFile>operator_doubleArrow(_createImageFile, _function);
   }
   
-  private GenerationContext popContext() {
-    GenerationContext _pop = this.stack.pop();
+  private PaletteModelGenerationContext popContext() {
+    PaletteModelGenerationContext _pop = this.stack.pop();
     return _pop;
   }
   
   private boolean assigneFieldName(final FieldNameOwner fieldNameOwner, final String preferName) {
     boolean _xifexpression = false;
-    GenerationContext _currentContext = this.currentContext();
+    PaletteModelGenerationContext _currentContext = this.currentContext();
     boolean _isRegisterdFieldName = _currentContext.isRegisterdFieldName(preferName);
     boolean _not = (!_isRegisterdFieldName);
     if (_not) {
       boolean _xblockexpression = false;
       {
         fieldNameOwner.setFieldName(preferName);
-        GenerationContext _currentContext_1 = this.currentContext();
+        PaletteModelGenerationContext _currentContext_1 = this.currentContext();
         boolean _registerFieldName = _currentContext_1.registerFieldName(preferName);
         _xblockexpression = (_registerFieldName);
       }
@@ -118,7 +118,7 @@ public class PaletteModelGenerator {
         int step = 2;
         String _plus = (preferName + "_");
         String newName = (_plus + Integer.valueOf(step));
-        GenerationContext _currentContext_1 = this.currentContext();
+        PaletteModelGenerationContext _currentContext_1 = this.currentContext();
         boolean _isRegisterdFieldName_1 = _currentContext_1.isRegisterdFieldName(newName);
         boolean _while = _isRegisterdFieldName_1;
         while (_while) {
@@ -129,12 +129,12 @@ public class PaletteModelGenerator {
             String _plus_3 = (_plus_2 + Integer.valueOf(step));
             newName = _plus_3;
           }
-          GenerationContext _currentContext_2 = this.currentContext();
+          PaletteModelGenerationContext _currentContext_2 = this.currentContext();
           boolean _isRegisterdFieldName_2 = _currentContext_2.isRegisterdFieldName(newName);
           _while = _isRegisterdFieldName_2;
         }
         fieldNameOwner.setFieldName(newName);
-        GenerationContext _currentContext_2 = this.currentContext();
+        PaletteModelGenerationContext _currentContext_2 = this.currentContext();
         boolean _registerFieldName = _currentContext_2.registerFieldName(newName);
         _xblockexpression_1 = (_registerFieldName);
       }
@@ -143,14 +143,14 @@ public class PaletteModelGenerator {
     return _xifexpression;
   }
   
-  private GenerationContext currentContext() {
-    GenerationContext _peek = this.stack.peek();
+  private PaletteModelGenerationContext currentContext() {
+    PaletteModelGenerationContext _peek = this.stack.peek();
     return _peek;
   }
   
-  private GenerationContext pushContext(final Palette palette) {
-    GenerationContext _generationContext = new GenerationContext(palette);
-    GenerationContext _push = this.stack.push(_generationContext);
+  private PaletteModelGenerationContext pushContext(final Palette palette) {
+    PaletteModelGenerationContext _paletteModelGenerationContext = new PaletteModelGenerationContext(palette);
+    PaletteModelGenerationContext _push = this.stack.push(_paletteModelGenerationContext);
     return _push;
   }
   

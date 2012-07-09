@@ -1,6 +1,6 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource;
+package net.jeeeyul.pdetools.icg.model.palette;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourceFactory
+ * @see net.jeeeyul.pdetools.icg.model.palette.PaletteFactory
  * @model kind="package"
  *        annotation="http://www.eclipse.org/emf/2002/GenModel basePackage='net.jeeeyul.pdetools.icg.model'"
  * @generated
  */
-public interface ImageResourcePackage extends EPackage
+public interface PalettePackage extends EPackage
 {
   /**
    * The package name.
@@ -33,7 +33,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNAME = "imageResource";
+  String eNAME = "palette";
 
   /**
    * The package namespace URI.
@@ -41,7 +41,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI = "http://jeeeyul.net/pde-tools/icg/ir";
+  String eNS_URI = "http://jeeeyul.net/pde-tools/icg/palette";
 
   /**
    * The package namespace name.
@@ -49,7 +49,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_PREFIX = "ir";
+  String eNS_PREFIX = "p";
 
   /**
    * The singleton instance of the package.
@@ -57,14 +57,14 @@ public interface ImageResourcePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  ImageResourcePackage eINSTANCE = net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl.init();
+  PalettePackage eINSTANCE = net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl.init();
 
   /**
-   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}' class.
+   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner <em>Field Name Owner</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFieldNameOwner()
+   * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFieldNameOwner()
    * @generated
    */
   int FIELD_NAME_OWNER = 0;
@@ -97,11 +97,11 @@ public interface ImageResourcePackage extends EPackage
   int FIELD_NAME_OWNER_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl <em>Palette</em>}' class.
+   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl <em>Palette</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getPalette()
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getPalette()
    * @generated
    */
   int PALETTE = 1;
@@ -170,11 +170,11 @@ public interface ImageResourcePackage extends EPackage
   int PALETTE_OPERATION_COUNT = FIELD_NAME_OWNER_OPERATION_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl <em>Image File</em>}' class.
+   * The meta object id for the '{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl <em>Image File</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getImageFile()
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getImageFile()
    * @generated
    */
   int IMAGE_FILE = 2;
@@ -229,7 +229,7 @@ public interface ImageResourcePackage extends EPackage
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see org.eclipse.core.resources.IFile
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFile()
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFile()
    * @generated
    */
   int FILE = 3;
@@ -239,114 +239,114 @@ public interface ImageResourcePackage extends EPackage
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see org.eclipse.core.resources.IFolder
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFolder()
+   * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFolder()
    * @generated
    */
   int FOLDER = 4;
 
 
   /**
-   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}'.
+   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner <em>Field Name Owner</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Field Name Owner</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+   * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
    * @generated
    */
   EClass getFieldNameOwner();
 
   /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName <em>Field Name</em>}'.
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner#getFieldName <em>Field Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Field Name</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner#getFieldName()
+   * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner#getFieldName()
    * @see #getFieldNameOwner()
    * @generated
    */
   EAttribute getFieldNameOwner_FieldName();
 
   /**
-   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette <em>Palette</em>}'.
+   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.palette.Palette <em>Palette</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Palette</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette
    * @generated
    */
   EClass getPalette();
 
   /**
-   * Returns the meta object for the container reference '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getParent <em>Parent</em>}'.
+   * Returns the meta object for the container reference '{@link net.jeeeyul.pdetools.icg.model.palette.Palette#getParent <em>Parent</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the container reference '<em>Parent</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette#getParent()
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette#getParent()
    * @see #getPalette()
    * @generated
    */
   EReference getPalette_Parent();
 
   /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getFolder <em>Folder</em>}'.
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.palette.Palette#getFolder <em>Folder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Folder</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette#getFolder()
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette#getFolder()
    * @see #getPalette()
    * @generated
    */
   EAttribute getPalette_Folder();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getSubPalettes <em>Sub Palettes</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.jeeeyul.pdetools.icg.model.palette.Palette#getSubPalettes <em>Sub Palettes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Sub Palettes</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette#getSubPalettes()
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette#getSubPalettes()
    * @see #getPalette()
    * @generated
    */
   EReference getPalette_SubPalettes();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette#getImageFiles <em>Image Files</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.jeeeyul.pdetools.icg.model.palette.Palette#getImageFiles <em>Image Files</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Image Files</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette#getImageFiles()
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette#getImageFiles()
    * @see #getPalette()
    * @generated
    */
   EReference getPalette_ImageFiles();
 
   /**
-   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile <em>Image File</em>}'.
+   * Returns the meta object for class '{@link net.jeeeyul.pdetools.icg.model.palette.ImageFile <em>Image File</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Image File</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
+   * @see net.jeeeyul.pdetools.icg.model.palette.ImageFile
    * @generated
    */
   EClass getImageFile();
 
   /**
-   * Returns the meta object for the container reference '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getParent <em>Parent</em>}'.
+   * Returns the meta object for the container reference '{@link net.jeeeyul.pdetools.icg.model.palette.ImageFile#getParent <em>Parent</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the container reference '<em>Parent</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getParent()
+   * @see net.jeeeyul.pdetools.icg.model.palette.ImageFile#getParent()
    * @see #getImageFile()
    * @generated
    */
   EReference getImageFile_Parent();
 
   /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getFile <em>File</em>}'.
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.icg.model.palette.ImageFile#getFile <em>File</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>File</em>'.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageFile#getFile()
+   * @see net.jeeeyul.pdetools.icg.model.palette.ImageFile#getFile()
    * @see #getImageFile()
    * @generated
    */
@@ -383,7 +383,7 @@ public interface ImageResourcePackage extends EPackage
    * @return the factory that creates the instances of the model.
    * @generated
    */
-  ImageResourceFactory getImageResourceFactory();
+  PaletteFactory getPaletteFactory();
 
   /**
    * <!-- begin-user-doc -->
@@ -401,11 +401,11 @@ public interface ImageResourcePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}' class.
+     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner <em>Field Name Owner</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFieldNameOwner()
+     * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFieldNameOwner()
      * @generated
      */
     EClass FIELD_NAME_OWNER = eINSTANCE.getFieldNameOwner();
@@ -419,11 +419,11 @@ public interface ImageResourcePackage extends EPackage
     EAttribute FIELD_NAME_OWNER__FIELD_NAME = eINSTANCE.getFieldNameOwner_FieldName();
 
     /**
-     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl <em>Palette</em>}' class.
+     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl <em>Palette</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getPalette()
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getPalette()
      * @generated
      */
     EClass PALETTE = eINSTANCE.getPalette();
@@ -461,11 +461,11 @@ public interface ImageResourcePackage extends EPackage
     EReference PALETTE__IMAGE_FILES = eINSTANCE.getPalette_ImageFiles();
 
     /**
-     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl <em>Image File</em>}' class.
+     * The meta object literal for the '{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl <em>Image File</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageFileImpl
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getImageFile()
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getImageFile()
      * @generated
      */
     EClass IMAGE_FILE = eINSTANCE.getImageFile();
@@ -491,7 +491,7 @@ public interface ImageResourcePackage extends EPackage
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.core.resources.IFile
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFile()
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFile()
      * @generated
      */
     EDataType FILE = eINSTANCE.getFile();
@@ -501,11 +501,11 @@ public interface ImageResourcePackage extends EPackage
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.core.resources.IFolder
-     * @see net.jeeeyul.pdetools.icg.model.imageResource.impl.ImageResourcePackageImpl#getFolder()
+     * @see net.jeeeyul.pdetools.icg.model.palette.impl.PalettePackageImpl#getFolder()
      * @generated
      */
     EDataType FOLDER = eINSTANCE.getFolder();
 
   }
 
-} //ImageResourcePackage
+} //PalettePackage

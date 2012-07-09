@@ -1,15 +1,15 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
 import java.util.HashSet;
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.Palette;
 
 @SuppressWarnings("all")
-public class GenerationContext {
+public class PaletteModelGenerationContext {
   private Palette palette;
   
   private HashSet<String> takenNames;
   
-  public GenerationContext(final Palette palette) {
+  public PaletteModelGenerationContext(final Palette palette) {
     HashSet<String> _hashSet = new HashSet<String>();
     this.takenNames = _hashSet;
     this.palette = palette;

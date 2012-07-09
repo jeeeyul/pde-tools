@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.util;
+package net.jeeeyul.pdetools.icg.model.palette.util;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.*;
+import net.jeeeyul.pdetools.icg.model.palette.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -16,10 +16,10 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage
+ * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage
  * @generated
  */
-public class ImageResourceAdapterFactory extends AdapterFactoryImpl
+public class PaletteAdapterFactory extends AdapterFactoryImpl
 {
   /**
    * The cached model package.
@@ -27,7 +27,7 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  protected static ImageResourcePackage modelPackage;
+  protected static PalettePackage modelPackage;
 
   /**
    * Creates an instance of the adapter factory.
@@ -35,11 +35,11 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImageResourceAdapterFactory()
+  public PaletteAdapterFactory()
   {
     if (modelPackage == null)
     {
-      modelPackage = ImageResourcePackage.eINSTANCE;
+      modelPackage = PalettePackage.eINSTANCE;
     }
   }
 
@@ -71,8 +71,8 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ImageResourceSwitch<Adapter> modelSwitch =
-    new ImageResourceSwitch<Adapter>()
+  protected PaletteSwitch<Adapter> modelSwitch =
+    new PaletteSwitch<Adapter>()
     {
       @Override
       public Adapter caseFieldNameOwner(FieldNameOwner object)
@@ -112,13 +112,13 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner <em>Field Name Owner</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner <em>Field Name Owner</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
+   * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
    * @generated
    */
   public Adapter createFieldNameOwnerAdapter()
@@ -127,13 +127,13 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.imageResource.Palette <em>Palette</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.Palette <em>Palette</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.Palette
+   * @see net.jeeeyul.pdetools.icg.model.palette.Palette
    * @generated
    */
   public Adapter createPaletteAdapter()
@@ -142,13 +142,13 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.imageResource.ImageFile <em>Image File</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.ImageFile <em>Image File</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
+   * @see net.jeeeyul.pdetools.icg.model.palette.ImageFile
    * @generated
    */
   public Adapter createImageFileAdapter()
@@ -169,4 +169,4 @@ public class ImageResourceAdapterFactory extends AdapterFactoryImpl
     return null;
   }
 
-} //ImageResourceAdapterFactory
+} //PaletteAdapterFactory

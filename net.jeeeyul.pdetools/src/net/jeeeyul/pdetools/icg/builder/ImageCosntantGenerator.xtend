@@ -1,8 +1,9 @@
 package net.jeeeyul.pdetools.icg.builder
 
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
 import net.jeeeyul.pdetools.icg.ICGConfiguration
+import org.eclipse.xtend.lib.Property
+import net.jeeeyul.pdetools.icg.model.palette.Palette
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile
 
 class ImageCosntantGenerator {
 	@Property ICGConfiguration config;

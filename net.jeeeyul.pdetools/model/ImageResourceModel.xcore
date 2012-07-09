@@ -1,7 +1,7 @@
 
 @GenModel(basePackage="net.jeeeyul.pdetools.icg.model")
-@Ecore(nsURI="http://jeeeyul.net/pde-tools/icg/ir", nsPrefix="ir")
-package imageResource
+@Ecore(nsURI="http://jeeeyul.net/pde-tools/icg/palette", nsPrefix="p")
+package palette
 
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.ResourcesPlugin

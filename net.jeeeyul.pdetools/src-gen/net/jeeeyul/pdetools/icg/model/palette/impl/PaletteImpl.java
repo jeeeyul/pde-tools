@@ -1,12 +1,12 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.impl;
+package net.jeeeyul.pdetools.icg.model.palette.impl;
 
 import java.util.Collection;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage;
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFolder;
 
@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getFieldName <em>Field Name</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getFolder <em>Folder</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getSubPalettes <em>Sub Palettes</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.imageResource.impl.PaletteImpl#getImageFiles <em>Image Files</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getFieldName <em>Field Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getFolder <em>Folder</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getSubPalettes <em>Sub Palettes</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getImageFiles <em>Image Files</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,7 +122,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   @Override
   protected EClass eStaticClass()
   {
-    return ImageResourcePackage.Literals.PALETTE;
+    return PalettePackage.Literals.PALETTE;
   }
 
   /**
@@ -145,7 +145,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
     String oldFieldName = fieldName;
     fieldName = newFieldName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__FIELD_NAME, oldFieldName, fieldName));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.PALETTE__FIELD_NAME, oldFieldName, fieldName));
   }
 
   /**
@@ -155,7 +155,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
    */
   public Palette getParent()
   {
-    if (eContainerFeatureID() != ImageResourcePackage.PALETTE__PARENT) return null;
+    if (eContainerFeatureID() != PalettePackage.PALETTE__PARENT) return null;
     return (Palette)eContainer();
   }
 
@@ -166,7 +166,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
    */
   public NotificationChain basicSetParent(Palette newParent, NotificationChain msgs)
   {
-    msgs = eBasicSetContainer((InternalEObject)newParent, ImageResourcePackage.PALETTE__PARENT, msgs);
+    msgs = eBasicSetContainer((InternalEObject)newParent, PalettePackage.PALETTE__PARENT, msgs);
     return msgs;
   }
 
@@ -177,7 +177,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
    */
   public void setParent(Palette newParent)
   {
-    if (newParent != eInternalContainer() || (eContainerFeatureID() != ImageResourcePackage.PALETTE__PARENT && newParent != null))
+    if (newParent != eInternalContainer() || (eContainerFeatureID() != PalettePackage.PALETTE__PARENT && newParent != null))
     {
       if (EcoreUtil.isAncestor(this, newParent))
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -185,12 +185,12 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
       if (eInternalContainer() != null)
         msgs = eBasicRemoveFromContainer(msgs);
       if (newParent != null)
-        msgs = ((InternalEObject)newParent).eInverseAdd(this, ImageResourcePackage.PALETTE__SUB_PALETTES, Palette.class, msgs);
+        msgs = ((InternalEObject)newParent).eInverseAdd(this, PalettePackage.PALETTE__SUB_PALETTES, Palette.class, msgs);
       msgs = basicSetParent(newParent, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__PARENT, newParent, newParent));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.PALETTE__PARENT, newParent, newParent));
   }
 
   /**
@@ -213,7 +213,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
     IFolder oldFolder = folder;
     folder = newFolder;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ImageResourcePackage.PALETTE__FOLDER, oldFolder, folder));
+      eNotify(new ENotificationImpl(this, Notification.SET, PalettePackage.PALETTE__FOLDER, oldFolder, folder));
   }
 
   /**
@@ -225,7 +225,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     if (subPalettes == null)
     {
-      subPalettes = new EObjectContainmentWithInverseEList<Palette>(Palette.class, this, ImageResourcePackage.PALETTE__SUB_PALETTES, ImageResourcePackage.PALETTE__PARENT);
+      subPalettes = new EObjectContainmentWithInverseEList<Palette>(Palette.class, this, PalettePackage.PALETTE__SUB_PALETTES, PalettePackage.PALETTE__PARENT);
     }
     return subPalettes;
   }
@@ -239,7 +239,7 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     if (imageFiles == null)
     {
-      imageFiles = new EObjectContainmentWithInverseEList<ImageFile>(ImageFile.class, this, ImageResourcePackage.PALETTE__IMAGE_FILES, ImageResourcePackage.IMAGE_FILE__PARENT);
+      imageFiles = new EObjectContainmentWithInverseEList<ImageFile>(ImageFile.class, this, PalettePackage.PALETTE__IMAGE_FILES, PalettePackage.IMAGE_FILE__PARENT);
     }
     return imageFiles;
   }
@@ -255,13 +255,13 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetParent((Palette)otherEnd, msgs);
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getSubPalettes()).basicAdd(otherEnd, msgs);
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getImageFiles()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -277,11 +277,11 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         return basicSetParent(null, msgs);
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         return ((InternalEList<?>)getSubPalettes()).basicRemove(otherEnd, msgs);
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         return ((InternalEList<?>)getImageFiles()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -297,8 +297,8 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (eContainerFeatureID())
     {
-      case ImageResourcePackage.PALETTE__PARENT:
-        return eInternalContainer().eInverseRemove(this, ImageResourcePackage.PALETTE__SUB_PALETTES, Palette.class, msgs);
+      case PalettePackage.PALETTE__PARENT:
+        return eInternalContainer().eInverseRemove(this, PalettePackage.PALETTE__SUB_PALETTES, Palette.class, msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
   }
@@ -313,15 +313,15 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__FIELD_NAME:
+      case PalettePackage.PALETTE__FIELD_NAME:
         return getFieldName();
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         return getParent();
-      case ImageResourcePackage.PALETTE__FOLDER:
+      case PalettePackage.PALETTE__FOLDER:
         return getFolder();
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         return getSubPalettes();
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         return getImageFiles();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -338,20 +338,20 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__FIELD_NAME:
+      case PalettePackage.PALETTE__FIELD_NAME:
         setFieldName((String)newValue);
         return;
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         setParent((Palette)newValue);
         return;
-      case ImageResourcePackage.PALETTE__FOLDER:
+      case PalettePackage.PALETTE__FOLDER:
         setFolder((IFolder)newValue);
         return;
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         getSubPalettes().clear();
         getSubPalettes().addAll((Collection<? extends Palette>)newValue);
         return;
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         getImageFiles().clear();
         getImageFiles().addAll((Collection<? extends ImageFile>)newValue);
         return;
@@ -369,19 +369,19 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__FIELD_NAME:
+      case PalettePackage.PALETTE__FIELD_NAME:
         setFieldName(FIELD_NAME_EDEFAULT);
         return;
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         setParent((Palette)null);
         return;
-      case ImageResourcePackage.PALETTE__FOLDER:
+      case PalettePackage.PALETTE__FOLDER:
         setFolder(FOLDER_EDEFAULT);
         return;
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         getSubPalettes().clear();
         return;
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         getImageFiles().clear();
         return;
     }
@@ -398,15 +398,15 @@ public class PaletteImpl extends MinimalEObjectImpl.Container implements Palette
   {
     switch (featureID)
     {
-      case ImageResourcePackage.PALETTE__FIELD_NAME:
+      case PalettePackage.PALETTE__FIELD_NAME:
         return FIELD_NAME_EDEFAULT == null ? fieldName != null : !FIELD_NAME_EDEFAULT.equals(fieldName);
-      case ImageResourcePackage.PALETTE__PARENT:
+      case PalettePackage.PALETTE__PARENT:
         return getParent() != null;
-      case ImageResourcePackage.PALETTE__FOLDER:
+      case PalettePackage.PALETTE__FOLDER:
         return FOLDER_EDEFAULT == null ? folder != null : !FOLDER_EDEFAULT.equals(folder);
-      case ImageResourcePackage.PALETTE__SUB_PALETTES:
+      case PalettePackage.PALETTE__SUB_PALETTES:
         return subPalettes != null && !subPalettes.isEmpty();
-      case ImageResourcePackage.PALETTE__IMAGE_FILES:
+      case PalettePackage.PALETTE__IMAGE_FILES:
         return imageFiles != null && !imageFiles.isEmpty();
     }
     return super.eIsSet(featureID);

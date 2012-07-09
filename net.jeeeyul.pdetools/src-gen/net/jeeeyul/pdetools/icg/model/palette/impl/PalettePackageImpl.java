@@ -1,12 +1,12 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.imageResource.impl;
+package net.jeeeyul.pdetools.icg.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourceFactory;
-import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage;
-import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner;
+import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.model.palette.PaletteFactory;
+import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ImageResourcePackageImpl extends EPackageImpl implements ImageResourcePackage
+public class PalettePackageImpl extends EPackageImpl implements PalettePackage
 {
   /**
    * <!-- begin-user-doc -->
@@ -74,13 +74,13 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage#eNS_URI
+   * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage#eNS_URI
    * @see #init()
    * @generated
    */
-  private ImageResourcePackageImpl()
+  private PalettePackageImpl()
   {
-    super(eNS_URI, ImageResourceFactory.eINSTANCE);
+    super(eNS_URI, PaletteFactory.eINSTANCE);
   }
 
   /**
@@ -93,7 +93,7 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
    * 
-   * <p>This method is used to initialize {@link ImageResourcePackage#eINSTANCE} when that field is accessed.
+   * <p>This method is used to initialize {@link PalettePackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -102,12 +102,12 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
    * @see #initializePackageContents()
    * @generated
    */
-  public static ImageResourcePackage init()
+  public static PalettePackage init()
   {
-    if (isInited) return (ImageResourcePackage)EPackage.Registry.INSTANCE.getEPackage(ImageResourcePackage.eNS_URI);
+    if (isInited) return (PalettePackage)EPackage.Registry.INSTANCE.getEPackage(PalettePackage.eNS_URI);
 
     // Obtain or create and register package
-    ImageResourcePackageImpl theImageResourcePackage = (ImageResourcePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ImageResourcePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ImageResourcePackageImpl());
+    PalettePackageImpl thePalettePackage = (PalettePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PalettePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PalettePackageImpl());
 
     isInited = true;
 
@@ -115,18 +115,18 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
     EcorePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
-    theImageResourcePackage.createPackageContents();
+    thePalettePackage.createPackageContents();
 
     // Initialize created meta-data
-    theImageResourcePackage.initializePackageContents();
+    thePalettePackage.initializePackageContents();
 
     // Mark meta-data to indicate it can't be changed
-    theImageResourcePackage.freeze();
+    thePalettePackage.freeze();
 
   
     // Update the registry and return the package
-    EPackage.Registry.INSTANCE.put(ImageResourcePackage.eNS_URI, theImageResourcePackage);
-    return theImageResourcePackage;
+    EPackage.Registry.INSTANCE.put(PalettePackage.eNS_URI, thePalettePackage);
+    return thePalettePackage;
   }
 
   /**
@@ -254,9 +254,9 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImageResourceFactory getImageResourceFactory()
+  public PaletteFactory getPaletteFactory()
   {
-    return (ImageResourceFactory)getEFactoryInstance();
+    return (PaletteFactory)getEFactoryInstance();
   }
 
   /**
@@ -354,4 +354,4 @@ public class ImageResourcePackageImpl extends EPackageImpl implements ImageResou
     createResource(eNS_URI);
   }
 
-} //ImageResourcePackageImpl
+} //PalettePackageImpl
