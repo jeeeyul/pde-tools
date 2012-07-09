@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='PDE-Tools' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1341803603367'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='2'>
+    <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.pdetools.feature' version='1.0.0.201207091213'>
+      <properties size='4'>
+        <property name='artifact.size' value='733'/>
+        <property name='download.size' value='733'/>
+        <property name='download.md5' value='f8bfa6ab039309edaef22b00cb64f89b'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.jeeeyul.pdetools' version='1.0.0.201207091213'>
+      <properties size='3'>
+        <property name='artifact.size' value='135095'/>
+        <property name='download.size' value='135095'/>
+        <property name='download.md5' value='5937f87caa766a487846a866b9d892c8'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

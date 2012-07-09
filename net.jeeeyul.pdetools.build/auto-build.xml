@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="default">
+	<target name="default" description="description">
+		<property name="build" location="build" />
+		<property name="repository-name" value="PDE-Tools" />
+
+		<eclipse.buildScript elements="feature@net.jeeeyul.pdetools.feature" baselocation="C:/eclipse-4.2" builddirectory="${basedir}/../" />
+		<antcall target="executeBuildScripts" />
+		<antcall target="clean-script-trash" />
+
+		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="Jeeeyul's Eclipse Tools" artifactrepositoryname="Jeeeyul's Eclipse Tools">
+			<features dir="${build}/features" includes="*.jar" />
+			<bundles dir="${build}/plugins" includes="*.jar" />
+		</eclipse.publish.featuresAndBundles>
+		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
+		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
+
+		<eclipse.refreshLocal resource="/" depth="infinite" />
+	</target>
+
+
+	<target name="executeBuildScripts">
+		<ant antfile="../net.jeeeyul.pdetools.feature/build.xml" inheritall="false">
+			<property name="javacSource" value="1.6" />
+			<property name="javacTarget" value="1.6" />
+			<property name="buildDirectory" value="temp-build" />
+			<property name="feature.destination" location="${build}/features" />
+			<property name="plugin.destination" location="${build}/plugins" />
+		</ant>
+	</target>
+
+	<target name="clean-script-trash">
+		<delete includeemptydirs="true">
+			<fileset dir="${basedir}/..">
+				<include name="*/build.xml" />
+				<include name="*/javaCompiler...args" />
+				<include name="*/@dot/**/*" />
+				<include name="*/temp-build/**/*" />
+				<include name="*/${buildDirectory}/**/*" />
+				<include name="*/temp-build" />
+				<include name="*/@dot.log" />
+				<include name="*/@dot" />
+				<include name="*/compilation.problem" />
+			</fileset>
+		</delete>
+		<eclipse.refreshLocal resource="/" depth="infinite" />
+	</target>
+
+</project>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Assemble All Config of net.jeeeyul.pdetools.feature" default="main">
+	<macrodef name="assemble">
+		<attribute name="config" />
+		<attribute name="element" />
+		<attribute name="dot" />
+		<attribute name="scriptPrefix" />
+		<sequential>
+			<condition property="defaultAssemble.@{config}" value="defaultAssemble" else="assemble.@{element}@{dot}@{config}"			>
+				<isset property="defaultAssemblyEnabled"/>
+			</condition>
+			<condition property="customOrDefault.@{config}" value="assemble.@{element}@{dot}@{config}" else="${defaultAssemble.@{config}}"			>
+				<isset property="assemble.@{element}@{dot}@{config}"/>
+			</condition>
+			<ant antfile="${customTargets}" target="${customOrDefault.@{config}}">
+				<property name="config" value="@{config}"/>
+				<property name="element" value="@{element}"/>
+				<property name="assembleScriptName" value="@{scriptPrefix}.@{element}@{dot}@{config}.xml"/>
+			</ant>
+		</sequential>
+	</macrodef>
+
+	<target name="main">
+		<assemble  config="" element="net.jeeeyul.pdetools.feature" dot="" scriptPrefix="assemble"		/>
+		<antcall target="generate.p2.metadata"/>
+	</target>
+	<target name="generate.p2.metadata" if="generate.p2.metadata" unless="runPackager">
+		<condition property="mode" value="incremental" else="final"		>
+			<isset property="runPackager"/>
+		</condition>
+		<property name="p2.append" value="true"/>
+		<property name="p2.metadata.repo.name" value=""/>
+		<property name="p2.artifact.repo.name" value=""/>
+		<p2.generator  append="${p2.append}" flavor="${p2.flavor}" metadataRepository="${p2.metadata.repo}" artifactRepository="${p2.artifact.repo}" metadataRepositoryName="${p2.metadata.repo.name}" artifactRepositoryName="${p2.artifact.repo.name}" publishArtifacts="${p2.publish.artifacts}" mode="${mode}" root="${p2.root.name}" rootVersion="${p2.root.version}"		/>
+	</target>
+</project>
