@@ -1,2 +1,2 @@
 # pde-tools
-대부분의 코드가 [Xtend](Xtend)로 되어 있습니다.
+A lot of code wrtten with [Xtend](http://www.eclipse.org/xtend/).
