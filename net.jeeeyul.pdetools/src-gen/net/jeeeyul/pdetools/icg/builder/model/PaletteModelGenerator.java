@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.model;
+package net.jeeeyul.pdetools.icg.builder.model;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
-import net.jeeeyul.pdetools.icg.model.GenerationContext;
+import net.jeeeyul.pdetools.icg.builder.model.GenerationContext;
 import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner;
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageResourceFactory;

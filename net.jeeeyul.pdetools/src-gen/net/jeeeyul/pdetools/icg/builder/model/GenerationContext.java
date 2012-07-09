@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.model;
+package net.jeeeyul.pdetools.icg.builder.model;
 
 import java.util.HashSet;
 import net.jeeeyul.pdetools.icg.model.imageResource.Palette;

@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.model
+package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.Stack
 import net.jeeeyul.pdetools.icg.model.imageResource.FieldNameOwner
@@ -77,7 +77,7 @@ class PaletteModelGenerator {
 	}
 	
 	def private pushContext(Palette palette){
-		stack.push(new net.jeeeyul.pdetools.icg.model.GenerationContext(palette));
+		stack.push(new GenerationContext(palette));
 	}
 	
 	def private safeFieldName(String preferName){

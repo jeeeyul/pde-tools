@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
 import net.jeeeyul.pdetools.icg.ICGConfiguration
+import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
 
 class ICGBuilder extends IncrementalProjectBuilder {
 	new() {
@@ -16,7 +17,7 @@ class ICGBuilder extends IncrementalProjectBuilder {
 		var cfg = new ICGConfiguration(project)
 		if(cfg.monitoringFolder.exists){
 			// ÆÈ·¹Æ® ¸ðµ¨ »ý¼º
-			var mg = new net.jeeeyul.pdetools.icg.model.PaletteModelGenerator(cfg);
+			var mg = new PaletteModelGenerator(cfg);
 			var palette = mg.generatePalette(cfg.monitoringFolder);
 			
 			// 
