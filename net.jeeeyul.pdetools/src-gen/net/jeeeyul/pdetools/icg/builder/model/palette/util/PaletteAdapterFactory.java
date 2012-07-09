@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.util;
+package net.jeeeyul.pdetools.icg.builder.model.palette.util;
 
-import net.jeeeyul.pdetools.icg.model.palette.*;
+import net.jeeeyul.pdetools.icg.builder.model.palette.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage
+ * @see net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage
  * @generated
  */
 public class PaletteAdapterFactory extends AdapterFactoryImpl
@@ -112,13 +112,13 @@ public class PaletteAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner <em>Field Name Owner</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner <em>Field Name Owner</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
+   * @see net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
    * @generated
    */
   public Adapter createFieldNameOwnerAdapter()
@@ -127,13 +127,13 @@ public class PaletteAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.Palette <em>Palette</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.builder.model.palette.Palette <em>Palette</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.palette.Palette
+   * @see net.jeeeyul.pdetools.icg.builder.model.palette.Palette
    * @generated
    */
   public Adapter createPaletteAdapter()
@@ -142,13 +142,13 @@ public class PaletteAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.model.palette.ImageFile <em>Image File</em>}'.
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile <em>Image File</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.jeeeyul.pdetools.icg.model.palette.ImageFile
+   * @see net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
    * @generated
    */
   public Adapter createImageFileAdapter()

@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
 import java.util.HashSet;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
 
 @SuppressWarnings("all")
 public class PaletteModelGenerationContext {

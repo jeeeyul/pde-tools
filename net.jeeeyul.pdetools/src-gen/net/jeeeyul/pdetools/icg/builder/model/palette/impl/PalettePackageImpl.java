@@ -1,12 +1,12 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.impl;
+package net.jeeeyul.pdetools.icg.builder.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner;
-import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
-import net.jeeeyul.pdetools.icg.model.palette.PaletteFactory;
-import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
+import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner;
+import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.PaletteFactory;
+import net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -74,7 +74,7 @@ public class PalettePackageImpl extends EPackageImpl implements PalettePackage
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage#eNS_URI
+   * @see net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage#eNS_URI
    * @see #init()
    * @generated
    */

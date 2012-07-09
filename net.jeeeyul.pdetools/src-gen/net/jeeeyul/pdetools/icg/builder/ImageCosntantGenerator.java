@@ -1,8 +1,8 @@
 package net.jeeeyul.pdetools.icg.builder;
 
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
-import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;

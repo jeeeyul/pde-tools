@@ -2,13 +2,13 @@ package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.Stack
 import net.jeeeyul.pdetools.icg.ICGConfiguration
+import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
+import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
+import net.jeeeyul.pdetools.icg.builder.model.palette.PaletteFactory
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
-import net.jeeeyul.pdetools.icg.model.palette.Palette
-import net.jeeeyul.pdetools.icg.model.palette.PaletteFactory
-import net.jeeeyul.pdetools.icg.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.model.palette.FieldNameOwner
 
 /**
  * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.

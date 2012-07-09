@@ -1,6 +1,6 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette;
+package net.jeeeyul.pdetools.icg.builder.model.palette;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EFactory;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage
+ * @see net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage
  * @generated
  */
 public interface PaletteFactory extends EFactory
@@ -20,7 +20,7 @@ public interface PaletteFactory extends EFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  PaletteFactory eINSTANCE = net.jeeeyul.pdetools.icg.model.palette.impl.PaletteFactoryImpl.init();
+  PaletteFactory eINSTANCE = net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteFactoryImpl.init();
 
   /**
    * Returns a new object of class '<em>Palette</em>'.

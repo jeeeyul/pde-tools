@@ -1,10 +1,10 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.impl;
+package net.jeeeyul.pdetools.icg.builder.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
-import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
+import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFile;
 
@@ -26,9 +26,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getFieldName <em>Field Name</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.ImageFileImpl#getFile <em>File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.ImageFileImpl#getFieldName <em>Field Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.ImageFileImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.ImageFileImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
  *

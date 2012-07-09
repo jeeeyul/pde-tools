@@ -5,7 +5,7 @@ import java.util.Map;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.ImageCosntantGenerator;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;

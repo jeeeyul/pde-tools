@@ -1,12 +1,12 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.impl;
+package net.jeeeyul.pdetools.icg.builder.model.palette.impl;
 
 import java.util.Collection;
 
-import net.jeeeyul.pdetools.icg.model.palette.ImageFile;
-import net.jeeeyul.pdetools.icg.model.palette.Palette;
-import net.jeeeyul.pdetools.icg.model.palette.PalettePackage;
+import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage;
 
 import org.eclipse.core.resources.IFolder;
 
@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getFieldName <em>Field Name</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getFolder <em>Folder</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getSubPalettes <em>Sub Palettes</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.icg.model.palette.impl.PaletteImpl#getImageFiles <em>Image Files</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteImpl#getFieldName <em>Field Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteImpl#getFolder <em>Folder</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteImpl#getSubPalettes <em>Sub Palettes</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.icg.builder.model.palette.impl.PaletteImpl#getImageFiles <em>Image Files</em>}</li>
  * </ul>
  * </p>
  *

@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.impl;
+package net.jeeeyul.pdetools.icg.builder.model.palette.impl;
 
-import net.jeeeyul.pdetools.icg.model.palette.*;
+import net.jeeeyul.pdetools.icg.builder.model.palette.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;

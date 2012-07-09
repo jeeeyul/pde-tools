@@ -1,8 +1,8 @@
 /**
  */
-package net.jeeeyul.pdetools.icg.model.palette.util;
+package net.jeeeyul.pdetools.icg.builder.model.palette.util;
 
-import net.jeeeyul.pdetools.icg.model.palette.*;
+import net.jeeeyul.pdetools.icg.builder.model.palette.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see net.jeeeyul.pdetools.icg.model.palette.PalettePackage
+ * @see net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage
  * @generated
  */
 public class PaletteSwitch<T> extends Switch<T>
