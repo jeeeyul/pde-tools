@@ -17,6 +17,8 @@
 
 		<copydir dest="${basedir}/../update-site" src="${build}/repo">
 		</copydir>
+		<copydir dest="${basedir}/../update-site" src="${basedir}/web-resource">
+		</copydir>
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
