@@ -8,7 +8,7 @@
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
 
-		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="Jeeeyul's Eclipse Tools" artifactrepositoryname="Jeeeyul's Eclipse Tools">
+		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="Jeeeyul's Eclipse Tools" artifactrepositoryname="Jeeeyul's Eclipse Tools" category="file:${basedir}/category.xml">
 			<features dir="${build}/features" includes="*.jar" />
 			<bundles dir="${build}/plugins" includes="*.jar" />
 		</eclipse.publish.featuresAndBundles>
@@ -36,6 +36,10 @@
 		<delete includeemptydirs="true">
 			<fileset dir="${build}">
 				<include name="**/*" />
+			</fileset>
+			<fileset dir="${basedir}/../update-site">
+				<include name="**/*" />
+				<exclude name=".project" />
 			</fileset>
 		</delete>
 	</target>

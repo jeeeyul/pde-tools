@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/net.jeeeyul.pdetools.feature_1.0.0.qualifier.jar" id="net.jeeeyul.pdetools.feature" version="1.0.0.qualifier">
+      <category name="pde-tools"/>
+   </feature>
+   <category-def name="pde-tools" label="PDE-Tools"/>
+</site>
