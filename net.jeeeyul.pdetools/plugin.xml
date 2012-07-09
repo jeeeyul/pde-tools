@@ -11,7 +11,7 @@
             isConfigurable="true"
             supportsConfigurations="true">
          <run
-               class="net.jeeeyul.pdetools.icg.ICGBuilder">
+               class="net.jeeeyul.pdetools.icg.builder.ICGBuilder">
          </run></builder>
    </extension>
    <extension
