@@ -1,8 +1,8 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.builder;
 
 import com.google.common.base.Objects;
 import net.jeeeyul.pdetools.icg.ICGConstants;
-import net.jeeeyul.pdetools.icg.InstallNatureJob;
+import net.jeeeyul.pdetools.icg.builder.InstallNatureJob;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

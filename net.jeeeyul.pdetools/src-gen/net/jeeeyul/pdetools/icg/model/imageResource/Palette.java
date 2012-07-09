@@ -58,10 +58,6 @@ public interface Palette extends FieldNameOwner
   /**
    * Returns the value of the '<em><b>Folder</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Folder</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * <!-- begin-model-doc -->
    * *

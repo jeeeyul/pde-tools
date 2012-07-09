@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.ui
 
 import org.eclipse.ui.progress.WorkbenchJob
 import org.eclipse.core.resources.IProject

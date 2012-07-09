@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.builder
 
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.*
 import org.eclipse.core.runtime.Platform
+import net.jeeeyul.pdetools.icg.ICGConstants
 
 class EnableICGNatureHandler extends AbstractHandler {
 	override execute(ExecutionEvent event) throws ExecutionException {

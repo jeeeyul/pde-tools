@@ -1,6 +1,6 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.ui;
 
-import net.jeeeyul.pdetools.icg.ICGPropertyPage;
+import net.jeeeyul.pdetools.icg.ui.ICGPropertyPage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

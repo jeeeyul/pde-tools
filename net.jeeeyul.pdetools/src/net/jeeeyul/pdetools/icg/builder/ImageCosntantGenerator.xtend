@@ -1,7 +1,8 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.builder
 
 import net.jeeeyul.pdetools.icg.model.imageResource.Palette
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile
+import net.jeeeyul.pdetools.icg.ICGConfiguration
 
 class ImageCosntantGenerator {
 	@Property ICGConfiguration config;

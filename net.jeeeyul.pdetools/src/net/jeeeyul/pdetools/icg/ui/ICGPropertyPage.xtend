@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.ui
 
 import net.jeeeyul.pdetools.shared.SWTExtensions
 import org.eclipse.core.resources.IProject
@@ -17,6 +17,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider
 import org.eclipse.jdt.core.IPackageFragment
 import org.eclipse.swt.widgets.Button
 import org.eclipse.core.runtime.Path
+import net.jeeeyul.pdetools.icg.ICGConfiguration
 
 class ICGPropertyPage extends PropertyPage {
 	public static  val ID = "net.jeeeyul.pdetools.icg.propertyPage"

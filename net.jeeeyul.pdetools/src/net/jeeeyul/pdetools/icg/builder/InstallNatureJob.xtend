@@ -1,6 +1,8 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.builder
 
 import java.util.List
+import net.jeeeyul.pdetools.icg.ICGConfiguration
+import net.jeeeyul.pdetools.icg.ICGConstants
 import org.eclipse.core.resources.ICommand
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
@@ -9,6 +11,7 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.SubProgressMonitor
 import org.eclipse.ui.progress.WorkbenchJob
+import net.jeeeyul.pdetools.icg.ui.OpenICGPropertyJob
 
 class InstallNatureJob extends WorkbenchJob {
 	IProject project

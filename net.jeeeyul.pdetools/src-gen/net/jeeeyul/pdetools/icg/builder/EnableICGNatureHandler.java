@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.builder;
 
 import com.google.common.base.Objects;
 import java.util.ArrayList;

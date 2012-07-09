@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.builder;
 
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.model.imageResource.ImageFile;

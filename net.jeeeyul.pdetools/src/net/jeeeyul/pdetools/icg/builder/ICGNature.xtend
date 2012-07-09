@@ -1,5 +1,6 @@
-package net.jeeeyul.pdetools.icg
+package net.jeeeyul.pdetools.icg.builder
 
+import net.jeeeyul.pdetools.icg.ICGConstants
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IProjectNature
 import org.eclipse.core.runtime.CoreException
@@ -11,7 +12,7 @@ class ICGNature implements IProjectNature {
 	
 	override configure() throws CoreException {
 		new InstallNatureJob(project).schedule()
-	}
+	} 
 	
 	override deconfigure() throws CoreException {
 		var description = project.description;

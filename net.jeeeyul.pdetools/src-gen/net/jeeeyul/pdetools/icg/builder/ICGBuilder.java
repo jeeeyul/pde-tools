@@ -1,9 +1,9 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.builder;
 
 import java.util.ArrayList;
 import java.util.Map;
 import net.jeeeyul.pdetools.icg.ICGConfiguration;
-import net.jeeeyul.pdetools.icg.ImageCosntantGenerator;
+import net.jeeeyul.pdetools.icg.builder.ImageCosntantGenerator;
 import net.jeeeyul.pdetools.icg.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.model.imageResource.Palette;
 import org.eclipse.core.resources.IFolder;
