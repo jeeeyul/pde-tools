@@ -126,5 +126,21 @@
             markerType="net.jeeeyul.pdetools.icg.problemmarker">
       </markerResolutionGenerator>
    </extension>
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            class="net.jeeeyul.pdetools.decorator.IconDecorator"
+            id="net.jeeeyul.pdetools.icondecorator"
+            label="Icon File Decorator"
+            lightweight="true"
+            location="REPLACE"
+            state="true">
+         <enablement>
+            <objectClass
+                  name="org.eclipse.core.resources.IFile">
+            </objectClass>
+         </enablement>
+      </decorator>
+   </extension>
 
 </plugin>

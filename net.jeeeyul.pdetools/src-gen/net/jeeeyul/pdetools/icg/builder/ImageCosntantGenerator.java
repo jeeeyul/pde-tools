@@ -41,6 +41,36 @@ public class ImageCosntantGenerator {
   
   public CharSequence generate() {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("// Copyright 2012 Jeeeyul Lee, Seoul, Korea");
+    _builder.newLine();
+    _builder.append("// https://github.com/jeeeyul/pde-tools");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("// This module is multi-licensed and may be used under the terms");
+    _builder.newLine();
+    _builder.append("// of any of the following licenses:");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("// EPL, Eclipse Public License, V1.0 or later, http://www.eclipse.org/legal");
+    _builder.newLine();
+    _builder.append("// LGPL, GNU Lesser General Public License, V2.1 or later, http://www.gnu.org/licenses/lgpl.html");
+    _builder.newLine();
+    _builder.append("// GPL, GNU General Public License, V2 or later, http://www.gnu.org/licenses/gpl.html");
+    _builder.newLine();
+    _builder.append("// AL, Apache License, V2.0 or later, http://www.apache.org/licenses");
+    _builder.newLine();
+    _builder.append("// BSD, BSD License, http://www.opensource.org/licenses/bsd-license.php");
+    _builder.newLine();
+    _builder.append("// MIT, MIT License, http://www.opensource.org/licenses/MIT");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("// Please contact the author if you need another license.");
+    _builder.newLine();
+    _builder.append("// This module is provided \"as is\", without warranties of any kind.");
+    _builder.newLine();
     _builder.append("package ");
     ICGConfiguration _config = this.getConfig();
     String _generatePackageName = _config.getGeneratePackageName();
@@ -83,8 +113,8 @@ public class ImageCosntantGenerator {
         if (!_hasElements) {
           _hasElements = true;
         } else {
-          String _property = System.getProperty("line.separator");
-          _builder.appendImmediate(_property, "	");
+          String _lineSeparator = this.lineSeparator();
+          _builder.appendImmediate(_lineSeparator, "	");
         }
         _builder.append("\t");
         CharSequence _generateSubPalette = this.generateSubPalette(eachPalette);
@@ -102,8 +132,8 @@ public class ImageCosntantGenerator {
         if (!_hasElements_1) {
           _hasElements_1 = true;
         } else {
-          String _property_1 = System.getProperty("line.separator");
-          _builder.appendImmediate(_property_1, "	");
+          String _lineSeparator_1 = this.lineSeparator();
+          _builder.appendImmediate(_lineSeparator_1, "	");
         }
         _builder.append("\t");
         CharSequence _generateField = this.generateField(eachFile);
@@ -111,8 +141,6 @@ public class ImageCosntantGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
-    _builder.append("\t");
-    _builder.newLine();
     _builder.append("\t");
     _builder.append("private static final ImageRegistry registry = new ImageRegistry();");
     _builder.newLine();
@@ -192,7 +220,14 @@ public class ImageCosntantGenerator {
     _builder.newLineIfNotEmpty();
     {
       EList<ImageFile> _imageFiles = palette.getImageFiles();
+      boolean _hasElements = false;
       for(final ImageFile eachFile : _imageFiles) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          String _lineSeparator = this.lineSeparator();
+          _builder.appendImmediate(_lineSeparator, "	");
+        }
         _builder.append("\t");
         CharSequence _generateField = this.generateField(eachFile);
         _builder.append(_generateField, "	");
@@ -208,12 +243,18 @@ public class ImageCosntantGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* ");
-    IFile _file = file.getFile();
-    String _generate = this.previewGenerator.generate(_file);
-    _builder.append(_generate, " ");
-    _builder.newLineIfNotEmpty();
+    {
+      ICGConfiguration _config = this.getConfig();
+      boolean _isGenerateImagePreview = _config.isGenerateImagePreview();
+      if (_isGenerateImagePreview) {
+        _builder.append(" ", "");
+        _builder.append("* ");
+        IFile _file = file.getFile();
+        String _generate = this.previewGenerator.generate(_file);
+        _builder.append(_generate, "");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     _builder.append(" ");
     _builder.append("* Image constant for ");
     IFile _file_1 = file.getFile();
@@ -235,5 +276,10 @@ public class ImageCosntantGenerator {
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     return _builder;
+  }
+  
+  public String lineSeparator() {
+    String _property = System.getProperty("line.separator");
+    return _property;
   }
 }

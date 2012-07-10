@@ -8,6 +8,9 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
+import java.util.HashMap
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class Building {
 	int kind
@@ -33,9 +36,16 @@ class Building {
 		if(config.ouputFile.exists) {
 			config.ouputFile.delete(true, new NullProgressMonitor())
 		}
+		
+		var serializer = new XMLResourceImpl()
+		serializer.contents += EcoreUtil::copy(paletteModel)
+		serializer.save(System::out, new HashMap)
+		
 		var stream = new ByteArrayInputStream(generator.generate.toString.bytes)
 		config.ouputFile.create(stream, true, new NullProgressMonitor())
 		stream.close()
+		config.ouputFile.derived = config.markDerived
+		
 		return newArrayList(project)
 	}
 
@@ -47,24 +57,30 @@ class Building {
 	}
 
 	def hasToBuild() {
-		if(kind == IncrementalProjectBuilder::CLEAN_BUILD || kind == IncrementalProjectBuilder::FULL_BUILD) {
-			return true;
-		}
-		var projectDelta = project.delta
-		if(projectDelta == null) {
-			return false;
-		}
 		var monitoringFolder = config.monitoringFolder
-		if(monitoringFolder == null) {
+		
+		if(kind != IncrementalProjectBuilder::CLEAN_BUILD && kind != IncrementalProjectBuilder::FULL_BUILD) {
+			var projectDelta = project.delta
+			if(projectDelta == null) {
+				return false;
+			}
+			
+			if(monitoringFolder == null) {
+				return false
+			}
+			if(!monitoringFolder.exists) {
+				return false;
+			}
+			var monitoredDelta = projectDelta.findMember(config.monitoringFolder.projectRelativePath)
+			if(monitoredDelta == null) {
+				return false;
+			}
+		}
+		
+		if(!monitoringFolder.exists){
 			return false
 		}
-		if(!monitoringFolder.exists) {
-			return false;
-		}
-		var monitoredDelta = projectDelta.findMember(config.monitoringFolder.projectRelativePath)
-		if(monitoredDelta == null) {
-			return false;
-		}
+		
 		return true;
 	}
 }
