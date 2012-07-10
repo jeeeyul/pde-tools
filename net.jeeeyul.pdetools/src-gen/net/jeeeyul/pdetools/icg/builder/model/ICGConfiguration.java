@@ -1,13 +1,18 @@
-package net.jeeeyul.pdetools.icg;
+package net.jeeeyul.pdetools.icg.builder.model;
 
 import com.google.common.base.Objects;
+import java.io.InputStream;
 import java.util.List;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 import net.jeeeyul.pdetools.Activator;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -31,6 +36,8 @@ public class ICGConfiguration {
   private final static String MARK_DEREIVED = "mark-derived";
   
   private final static String IMAGE_FILE_EXTENSIONS = "image-file-extensions";
+  
+  private final static String GENERATE_IMAGE_PREVIEW = "generate-image-preview";
   
   private IProject project;
   
@@ -163,6 +170,41 @@ public class ICGConfiguration {
     }
   }
   
+  public IFile getOuputFile() {
+    String _generatePackageName = this.getGeneratePackageName();
+    String[] segments = _generatePackageName.split("\\.");
+    IFolder pointer = this.getGenerateSrcFolder();
+    for (final String s : segments) {
+      IFolder _folder = pointer.getFolder(s);
+      pointer = _folder;
+    }
+    String _generateClassName = this.getGenerateClassName();
+    String _plus = (_generateClassName + ".java");
+    return pointer.getFile(_plus);
+  }
+  
+  public String getBundleId() {
+    try {
+      Path _path = new Path("META-INF/MANIFEST.MF");
+      IFile file = this.project.getFile(_path);
+      InputStream _contents = file.getContents();
+      Manifest _manifest = new Manifest(_contents);
+      Manifest mf = _manifest;
+      Attributes _mainAttributes = mf.getMainAttributes();
+      String value = _mainAttributes.getValue("Bundle-SymbolicName");
+      boolean _contains = value.contains(";");
+      if (_contains) {
+        String[] _split = value.split(";");
+        String _get = ((List<String>)Conversions.doWrapArray(_split)).get(0);
+        String _trim = _get.trim();
+        value = _trim;
+      }
+      return value;
+    } catch (Exception _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   public void save() {
     try {
       ScopedPreferenceStore _store = this.store();
@@ -170,5 +212,16 @@ public class ICGConfiguration {
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public boolean isGenerateImagePreview() {
+    ScopedPreferenceStore _store = this.store();
+    boolean _boolean = _store.getBoolean(ICGConfiguration.GENERATE_IMAGE_PREVIEW);
+    return _boolean;
+  }
+  
+  public void setGenerateImagePreview(final boolean generatePreview) {
+    ScopedPreferenceStore _store = this.store();
+    _store.setValue(ICGConfiguration.GENERATE_IMAGE_PREVIEW, generatePreview);
   }
 }

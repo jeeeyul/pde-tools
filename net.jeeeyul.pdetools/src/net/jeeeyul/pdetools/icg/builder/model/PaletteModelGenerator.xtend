@@ -1,7 +1,6 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.Stack
-import net.jeeeyul.pdetools.icg.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette

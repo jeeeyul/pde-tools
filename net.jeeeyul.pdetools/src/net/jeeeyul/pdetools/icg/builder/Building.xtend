@@ -1,13 +1,17 @@
 package net.jeeeyul.pdetools.icg.builder
 
-import net.jeeeyul.pdetools.icg.ICGConfiguration
+import java.io.ByteArrayInputStream
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
+import net.jeeeyul.pdetools.shared.ResourceExtensions
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.IProgressMonitor
-import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
+import org.eclipse.core.runtime.NullProgressMonitor
 
 class Building {
 	int kind
+	extension ResourceExtensions = new ResourceExtensions()
 	extension IncrementalProjectBuilder builder
 	ICGConfiguration _config
 
@@ -17,12 +21,22 @@ class Building {
 	}
 
 	def IProject[ ] build(IProgressMonitor monitor) {
+		if(!hasToBuild) {
+			return emptyList
+		}
+		config.ouputFile.parent.ensureExist()
 		var pmg = new PaletteModelGenerator(config)
 		var paletteModel = pmg.generatePalette(config.monitoringFolder)
 		var generator = new ImageCosntantGenerator()
 		generator.config = config
 		generator.rootPalette = paletteModel
-		println(generator.generate); return emptyList
+		if(config.ouputFile.exists) {
+			config.ouputFile.delete(true, new NullProgressMonitor())
+		}
+		var stream = new ByteArrayInputStream(generator.generate.toString.bytes)
+		config.ouputFile.create(stream, true, new NullProgressMonitor())
+		stream.close()
+		return newArrayList(project)
 	}
 
 	def ICGConfiguration getConfig() {
@@ -41,10 +55,13 @@ class Building {
 			return false;
 		}
 		var monitoringFolder = config.monitoringFolder
+		if(monitoringFolder == null) {
+			return false
+		}
 		if(!monitoringFolder.exists) {
 			return false;
 		}
-		var monitoredDelta = projectDelta.findMember(config.monitoringFolder.fullPath)
+		var monitoredDelta = projectDelta.findMember(config.monitoringFolder.projectRelativePath)
 		if(monitoredDelta == null) {
 			return false;
 		}

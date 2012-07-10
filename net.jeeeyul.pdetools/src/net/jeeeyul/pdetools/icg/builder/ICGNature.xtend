@@ -9,17 +9,12 @@ import org.eclipse.xtend.lib.Property
 
 class ICGNature implements IProjectNature {
 	@Property IProject project
-	
+
 	override configure() throws CoreException {
 		new InstallNatureJob(project).schedule()
-	} 
-	
-	override deconfigure() throws CoreException {
-		var description = project.description;
+	}
 
-		var newBuildSpec = description.buildSpec.filter[it.builderName != ICGConstants::BUILDER_ID];
-		description.buildSpec = newBuildSpec;
-		
-		project.setDescription(description, new NullProgressMonitor());
+	override deconfigure() throws CoreException {
+		var description = project.description; var newBuildSpec = description.buildSpec.filter[ it.builderName != ICGConstants::BUILDER_ID ]; description.buildSpec = newBuildSpec; project.setDescription(description, new NullProgressMonitor());
 	}
 }

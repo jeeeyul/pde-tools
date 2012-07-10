@@ -5,7 +5,7 @@ import com.google.common.collect.Iterables;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
-import net.jeeeyul.pdetools.icg.ICGConfiguration;
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerationContext;
 import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner;
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;

@@ -20,7 +20,7 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="net.jeeeyul.pdetools.icg.ICGNature">
+               class="net.jeeeyul.pdetools.icg.builder.ICGNature">
          </run>
       </runtime>
       <requires-nature
@@ -42,7 +42,7 @@
       <handler
             commandId="net.jeeeyul.pdetools.icg.enableNature">
          <class
-               class="net.jeeeyul.pdetools.icg.EnableICGNatureHandler"></class>
+               class="net.jeeeyul.pdetools.icg.builder.EnableICGNatureHandler"></class>
       </handler>
    </extension>
    <extension
@@ -84,7 +84,7 @@
          point="org.eclipse.ui.propertyPages">
       <page
             category="org.eclipse.pde.internal.ui.properties.pluginDevelopmentPage"
-            class="net.jeeeyul.pdetools.icg.ICGPropertyPage"
+            class="net.jeeeyul.pdetools.icg.ui.ICGPropertyPage"
             id="net.jeeeyul.pdetools.icg.propertyPage"
             name="Image Constants Generator">
          <enabledWhen>
@@ -104,9 +104,27 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            class="net.jeeeyul.pdetools.icg.model.imageResource.ImageResourcePackage"
-            uri="http://jeeeyul.net/pde-tools/icg/ir">
+            class="net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage"
+            uri="http://jeeeyul.net/pde-tools/icg/palette">
       </package>
+   </extension>
+   <extension
+         id="net.jeeeyul.pdetools.icg.problemmarker"
+         name="ICG Problem Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="net.jeeeyul.pdetools.icg.builder.ResolutionProvider"
+            markerType="net.jeeeyul.pdetools.icg.problemmarker">
+      </markerResolutionGenerator>
    </extension>
 
 </plugin>

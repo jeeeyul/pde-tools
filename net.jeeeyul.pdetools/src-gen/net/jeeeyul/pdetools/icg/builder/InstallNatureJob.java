@@ -2,8 +2,8 @@ package net.jeeeyul.pdetools.icg.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.jeeeyul.pdetools.icg.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.ICGConstants;
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.ui.OpenICGPropertyJob;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;

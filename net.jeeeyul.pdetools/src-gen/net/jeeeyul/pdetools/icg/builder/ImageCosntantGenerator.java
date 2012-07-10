@@ -1,12 +1,14 @@
 package net.jeeeyul.pdetools.icg.builder;
 
-import net.jeeeyul.pdetools.icg.ICGConfiguration;
+import net.jeeeyul.pdetools.icg.builder.ImagePreviewGenerator;
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Functions.Function0;
 
 @SuppressWarnings("all")
 public class ImageCosntantGenerator {
@@ -30,6 +32,13 @@ public class ImageCosntantGenerator {
     this._rootPalette = rootPalette;
   }
   
+  private final ImagePreviewGenerator previewGenerator = new Function0<ImagePreviewGenerator>() {
+    public ImagePreviewGenerator apply() {
+      ImagePreviewGenerator _imagePreviewGenerator = new ImagePreviewGenerator();
+      return _imagePreviewGenerator;
+    }
+  }.apply();
+  
   public CharSequence generate() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
@@ -38,6 +47,19 @@ public class ImageCosntantGenerator {
     _builder.append(_generatePackageName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("import java.net.URL;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.core.runtime.Platform;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.jface.resource.ImageRegistry;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.swt.graphics.Image;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.ui.ISharedImages;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.ui.PlatformUI;");
+    _builder.newLine();
     _builder.newLine();
     _builder.append("/*");
     _builder.newLine();
@@ -56,23 +78,106 @@ public class ImageCosntantGenerator {
     {
       Palette _rootPalette = this.getRootPalette();
       EList<Palette> _subPalettes = _rootPalette.getSubPalettes();
+      boolean _hasElements = false;
       for(final Palette eachPalette : _subPalettes) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          String _property = System.getProperty("line.separator");
+          _builder.appendImmediate(_property, "	");
+        }
         _builder.append("\t");
         CharSequence _generateSubPalette = this.generateSubPalette(eachPalette);
         _builder.append(_generateSubPalette, "	");
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("\t");
+    _builder.newLine();
     {
       Palette _rootPalette_1 = this.getRootPalette();
       EList<ImageFile> _imageFiles = _rootPalette_1.getImageFiles();
+      boolean _hasElements_1 = false;
       for(final ImageFile eachFile : _imageFiles) {
+        if (!_hasElements_1) {
+          _hasElements_1 = true;
+        } else {
+          String _property_1 = System.getProperty("line.separator");
+          _builder.appendImmediate(_property_1, "	");
+        }
         _builder.append("\t");
         CharSequence _generateField = this.generateField(eachFile);
         _builder.append(_generateField, "	");
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("private static final ImageRegistry registry = new ImageRegistry();");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public static Image getImage(String key){");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("Image result = registry.get(key);");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if(result == null){");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("result = loadImage(key);");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("registry.put(key, result);");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("return result;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("private static Image loadImage(String key) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("URL resource = Platform.getBundle(\"");
+    ICGConfiguration _config_2 = this.getConfig();
+    String _bundleId = _config_2.getBundleId();
+    _builder.append(_bundleId, "			");
+    _builder.append("\").getResource(key);");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    _builder.append("Image image = new Image(null, resource.openStream());");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return image;");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} catch (Exception e) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("e.printStackTrace();");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK);");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -101,14 +206,32 @@ public class ImageCosntantGenerator {
   
   private CharSequence generateField(final ImageFile file) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* ");
+    IFile _file = file.getFile();
+    String _generate = this.previewGenerator.generate(_file);
+    _builder.append(_generate, " ");
+    _builder.newLineIfNotEmpty();
+    _builder.append(" ");
+    _builder.append("* Image constant for ");
+    IFile _file_1 = file.getFile();
+    IPath _projectRelativePath = _file_1.getProjectRelativePath();
+    String _portableString = _projectRelativePath.toPortableString();
+    _builder.append(_portableString, " ");
+    _builder.newLineIfNotEmpty();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append("public static final String ");
     String _fieldName = file.getFieldName();
     _builder.append(_fieldName, "");
     _builder.append(" = \"");
-    IFile _file = file.getFile();
-    IPath _projectRelativePath = _file.getProjectRelativePath();
-    String _portableString = _projectRelativePath.toPortableString();
-    _builder.append(_portableString, "");
+    IFile _file_2 = file.getFile();
+    IPath _projectRelativePath_1 = _file_2.getProjectRelativePath();
+    String _portableString_1 = _projectRelativePath_1.toPortableString();
+    _builder.append(_portableString_1, "");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     return _builder;
