@@ -5,7 +5,7 @@ import org.eclipse.ui.IMarkerResolution
 import org.eclipse.core.resources.IMarker
 
 class ResolutionProvider implements IMarkerResolutionGenerator {
-	def IMarkerResolution[ ] getResolutions(IMarker marker) {
-		return null
+	override IMarkerResolution[] getResolutions(IMarker marker) {
+		return emptyList
 	}
 }

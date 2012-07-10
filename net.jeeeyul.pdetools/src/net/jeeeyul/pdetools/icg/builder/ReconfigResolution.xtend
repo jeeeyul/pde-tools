@@ -8,6 +8,7 @@ class ReconfigResolution implements IMarkerResolution {
 		"Config ICG Settings"
 	}
 
-	def void run(IMarker marker) {
+	override void run(IMarker marker) {
+		
 	}
 }
