@@ -221,8 +221,8 @@ public class PaletteModelGenerator {
             }
           };
         List<IResource> _sort = IterableExtensions.<IResource>sort(list, new Comparator<IResource>() {
-            public int compare(IResource arg0,IResource arg1) {
-              return _function_1.apply(arg0,arg1);
+            public int compare(IResource o1,IResource o2) {
+              return _function_1.apply(o1,o2);
             }
         });
         _xblockexpression = (_sort);

@@ -11,20 +11,32 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
 import java.util.HashMap
 import org.eclipse.emf.ecore.util.EcoreUtil
+import com.google.inject.Inject
 
 class Building {
-	int kind
 	extension ResourceExtensions = new ResourceExtensions()
+	
+	@Inject
+	extension BuildValidator
+	
+	@Inject
 	extension IncrementalProjectBuilder builder
-	ICGConfiguration _config
-
-	new(IncrementalProjectBuilder builder, int kind) {
-		this.builder = builder
-		this.kind = kind
-	}
-
+	
+	@Inject
+	extension BuildErrorAcceptor
+	
+	@Inject
+	extension ResourceDeltaDetector
+	
+	@Inject
+	ICGConfiguration config
+		
 	def IProject[ ] build(IProgressMonitor monitor) {
-		if(!hasToBuild) {
+		validate()
+		cleanMarkers()
+		generateMarkers()
+
+		if(!canBuild || !hasResourceDelta) {
 			return emptyList
 		}
 		config.ouputFile.parent.ensureExist()
@@ -48,39 +60,12 @@ class Building {
 		
 		return newArrayList(project)
 	}
-
-	def ICGConfiguration getConfig() {
-		if(_config == null) {
-			_config = new ICGConfiguration(project)
+	
+	def boolean isNullOrBlank(String src){
+		if(src == null){
+			return true
+		}else{
+			return src.trim.empty
 		}
-		return _config
-	}
-
-	def hasToBuild() {
-		var monitoringFolder = config.monitoringFolder
-		
-		if(kind != IncrementalProjectBuilder::CLEAN_BUILD && kind != IncrementalProjectBuilder::FULL_BUILD) {
-			var projectDelta = project.delta
-			if(projectDelta == null) {
-				return false;
-			}
-			
-			if(monitoringFolder == null) {
-				return false
-			}
-			if(!monitoringFolder.exists) {
-				return false;
-			}
-			var monitoredDelta = projectDelta.findMember(config.monitoringFolder.projectRelativePath)
-			if(monitoredDelta == null) {
-				return false;
-			}
-		}
-		
-		if(!monitoringFolder.exists){
-			return false
-		}
-		
-		return true;
 	}
 }

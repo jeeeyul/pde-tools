@@ -18,3 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/aopalliance.jar,
+ lib/guice-3.0.jar,
+ lib/javax.inject.jar,
+ .

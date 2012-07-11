@@ -87,7 +87,8 @@ class ICGConfiguration {
 	}
 
 	def private getFolder(IPreferenceStore store, String key) {
-		var value = store.getString(key); if(value.nullOrEmpty) {
+		var value = store.getString(key)
+		if(value.nullOrEmpty) {
 			return null;
 		}
 		project.getFolder(value)
