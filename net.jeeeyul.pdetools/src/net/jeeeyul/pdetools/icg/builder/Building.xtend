@@ -8,7 +8,6 @@ import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
 import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator
 import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart
 import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart
-import net.jeeeyul.pdetools.icg.builder.parts.ValidationPart
 import net.jeeeyul.pdetools.shared.ResourceExtensions
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IncrementalProjectBuilder
@@ -17,9 +16,6 @@ import org.eclipse.core.runtime.NullProgressMonitor
 
 class Building {
 	extension ResourceExtensions = new ResourceExtensions()
-	
-	@Inject
-	extension ValidationPart
 	
 	@Inject
 	extension IncrementalProjectBuilder builder

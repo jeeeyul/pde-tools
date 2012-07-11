@@ -8,4 +8,5 @@ class BuildError {
 	@Property boolean fatal
 	@Property String message
 	@Property IResource relatedResource
+	@Property int lineNumber =-1
 }

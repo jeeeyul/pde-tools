@@ -21,7 +21,7 @@ type Folder wraps IFolder create
 	ResourcesPlugin::workspace.root.getFolder(new Path(it))
 }
 convert
-{ 
+{
 	it.fullPath.toPortableString
 }
 

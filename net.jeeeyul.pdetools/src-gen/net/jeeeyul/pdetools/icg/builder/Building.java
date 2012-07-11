@@ -10,7 +10,6 @@ import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart;
 import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator;
 import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart;
 import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart;
-import net.jeeeyul.pdetools.icg.builder.parts.ValidationPart;
 import net.jeeeyul.pdetools.shared.ResourceExtensions;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -35,9 +34,6 @@ public class Building {
   }.apply();
   
   @Inject
-  private ValidationPart _validationPart;
-  
-  @Inject
   private IncrementalProjectBuilder builder;
   
   @Inject
@@ -58,7 +54,7 @@ public class Building {
   public IProject[] build(final IProgressMonitor monitor) {
     try {
       monitor.beginTask("ICG Build", IProgressMonitor.UNKNOWN);
-      this._validationPart.validate();
+      this._errorPart.validate();
       this._errorPart.cleanMarkers();
       this._errorPart.generateMarkers();
       boolean _or = false;

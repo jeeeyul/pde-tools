@@ -8,9 +8,18 @@ import org.eclipse.core.resources.IResource
 import net.jeeeyul.pdetools.icg.ICGConstants
 import org.eclipse.core.resources.IMarker
 import com.google.inject.Singleton
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import org.eclipse.ui.part.FileEditorInput
+import org.eclipse.ui.texteditor.DocumentProviderRegistry
+import org.eclipse.ui.texteditor.IDocumentProvider
+import org.eclipse.pde.internal.core.text.build.BuildModel
+import org.eclipse.pde.internal.core.text.IDocumentKey
 
 @Singleton
 class ErrorPart {
+	@Inject
+	ICGConfiguration config
+	
 	@Inject
 	IProject project
 	
@@ -31,7 +40,7 @@ class ErrorPart {
 	}
 	
 	/**
-	 * ºôµå °¡´É ¿©ºÎ¸¦ ¸®ÅÏÇÑ´Ù.
+	 * ë¹Œë“œ ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ë¦¬í„´í•œë‹¤.
 	 */
 	def canBuild(){
 		errors.filter[fatal == true].size == 0
@@ -51,6 +60,9 @@ class ErrorPart {
 				if(e.type != null){
 					setAttribute(ICGConstants::BUILD_ERROR_TYPE_MARKER_ATTRIBUTE, e.type)
 				}
+				if(e.lineNumber >= 0){
+					setAttribute(IMarker::LINE_NUMBER, e.lineNumber)
+				}
 			]
 		}
 	}
@@ -65,6 +77,89 @@ class ErrorPart {
 			IMarker::SEVERITY_ERROR
 		}else{
 			IMarker::SEVERITY_WARNING
+		}
+	}
+	
+	def void validate(){
+		if(config.monitoringFolder == null){
+			error[
+				fatal = true
+				message = "Monitoring Folder is not set"
+			];
+		}
+		
+		else if(!config.monitoringFolder.exists){
+			error[
+				fatal = true
+				message = '''Monitoring Folder(Â«config.monitoringFolder.fullPath.toPortableStringÂ») not exists'''
+				type = "monitor-folder-not-exists"
+			]
+		}
+		
+		else{
+			var buildFile = project.getFile("build.properties")
+			var input = new FileEditorInput(buildFile);
+			var IDocumentProvider provider = DocumentProviderRegistry::getDefault().getDocumentProvider(new FileEditorInput(buildFile)) as IDocumentProvider
+			
+			provider.connect(input)
+			val doc = provider.getDocument(input)
+			
+			val buildModel = new BuildModel(doc, true)
+			buildModel.load()
+			
+			val binaryBuildEntry = buildModel.build.buildEntries.findFirst[it.name == "bin.includes"]
+			
+			if(!binaryBuildEntry.contains(config.monitoringFolder.projectRelativePath.toPortableString+"/")){
+				error[
+					fatal = false
+					message = '''Monitoring Folder(Â«config.monitoringFolder.fullPath.toPortableStringÂ») is not included to binary build entry'''
+					relatedResource = project.getFile("build.properties")
+					lineNumber = doc.getLineOfOffset((binaryBuildEntry as IDocumentKey).offset)
+					type = "missing-build-entry"
+				]
+				
+				buildModel.dispose()
+				
+			}
+			
+			provider.disconnect(input)
+			
+		}
+		
+		if(config.generatePackageName.nullOrBlank){
+			error[
+				fatal = true
+				message = "package to generate is not setted"
+			]
+		}
+		
+		if(config.generateClassName.nullOrBlank){
+			error[
+				fatal = true
+				message = "class name to generate is not setted"
+			]
+		}
+		
+		if(config.generateSrcFolder == null){
+			error[
+				fatal = true
+				message = "Source folder to generate is not setted"
+			]
+		}
+		
+		if(config.imageFileExtensions == null || config.imageFileExtensions.size == 0){
+			error[
+				fatal = false
+				message = "No image file extensions are setted"
+			]
+		}
+	}
+	
+	def boolean isNullOrBlank(String src){
+		if(src == null){
+			return true
+		}else{
+			return src.trim.empty
 		}
 	}
 }

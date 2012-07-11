@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.xtext.xbase.lib.Functions.Function0;
 
 @SuppressWarnings("all")
 public class BuildError {
@@ -42,5 +43,20 @@ public class BuildError {
   
   public void setRelatedResource(final IResource relatedResource) {
     this._relatedResource = relatedResource;
+  }
+  
+  private int _lineNumber = new Function0<Integer>() {
+    public Integer apply() {
+      int _minus = (-1);
+      return _minus;
+    }
+  }.apply();
+  
+  public int getLineNumber() {
+    return this._lineNumber;
+  }
+  
+  public void setLineNumber(final int lineNumber) {
+    this._lineNumber = lineNumber;
   }
 }
