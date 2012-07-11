@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder
+package net.jeeeyul.pdetools.icg.builder.parts
 
 import java.util.List
 import net.jeeeyul.pdetools.icg.builder.model.BuildError
@@ -10,7 +10,7 @@ import org.eclipse.core.resources.IMarker
 import com.google.inject.Singleton
 
 @Singleton
-class BuildErrorAcceptor {
+class ErrorPart {
 	@Inject
 	IProject project
 	
@@ -30,6 +30,9 @@ class BuildErrorAcceptor {
 		error(error)
 	}
 	
+	/**
+	 * 빌드 가능 여부를 리턴한다.
+	 */
 	def canBuild(){
 		errors.filter[fatal == true].size == 0
 	}

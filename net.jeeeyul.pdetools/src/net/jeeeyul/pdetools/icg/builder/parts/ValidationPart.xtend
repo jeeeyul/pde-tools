@@ -1,14 +1,15 @@
-package net.jeeeyul.pdetools.icg.builder
+package net.jeeeyul.pdetools.icg.builder.parts
 
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import com.google.inject.Inject
+import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
 
-class BuildValidator {
+class ValidationPart {
 	@Inject
 	ICGConfiguration config
 	
 	@Inject
-	extension BuildErrorAcceptor
+	extension ErrorPart
 	
 	def void validate(){
 		if(config.monitoringFolder == null){

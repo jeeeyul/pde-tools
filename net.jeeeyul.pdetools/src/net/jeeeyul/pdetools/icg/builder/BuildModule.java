@@ -5,6 +5,8 @@ import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -46,6 +48,12 @@ public class BuildModule extends AbstractModule {
 		buildContext.setBuilder(builder);
 		buildContext.setBuildKind(buildKind);
 		return buildContext;
+	}
+	
+	@Provides
+	@Singleton
+	public IJavaProject provideJavaProject(){
+		return JavaCore.create(builder.getProject());
 	}
 
 }

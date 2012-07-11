@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.parts;
 
 import java.util.List;
 import net.jeeeyul.pdetools.shared.Base64Coder;

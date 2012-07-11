@@ -1,22 +1,22 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.parts;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.util.List;
-import net.jeeeyul.pdetools.icg.builder.BuildErrorAcceptor;
 import net.jeeeyul.pdetools.icg.builder.model.BuildError;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
+import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
-public class BuildValidator {
+public class ValidationPart {
   @Inject
   private ICGConfiguration config;
   
   @Inject
-  private BuildErrorAcceptor _buildErrorAcceptor;
+  private ErrorPart _errorPart;
   
   public void validate() {
     IFolder _monitoringFolder = this.config.getMonitoringFolder();
@@ -28,7 +28,7 @@ public class BuildValidator {
             it.setMessage("Monitoring Folder is not set");
           }
         };
-      this._buildErrorAcceptor.error(_function);
+      this._errorPart.error(_function);
     } else {
       IFolder _monitoringFolder_1 = this.config.getMonitoringFolder();
       boolean _exists = _monitoringFolder_1.exists();
@@ -41,7 +41,7 @@ public class BuildValidator {
               it.setType("monitor-folder-not-exists");
             }
           };
-        this._buildErrorAcceptor.error(_function_1);
+        this._errorPart.error(_function_1);
       }
     }
     String _generatePackageName = this.config.getGeneratePackageName();
@@ -53,7 +53,7 @@ public class BuildValidator {
             it.setMessage("package to generate is not setted");
           }
         };
-      this._buildErrorAcceptor.error(_function_2);
+      this._errorPart.error(_function_2);
     }
     String _generateClassName = this.config.getGenerateClassName();
     boolean _isNullOrBlank_1 = this.isNullOrBlank(_generateClassName);
@@ -64,7 +64,7 @@ public class BuildValidator {
             it.setMessage("class name to generate is not setted");
           }
         };
-      this._buildErrorAcceptor.error(_function_3);
+      this._errorPart.error(_function_3);
     }
     IFolder _generateSrcFolder = this.config.getGenerateSrcFolder();
     boolean _equals_1 = Objects.equal(_generateSrcFolder, null);
@@ -75,7 +75,7 @@ public class BuildValidator {
             it.setMessage("Source folder to generate is not setted");
           }
         };
-      this._buildErrorAcceptor.error(_function_4);
+      this._errorPart.error(_function_4);
     }
     boolean _or = false;
     String[] _imageFileExtensions = this.config.getImageFileExtensions();
@@ -95,7 +95,7 @@ public class BuildValidator {
             it.setMessage("No image file extensions are setted");
           }
         };
-      this._buildErrorAcceptor.error(_function_5);
+      this._errorPart.error(_function_5);
     }
   }
   

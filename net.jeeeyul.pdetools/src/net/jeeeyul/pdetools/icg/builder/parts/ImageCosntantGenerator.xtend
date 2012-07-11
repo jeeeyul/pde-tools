@@ -1,16 +1,17 @@
-package net.jeeeyul.pdetools.icg.builder
+package net.jeeeyul.pdetools.icg.builder.parts
 
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
-import org.eclipse.xtend.lib.Property
-import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import com.google.inject.Inject
 
 class ImageCosntantGenerator {
-	@Property ICGConfiguration config ;
-	@Property Palette rootPalette
+	@Inject
+	ICGConfiguration config ;
+	
 	val ImagePreviewGenerator previewGenerator = new ImagePreviewGenerator()
 
-	def generate() '''
+	def generateJavaSource(Palette rootPalette) '''
 		// Copyright 2012 Jeeeyul Lee, Seoul, Korea
 		// https://github.com/jeeeyul/pde-tools
 		//
@@ -88,7 +89,7 @@ class ImageCosntantGenerator {
 		public static final String « file.fieldName » = "« file.file.projectRelativePath.toPortableString »";
 	'''
 	
-	def lineSeparator(){
+	def private lineSeparator(){
 		System::getProperty("line.separator") 
 	}
 	

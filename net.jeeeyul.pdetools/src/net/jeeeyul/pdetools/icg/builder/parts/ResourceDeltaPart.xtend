@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder
+package net.jeeeyul.pdetools.icg.builder.parts
 
 import com.google.inject.Inject
 import net.jeeeyul.pdetools.icg.builder.model.BuildContext
@@ -7,7 +7,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder
 import com.google.inject.Singleton
 
 @Singleton
-class ResourceDeltaDetector {
+class ResourceDeltaPart {
 	@Inject
 	extension IncrementalProjectBuilder builder
 	

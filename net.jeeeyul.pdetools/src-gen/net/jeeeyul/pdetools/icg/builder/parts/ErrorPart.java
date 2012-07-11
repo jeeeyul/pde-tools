@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.parts;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
@@ -21,7 +21,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @Singleton
 @SuppressWarnings("all")
-public class BuildErrorAcceptor {
+public class ErrorPart {
   @Inject
   private IProject project;
   
@@ -53,6 +53,9 @@ public class BuildErrorAcceptor {
     return _xblockexpression;
   }
   
+  /**
+   * 빌드 가능 여부를 리턴한다.
+   */
   public boolean canBuild() {
     final Function1<BuildError,Boolean> _function = new Function1<BuildError,Boolean>() {
         public Boolean apply(final BuildError it) {
@@ -76,7 +79,7 @@ public class BuildErrorAcceptor {
               try {
                 String _message = e.getMessage();
                 it.setAttribute(IMarker.MESSAGE, _message);
-                int _markerSeverity = BuildErrorAcceptor.this.markerSeverity(e);
+                int _markerSeverity = ErrorPart.this.markerSeverity(e);
                 it.setAttribute(IMarker.SEVERITY, _markerSeverity);
                 it.setAttribute(IMarker.LOCATION, "ICG Configuration");
                 String _type = it.getType();

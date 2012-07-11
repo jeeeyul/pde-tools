@@ -10,6 +10,7 @@ import org.eclipse.ui.IMarkerResolutionGenerator
 import org.eclipse.ui.PlatformUI
 import org.eclipse.ui.ide.undo.CreateFolderOperation
 import org.eclipse.core.runtime.NullProgressMonitor
+import net.jeeeyul.pdetools.icg.builder.model.Resolution
 
 class ResolutionProvider implements IMarkerResolutionGenerator {
 	override IMarkerResolution[] getResolutions(IMarker marker) {

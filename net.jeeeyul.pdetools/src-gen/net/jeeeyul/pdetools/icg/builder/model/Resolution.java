@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.model;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.ui.IMarkerResolution;

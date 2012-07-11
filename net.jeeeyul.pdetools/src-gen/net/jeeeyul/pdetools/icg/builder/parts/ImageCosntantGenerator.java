@@ -1,9 +1,10 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.parts;
 
-import net.jeeeyul.pdetools.icg.builder.ImagePreviewGenerator;
+import com.google.inject.Inject;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.parts.ImagePreviewGenerator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
@@ -12,25 +13,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function0;
 
 @SuppressWarnings("all")
 public class ImageCosntantGenerator {
-  private ICGConfiguration _config;
-  
-  public ICGConfiguration getConfig() {
-    return this._config;
-  }
-  
-  public void setConfig(final ICGConfiguration config) {
-    this._config = config;
-  }
-  
-  private Palette _rootPalette;
-  
-  public Palette getRootPalette() {
-    return this._rootPalette;
-  }
-  
-  public void setRootPalette(final Palette rootPalette) {
-    this._rootPalette = rootPalette;
-  }
+  @Inject
+  private ICGConfiguration config;
   
   private final ImagePreviewGenerator previewGenerator = new Function0<ImagePreviewGenerator>() {
     public ImagePreviewGenerator apply() {
@@ -39,7 +23,7 @@ public class ImageCosntantGenerator {
     }
   }.apply();
   
-  public CharSequence generate() {
+  public CharSequence generateJavaSource(final Palette rootPalette) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Copyright 2012 Jeeeyul Lee, Seoul, Korea");
     _builder.newLine();
@@ -72,8 +56,7 @@ public class ImageCosntantGenerator {
     _builder.append("// This module is provided \"as is\", without warranties of any kind.");
     _builder.newLine();
     _builder.append("package ");
-    ICGConfiguration _config = this.getConfig();
-    String _generatePackageName = _config.getGeneratePackageName();
+    String _generatePackageName = this.config.getGeneratePackageName();
     _builder.append(_generatePackageName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
@@ -100,14 +83,12 @@ public class ImageCosntantGenerator {
     _builder.append("*/");
     _builder.newLine();
     _builder.append("public class ");
-    ICGConfiguration _config_1 = this.getConfig();
-    String _generateClassName = _config_1.getGenerateClassName();
+    String _generateClassName = this.config.getGenerateClassName();
     _builder.append(_generateClassName, "");
     _builder.append("{");
     _builder.newLineIfNotEmpty();
     {
-      Palette _rootPalette = this.getRootPalette();
-      EList<Palette> _subPalettes = _rootPalette.getSubPalettes();
+      EList<Palette> _subPalettes = rootPalette.getSubPalettes();
       boolean _hasElements = false;
       for(final Palette eachPalette : _subPalettes) {
         if (!_hasElements) {
@@ -125,8 +106,7 @@ public class ImageCosntantGenerator {
     _builder.append("\t");
     _builder.newLine();
     {
-      Palette _rootPalette_1 = this.getRootPalette();
-      EList<ImageFile> _imageFiles = _rootPalette_1.getImageFiles();
+      EList<ImageFile> _imageFiles = rootPalette.getImageFiles();
       boolean _hasElements_1 = false;
       for(final ImageFile eachFile : _imageFiles) {
         if (!_hasElements_1) {
@@ -180,8 +160,7 @@ public class ImageCosntantGenerator {
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("URL resource = Platform.getBundle(\"");
-    ICGConfiguration _config_2 = this.getConfig();
-    String _bundleId = _config_2.getBundleId();
+    String _bundleId = this.config.getBundleId();
     _builder.append(_bundleId, "			");
     _builder.append("\").getResource(key);");
     _builder.newLineIfNotEmpty();
@@ -244,8 +223,7 @@ public class ImageCosntantGenerator {
     _builder.append("/**");
     _builder.newLine();
     {
-      ICGConfiguration _config = this.getConfig();
-      boolean _isGenerateImagePreview = _config.isGenerateImagePreview();
+      boolean _isGenerateImagePreview = this.config.isGenerateImagePreview();
       if (_isGenerateImagePreview) {
         _builder.append(" ", "");
         _builder.append("* ");
@@ -278,7 +256,7 @@ public class ImageCosntantGenerator {
     return _builder;
   }
   
-  public String lineSeparator() {
+  private String lineSeparator() {
     String _property = System.getProperty("line.separator");
     return _property;
   }

@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder
+package net.jeeeyul.pdetools.icg.builder.parts
 
 import net.jeeeyul.pdetools.shared.Base64Coder
 import net.jeeeyul.pdetools.shared.ResourceExtensions

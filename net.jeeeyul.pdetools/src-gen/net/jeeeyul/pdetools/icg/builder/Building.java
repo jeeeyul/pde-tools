@@ -4,13 +4,14 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
-import net.jeeeyul.pdetools.icg.builder.BuildErrorAcceptor;
-import net.jeeeyul.pdetools.icg.builder.BuildValidator;
-import net.jeeeyul.pdetools.icg.builder.ImageCosntantGenerator;
-import net.jeeeyul.pdetools.icg.builder.ResourceDeltaDetector;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
+import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart;
+import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator;
+import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart;
+import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart;
+import net.jeeeyul.pdetools.icg.builder.parts.ValidationPart;
 import net.jeeeyul.pdetools.shared.ResourceExtensions;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -38,55 +39,55 @@ public class Building {
   }.apply();
   
   @Inject
-  private BuildValidator _buildValidator;
+  private ValidationPart _validationPart;
   
   @Inject
   private IncrementalProjectBuilder builder;
   
   @Inject
-  private BuildErrorAcceptor _buildErrorAcceptor;
+  private ErrorPart _errorPart;
   
   @Inject
-  private ResourceDeltaDetector _resourceDeltaDetector;
+  private ResourceDeltaPart _resourceDeltaPart;
+  
+  @Inject
+  private ImageCosntantGenerator _imageCosntantGenerator;
   
   @Inject
   private ICGConfiguration config;
   
+  @Inject
+  private JavaProjectPart _javaProjectPart;
+  
   public IProject[] build(final IProgressMonitor monitor) {
     try {
-      this._buildValidator.validate();
-      this._buildErrorAcceptor.cleanMarkers();
-      this._buildErrorAcceptor.generateMarkers();
+      this._validationPart.validate();
+      this._errorPart.cleanMarkers();
+      this._errorPart.generateMarkers();
       boolean _or = false;
-      boolean _canBuild = this._buildErrorAcceptor.canBuild();
+      boolean _canBuild = this._errorPart.canBuild();
       boolean _not = (!_canBuild);
       if (_not) {
         _or = true;
       } else {
-        boolean _hasResourceDelta = this._resourceDeltaDetector.hasResourceDelta();
+        boolean _hasResourceDelta = this._resourceDeltaPart.hasResourceDelta();
         boolean _not_1 = (!_hasResourceDelta);
         _or = (_not || _not_1);
       }
       if (_or) {
         return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>emptyList(), IProject.class));
       }
-      IFile _ouputFile = this.config.getOuputFile();
-      IContainer _parent = _ouputFile.getParent();
-      this._resourceExtensions.ensureExist(_parent);
+      this._javaProjectPart.ensureJavaSourceFolder();
       PaletteModelGenerator _paletteModelGenerator = new PaletteModelGenerator(this.config);
       PaletteModelGenerator pmg = _paletteModelGenerator;
       IFolder _monitoringFolder = this.config.getMonitoringFolder();
       Palette paletteModel = pmg.generatePalette(_monitoringFolder);
-      ImageCosntantGenerator _imageCosntantGenerator = new ImageCosntantGenerator();
-      ImageCosntantGenerator generator = _imageCosntantGenerator;
-      generator.setConfig(this.config);
-      generator.setRootPalette(paletteModel);
-      IFile _ouputFile_1 = this.config.getOuputFile();
-      boolean _exists = _ouputFile_1.exists();
+      IFile _ouputFile = this.config.getOuputFile();
+      boolean _exists = _ouputFile.exists();
       if (_exists) {
-        IFile _ouputFile_2 = this.config.getOuputFile();
+        IFile _ouputFile_1 = this.config.getOuputFile();
         NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-        _ouputFile_2.delete(true, _nullProgressMonitor);
+        _ouputFile_1.delete(true, _nullProgressMonitor);
       }
       XMLResourceImpl _xMLResourceImpl = new XMLResourceImpl();
       XMLResourceImpl serializer = _xMLResourceImpl;
@@ -95,11 +96,14 @@ public class Building {
       _contents.add(_copy);
       HashMap<Object,Object> _hashMap = new HashMap<Object,Object>();
       serializer.save(System.out, _hashMap);
-      CharSequence _generate = generator.generate();
-      String _string = _generate.toString();
+      CharSequence _generateJavaSource = this._imageCosntantGenerator.generateJavaSource(paletteModel);
+      String _string = _generateJavaSource.toString();
       byte[] _bytes = _string.getBytes();
       ByteArrayInputStream _byteArrayInputStream = new ByteArrayInputStream(_bytes);
       ByteArrayInputStream stream = _byteArrayInputStream;
+      IFile _ouputFile_2 = this.config.getOuputFile();
+      IContainer _parent = _ouputFile_2.getParent();
+      this._resourceExtensions.ensureExist(_parent);
       IFile _ouputFile_3 = this.config.getOuputFile();
       NullProgressMonitor _nullProgressMonitor_1 = new NullProgressMonitor();
       _ouputFile_3.create(stream, true, _nullProgressMonitor_1);

@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder;
+package net.jeeeyul.pdetools.icg.builder.parts;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.IPath;
 
 @Singleton
 @SuppressWarnings("all")
-public class ResourceDeltaDetector {
+public class ResourceDeltaPart {
   @Inject
   private IncrementalProjectBuilder builder;
   
