@@ -1,22 +1,19 @@
 package net.jeeeyul.pdetools.icg.builder
 
+import com.google.inject.Inject
 import java.io.ByteArrayInputStream
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
+import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
+import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator
+import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart
+import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart
+import net.jeeeyul.pdetools.icg.builder.parts.ValidationPart
 import net.jeeeyul.pdetools.shared.ResourceExtensions
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
-import java.util.HashMap
-import org.eclipse.emf.ecore.util.EcoreUtil
-import com.google.inject.Inject
-import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
-import net.jeeeyul.pdetools.icg.builder.parts.ValidationPart
-import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart
-import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator
-import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart
 
 class Building {
 	extension ResourceExtensions = new ResourceExtensions()
@@ -43,6 +40,8 @@ class Building {
 	extension JavaProjectPart
 	
 	def IProject[ ] build(IProgressMonitor monitor) {
+		monitor.beginTask("ICG Build", IProgressMonitor::UNKNOWN);
+		
 		// 빌드 설정및 구성을 검사한다.
 		validate()
 		
@@ -52,6 +51,8 @@ class Building {
 
 		// 빌드 할 필요가 없거나, 빌드가 불가능하면 종료한다.
 		if(!canBuild() || !hasResourceDelta()) {
+			monitor.done()
+			println("빌드 취소")
 			return emptyList
 		}
 		
@@ -60,21 +61,18 @@ class Building {
 		
 		var pmg = new PaletteModelGenerator(config)
 		var paletteModel = pmg.generatePalette(config.monitoringFolder)
+		
 		if(config.ouputFile.exists) {
 			config.ouputFile.delete(true, new NullProgressMonitor())
 		}
 		
-		var serializer = new XMLResourceImpl()
-		serializer.contents += EcoreUtil::copy(paletteModel)
-		serializer.save(System::out, new HashMap)
-		
 		var stream = new ByteArrayInputStream(paletteModel.generateJavaSource().toString.bytes)
-		
 		config.ouputFile.parent.ensureExist()
 		config.ouputFile.create(stream, true, new NullProgressMonitor())
 		stream.close()
 		config.ouputFile.derived = config.markDerived
 		
+		monitor.done()
 		return newArrayList(project)
 	}
 	

@@ -39,11 +39,16 @@ class ErrorPart {
 	
 	def generateMarkers(){
 		for(e : errors){
-			project.createMarker(ICGConstants::PROBLEM_MARKER_TYPE) =>[
+			var resource = project as IResource
+			if(e.relatedResource != null){
+				resource = e.relatedResource
+			}
+			
+			resource.createMarker(ICGConstants::PROBLEM_MARKER_TYPE) =>[
 				setAttribute(IMarker::MESSAGE, e.message)
 				setAttribute(IMarker::SEVERITY, e.markerSeverity)
 				setAttribute(IMarker::LOCATION, "ICG Configuration")
-				if(type != null){
+				if(e.type != null){
 					setAttribute(ICGConstants::BUILD_ERROR_TYPE_MARKER_ATTRIBUTE, e.type)
 				}
 			]

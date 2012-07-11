@@ -1,12 +1,15 @@
 package net.jeeeyul.pdetools.icg.builder.parts
 
-import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import com.google.inject.Inject
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import net.jeeeyul.pdetools.shared.ResourceExtensions
+import org.eclipse.core.resources.IProject
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.jdt.core.IJavaProject
 import org.eclipse.jdt.core.JavaCore
-import org.eclipse.core.runtime.NullProgressMonitor
-import net.jeeeyul.pdetools.shared.ResourceExtensions
-import org.eclipse.jdt.core.IPackageFragmentRoot
+import org.eclipse.pde.core.IEditableModel
+import org.eclipse.pde.core.plugin.PluginRegistry
+import org.eclipse.pde.internal.core.build.WorkspaceBuildModel
 
 class JavaProjectPart {
 	@Inject
@@ -18,6 +21,9 @@ class JavaProjectPart {
 	@Inject
 	IJavaProject javaProject
 	
+	@Inject
+	IProject project
+	
 	/**
 	 * 결과 자바 소스가 생성될 소스폴더를 만들고, 자바 소스 폴더로 빌드 패스에 등록한다.
 	 * 이미 존재하고, 이미 등록되어 있으면 아무일도 하지 않는다.
@@ -27,8 +33,7 @@ class JavaProjectPart {
 		config.generateSrcFolder.ensureExist()
 		
 		// 소스 폴더가 이미 자바 프로젝트에 소스 폴더로 등록되어 있는지 확인한다.
-		var javaElement = javaProject.findElement(config.generateSrcFolder.projectRelativePath)
-		var isAlreadJavaSoruceFolder = javaElement instanceof IPackageFragmentRoot
+		var isAlreadJavaSoruceFolder = javaProject.rawClasspath.exists[it.path == config.generateSrcFolder.fullPath]
 		
 		// 자바 소스 폴더가 아닌경우, 자바 소스 폴더로 등록한다.
 		if(!isAlreadJavaSoruceFolder){
@@ -36,6 +41,17 @@ class JavaProjectPart {
 			rawClasspathes += JavaCore::newSourceEntry(config.generateSrcFolder.fullPath)
 			javaProject.setRawClasspath(rawClasspathes, new NullProgressMonitor)
 		}
+		
+		var model = PluginRegistry::findModel(project)
+		var buildModel = PluginRegistry::createBuildModel(model) as WorkspaceBuildModel
+		var entry = buildModel.build.buildEntries.findFirst[it.name == "source.."]
+		
+		var srcPath = config.generateSrcFolder.projectRelativePath.toPortableString + "/"
+		if(!entry.contains(srcPath)){
+			entry.addToken(srcPath)
+			(buildModel as IEditableModel).save()
+		}
+		buildModel.dispose()
 	}
 		
 }

@@ -1,5 +1,7 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
+import org.eclipse.core.resources.IResource;
+
 @SuppressWarnings("all")
 public class BuildError {
   private String _type;
@@ -30,5 +32,15 @@ public class BuildError {
   
   public void setMessage(final String message) {
     this._message = message;
+  }
+  
+  private IResource _relatedResource;
+  
+  public IResource getRelatedResource() {
+    return this._relatedResource;
+  }
+  
+  public void setRelatedResource(final IResource relatedResource) {
+    this._relatedResource = relatedResource;
   }
 }

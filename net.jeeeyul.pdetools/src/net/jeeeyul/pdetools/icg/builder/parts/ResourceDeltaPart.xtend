@@ -5,9 +5,22 @@ import net.jeeeyul.pdetools.icg.builder.model.BuildContext
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import com.google.inject.Singleton
+import java.util.List
+import org.eclipse.core.runtime.IPath
+import org.eclipse.core.runtime.Path
 
 @Singleton
 class ResourceDeltaPart {
+	
+	def private List<IPath> affectPathList(){
+		val List<IPath> affectPathes = newArrayList();
+		
+		affectPathes += new Path(".settings/net.jeeeyul.pdetools.icg.prefs")
+		affectPathes += config.monitoringFolder.projectRelativePath
+		
+		return affectPathes
+	}
+	
 	@Inject
 	extension IncrementalProjectBuilder builder
 	
@@ -18,30 +31,22 @@ class ResourceDeltaPart {
 	BuildContext buildContext
 	
 	def hasResourceDelta(){
-		var monitoringFolder = config.monitoringFolder
-		if(buildContext.buildKind != IncrementalProjectBuilder::CLEAN_BUILD && buildContext.buildKind != IncrementalProjectBuilder::FULL_BUILD) {
-			var projectDelta = project.delta
-			if(projectDelta == null) {
-				return false;
-			}
-			
-			if(monitoringFolder == null) {
-				return false
-			}
-			if(!monitoringFolder.exists) {
-				return false;
-			}
-			var monitoredDelta = projectDelta.findMember(config.monitoringFolder.projectRelativePath)
-			if(monitoredDelta == null) {
-				return false;
-			}
+		if(buildContext.buildKind == IncrementalProjectBuilder::CLEAN_BUILD || buildContext.buildKind == IncrementalProjectBuilder::FULL_BUILD) {
+			return true;
 		}
 		
-		if(!monitoringFolder.exists){
-			return false
+		var projectDelta = project.delta
+		if(projectDelta == null) {
+			return false;
 		}
 		
-		return true;
+		for(eachPath : affectPathList){
+			if(projectDelta.findMember(eachPath) != null){
+				return true
+			}
+		}		
+		
+		return false;
 	}	
 	
 }

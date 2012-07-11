@@ -73,27 +73,36 @@ public class ErrorPart {
   public void generateMarkers() {
     try {
       for (final BuildError e : this.errors) {
-        IMarker _createMarker = this.project.createMarker(ICGConstants.PROBLEM_MARKER_TYPE);
-        final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
-            public void apply(final IMarker it) {
-              try {
-                String _message = e.getMessage();
-                it.setAttribute(IMarker.MESSAGE, _message);
-                int _markerSeverity = ErrorPart.this.markerSeverity(e);
-                it.setAttribute(IMarker.SEVERITY, _markerSeverity);
-                it.setAttribute(IMarker.LOCATION, "ICG Configuration");
-                String _type = it.getType();
-                boolean _notEquals = (!Objects.equal(_type, null));
-                if (_notEquals) {
-                  String _type_1 = e.getType();
-                  it.setAttribute(ICGConstants.BUILD_ERROR_TYPE_MARKER_ATTRIBUTE, _type_1);
+        {
+          IResource resource = ((IResource) this.project);
+          IResource _relatedResource = e.getRelatedResource();
+          boolean _notEquals = (!Objects.equal(_relatedResource, null));
+          if (_notEquals) {
+            IResource _relatedResource_1 = e.getRelatedResource();
+            resource = _relatedResource_1;
+          }
+          IMarker _createMarker = resource.createMarker(ICGConstants.PROBLEM_MARKER_TYPE);
+          final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
+              public void apply(final IMarker it) {
+                try {
+                  String _message = e.getMessage();
+                  it.setAttribute(IMarker.MESSAGE, _message);
+                  int _markerSeverity = ErrorPart.this.markerSeverity(e);
+                  it.setAttribute(IMarker.SEVERITY, _markerSeverity);
+                  it.setAttribute(IMarker.LOCATION, "ICG Configuration");
+                  String _type = e.getType();
+                  boolean _notEquals = (!Objects.equal(_type, null));
+                  if (_notEquals) {
+                    String _type_1 = e.getType();
+                    it.setAttribute(ICGConstants.BUILD_ERROR_TYPE_MARKER_ATTRIBUTE, _type_1);
+                  }
+                } catch (Exception _e) {
+                  throw Exceptions.sneakyThrow(_e);
                 }
-              } catch (Exception _e) {
-                throw Exceptions.sneakyThrow(_e);
               }
-            }
-          };
-        ObjectExtensions.<IMarker>operator_doubleArrow(_createMarker, _function);
+            };
+          ObjectExtensions.<IMarker>operator_doubleArrow(_createMarker, _function);
+        }
       }
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);

@@ -3,7 +3,6 @@ package net.jeeeyul.pdetools.icg.builder;
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.io.ByteArrayInputStream;
-import java.util.HashMap;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
@@ -20,14 +19,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 
 @SuppressWarnings("all")
 public class Building {
@@ -61,6 +57,7 @@ public class Building {
   
   public IProject[] build(final IProgressMonitor monitor) {
     try {
+      monitor.beginTask("ICG Build", IProgressMonitor.UNKNOWN);
       this._validationPart.validate();
       this._errorPart.cleanMarkers();
       this._errorPart.generateMarkers();
@@ -75,6 +72,8 @@ public class Building {
         _or = (_not || _not_1);
       }
       if (_or) {
+        monitor.done();
+        InputOutput.<String>println("\uBE4C\uB4DC \uCDE8\uC18C");
         return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>emptyList(), IProject.class));
       }
       this._javaProjectPart.ensureJavaSourceFolder();
@@ -89,13 +88,6 @@ public class Building {
         NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
         _ouputFile_1.delete(true, _nullProgressMonitor);
       }
-      XMLResourceImpl _xMLResourceImpl = new XMLResourceImpl();
-      XMLResourceImpl serializer = _xMLResourceImpl;
-      EList<EObject> _contents = serializer.getContents();
-      Palette _copy = EcoreUtil.<Palette>copy(paletteModel);
-      _contents.add(_copy);
-      HashMap<Object,Object> _hashMap = new HashMap<Object,Object>();
-      serializer.save(System.out, _hashMap);
       CharSequence _generateJavaSource = this._imageCosntantGenerator.generateJavaSource(paletteModel);
       String _string = _generateJavaSource.toString();
       byte[] _bytes = _string.getBytes();
@@ -111,6 +103,7 @@ public class Building {
       IFile _ouputFile_4 = this.config.getOuputFile();
       boolean _isMarkDerived = this.config.isMarkDerived();
       _ouputFile_4.setDerived(_isMarkDerived);
+      monitor.done();
       IProject _project = this.builder.getProject();
       return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>newArrayList(_project), IProject.class));
     } catch (Exception _e) {

@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.ui,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.pde.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/aopalliance.jar,
