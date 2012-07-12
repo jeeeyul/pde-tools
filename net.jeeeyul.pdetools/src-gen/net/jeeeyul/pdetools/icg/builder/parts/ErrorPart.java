@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.pde.core.build.IBuild;
 import org.eclipse.pde.core.build.IBuildEntry;
@@ -216,17 +217,23 @@ public class ErrorPart {
               }
             };
           final IBuildEntry binaryBuildEntry = IterableExtensions.<IBuildEntry>findFirst(((Iterable<IBuildEntry>)Conversions.doWrapArray(_buildEntries)), _function_2);
-          IFolder _monitoringFolder_2 = this.config.getMonitoringFolder();
-          IPath _projectRelativePath = _monitoringFolder_2.getProjectRelativePath();
-          String _portableString = _projectRelativePath.toPortableString();
-          String _plus = (_portableString + "/");
-          boolean _contains = binaryBuildEntry.contains(_plus);
-          boolean _not_1 = (!_contains);
+          String[] _tokens = binaryBuildEntry.getTokens();
+          final Function1<String,Boolean> _function_3 = new Function1<String,Boolean>() {
+              public Boolean apply(final String it) {
+                Path _path = new Path(it);
+                IFolder _monitoringFolder = ErrorPart.this.config.getMonitoringFolder();
+                IPath _projectRelativePath = _monitoringFolder.getProjectRelativePath();
+                boolean _isPrefixOf = _path.isPrefixOf(_projectRelativePath);
+                return Boolean.valueOf(_isPrefixOf);
+              }
+            };
+          boolean included = IterableExtensions.<String>exists(((Iterable<String>)Conversions.doWrapArray(_tokens)), _function_3);
+          boolean _not_1 = (!included);
           if (_not_1) {
-            final Procedure1<BuildError> _function_3 = new Procedure1<BuildError>() {
+            final Procedure1<BuildError> _function_4 = new Procedure1<BuildError>() {
                 public void apply(final BuildError it) {
                   try {
-                    it.setFatal(false);
+                    it.setFatal(true);
                     StringConcatenation _builder = new StringConcatenation();
                     _builder.append("Monitoring Folder(");
                     IFolder _monitoringFolder = ErrorPart.this.config.getMonitoringFolder();
@@ -239,14 +246,15 @@ public class ErrorPart {
                     it.setRelatedResource(_file);
                     int _offset = ((IDocumentKey) binaryBuildEntry).getOffset();
                     int _lineOfOffset = doc.getLineOfOffset(_offset);
-                    it.setLineNumber(_lineOfOffset);
+                    int _plus = (_lineOfOffset + 1);
+                    it.setLineNumber(_plus);
                     it.setType("missing-build-entry");
                   } catch (Exception _e) {
                     throw Exceptions.sneakyThrow(_e);
                   }
                 }
               };
-            this.error(_function_3);
+            this.error(_function_4);
             buildModel.dispose();
           }
           provider.disconnect(input);
@@ -255,35 +263,35 @@ public class ErrorPart {
       String _generatePackageName = this.config.getGeneratePackageName();
       boolean _isNullOrBlank = this.isNullOrBlank(_generatePackageName);
       if (_isNullOrBlank) {
-        final Procedure1<BuildError> _function_4 = new Procedure1<BuildError>() {
+        final Procedure1<BuildError> _function_5 = new Procedure1<BuildError>() {
             public void apply(final BuildError it) {
               it.setFatal(true);
               it.setMessage("package to generate is not setted");
             }
           };
-        this.error(_function_4);
+        this.error(_function_5);
       }
       String _generateClassName = this.config.getGenerateClassName();
       boolean _isNullOrBlank_1 = this.isNullOrBlank(_generateClassName);
       if (_isNullOrBlank_1) {
-        final Procedure1<BuildError> _function_5 = new Procedure1<BuildError>() {
+        final Procedure1<BuildError> _function_6 = new Procedure1<BuildError>() {
             public void apply(final BuildError it) {
               it.setFatal(true);
               it.setMessage("class name to generate is not setted");
             }
           };
-        this.error(_function_5);
+        this.error(_function_6);
       }
       IFolder _generateSrcFolder = this.config.getGenerateSrcFolder();
       boolean _equals_1 = Objects.equal(_generateSrcFolder, null);
       if (_equals_1) {
-        final Procedure1<BuildError> _function_6 = new Procedure1<BuildError>() {
+        final Procedure1<BuildError> _function_7 = new Procedure1<BuildError>() {
             public void apply(final BuildError it) {
               it.setFatal(true);
               it.setMessage("Source folder to generate is not setted");
             }
           };
-        this.error(_function_6);
+        this.error(_function_7);
       }
       boolean _or = false;
       String[] _imageFileExtensions = this.config.getImageFileExtensions();
@@ -297,13 +305,13 @@ public class ErrorPart {
         _or = (_equals_2 || _equals_3);
       }
       if (_or) {
-        final Procedure1<BuildError> _function_7 = new Procedure1<BuildError>() {
+        final Procedure1<BuildError> _function_8 = new Procedure1<BuildError>() {
             public void apply(final BuildError it) {
               it.setFatal(false);
               it.setMessage("No image file extensions are setted");
             }
           };
-        this.error(_function_7);
+        this.error(_function_8);
       }
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);

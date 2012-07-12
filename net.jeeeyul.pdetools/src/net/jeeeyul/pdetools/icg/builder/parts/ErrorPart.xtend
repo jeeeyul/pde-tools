@@ -14,6 +14,7 @@ import org.eclipse.ui.texteditor.DocumentProviderRegistry
 import org.eclipse.ui.texteditor.IDocumentProvider
 import org.eclipse.pde.internal.core.text.build.BuildModel
 import org.eclipse.pde.internal.core.text.IDocumentKey
+import org.eclipse.core.runtime.Path
 
 @Singleton
 class ErrorPart {
@@ -109,17 +110,20 @@ class ErrorPart {
 			
 			val binaryBuildEntry = buildModel.build.buildEntries.findFirst[it.name == "bin.includes"]
 			
-			if(!binaryBuildEntry.contains(config.monitoringFolder.projectRelativePath.toPortableString+"/")){
+			var included = binaryBuildEntry.tokens.exists[
+				new Path(it).isPrefixOf(config.monitoringFolder.projectRelativePath)
+			]
+			
+			if(!included){
 				error[
-					fatal = false
+					fatal = true
 					message = '''Monitoring Folder(«config.monitoringFolder.fullPath.toPortableString») is not included to binary build entry'''
 					relatedResource = project.getFile("build.properties")
-					lineNumber = doc.getLineOfOffset((binaryBuildEntry as IDocumentKey).offset)
+					lineNumber = doc.getLineOfOffset((binaryBuildEntry as IDocumentKey).offset) + 1
 					type = "missing-build-entry"
 				]
 				
 				buildModel.dispose()
-				
 			}
 			
 			provider.disconnect(input)

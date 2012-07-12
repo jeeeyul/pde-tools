@@ -18,6 +18,11 @@ import org.eclipse.ui.PlatformUI
 import org.eclipse.ui.dialogs.ElementListSelectionDialog
 import org.eclipse.ui.dialogs.PropertyPage
 import org.eclipse.ui.model.WorkbenchLabelProvider
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog
+import org.eclipse.ui.model.BaseWorkbenchContentProvider
+import net.jeeeyul.pdetools.shared.SimpleViewerFilter
+import org.eclipse.core.resources.IContainer
+import org.eclipse.core.resources.IFolder
 
 class ICGPropertyPage extends PropertyPage {
 	public static  val ID = "net.jeeeyul.pdetools.icg.propertyPage"
@@ -163,6 +168,16 @@ class ICGPropertyPage extends PropertyPage {
 
 	
 	def private browserMonitoringFolder(){
+		var dialog = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider::decoratingWorkbenchLabelProvider, new BaseWorkbenchContentProvider);
+		dialog.addFilter(new SimpleViewerFilter[
+			it instanceof IContainer
+		]);
+		dialog.setMessage("Choose a folder to monitor image files:")
+		dialog.setTitle("Image Constants Generator");
+		dialog.setInput(config.project)
+		if(dialog.open() == IDialogConstants::OK_ID){
+			monitoringFolderField.text = (dialog.result.get(0) as IFolder).projectRelativePath.toPortableString 
+		}
 	}
 	
 	def  private config(){

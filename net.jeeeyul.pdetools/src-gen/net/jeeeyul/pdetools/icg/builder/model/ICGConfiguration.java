@@ -48,6 +48,10 @@ public class ICGConfiguration {
     this.project = project;
   }
   
+  public IProject getProject() {
+    return this.project;
+  }
+  
   public IFolder getGenerateSrcFolder() {
     ScopedPreferenceStore _store = this.store();
     IFolder _folder = this.getFolder(_store, ICGConfiguration.GENERATE_SRC_FOLDER);

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
+import net.jeeeyul.pdetools.shared.SimpleViewerFilter;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -35,8 +37,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.ui.dialogs.SelectionDialog;
+import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -408,8 +412,33 @@ public class ICGPropertyPage extends PropertyPage {
     }
   }
   
-  private Object browserMonitoringFolder() {
-    return null;
+  private void browserMonitoringFolder() {
+    Shell _shell = this.getShell();
+    ILabelProvider _decoratingWorkbenchLabelProvider = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
+    BaseWorkbenchContentProvider _baseWorkbenchContentProvider = new BaseWorkbenchContentProvider();
+    ElementTreeSelectionDialog _elementTreeSelectionDialog = new ElementTreeSelectionDialog(_shell, _decoratingWorkbenchLabelProvider, _baseWorkbenchContentProvider);
+    ElementTreeSelectionDialog dialog = _elementTreeSelectionDialog;
+    final Function1<Object,Boolean> _function = new Function1<Object,Boolean>() {
+        public Boolean apply(final Object it) {
+          return Boolean.valueOf((it instanceof IContainer));
+        }
+      };
+    SimpleViewerFilter _simpleViewerFilter = new SimpleViewerFilter(_function);
+    dialog.addFilter(_simpleViewerFilter);
+    dialog.setMessage("Choose a folder to monitor image files:");
+    dialog.setTitle("Image Constants Generator");
+    ICGConfiguration _config = this.config();
+    IProject _project = _config.getProject();
+    dialog.setInput(_project);
+    int _open = dialog.open();
+    boolean _equals = (_open == IDialogConstants.OK_ID);
+    if (_equals) {
+      Object[] _result = dialog.getResult();
+      Object _get = ((List<Object>)Conversions.doWrapArray(_result)).get(0);
+      IPath _projectRelativePath = ((IFolder) _get).getProjectRelativePath();
+      String _portableString = _projectRelativePath.toPortableString();
+      this.monitoringFolderField.setText(_portableString);
+    }
   }
   
   private ICGConfiguration config() {

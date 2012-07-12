@@ -26,6 +26,10 @@ class ICGConfiguration {
 	new(IProject project) {
 		Assert::isNotNull(project); this.project = project
 	}
+	
+	def IProject getProject(){
+		project
+	}
 
 	def IFolder getGenerateSrcFolder() {
 		store.getFolder(GENERATE_SRC_FOLDER)
