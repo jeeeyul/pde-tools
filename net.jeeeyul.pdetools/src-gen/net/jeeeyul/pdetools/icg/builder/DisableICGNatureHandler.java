@@ -21,7 +21,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class EnableICGNatureHandler extends AbstractHandler {
+public class DisableICGNatureHandler extends AbstractHandler {
   public Object execute(final ExecutionEvent event) throws ExecutionException {
     try {
       ISelection _currentSelection = HandlerUtil.getCurrentSelection(event);
@@ -48,7 +48,7 @@ public class EnableICGNatureHandler extends AbstractHandler {
             IProjectDescription description = project.getDescription();
             String[] _natureIds = description.getNatureIds();
             ArrayList<String> natures = CollectionLiterals.<String>newArrayList(_natureIds);
-            natures.add(ICGConstants.NATURE_ID);
+            natures.remove(ICGConstants.NATURE_ID);
             final ArrayList<String> _converted_natures = (ArrayList<String>)natures;
             description.setNatureIds(((String[])Conversions.unwrapArray(_converted_natures, String.class)));
             NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();

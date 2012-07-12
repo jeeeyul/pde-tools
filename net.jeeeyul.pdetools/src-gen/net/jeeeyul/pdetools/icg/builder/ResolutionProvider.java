@@ -80,6 +80,8 @@ public class ResolutionProvider implements IMarkerResolutionGenerator {
           };
         Resolution _doubleArrow = ObjectExtensions.<Resolution>operator_doubleArrow(_resolution, _function);
         result.add(_doubleArrow);
+        Resolution _createReconfigResolution = this.createReconfigResolution(marker);
+        result.add(_createReconfigResolution);
       }
     }
     if (!_matched) {
@@ -110,49 +112,43 @@ public class ResolutionProvider implements IMarkerResolutionGenerator {
                   }
                 };
               it.setFixCode(_function);
+              Image _image = SharedImages.getImage(SharedImages.ADD);
+              it.setImage(_image);
             }
           };
         Resolution _doubleArrow_1 = ObjectExtensions.<Resolution>operator_doubleArrow(_resolution_1, _function_1);
         result.add(_doubleArrow_1);
-        Resolution _resolution_2 = new Resolution();
-        final Procedure1<Resolution> _function_2 = new Procedure1<Resolution>() {
-            public void apply(final Resolution it) {
-              it.setLabel("Reconfig Image Constant Generator");
-              final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
-                  public void apply(final IMarker it) {
-                    IResource _resource = marker.getResource();
-                    IProject _project = _resource.getProject();
-                    OpenICGPropertyJob _openICGPropertyJob = new OpenICGPropertyJob(_project);
-                    _openICGPropertyJob.schedule();
-                  }
-                };
-              it.setFixCode(_function);
-            }
-          };
-        Resolution _doubleArrow_2 = ObjectExtensions.<Resolution>operator_doubleArrow(_resolution_2, _function_2);
-        result.add(_doubleArrow_2);
+        Resolution _createReconfigResolution_1 = this.createReconfigResolution(marker);
+        result.add(_createReconfigResolution_1);
       }
     }
     if (!_matched) {
-      Resolution _resolution_3 = new Resolution();
-      final Procedure1<Resolution> _function_3 = new Procedure1<Resolution>() {
-          public void apply(final Resolution it) {
-            it.setLabel("Reconfig Image Constant Generator");
-            final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
-                public void apply(final IMarker it) {
-                  IResource _resource = marker.getResource();
-                  IProject _project = _resource.getProject();
-                  OpenICGPropertyJob _openICGPropertyJob = new OpenICGPropertyJob(_project);
-                  _openICGPropertyJob.schedule();
-                }
-              };
-            it.setFixCode(_function);
-          }
-        };
-      Resolution _doubleArrow_3 = ObjectExtensions.<Resolution>operator_doubleArrow(_resolution_3, _function_3);
-      result.add(_doubleArrow_3);
+      Resolution _createReconfigResolution_2 = this.createReconfigResolution(marker);
+      result.add(_createReconfigResolution_2);
     }
     return ((IMarkerResolution[])Conversions.unwrapArray(result, IMarkerResolution.class));
+  }
+  
+  private Resolution createReconfigResolution(final IMarker marker) {
+    Resolution _resolution = new Resolution();
+    final Procedure1<Resolution> _function = new Procedure1<Resolution>() {
+        public void apply(final Resolution it) {
+          it.setLabel("Re-config Image Constant Generator");
+          final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
+              public void apply(final IMarker it) {
+                IResource _resource = marker.getResource();
+                IProject _project = _resource.getProject();
+                OpenICGPropertyJob _openICGPropertyJob = new OpenICGPropertyJob(_project);
+                _openICGPropertyJob.schedule();
+              }
+            };
+          it.setFixCode(_function);
+          Image _image = SharedImages.getImage(SharedImages.CONFIGURE);
+          it.setImage(_image);
+        }
+      };
+    Resolution _doubleArrow = ObjectExtensions.<Resolution>operator_doubleArrow(_resolution, _function);
+    return _doubleArrow;
   }
   
   public Object errorType(final IMarker marker) {

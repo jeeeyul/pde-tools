@@ -34,6 +34,7 @@ class ResolutionProvider implements IMarkerResolutionGenerator {
 					]
 					image = SharedImages::getImage(SharedImages::ADD)
 				]
+				result += marker.createReconfigResolution()		
 			}
 			
 			case "monitor-folder-not-exists" :{
@@ -44,23 +45,26 @@ class ResolutionProvider implements IMarkerResolutionGenerator {
 						var op = new CreateFolderOperation(cfg.monitoringFolder, null, "Monitoring folder creation");
 						PlatformUI::workbench.operationSupport.operationHistory.execute(op, new NullProgressMonitor, null)
 					]
+					image = SharedImages::getImage(SharedImages::ADD)
 					
 				]
-				result += new Resolution => [
-					label = "Reconfig Image Constant Generator"
-					fixCode = [new OpenICGPropertyJob(marker.resource.project).schedule]
-				]		
+				result += marker.createReconfigResolution()
 			}
 			
 			default:{
-				result += new Resolution => [
-					label = "Reconfig Image Constant Generator"
-					fixCode = [new OpenICGPropertyJob(marker.resource.project).schedule]
-				]
+				result += marker.createReconfigResolution()
 			}
 			
 		}
 		return result
+	}
+	
+	def private createReconfigResolution(IMarker marker){
+		new Resolution => [
+			label = "Re-config Image Constant Generator"
+			fixCode = [new OpenICGPropertyJob(marker.resource.project).schedule]
+			image = SharedImages::getImage(SharedImages::CONFIGURE)
+		]	
 	}
 	
 	def errorType(IMarker marker){

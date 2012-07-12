@@ -4,14 +4,18 @@ import com.google.common.base.Objects;
 import net.jeeeyul.pdetools.icg.ICGConstants;
 import net.jeeeyul.pdetools.icg.builder.InstallNatureJob;
 import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class ICGNature implements IProjectNature {
@@ -48,5 +52,17 @@ public class ICGNature implements IProjectNature {
     IProject _project_1 = this.getProject();
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
     _project_1.setDescription(description, _nullProgressMonitor);
+    IProject _project_2 = this.getProject();
+    IMarker[] _findMarkers = _project_2.findMarkers(ICGConstants.PROBLEM_MARKER_TYPE, true, IResource.DEPTH_INFINITE);
+    final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
+        public void apply(final IMarker it) {
+          try {
+            it.delete();
+          } catch (Exception _e) {
+            throw Exceptions.sneakyThrow(_e);
+          }
+        }
+      };
+    IterableExtensions.<IMarker>forEach(((Iterable<IMarker>)Conversions.doWrapArray(_findMarkers)), _function_1);
   }
 }

@@ -36,6 +36,10 @@
             id="net.jeeeyul.pdetools.icg.enableNature"
             name="Enable Image Constants Generator">
       </command>
+      <command
+            id="net.jeeeyul.pdetools.icg.disableNature"
+            name="Disable Image Constants Generator">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -43,6 +47,11 @@
             commandId="net.jeeeyul.pdetools.icg.enableNature">
          <class
                class="net.jeeeyul.pdetools.icg.builder.EnableICGNatureHandler"></class>
+      </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.icg.disableNature">
+         <class
+               class="net.jeeeyul.pdetools.icg.builder.DisableICGNatureHandler"></class>
       </handler>
    </extension>
    <extension
@@ -52,6 +61,7 @@
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="net.jeeeyul.pdetools.icg.enableNature"
+               icon="icons/image.gif"
                label="Enable Image Constants Generator"
                style="push">
             <visibleWhen
@@ -76,6 +86,33 @@
                            </not>
                         </adapt>
                      </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="net.jeeeyul.pdetools.icg.disableNature"
+               icon="icons/image.gif"
+               label="Disable Image Constants Generator"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IProject">
+                     <instanceof
+                           value="org.eclipse.core.resources.IProject">
+                     </instanceof>
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="org.eclipse.pde.PluginNature">
+                     </test>
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="net.jeeeyul.pdetools.icg.nature">
+                     </test>
+                  </adapt>
+               </iterate>
             </visibleWhen>
          </command>
       </menuContribution>
