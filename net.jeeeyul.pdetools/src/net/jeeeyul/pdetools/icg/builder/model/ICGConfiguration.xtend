@@ -1,17 +1,17 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import java.util.jar.Manifest
 import net.jeeeyul.pdetools.Activator
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ProjectScope
 import org.eclipse.core.runtime.Assert
-import org.eclipse.core.runtime.Path
 import org.eclipse.jface.preference.IPreferenceStore
+import org.eclipse.pde.core.plugin.PluginRegistry
 import org.eclipse.ui.preferences.ScopedPreferenceStore
 
 import static net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration.*
+import org.eclipse.core.runtime.Path
 
 class ICGConfiguration {
 	private static val MONITORING_FOLDER = "monitoring-folder" ;
@@ -86,7 +86,7 @@ class ICGConfiguration {
 
 	def private store() {
 		if(_store == null) {
-			_store = new ScopedPreferenceStore(new ProjectScope(project), Activator::PLUGIN_ID + ".icg");
+			_store = new ScopedPreferenceStore(new ProjectScope(project), '''«Activator::^default.bundle.symbolicName».icg''');
 		}
 		return _store;
 	}
@@ -113,17 +113,12 @@ class ICGConfiguration {
 		for(s : segments) {
 			pointer = pointer.getFolder(s)
 		}
-		return pointer.getFile(generateClassName + ".java")
+		return pointer.getFile('''«generateClassName».java''')
 	}
 
 	def getBundleId() {
-		var file = project.getFile(new Path("META-INF/MANIFEST.MF"))
-		var mf = new Manifest(file.contents)
-		var value = mf.mainAttributes.getValue("Bundle-SymbolicName")
-		if(value.contains(";")) {
-			value = value.split(";").get(0).trim()
-		}
-		return value
+		var pluginModel = PluginRegistry::findModel(project)
+		return pluginModel.bundleDescription.symbolicName
 	}
 
 	def save() {
@@ -136,5 +131,9 @@ class ICGConfiguration {
 
 	def setGenerateImagePreview(boolean generatePreview) {
 		store.setValue(GENERATE_IMAGE_PREVIEW, generatePreview)
+	}
+	
+	def getSaveFile(){
+		project.getFile(new Path('''.settings/«Activator::getDefault().bundle.symbolicName».icg.prefs'''))
 	}
 }

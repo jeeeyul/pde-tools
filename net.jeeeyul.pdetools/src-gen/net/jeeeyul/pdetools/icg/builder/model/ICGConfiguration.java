@@ -1,10 +1,7 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
 import com.google.common.base.Objects;
-import java.io.InputStream;
 import java.util.List;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 import net.jeeeyul.pdetools.Activator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -14,7 +11,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.osgi.service.resolver.BundleDescription;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -22,6 +23,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.osgi.framework.Bundle;
 
 @SuppressWarnings("all")
 public class ICGConfiguration {
@@ -121,7 +123,7 @@ public class ICGConfiguration {
           return _trim;
         }
       };
-    List<String> _map = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(_split)), _function);
+    List _map = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(_split)), _function);
     final Function1<String,Boolean> _function_1 = new Function1<String,Boolean>() {
         public Boolean apply(final String it) {
           int _length = it.length();
@@ -142,8 +144,13 @@ public class ICGConfiguration {
     boolean _equals = Objects.equal(this._store, null);
     if (_equals) {
       ProjectScope _projectScope = new ProjectScope(this.project);
-      String _plus = (Activator.PLUGIN_ID + ".icg");
-      ScopedPreferenceStore _scopedPreferenceStore = new ScopedPreferenceStore(_projectScope, _plus);
+      StringConcatenation _builder = new StringConcatenation();
+      Activator _default = Activator.getDefault();
+      Bundle _bundle = _default.getBundle();
+      String _symbolicName = _bundle.getSymbolicName();
+      _builder.append(_symbolicName, "");
+      _builder.append(".icg");
+      ScopedPreferenceStore _scopedPreferenceStore = new ScopedPreferenceStore(_projectScope, _builder.toString());
       this._store = _scopedPreferenceStore;
     }
     return this._store;
@@ -182,31 +189,17 @@ public class ICGConfiguration {
       IFolder _folder = pointer.getFolder(s);
       pointer = _folder;
     }
+    StringConcatenation _builder = new StringConcatenation();
     String _generateClassName = this.getGenerateClassName();
-    String _plus = (_generateClassName + ".java");
-    return pointer.getFile(_plus);
+    _builder.append(_generateClassName, "");
+    _builder.append(".java");
+    return pointer.getFile(_builder.toString());
   }
   
   public String getBundleId() {
-    try {
-      Path _path = new Path("META-INF/MANIFEST.MF");
-      IFile file = this.project.getFile(_path);
-      InputStream _contents = file.getContents();
-      Manifest _manifest = new Manifest(_contents);
-      Manifest mf = _manifest;
-      Attributes _mainAttributes = mf.getMainAttributes();
-      String value = _mainAttributes.getValue("Bundle-SymbolicName");
-      boolean _contains = value.contains(";");
-      if (_contains) {
-        String[] _split = value.split(";");
-        String _get = ((List<String>)Conversions.doWrapArray(_split)).get(0);
-        String _trim = _get.trim();
-        value = _trim;
-      }
-      return value;
-    } catch (Exception _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    IPluginModelBase pluginModel = PluginRegistry.findModel(this.project);
+    BundleDescription _bundleDescription = pluginModel.getBundleDescription();
+    return _bundleDescription.getSymbolicName();
   }
   
   public void save() {
@@ -227,5 +220,18 @@ public class ICGConfiguration {
   public void setGenerateImagePreview(final boolean generatePreview) {
     ScopedPreferenceStore _store = this.store();
     _store.setValue(ICGConfiguration.GENERATE_IMAGE_PREVIEW, generatePreview);
+  }
+  
+  public IFile getSaveFile() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append(".settings/");
+    Activator _default = Activator.getDefault();
+    Bundle _bundle = _default.getBundle();
+    String _symbolicName = _bundle.getSymbolicName();
+    _builder.append(_symbolicName, "");
+    _builder.append(".icg.prefs");
+    Path _path = new Path(_builder.toString());
+    IFile _file = this.project.getFile(_path);
+    return _file;
   }
 }

@@ -46,7 +46,10 @@ public class RenameMonitorFolder extends RenameParticipant {
 	@Override
 	public Change createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
 		IFolder newMonitorFolder = currentMonitorFolder.getParent().getFolder(new Path(getArguments().getNewName()));
-		return new SetMonitorFolderChange(currentMonitorFolder.getProject(), newMonitorFolder);
+		SetMonitorChangeFactory changeFactory = new SetMonitorChangeFactory(currentMonitorFolder.getProject(),
+				newMonitorFolder);
+		return changeFactory.createChange();
+
 	}
 
 }

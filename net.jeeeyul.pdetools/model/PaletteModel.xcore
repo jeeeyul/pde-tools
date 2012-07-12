@@ -12,7 +12,7 @@ type File wraps IFile create
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
 convert
-{ 
+{
 	it.fullPath.toPortableString
 }
 
