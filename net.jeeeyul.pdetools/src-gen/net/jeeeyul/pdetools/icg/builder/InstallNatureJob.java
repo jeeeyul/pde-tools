@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.icg.builder;
 
+import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
 import net.jeeeyul.pdetools.icg.ICGConstants;
@@ -55,15 +56,34 @@ public class InstallNatureJob extends WorkbenchJob {
       ICGConfiguration _iCGConfiguration = new ICGConfiguration(this.project);
       final Procedure1<ICGConfiguration> _function_1 = new Procedure1<ICGConfiguration>() {
           public void apply(final ICGConfiguration it) {
-            IFolder _folder = InstallNatureJob.this.project.getFolder("icons");
-            it.setMonitoringFolder(_folder);
-            ArrayList<String> _newArrayList = CollectionLiterals.<String>newArrayList("jpg", "gif", "png");
-            it.setImageFileExtensions(((String[])Conversions.unwrapArray(_newArrayList, String.class)));
-            IFolder _folder_1 = InstallNatureJob.this.project.getFolder("src-gen");
-            it.setGenerateSrcFolder(_folder_1);
-            it.setGeneratePackageName("shared");
-            it.setGenerateClassName("SharedImages");
-            it.setMarkDerived(false);
+            IFolder _monitoringFolder = it.getMonitoringFolder();
+            boolean _equals = Objects.equal(_monitoringFolder, null);
+            if (_equals) {
+              IFolder _folder = InstallNatureJob.this.project.getFolder("icons");
+              it.setMonitoringFolder(_folder);
+            }
+            String[] _imageFileExtensions = it.getImageFileExtensions();
+            boolean _equals_1 = Objects.equal(_imageFileExtensions, null);
+            if (_equals_1) {
+              ArrayList<String> _newArrayList = CollectionLiterals.<String>newArrayList("jpg", "gif", "png");
+              it.setImageFileExtensions(((String[])Conversions.unwrapArray(_newArrayList, String.class)));
+            }
+            IFolder _generateSrcFolder = it.getGenerateSrcFolder();
+            boolean _equals_2 = Objects.equal(_generateSrcFolder, null);
+            if (_equals_2) {
+              IFolder _folder_1 = InstallNatureJob.this.project.getFolder("src-gen");
+              it.setGenerateSrcFolder(_folder_1);
+            }
+            String _generatePackageName = it.getGeneratePackageName();
+            boolean _equals_3 = Objects.equal(_generatePackageName, null);
+            if (_equals_3) {
+              it.setGeneratePackageName("shared");
+            }
+            String _generateClassName = it.getGenerateClassName();
+            boolean _equals_4 = Objects.equal(_generateClassName, null);
+            if (_equals_4) {
+              it.setGenerateClassName("SharedImages");
+            }
           }
         };
       ICGConfiguration config = ObjectExtensions.<ICGConfiguration>operator_doubleArrow(_iCGConfiguration, _function_1);

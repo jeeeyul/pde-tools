@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench.texteditor;bundle-version="3.8.0",
  org.eclipse.ui.editors,
  org.eclipse.jface.text,
- org.eclipse.xtext.xbase
+ org.eclipse.xtext.xbase,
+ org.eclipse.ltk.core.refactoring
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/aopalliance.jar,

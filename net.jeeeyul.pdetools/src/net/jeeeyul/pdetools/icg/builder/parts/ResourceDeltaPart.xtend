@@ -8,6 +8,7 @@ import com.google.inject.Singleton
 import java.util.List
 import org.eclipse.core.runtime.IPath
 import org.eclipse.core.runtime.Path
+import net.jeeeyul.pdetools.Activator
 
 @Singleton
 class ResourceDeltaPart {
@@ -15,7 +16,7 @@ class ResourceDeltaPart {
 	def private List<IPath> affectPathList(){
 		val List<IPath> affectPathes = newArrayList();
 		
-		affectPathes += new Path(".settings/net.jeeeyul.pdetools.icg.prefs")
+		affectPathes += new Path('''.settings/«Activator::PLUGIN_ID».icg.prefs''')
 		affectPathes += config.monitoringFolder.projectRelativePath
 		
 		return affectPathes

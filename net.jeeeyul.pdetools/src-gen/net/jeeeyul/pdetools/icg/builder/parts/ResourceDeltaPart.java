@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import net.jeeeyul.pdetools.Activator;
 import net.jeeeyul.pdetools.icg.builder.model.BuildContext;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import org.eclipse.core.resources.IFolder;
@@ -12,6 +13,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 
 @Singleton
@@ -19,7 +21,11 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 public class ResourceDeltaPart {
   private List<IPath> affectPathList() {
     final List<IPath> affectPathes = CollectionLiterals.<IPath>newArrayList();
-    Path _path = new Path(".settings/net.jeeeyul.pdetools.icg.prefs");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append(".settings/");
+    _builder.append(Activator.PLUGIN_ID, "");
+    _builder.append(".icg.prefs");
+    Path _path = new Path(_builder.toString());
     affectPathes.add(_path);
     IFolder _monitoringFolder = this.config.getMonitoringFolder();
     IPath _projectRelativePath = _monitoringFolder.getProjectRelativePath();

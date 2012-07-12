@@ -1,16 +1,17 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
+import java.util.jar.Manifest
 import net.jeeeyul.pdetools.Activator
+import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ProjectScope
 import org.eclipse.core.runtime.Assert
+import org.eclipse.core.runtime.Path
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.ui.preferences.ScopedPreferenceStore
+
 import static net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration.*
-import org.eclipse.core.resources.IFile
-import org.eclipse.core.runtime.Path
-import java.util.jar.Manifest
 
 class ICGConfiguration {
 	private static val MONITORING_FOLDER = "monitoring-folder" ;
@@ -26,7 +27,7 @@ class ICGConfiguration {
 	new(IProject project) {
 		Assert::isNotNull(project); this.project = project
 	}
-	
+
 	def IProject getProject(){
 		project
 	}

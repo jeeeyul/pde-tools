@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/net/jeeeyul/pdetools/icg/builder/parts/ErrorPart.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/builder/parts/ImageCosntantGenerator.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/builder/parts/ImagePreviewGenerator.xtend=UTF-8
+encoding//src/net/jeeeyul/pdetools/icg/builder/parts/ResourceDeltaPart.xtend=UTF-8
 encoding/README.md=UTF-8

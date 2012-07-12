@@ -167,6 +167,7 @@
          point="org.eclipse.ui.decorators">
       <decorator
             class="net.jeeeyul.pdetools.decorator.IconDecorator"
+            icon="icons/image.gif"
             id="net.jeeeyul.pdetools.icondecorator"
             label="Icon File Decorator"
             lightweight="true"
@@ -178,6 +179,48 @@
             </objectClass>
          </enablement>
       </decorator>
+      <decorator
+            class="net.jeeeyul.pdetools.decorator.MonitorFolderDecorator"
+            icon="icons/image-folder.gif"
+            id="net.jeeeyul.pdetools.icg.monitorfolder"
+            label="ICG Monitored Folder Decorator"
+            lightweight="true"
+            location="REPLACE"
+            state="true">
+         <enablement>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IFolder">
+               </objectClass>
+               <objectState
+                     name="projectNature"
+                     value="net.jeeeyul.pdetools.icg.nature">
+               </objectState>
+            </and>
+         </enablement>
+      </decorator>
+   </extension>
+   <extension
+         point="org.eclipse.ltk.core.refactoring.renameParticipants">
+      <renameParticipant
+            class="net.jeeeyul.pdetools.icg.refactor.RenameMonitorFolder"
+            id="net.jeeeyul.pdetools.renameParticipant1"
+            name="name">
+         <enablement>
+            <with
+                  variable="element">
+               <and>
+                  <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="net.jeeeyul.pdetools.icg.nature">
+                  </test>
+                  <instanceof
+                        value="org.eclipse.core.resources.IFolder">
+                  </instanceof>
+               </and>
+            </with>
+         </enablement>
+      </renameParticipant>
    </extension>
 
 </plugin>
