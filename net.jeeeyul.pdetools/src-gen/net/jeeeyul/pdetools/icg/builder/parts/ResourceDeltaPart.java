@@ -30,6 +30,8 @@ public class ResourceDeltaPart {
     IFolder _monitoringFolder = this.config.getMonitoringFolder();
     IPath _projectRelativePath = _monitoringFolder.getProjectRelativePath();
     affectPathes.add(_projectRelativePath);
+    Path _path_1 = new Path("META-INF/MANIFEST.MF");
+    affectPathes.add(_path_1);
     return affectPathes;
   }
   

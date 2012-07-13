@@ -35,18 +35,26 @@ class InstallNatureJob extends WorkbenchJob {
 		var config = new ICGConfiguration(project) =>[
 			if(monitoringFolder == null)
 				monitoringFolder = project.getFolder("icons")
-			if(imageFileExtensions == null)
+			if(imageFileExtensions == null || imageFileExtensions.empty)
 				imageFileExtensions = newArrayList("jpg", "gif", "png")
 			if(generateSrcFolder == null)
 				generateSrcFolder = project.getFolder("src-gen")
-			if(generatePackageName == null)
+			if(generatePackageName.nullOrBlank)
 				generatePackageName = "shared"
-			if(generateClassName == null)
+			if(generateClassName.nullOrBlank)
 				generateClassName = "SharedImages"
 		]
 		config.save();
 		monitor	.done();
 		new OpenICGPropertyJob(project).schedule();
 		return Status::OK_STATUS
+	}
+
+	def nullOrBlank(String string){
+		if(string == null) {
+			true
+		} else {
+			string.trim.empty
+		}
 	}
 }

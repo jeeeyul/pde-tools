@@ -62,9 +62,17 @@ public class InstallNatureJob extends WorkbenchJob {
               IFolder _folder = InstallNatureJob.this.project.getFolder("icons");
               it.setMonitoringFolder(_folder);
             }
+            boolean _or = false;
             String[] _imageFileExtensions = it.getImageFileExtensions();
             boolean _equals_1 = Objects.equal(_imageFileExtensions, null);
             if (_equals_1) {
+              _or = true;
+            } else {
+              String[] _imageFileExtensions_1 = it.getImageFileExtensions();
+              boolean _isEmpty = ((List<String>)Conversions.doWrapArray(_imageFileExtensions_1)).isEmpty();
+              _or = (_equals_1 || _isEmpty);
+            }
+            if (_or) {
               ArrayList<String> _newArrayList = CollectionLiterals.<String>newArrayList("jpg", "gif", "png");
               it.setImageFileExtensions(((String[])Conversions.unwrapArray(_newArrayList, String.class)));
             }
@@ -75,13 +83,13 @@ public class InstallNatureJob extends WorkbenchJob {
               it.setGenerateSrcFolder(_folder_1);
             }
             String _generatePackageName = it.getGeneratePackageName();
-            boolean _equals_3 = Objects.equal(_generatePackageName, null);
-            if (_equals_3) {
+            boolean _nullOrBlank = InstallNatureJob.this.nullOrBlank(_generatePackageName);
+            if (_nullOrBlank) {
               it.setGeneratePackageName("shared");
             }
             String _generateClassName = it.getGenerateClassName();
-            boolean _equals_4 = Objects.equal(_generateClassName, null);
-            if (_equals_4) {
+            boolean _nullOrBlank_1 = InstallNatureJob.this.nullOrBlank(_generateClassName);
+            if (_nullOrBlank_1) {
               it.setGenerateClassName("SharedImages");
             }
           }
@@ -95,5 +103,18 @@ public class InstallNatureJob extends WorkbenchJob {
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public boolean nullOrBlank(final String string) {
+    boolean _xifexpression = false;
+    boolean _equals = Objects.equal(string, null);
+    if (_equals) {
+      _xifexpression = true;
+    } else {
+      String _trim = string.trim();
+      boolean _isEmpty = _trim.isEmpty();
+      _xifexpression = _isEmpty;
+    }
+    return _xifexpression;
   }
 }

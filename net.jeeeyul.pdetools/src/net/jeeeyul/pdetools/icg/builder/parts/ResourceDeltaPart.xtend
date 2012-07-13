@@ -16,8 +16,20 @@ class ResourceDeltaPart {
 	def private List<IPath> affectPathList(){
 		val List<IPath> affectPathes = newArrayList();
 		
+		/*
+		 * 빌더 설정 변경시 다시 빌드
+		 */
 		affectPathes += new Path('''.settings/«Activator::PLUGIN_ID».icg.prefs''')
+		
+		/*
+		 * 모니터링 폴더 내부의 컨텐츠 변경
+		 */
 		affectPathes += config.monitoringFolder.projectRelativePath
+		
+		/*
+		 * 번들 아이디가 변경되면 다시 빌드 해야 함
+		 */
+		affectPathes += new Path("META-INF/MANIFEST.MF")
 		
 		return affectPathes
 	}
