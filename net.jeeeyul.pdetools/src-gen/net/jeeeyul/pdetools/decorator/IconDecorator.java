@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -69,18 +70,26 @@ public class IconDecorator extends BaseLabelProvider implements ILightweightLabe
     }
   }
   
-  public void doDecorateImageFile(final IFile file, final IDecoration decoration) {
+  public String doDecorateImageFile(final IFile file, final IDecoration decoration) {
+    String _xifexpression = null;
     boolean _containsKey = this.decoratedFiles.containsKey(file);
     if (_containsKey) {
-      ImageData data = this.decoratedFiles.get(file);
-      boolean _notEquals = (!Objects.equal(data, null));
-      if (_notEquals) {
-        ImageDescriptor _createFromImageData = ImageDescriptor.createFromImageData(data);
-        decoration.addOverlay(_createFromImageData);
+      String _xblockexpression = null;
+      {
+        ImageData data = this.decoratedFiles.get(file);
+        boolean _notEquals = (!Objects.equal(data, null));
+        if (_notEquals) {
+          ImageDescriptor _createFromImageData = ImageDescriptor.createFromImageData(data);
+          decoration.addOverlay(_createFromImageData);
+        }
+        String _println = InputOutput.<String>println("\uB370\uCF54");
+        _xblockexpression = (_println);
       }
+      _xifexpression = _xblockexpression;
     } else {
       this.queue.add(file);
     }
+    return _xifexpression;
   }
   
   public boolean isImageFile(final IFile file) {

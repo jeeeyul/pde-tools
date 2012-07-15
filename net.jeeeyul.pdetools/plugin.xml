@@ -204,8 +204,8 @@
          point="org.eclipse.ltk.core.refactoring.renameParticipants">
       <renameParticipant
             class="net.jeeeyul.pdetools.icg.refactor.RenameMonitorFolder"
-            id="net.jeeeyul.pdetools.renameParticipant1"
-            name="name">
+            id="net.jeeeyul.pdetools.icg.renameParticipant"
+            name="Rename Monitoring Folder">
          <enablement>
             <with
                   variable="element">
@@ -221,6 +221,28 @@
             </with>
          </enablement>
       </renameParticipant>
+   </extension>
+   <extension
+         point="org.eclipse.ltk.core.refactoring.moveParticipants">
+      <moveParticipant
+            class="net.jeeeyul.pdetools.icg.refactor.MoveMonitorFolder"
+            id="net.jeeeyul.pdetools.icg.moveParticipant"
+            name="Move Monitoring Folder">
+         <enablement>
+            <with
+                  variable="element">
+               <and>
+                  <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="net.jeeeyul.pdetools.icg.nature">
+                  </test>
+                  <instanceof
+                        value="org.eclipse.core.resources.IFolder">
+                  </instanceof>
+               </and>
+            </with>
+         </enablement>
+      </moveParticipant>
    </extension>
 
 </plugin>

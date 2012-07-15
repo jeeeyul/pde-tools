@@ -41,6 +41,7 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 			var data = decoratedFiles.get(file)
 			if(data != null)
 				decoration.addOverlay(ImageDescriptor::createFromImageData(data))
+				println("µ¥ÄÚ")
 		} else {
 			queue.add(file)
 		}
