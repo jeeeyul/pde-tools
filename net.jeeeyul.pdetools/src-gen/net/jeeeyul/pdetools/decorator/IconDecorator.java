@@ -16,7 +16,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.BaseLabelProvider;
+import org.eclipse.jface.viewers.DecorationContext;
 import org.eclipse.jface.viewers.IDecoration;
+import org.eclipse.jface.viewers.IDecorationContext;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.swt.graphics.ImageData;
@@ -24,7 +26,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -70,26 +71,27 @@ public class IconDecorator extends BaseLabelProvider implements ILightweightLabe
     }
   }
   
-  public String doDecorateImageFile(final IFile file, final IDecoration decoration) {
-    String _xifexpression = null;
+  public void doDecorateImageFile(final IFile file, final IDecoration decoration) {
     boolean _containsKey = this.decoratedFiles.containsKey(file);
     if (_containsKey) {
-      String _xblockexpression = null;
-      {
-        ImageData data = this.decoratedFiles.get(file);
-        boolean _notEquals = (!Objects.equal(data, null));
-        if (_notEquals) {
-          ImageDescriptor _createFromImageData = ImageDescriptor.createFromImageData(data);
-          decoration.addOverlay(_createFromImageData);
-        }
-        String _println = InputOutput.<String>println("\uB370\uCF54");
-        _xblockexpression = (_println);
+      ImageData data = this.decoratedFiles.get(file);
+      boolean _notEquals = (!Objects.equal(data, null));
+      if (_notEquals) {
+        ImageDescriptor _createFromImageData = ImageDescriptor.createFromImageData(data);
+        this.replaceImage(decoration, _createFromImageData);
       }
-      _xifexpression = _xblockexpression;
     } else {
       this.queue.add(file);
     }
-    return _xifexpression;
+  }
+  
+  public void replaceImage(final IDecoration decoration, final ImageDescriptor descriptor) {
+    IDecorationContext ctx = decoration.getDecorationContext();
+    if ((ctx instanceof DecorationContext)) {
+      DecorationContext ctxImpl = ((DecorationContext) ctx);
+      ctxImpl.putProperty(IDecoration.ENABLE_REPLACE, Boolean.TRUE);
+    }
+    decoration.addOverlay(descriptor, IDecoration.REPLACE);
   }
   
   public boolean isImageFile(final IFile file) {

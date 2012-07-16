@@ -4,7 +4,11 @@ import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.refactor.SetMonitorChangeFactory;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
@@ -29,7 +33,15 @@ public class MoveMonitorFolder extends MoveParticipant {
     Object _destination = _arguments.getDestination();
     String _string = _destination.toString();
     Path _path = new Path(_string);
-    IFolder _folder = project.getFolder(_path);
+    IPath newPath = ((IPath) _path);
+    IPath _removeFirstSegments = newPath.removeFirstSegments(1);
+    newPath = _removeFirstSegments;
+    String _name = this.currentMonitorFolder.getName();
+    IPath _append = newPath.append(_name);
+    newPath = _append;
+    IWorkspace _workspace = ResourcesPlugin.getWorkspace();
+    IWorkspaceRoot _root = _workspace.getRoot();
+    IFolder _folder = _root.getFolder(newPath);
     SetMonitorChangeFactory _setMonitorChangeFactory = new SetMonitorChangeFactory(project, _folder);
     return _setMonitorChangeFactory.createChange();
   }

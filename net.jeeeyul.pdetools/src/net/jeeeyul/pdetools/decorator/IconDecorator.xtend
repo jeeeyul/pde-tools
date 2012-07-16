@@ -13,8 +13,9 @@ import org.eclipse.jface.viewers.ILightweightLabelDecorator
 import org.eclipse.jface.viewers.LabelProviderChangedEvent
 import org.eclipse.swt.graphics.ImageData
 import org.eclipse.swt.widgets.Display
-import static net.jeeeyul.pdetools.decorator.IconDecorator.*
 import java.util.ArrayList
+import org.eclipse.jface.viewers.DecorationContext
+import static net.jeeeyul.pdetools.decorator.IconDecorator.*
 
 class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecorator, IResourceChangeListener {
 	static val IMAGE_FILES = newArrayList("jpg", "gif", "png", "bmp")
@@ -40,11 +41,19 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 		if(decoratedFiles.containsKey(file)) {
 			var data = decoratedFiles.get(file)
 			if(data != null)
-				decoration.addOverlay(ImageDescriptor::createFromImageData(data))
-				println("µ¥ÄÚ")
+				decoration.replaceImage(ImageDescriptor::createFromImageData(data))
 		} else {
 			queue.add(file)
 		}
+	}
+
+	def replaceImage(IDecoration decoration, ImageDescriptor descriptor){
+		var ctx = decoration.decorationContext
+		if(ctx instanceof DecorationContext) {
+			var ctxImpl = ctx as DecorationContext
+			ctxImpl.putProperty(IDecoration::ENABLE_REPLACE, Boolean::TRUE)
+		}
+		decoration.addOverlay(descriptor, IDecoration::REPLACE)
 	}
 
 	def boolean isImageFile(IFile file) {

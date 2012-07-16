@@ -29,7 +29,7 @@ public class MonitorFolderDecorator extends BaseLabelProvider implements ILightw
 			IFolder folder = (IFolder) element;
 			ICGConfiguration config = new ICGConfiguration(folder.getProject());
 			if (folder.equals(config.getMonitoringFolder())) {
-				decoration.addOverlay(SharedImages.getImageDescriptor(SharedImages.IMAGE_FOLDER));
+				decoration.addOverlay(SharedImages.getImageDescriptor(SharedImages.IMAGE), IDecoration.BOTTOM_LEFT);
 				decoration.addSuffix(" (Image Monitoring Folder)");
 			}
 		}

@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.icg.builder.internal;
+package net.jeeeyul.pdetools.icg.refactor;
 
 import java.lang.reflect.InvocationTargetException;
 

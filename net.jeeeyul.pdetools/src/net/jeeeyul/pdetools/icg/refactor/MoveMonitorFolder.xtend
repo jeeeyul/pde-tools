@@ -9,6 +9,8 @@ import org.eclipse.core.resources.IFolder
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import org.eclipse.core.runtime.Path
 import org.eclipse.ltk.core.refactoring.RefactoringStatus
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.IPath
 
 class MoveMonitorFolder extends MoveParticipant {
 	IFolder currentMonitorFolder
@@ -19,7 +21,11 @@ class MoveMonitorFolder extends MoveParticipant {
 	
 	override createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
 		var project = currentMonitorFolder.project
-		return new SetMonitorChangeFactory(project, project.getFolder(new Path(arguments.destination.toString))).createChange
+		var IPath newPath = new Path(arguments.destination.toString) as IPath
+		newPath = newPath.removeFirstSegments(1)
+		newPath = newPath.append(currentMonitorFolder.name)
+		
+		return new SetMonitorChangeFactory(project, ResourcesPlugin::workspace.root.getFolder(newPath)).createChange
 	}
 	
 	override getName() {

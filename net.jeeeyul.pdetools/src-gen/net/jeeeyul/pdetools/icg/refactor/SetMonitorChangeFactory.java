@@ -31,6 +31,7 @@ public class SetMonitorChangeFactory {
   public SetMonitorChangeFactory(final IProject project, final IFolder newMonitorFolder) {
     this.project = project;
     this.newFolder = newMonitorFolder;
+    InputOutput.<IFolder>println(this.newFolder);
   }
   
   public CompositeChange createChange() {
@@ -87,7 +88,7 @@ public class SetMonitorChangeFactory {
       provider.disconnect(_saveFile_3);
     }
     ArrayList<TextFileChange> _newArrayList = CollectionLiterals.<TextFileChange>newArrayList(change);
-    CompositeChange _compositeChange = new CompositeChange("ICG", ((Change[])Conversions.unwrapArray(_newArrayList, Change.class)));
+    CompositeChange _compositeChange = new CompositeChange("Shared Image Generator", ((Change[])Conversions.unwrapArray(_newArrayList, Change.class)));
     return _compositeChange;
   }
   

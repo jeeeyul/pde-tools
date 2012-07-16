@@ -17,6 +17,7 @@ class SetMonitorChangeFactory {
 	new(IProject project, IFolder newMonitorFolder) {
 		this.project = project
 		this.newFolder = newMonitorFolder
+		println(newFolder)
 	}
 
 	def createChange(){
@@ -41,7 +42,7 @@ class SetMonitorChangeFactory {
 		finally{
 			provider.disconnect(cfg.saveFile);
 		}
-		return new CompositeChange("ICG", newArrayList(change))
+		return new CompositeChange("Shared Image Generator", newArrayList(change))
 	}
 
 	def asISO_8859_1(String string){

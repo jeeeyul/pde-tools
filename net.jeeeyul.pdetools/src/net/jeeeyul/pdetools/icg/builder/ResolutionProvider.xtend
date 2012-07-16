@@ -3,17 +3,17 @@ package net.jeeeyul.pdetools.icg.builder
 import java.util.ArrayList
 import net.jeeeyul.pdetools.icg.ICGConstants
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import net.jeeeyul.pdetools.icg.builder.model.Resolution
 import net.jeeeyul.pdetools.icg.ui.OpenICGPropertyJob
+import net.jeeeyul.pdetools.shared.SharedImages
 import org.eclipse.core.resources.IMarker
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.pde.core.IEditableModel
+import org.eclipse.pde.core.plugin.PluginRegistry
 import org.eclipse.ui.IMarkerResolution
 import org.eclipse.ui.IMarkerResolutionGenerator
 import org.eclipse.ui.PlatformUI
 import org.eclipse.ui.ide.undo.CreateFolderOperation
-import org.eclipse.core.runtime.NullProgressMonitor
-import net.jeeeyul.pdetools.icg.builder.model.Resolution
-import org.eclipse.pde.core.plugin.PluginRegistry
-import org.eclipse.pde.core.IEditableModel
-import net.jeeeyul.pdetools.shared.SharedImages
 
 class ResolutionProvider implements IMarkerResolutionGenerator {
 	override IMarkerResolution[] getResolutions(IMarker marker) {
