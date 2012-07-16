@@ -1,8 +1,9 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
+import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
+import org.eclipse.xtend.lib.Property
 
 class PaletteDelta {
-	@Property ImageFile before
-	@Property ImageFile after
+	@Property FieldNameOwner before
+	@Property FieldNameOwner after
 }

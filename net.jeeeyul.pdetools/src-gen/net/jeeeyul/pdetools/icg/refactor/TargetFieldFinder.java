@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class TargetFieldFinder extends JavaVisitor<IField> {
+public class TargetFieldFinder extends JavaVisitor<IJavaElement> {
   private String expectedValue;
   
   public TargetFieldFinder(final String expectedValue) {

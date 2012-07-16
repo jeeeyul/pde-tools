@@ -2,6 +2,8 @@ package net.jeeeyul.pdetools.icg.builder
 
 import com.google.inject.Inject
 import java.io.ByteArrayInputStream
+import java.util.HashMap
+import net.jeeeyul.pdetools.Activator
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
 import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
@@ -14,10 +16,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
-import org.eclipse.core.runtime.Path
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
-import java.util.HashMap
-import net.jeeeyul.pdetools.Activator
 
 class Building {
 	extension ResourceExtensions = new ResourceExtensions()

@@ -198,14 +198,30 @@ public class ImageCosntantGenerator {
     _builder.append("{");
     _builder.newLineIfNotEmpty();
     {
-      EList<ImageFile> _imageFiles = palette.getImageFiles();
+      EList<Palette> _subPalettes = palette.getSubPalettes();
       boolean _hasElements = false;
-      for(final ImageFile eachFile : _imageFiles) {
+      for(final Palette eachSub : _subPalettes) {
         if (!_hasElements) {
           _hasElements = true;
         } else {
           String _lineSeparator = this.lineSeparator();
           _builder.appendImmediate(_lineSeparator, "	");
+        }
+        _builder.append("\t");
+        CharSequence _generateSubPalette = this.generateSubPalette(eachSub);
+        _builder.append(_generateSubPalette, "	");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    {
+      EList<ImageFile> _imageFiles = palette.getImageFiles();
+      boolean _hasElements_1 = false;
+      for(final ImageFile eachFile : _imageFiles) {
+        if (!_hasElements_1) {
+          _hasElements_1 = true;
+        } else {
+          String _lineSeparator_1 = this.lineSeparator();
+          _builder.appendImmediate(_lineSeparator_1, "	");
         }
         _builder.append("\t");
         CharSequence _generateField = this.generateField(eachFile);

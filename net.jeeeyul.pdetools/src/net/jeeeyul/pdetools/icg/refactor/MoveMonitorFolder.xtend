@@ -1,25 +1,24 @@
 package net.jeeeyul.pdetools.icg.refactor
 
-import org.eclipse.ltk.core.refactoring.participants.MoveParticipant
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.OperationCanceledException
-import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext
-import org.eclipse.core.resources.IFolder
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
-import org.eclipse.core.runtime.Path
-import org.eclipse.ltk.core.refactoring.RefactoringStatus
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.IPath
+import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.Assert
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.IPath
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.OperationCanceledException
+import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
-import org.eclipse.ltk.core.refactoring.TextFileChange
-import org.eclipse.ui.texteditor.DocumentProviderRegistry
-import org.eclipse.ui.part.FileEditorInput
 import org.eclipse.jface.text.FindReplaceDocumentAdapter
-import org.eclipse.text.edits.ReplaceEdit
 import org.eclipse.ltk.core.refactoring.CompositeChange
+import org.eclipse.ltk.core.refactoring.RefactoringStatus
+import org.eclipse.ltk.core.refactoring.TextFileChange
+import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext
+import org.eclipse.ltk.core.refactoring.participants.MoveParticipant
+import org.eclipse.text.edits.ReplaceEdit
+import org.eclipse.ui.part.FileEditorInput
+import org.eclipse.ui.texteditor.DocumentProviderRegistry
 
 class MoveMonitorFolder extends MoveParticipant {
 	IPath after

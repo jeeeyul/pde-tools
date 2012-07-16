@@ -1,26 +1,26 @@
 package net.jeeeyul.pdetools.icg.builder.model;
 
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile;
+import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner;
 
 @SuppressWarnings("all")
 public class PaletteDelta {
-  private ImageFile _before;
+  private FieldNameOwner _before;
   
-  public ImageFile getBefore() {
+  public FieldNameOwner getBefore() {
     return this._before;
   }
   
-  public void setBefore(final ImageFile before) {
+  public void setBefore(final FieldNameOwner before) {
     this._before = before;
   }
   
-  private ImageFile _after;
+  private FieldNameOwner _after;
   
-  public ImageFile getAfter() {
+  public FieldNameOwner getAfter() {
     return this._after;
   }
   
-  public void setAfter(final ImageFile after) {
+  public void setAfter(final FieldNameOwner after) {
     this._after = after;
   }
 }

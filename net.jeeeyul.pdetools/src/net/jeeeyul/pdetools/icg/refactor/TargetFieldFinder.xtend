@@ -1,9 +1,9 @@
 package net.jeeeyul.pdetools.icg.refactor
 
-import org.eclipse.jdt.core.IJavaElement
 import org.eclipse.jdt.core.IField
+import org.eclipse.jdt.core.IJavaElement
 
-class TargetFieldFinder extends JavaVisitor<IField> {
+class TargetFieldFinder extends JavaVisitor<IJavaElement> {
 	String expectedValue
 	new(String expectedValue){
 		this.expectedValue = "\"" + expectedValue + "\""

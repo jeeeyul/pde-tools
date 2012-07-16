@@ -73,6 +73,9 @@ class ImageCosntantGenerator {
 
 	def private generateSubPalette(Palette palette) '''
 		public static interface « palette.fieldName »{
+			« FOR eachSub : palette.subPalettes SEPARATOR lineSeparator»
+				«eachSub.generateSubPalette()»
+			« ENDFOR»
 			« FOR eachFile : palette.imageFiles SEPARATOR lineSeparator»
 				« eachFile.generateField() »
 			« ENDFOR »
