@@ -126,7 +126,7 @@ public class RenamePaletteEntry extends RenameParticipant {
         boolean _notEquals = (!Objects.equal(_result, null));
         if (_notEquals) {
           IJavaElement _result_1 = visitor.getResult();
-          SearchPattern pattern = SearchPattern.createPattern(_result_1, IJavaSearchConstants.REFERENCES);
+          SearchPattern pattern = SearchPattern.createPattern(_result_1, IJavaSearchConstants.READ_ACCESSES);
           IJavaSearchScope scope = SearchEngine.createWorkspaceScope();
           SearchParticipant _defaultSearchParticipant = SearchEngine.getDefaultSearchParticipant();
           List<SearchParticipant> participants = CollectionLiterals.<SearchParticipant>newArrayList(_defaultSearchParticipant);

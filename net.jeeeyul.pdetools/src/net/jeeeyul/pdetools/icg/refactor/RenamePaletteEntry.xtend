@@ -65,7 +65,7 @@ class RenamePaletteEntry extends RenameParticipant {
 			visitor.visit(cu)
 			
 			if(visitor.result != null) {
-				var pattern = SearchPattern::createPattern(visitor.result, IJavaSearchConstants::REFERENCES)
+				var pattern = SearchPattern::createPattern(visitor.result, IJavaSearchConstants::READ_ACCESSES)
 				var scope = SearchEngine::createWorkspaceScope()
 				var List<SearchParticipant> participants = newArrayList(SearchEngine::defaultSearchParticipant)
 				
