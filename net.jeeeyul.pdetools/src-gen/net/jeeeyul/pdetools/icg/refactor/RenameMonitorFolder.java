@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IDocument;
@@ -22,8 +21,8 @@ import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.TextFileChange;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
-import org.eclipse.ltk.core.refactoring.participants.MoveArguments;
-import org.eclipse.ltk.core.refactoring.participants.MoveParticipant;
+import org.eclipse.ltk.core.refactoring.participants.RenameArguments;
+import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
 import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.DocumentProviderRegistry;
@@ -34,16 +33,15 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class MoveMonitorFolder extends MoveParticipant {
-  private IPath after;
-  
+public class RenameMonitorFolder extends RenameParticipant {
   private IPath before;
+  
+  private IPath after;
   
   private ICGConfiguration config;
   
   public RefactoringStatus checkConditions(final IProgressMonitor pm, final CheckConditionsContext context) throws OperationCanceledException {
-    RefactoringStatus _refactoringStatus = new RefactoringStatus();
-    return _refactoringStatus;
+    return null;
   }
   
   public Change createChange(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
@@ -89,19 +87,19 @@ public class MoveMonitorFolder extends MoveParticipant {
   }
   
   public String getName() {
-    return "Change Monitoring Folder name in ICG Configuration";
+    return "Update Shared Image Generator settings";
   }
   
   protected boolean initialize(final Object element) {
-    IResource movingResource = this.<IResource>getAdapter(element, IResource.class);
-    boolean _not = (!(movingResource instanceof IFolder));
+    IResource renamingResource = this.<IResource>getAdapter(element, IResource.class);
+    boolean _not = (!(renamingResource instanceof IFolder));
     if (_not) {
       return false;
     }
-    IProject _project = movingResource.getProject();
+    IProject _project = renamingResource.getProject();
     ICGConfiguration _iCGConfiguration = new ICGConfiguration(_project);
     this.config = _iCGConfiguration;
-    IPath _fullPath = movingResource.getFullPath();
+    IPath _fullPath = renamingResource.getFullPath();
     IFolder _monitoringFolder = this.config.getMonitoringFolder();
     IPath _fullPath_1 = _monitoringFolder.getFullPath();
     boolean _isPrefixOf = _fullPath.isPrefixOf(_fullPath_1);
@@ -114,17 +112,15 @@ public class MoveMonitorFolder extends MoveParticipant {
     this.before = _projectRelativePath;
     IFolder _monitoringFolder_2 = this.config.getMonitoringFolder();
     IPath _fullPath_2 = _monitoringFolder_2.getFullPath();
-    IPath _fullPath_3 = movingResource.getFullPath();
+    IPath _fullPath_3 = renamingResource.getFullPath();
     IPath relPath = _fullPath_2.makeRelativeTo(_fullPath_3);
-    MoveArguments _arguments = this.getArguments();
-    Object _destination = _arguments.getDestination();
-    String _string = _destination.toString();
-    Path _path = new Path(_string);
-    String _name = movingResource.getName();
-    IPath _append = _path.append(_name);
+    IPath _projectRelativePath_1 = renamingResource.getProjectRelativePath();
+    IPath _removeLastSegments = _projectRelativePath_1.removeLastSegments(1);
+    RenameArguments _arguments = this.getArguments();
+    String _newName = _arguments.getNewName();
+    IPath _append = _removeLastSegments.append(_newName);
     IPath _append_1 = _append.append(relPath);
-    IPath _removeFirstSegments = _append_1.removeFirstSegments(2);
-    this.after = _removeFirstSegments;
+    this.after = _append_1;
     return true;
   }
   

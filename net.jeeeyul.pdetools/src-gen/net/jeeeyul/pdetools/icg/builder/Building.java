@@ -3,6 +3,8 @@ package net.jeeeyul.pdetools.icg.builder;
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+import net.jeeeyul.pdetools.Activator;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
@@ -16,13 +18,20 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.osgi.framework.Bundle;
 
 @SuppressWarnings("all")
 public class Building {
@@ -99,9 +108,27 @@ public class Building {
       IFile _ouputFile_4 = this.config.getOuputFile();
       boolean _isMarkDerived = this.config.isMarkDerived();
       _ouputFile_4.setDerived(_isMarkDerived);
-      monitor.done();
       IProject _project = this.builder.getProject();
-      return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>newArrayList(_project), IProject.class));
+      IPath _fullPath = _project.getFullPath();
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(".settings/");
+      Activator _default = Activator.getDefault();
+      Bundle _bundle = _default.getBundle();
+      String _symbolicName = _bundle.getSymbolicName();
+      _builder.append(_symbolicName, "");
+      _builder.append(".palette.xml");
+      IPath _append = _fullPath.append(_builder.toString());
+      String _portableString = _append.toPortableString();
+      URI uri = URI.createPlatformResourceURI(_portableString, false);
+      XMLResourceImpl _xMLResourceImpl = new XMLResourceImpl(uri);
+      XMLResourceImpl resource = _xMLResourceImpl;
+      EList<EObject> _contents = resource.getContents();
+      _contents.add(paletteModel);
+      HashMap<Object,Object> _hashMap = new HashMap<Object,Object>();
+      resource.save(_hashMap);
+      monitor.done();
+      IProject _project_1 = this.builder.getProject();
+      return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>newArrayList(_project_1), IProject.class));
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);
     }

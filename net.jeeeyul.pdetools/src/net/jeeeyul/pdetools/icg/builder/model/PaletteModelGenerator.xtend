@@ -15,53 +15,58 @@ import org.eclipse.core.resources.IResource
 class PaletteModelGenerator {
 	Stack<PaletteModelGenerationContext> stack
 	ICGConfiguration config
+	(IResource)=>String nameProvider
 	
+	def setNameProvider((IResource)=>String provider){
+		this.nameProvider = provider
+	}
+
 	new(ICGConfiguration config){
 		this.config = config
 		stack = new Stack<PaletteModelGenerationContext>(); 
 		pushContext(null);
 	}
 	
+	def Palette generate(){
+		return config.monitoringFolder.generatePalette()
+	}
+
 	def Palette generatePalette(IFolder folder){
 		var palette = PaletteFactory::eINSTANCE.createPalette();
 		palette.folder = folder
-		palette.assigneFieldName(folder.name.safeFieldName);
-		if(currentContext.palette != null){
+		palette.assigneFieldName(folder.preferFieldName);
+		if(currentContext.palette != null) {
 			currentContext.palette.subPalettes += palette
 		}
-	
 		pushContext(palette);
 		{
-			folder.validMembers.filter(typeof(IFolder)).forEach[it.generatePalette];
-			
+			folder.validMembers.filter(typeof(IFolder)).forEach[ it.generatePalette ];
 			for(eachFile : folder.validMembers.filter(typeof(IFile))){
-				palette.imageFiles += eachFile.generateImageFile();	
+				palette.imageFiles += eachFile.generateImageFile();
 			}
 		}
 		popContext();
-		
 		return palette
 	}
-	
+
 	def ImageFile generateImageFile(IFile file) {
 		return  PaletteFactory::eINSTANCE.createImageFile() => [
 			it.file = file
-			assigneFieldName(file.fullPath.removeFileExtension.lastSegment.safeFieldName)
+			assigneFieldName(file.preferFieldName)
 		]
 	}
 
-	
-	def private popContext() { 
+	def private popContext() {
 		stack.pop();
 	}
-	
+
 	def private assigneFieldName(FieldNameOwner fieldNameOwner, String preferName){
-		if(!currentContext.isRegisterdFieldName(preferName)){
+		if(!currentContext.isRegisterdFieldName(preferName)) {
 			fieldNameOwner.fieldName = preferName;
 			currentContext.registerFieldName(preferName)
-		}else{
+		} else {
 			var step = 2
-			var newName = preferName + "_" + step ;
+			var newName = preferName + "_" + step;
 			while(currentContext.isRegisterdFieldName(newName)){
 				step = step + 1
 				newName = preferName + "_" + step;
@@ -70,42 +75,53 @@ class PaletteModelGenerator {
 			currentContext.registerFieldName(newName);
 		}
 	}
-	
+
 	def private currentContext(){
 		stack.peek
 	}
-	
+
 	def private pushContext(Palette palette){
 		stack.push(new net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerationContext(palette));
 	}
-	
+
 	def private safeFieldName(String preferName){
 		var result = preferName.replaceAll("[^a-zA-Z0-9_]", "_").toUpperCase;
-		if(result.matches("[0-9].*")){
+		if(result.matches("[0-9].*")) {
 			result = "_" + result
 		}
 		return result;
 	}
-	
+
 	def private IResource[] validMembers(IFolder folder){
 		var list = folder.members.filter[
-			if(it instanceof IFolder){
-				 true;
-			}else{
+			if(it instanceof IFolder) {
+				true;
+			} else {
 				config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
 			}
 		];
-		
 		list.sort[a, b|
-			if(a instanceof IFolder && b instanceof IFile){
+			if(a instanceof IFolder && b instanceof IFile) {
 				return -1;
-			}
-			else if(a instanceof IFile && b instanceof IFolder){
-				return 1;
-			}
-			else{
-				return a.name.compareTo(b.name)	
-			}
+			} else
+				if(a instanceof IFile && b instanceof IFolder) {
+					return 1;
+				} else {
+					return a.name.compareTo(b.name)
+				}
 		];
+	}
+
+	def preferFieldName(IResource resource){
+		var String result = null
+		var String name = null
+		if(nameProvider != null) {
+			name = nameProvider.apply(resource)
+		}
+		if(name == null){
+			name = resource.fullPath.removeFileExtension.lastSegment
+		}
+		result = name.safeFieldName
+		return result
 	}
 }

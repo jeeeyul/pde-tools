@@ -13,6 +13,11 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.emf.common.util.URI
+import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
+import java.util.HashMap
+import net.jeeeyul.pdetools.Activator
 
 class Building {
 	extension ResourceExtensions = new ResourceExtensions()
@@ -38,21 +43,21 @@ class Building {
 	def IProject[ ] build(IProgressMonitor monitor) {
 		monitor.beginTask("ICG Build", IProgressMonitor::UNKNOWN);
 		
-		// ºôµå ¼³Á¤¹× ±¸¼ºÀ» °Ë»çÇÑ´Ù.
+		// ë¹Œë“œ ì„¤ì •ë° êµ¬ì„±ì„ ê²€ì‚¬í•œë‹¤.
 		validate()
 		
-		// ÀÌÀü ¸®¼Ò½º ¸¶Ä¿µéÀ» Á¦°ÅÇÏ°í, °Ë»ç °á°ú¿¡ µû¸¥ ¸¶Ä¿µéÀ» »ı¼ºÇÑ´Ù.
+		// ì´ì „ ë¦¬ì†ŒìŠ¤ ë§ˆì»¤ë“¤ì„ ì œê±°í•˜ê³ , ê²€ì‚¬ ê²°ê³¼ì— ë”°ë¥¸ ë§ˆì»¤ë“¤ì„ ìƒì„±í•œë‹¤.
 		cleanMarkers()
 		generateMarkers()
 
-		// ºôµå ÇÒ ÇÊ¿ä°¡ ¾ø°Å³ª, ºôµå°¡ ºÒ°¡´ÉÇÏ¸é Á¾·áÇÑ´Ù.
+		// ë¹Œë“œ í•  í•„ìš”ê°€ ì—†ê±°ë‚˜, ë¹Œë“œê°€ ë¶ˆê°€ëŠ¥í•˜ë©´ ì¢…ë£Œí•œë‹¤.
 		if(!canBuild() || !hasResourceDelta()) {
 			monitor.done()
-			println("ºôµå Ãë¼Ò")
+			println("ë¹Œë“œ ì·¨ì†Œ")
 			return emptyList
 		}
 		
-		// Ãâ·ÂµÉ ÀÚ¹Ù ¼Ò½º°¡ ´ã±æ ÀÚ¹Ù ¼Ò½º Æú´õ¸¦ È®º¸ÇÑ´Ù.
+		// ì¶œë ¥ë  ìë°” ì†ŒìŠ¤ê°€ ë‹´ê¸¸ ìë°” ì†ŒìŠ¤ í´ë”ë¥¼ í™•ë³´í•œë‹¤.
 		ensureJavaSourceFolder()
 		
 		var pmg = new PaletteModelGenerator(config)
@@ -68,6 +73,11 @@ class Building {
 		stream.close()
 		config.ouputFile.derived = config.markDerived
 		
+		var uri = URI::createPlatformResourceURI(project.fullPath.append('''.settings/Â«Activator::^default.bundle.symbolicNameÂ».palette.xml''').toPortableString, false)
+		var resource = new XMLResourceImpl(uri)
+		resource.contents.add(paletteModel)
+		resource.save(new HashMap())
+			
 		monitor.done()
 		return newArrayList(project)
 	}

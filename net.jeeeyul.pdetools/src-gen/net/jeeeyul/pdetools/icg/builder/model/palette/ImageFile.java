@@ -62,7 +62,7 @@ public interface ImageFile extends FieldNameOwner
    * @return the value of the '<em>File</em>' attribute.
    * @see #setFile(IFile)
    * @see net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage#getImageFile_File()
-   * @model unique="false" dataType="net.jeeeyul.pdetools.icg.builder.model.palette.File"
+   * @model unique="false" id="true" dataType="net.jeeeyul.pdetools.icg.builder.model.palette.File"
    * @generated
    */
   IFile getFile();

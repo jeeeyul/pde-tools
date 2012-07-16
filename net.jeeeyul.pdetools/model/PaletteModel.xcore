@@ -49,5 +49,5 @@ class ImageFile extends FieldNameOwner
 	/**
 	 * 워크스페이스 상의 실제 IFile
 	 */
-	File file
+	id File file
 }

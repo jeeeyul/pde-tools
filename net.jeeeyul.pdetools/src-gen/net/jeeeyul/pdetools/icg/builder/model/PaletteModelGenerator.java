@@ -34,6 +34,13 @@ public class PaletteModelGenerator {
   
   private ICGConfiguration config;
   
+  private Function1<? super IResource,? extends String> nameProvider;
+  
+  public Function1<? super IResource,? extends String> setNameProvider(final Function1<? super IResource,? extends String> provider) {
+    Function1<? super IResource,? extends String> _nameProvider = this.nameProvider = provider;
+    return _nameProvider;
+  }
+  
   public PaletteModelGenerator(final ICGConfiguration config) {
     this.config = config;
     Stack<PaletteModelGenerationContext> _stack = new Stack<PaletteModelGenerationContext>();
@@ -41,12 +48,16 @@ public class PaletteModelGenerator {
     this.pushContext(null);
   }
   
+  public Palette generate() {
+    IFolder _monitoringFolder = this.config.getMonitoringFolder();
+    return this.generatePalette(_monitoringFolder);
+  }
+  
   public Palette generatePalette(final IFolder folder) {
     Palette palette = PaletteFactory.eINSTANCE.createPalette();
     palette.setFolder(folder);
-    String _name = folder.getName();
-    String _safeFieldName = this.safeFieldName(_name);
-    this.assigneFieldName(palette, _safeFieldName);
+    String _preferFieldName = this.preferFieldName(folder);
+    this.assigneFieldName(palette, _preferFieldName);
     PaletteModelGenerationContext _currentContext = this.currentContext();
     Palette _palette = _currentContext.getPalette();
     boolean _notEquals = (!Objects.equal(_palette, null));
@@ -83,11 +94,8 @@ public class PaletteModelGenerator {
     final Procedure1<ImageFile> _function = new Procedure1<ImageFile>() {
         public void apply(final ImageFile it) {
           it.setFile(file);
-          IPath _fullPath = file.getFullPath();
-          IPath _removeFileExtension = _fullPath.removeFileExtension();
-          String _lastSegment = _removeFileExtension.lastSegment();
-          String _safeFieldName = PaletteModelGenerator.this.safeFieldName(_lastSegment);
-          PaletteModelGenerator.this.assigneFieldName(it, _safeFieldName);
+          String _preferFieldName = PaletteModelGenerator.this.preferFieldName(file);
+          PaletteModelGenerator.this.assigneFieldName(it, _preferFieldName);
         }
       };
     return ObjectExtensions.<ImageFile>operator_doubleArrow(_createImageFile, _function);
@@ -231,5 +239,25 @@ public class PaletteModelGenerator {
     } catch (Exception _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public String preferFieldName(final IResource resource) {
+    String result = null;
+    String name = null;
+    boolean _notEquals = (!Objects.equal(this.nameProvider, null));
+    if (_notEquals) {
+      String _apply = this.nameProvider.apply(resource);
+      name = _apply;
+    }
+    boolean _equals = Objects.equal(name, null);
+    if (_equals) {
+      IPath _fullPath = resource.getFullPath();
+      IPath _removeFileExtension = _fullPath.removeFileExtension();
+      String _lastSegment = _removeFileExtension.lastSegment();
+      name = _lastSegment;
+    }
+    String _safeFieldName = this.safeFieldName(name);
+    result = _safeFieldName;
+    return result;
   }
 }

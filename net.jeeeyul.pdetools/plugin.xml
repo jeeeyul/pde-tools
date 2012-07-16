@@ -209,15 +209,40 @@
          <enablement>
             <with
                   variable="element">
-               <and>
-                  <test
-                        property="org.eclipse.core.resources.projectNature"
-                        value="net.jeeeyul.pdetools.icg.nature">
-                  </test>
-                  <instanceof
-                        value="org.eclipse.core.resources.IFolder">
-                  </instanceof>
-               </and>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+                  <and>
+                     <instanceof
+                           value="org.eclipse.core.resources.IContainer">
+                     </instanceof>
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="net.jeeeyul.pdetools.icg.nature">
+                     </test>
+                  </and>
+               </adapt>
+            </with>
+         </enablement>
+      </renameParticipant>
+      <renameParticipant
+            class="net.jeeeyul.pdetools.icg.refactor.RenamePaletteEntry"
+            id="net.jeeeyul.pdetools.icg.renameIconParticipant"
+            name="Rename Icon File">
+         <enablement>
+            <with
+                  variable="element">
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+                  <and>
+                     <instanceof
+                           value="org.eclipse.core.resources.IFile">
+                     </instanceof>
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="net.jeeeyul.pdetools.icg.nature">
+                     </test>
+                  </and>
+               </adapt>
             </with>
          </enablement>
       </renameParticipant>
