@@ -9,29 +9,20 @@ import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
 import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
 import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
-import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
-import org.eclipse.jdt.core.ICompilationUnit
-import org.eclipse.jdt.core.IJavaElement
-import org.eclipse.jdt.core.JavaCore
-import org.eclipse.jdt.core.search.IJavaSearchConstants
-import org.eclipse.jdt.core.search.SearchEngine
-import org.eclipse.jdt.core.search.SearchParticipant
-import org.eclipse.jdt.core.search.SearchPattern
 import org.eclipse.ltk.core.refactoring.Change
 import org.eclipse.ltk.core.refactoring.CompositeChange
-import org.eclipse.ltk.core.refactoring.TextFileChange
+import org.eclipse.ltk.core.refactoring.RefactoringStatus
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext
 import org.eclipse.ltk.core.refactoring.participants.RenameParticipant
-import org.eclipse.text.edits.MultiTextEdit
-import org.eclipse.text.edits.ReplaceEdit
 
 class RenamePaletteEntry extends RenameParticipant {
 	ICGConfiguration config
@@ -42,9 +33,12 @@ class RenamePaletteEntry extends RenameParticipant {
 	}
 
 	override checkConditions(IProgressMonitor pm, CheckConditionsContext context) throws OperationCanceledException {
+		println("컨디션")
+		return null
 	}
 
 	override createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
+		println("체인지 작성")
 		result = newArrayList()
 		var palette = loadPreviousPaletteModel()
 		var newPalette = createNewPaletteModel()
@@ -52,31 +46,19 @@ class RenamePaletteEntry extends RenameParticipant {
 		var diffs = deltaGenerator.compare(palette, newPalette)
 		
 		for(eachDelta : diffs){
-			var target = palette.eAllContents.filter(typeof(FieldNameOwner)).findFirst[ it.resource == eachDelta.before.resource ]
-			val cu = JavaCore::create(config.ouputFile) as ICompilationUnit
-			var JavaVisitor<IJavaElement> visitor = null
-		
-			if(eachDelta.before.resource instanceof IFile){
-				visitor = new TargetFieldFinder(target.resource.projectRelativePath.toPortableString);	
-			}else{
-				visitor = new TargetInterfaceFinder((eachDelta.before as Palette).qualifiedName);
-			}
-			
-			visitor.visit(cu)
-			
-			if(visitor.result != null) {
-				var pattern = SearchPattern::createPattern(visitor.result, IJavaSearchConstants::READ_ACCESSES)
-				var scope = SearchEngine::createWorkspaceScope()
-				var List<SearchParticipant> participants = newArrayList(SearchEngine::defaultSearchParticipant)
-				
-				var mather = new SearchMatcher()
-				mather.handler = [
-					val match = it
-					var file = it.resource as IFile
-					var change = file.newTextFilecChange()
-					change.addEdit(new ReplaceEdit(match.offset, match.length, eachDelta.after.getUpdatedReference(JavaCore::create(file) as ICompilationUnit)))
-				]
-				new SearchEngine().search(pattern, participants, scope, mather , pm)
+			if(eachDelta.refactorTarget){
+				try{
+					var javaRefactor = new JavaRefactor(eachDelta.before.resource.project)
+					var desc = javaRefactor.createDescriptor(eachDelta)
+					var refactor = desc.createRefactoring(RefactoringStatus::createFatalErrorStatus("Error"));
+					var status = refactor.checkAllConditions(new NullProgressMonitor)
+					if(!status.hasFatalError){
+						var change = refactor.createChange(new NullProgressMonitor)
+						result += change
+					}	
+				}catch(Exception e){
+					e.printStackTrace()
+				}
 			}
 		}
 		
@@ -120,49 +102,6 @@ class RenamePaletteEntry extends RenameParticipant {
 		generator.generate()
 	}
 	
-	def TextFileChange create new TextFileChange("알거 없다", file) newTextFilecChange(IFile file){
-		it.edit = new MultiTextEdit() 
-		result.add(it)
-	}
-	
-	def String qualifiedName(Palette owner){
-		var List<String> segments = newArrayList()
-		segments.add(owner.fieldName)
-		
-		var parent = owner.parent
-		while(parent != null && parent.fieldName != null && parent.parent != null){
-			segments.add(parent.fieldName)
-			parent = parent.parent
-		}
-		
-		return '''«config.generatePackageName».«config.generateClassName»$«segments.reverse.join("$")»'''
-	}
-	
-	def String qualifiedNameForUpdate(Palette owner){
-		var List<String> segments = newArrayList()
-		segments.add(owner.fieldName)
-		
-		var parent = owner.parent
-		while(parent != null && parent.fieldName != null && parent.parent != null){
-			segments.add(parent.fieldName)
-			parent = parent.parent
-		}
-		
-		return '''«config.generateClassName».«segments.reverse.join(".")»'''
-	}
-	
-	def parent(FieldNameOwner owner){
-		switch(owner){
-			Palette:{
-				return owner.parent
-			}
-			ImageFile:{
-				return owner.parent
-			}
-		}
-	}
-	
-	
 	def dispatch getResource(FieldNameOwner obj){
 		null
 	}
@@ -173,27 +112,5 @@ class RenamePaletteEntry extends RenameParticipant {
 	
 	def dispatch getResource(ImageFile file){
 		file.file
-	}
-	
-	def dispatch String getUpdatedReference(FieldNameOwner obj, ICompilationUnit cu){
-		null
-	}
-	
-	def dispatch getUpdatedReference(Palette palette, ICompilationUnit cu){
-		var String result = palette.qualifiedNameForUpdate
-		
-		val fullyQualifiedName = '''«config.generatePackageName».«config.generateClassName»'''.toString
-		var imported = cu.imports.exists[it.elementName == fullyQualifiedName || it.elementName == config.generatePackageName + ".*"]
-
-		cu.imports.forEach[println(it.elementName)]
-		if(!imported){
-			result = '''«config.generatePackageName».«result»'''
-		}
-		
-		return result
-	}
-	
-	def dispatch getUpdatedReference(ImageFile file, ICompilationUnit cu){
-		file.fieldName
 	}
 }

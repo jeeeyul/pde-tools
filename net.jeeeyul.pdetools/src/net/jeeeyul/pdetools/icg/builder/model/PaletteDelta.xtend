@@ -6,4 +6,9 @@ import org.eclipse.xtend.lib.Property
 class PaletteDelta {
 	@Property FieldNameOwner before
 	@Property FieldNameOwner after
+	
+	def boolean isRefactorTarget(){
+		before != null && after != null
+	}
+	
 }

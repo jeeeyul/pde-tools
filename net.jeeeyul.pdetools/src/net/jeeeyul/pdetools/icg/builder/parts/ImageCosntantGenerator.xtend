@@ -31,6 +31,7 @@ class ImageCosntantGenerator {
 		
 		import java.net.URL;
 		import org.eclipse.core.runtime.Platform;
+		import org.eclipse.jface.resource.ImageDescriptor;
 		import org.eclipse.jface.resource.ImageRegistry;
 		import org.eclipse.swt.graphics.Image;
 		import org.eclipse.ui.ISharedImages;
@@ -47,20 +48,29 @@ class ImageCosntantGenerator {
 			« FOR eachFile : rootPalette.imageFiles SEPARATOR lineSeparator »
 				« eachFile.generateField() »
 			« ENDFOR »
-			private static final ImageRegistry registry = new ImageRegistry();
+			private static final ImageRegistry REGISTRY = new ImageRegistry();
 			
 			public static Image getImage(String key){
-				Image result = registry.get(key);
+				Image result = REGISTRY.get(key);
 				if(result == null){
 					result = loadImage(key);
-					registry.put(key, result);
+					REGISTRY.put(key, result);
+				}
+				return result;
+			}
+			
+			public static ImageDescriptor getImageDescriptor(String key){
+				ImageDescriptor result = REGISTRY.getDescriptor(key);
+				if(result == null){
+					result = loadImageDescriptor(key);
+					REGISTRY.put(key, result);
 				}
 				return result;
 			}
 			
 			private static Image loadImage(String key) {
 				try {
-					URL resource = Platform.getBundle("« config.bundleId »").getResource(key);
+					URL resource = Platform.getBundle("cba").getResource(key);
 					Image image = new Image(null, resource.openStream());
 					return image;
 				} catch (Exception e) {
@@ -68,10 +78,24 @@ class ImageCosntantGenerator {
 					return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
 				}
 			}
+			
+			private static ImageDescriptor loadImageDescriptor(String key) {
+				try {
+					URL resource = Platform.getBundle("cba").getResource(key);
+					ImageDescriptor descriptor = ImageDescriptor.createFromURL(resource);
+					return descriptor;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_ERROR_TSK);
+				}
+			}
 		}
 	'''
 
 	def private generateSubPalette(Palette palette) '''
+		/**
+		 * Constants set for folder '«palette.folder.projectRelativePath.toPortableString»'
+		 */
 		public static interface « palette.fieldName »{
 			« FOR eachSub : palette.subPalettes SEPARATOR lineSeparator»
 				«eachSub.generateSubPalette()»
