@@ -11,8 +11,11 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.BaseLabelProvider;
+import org.eclipse.jface.viewers.DecorationContext;
 import org.eclipse.jface.viewers.IDecoration;
+import org.eclipse.jface.viewers.IDecorationContext;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.swt.widgets.Display;
@@ -29,10 +32,19 @@ public class MonitorFolderDecorator extends BaseLabelProvider implements ILightw
 			IFolder folder = (IFolder) element;
 			ICGConfiguration config = new ICGConfiguration(folder.getProject());
 			if (folder.equals(config.getMonitoringFolder())) {
-				decoration.addOverlay(SharedImages.getImageDescriptor(SharedImages.IMAGE), IDecoration.BOTTOM_LEFT);
+				replaceImage(decoration, SharedImages.getImageDescriptor(SharedImages.IMAGE_FOLDER));
 				decoration.addSuffix(" (Image Monitoring Folder)");
 			}
 		}
+	}
+
+	private void replaceImage(IDecoration decoration, ImageDescriptor descriptor) {
+		IDecorationContext ctx = decoration.getDecorationContext();
+		if (ctx instanceof DecorationContext) {
+			DecorationContext ctxImpl = (DecorationContext) ctx;
+			ctxImpl.putProperty(IDecoration.ENABLE_REPLACE, Boolean.TRUE);
+		}
+		decoration.addOverlay(descriptor, IDecoration.REPLACE);
 	}
 
 	@Override

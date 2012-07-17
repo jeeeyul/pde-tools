@@ -35,6 +35,11 @@ public class SharedImages{
 	public static final String ADD = "icons/add.gif";
 	
 	/**
+	 * Image constant for icons/bbb.gif
+	 */
+	public static final String BBB = "icons/bbb.gif";
+	
+	/**
 	 * Image constant for icons/configure.gif
 	 */
 	public static final String CONFIGURE = "icons/configure.gif";
@@ -70,7 +75,7 @@ public class SharedImages{
 	
 	private static Image loadImage(String key) {
 		try {
-			URL resource = Platform.getBundle("cba").getResource(key);
+			URL resource = Platform.getBundle("net.jeeeyul.pdetools").getResource(key);
 			Image image = new Image(null, resource.openStream());
 			return image;
 		} catch (Exception e) {
@@ -81,7 +86,7 @@ public class SharedImages{
 	
 	private static ImageDescriptor loadImageDescriptor(String key) {
 		try {
-			URL resource = Platform.getBundle("cba").getResource(key);
+			URL resource = Platform.getBundle("net.jeeeyul.pdetools").getResource(key);
 			ImageDescriptor descriptor = ImageDescriptor.createFromURL(resource);
 			return descriptor;
 		} catch (Exception e) {

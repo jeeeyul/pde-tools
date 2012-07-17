@@ -185,7 +185,7 @@
             id="net.jeeeyul.pdetools.icg.monitorfolder"
             label="ICG Monitored Folder Decorator"
             lightweight="true"
-            location="BOTTOM_LEFT"
+            location="REPLACE"
             state="true">
          <enablement>
             <and>
