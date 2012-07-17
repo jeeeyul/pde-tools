@@ -52,7 +52,6 @@ class Building {
 		// 빌드 할 필요가 없거나, 빌드가 불가능하면 종료한다.
 		if(!canBuild() || !hasResourceDelta()) {
 			monitor.done()
-			println("빌드 취소")
 			return emptyList
 		}
 		
@@ -62,13 +61,16 @@ class Building {
 		var pmg = new PaletteModelGenerator(config)
 		var paletteModel = pmg.generatePalette(config.monitoringFolder)
 		
-		if(config.ouputFile.exists) {
-			config.ouputFile.delete(true, new NullProgressMonitor())
-		}
 		
-		var stream = new ByteArrayInputStream(paletteModel.generateJavaSource().toString.bytes)
+		var data = paletteModel.generateJavaSource().toString.bytes;
+		var stream = new ByteArrayInputStream(data)
 		config.ouputFile.parent.ensureExist()
-		config.ouputFile.create(stream, true, new NullProgressMonitor())
+		if(config.ouputFile.exists){
+			config.ouputFile.setContents(stream, true, true, new NullProgressMonitor);
+		}
+		else{
+			config.ouputFile.create(stream, true, new NullProgressMonitor())
+		}
 		stream.close()
 		config.ouputFile.derived = config.markDerived
 		

@@ -33,12 +33,10 @@ class RenamePaletteEntry extends RenameParticipant {
 	}
 
 	override checkConditions(IProgressMonitor pm, CheckConditionsContext context) throws OperationCanceledException {
-		println("컨디션")
 		return null
 	}
 
 	override createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
-		println("체인지 작성")
 		result = newArrayList()
 		var palette = loadPreviousPaletteModel()
 		var newPalette = createNewPaletteModel()
@@ -63,7 +61,7 @@ class RenamePaletteEntry extends RenameParticipant {
 		}
 		
 		if(!result.empty){
-			return new CompositeChange("아오 씨바", result)
+			return new CompositeChange("Update Shared Image Java Referernces", result)
 		}
 		return null
 	} 

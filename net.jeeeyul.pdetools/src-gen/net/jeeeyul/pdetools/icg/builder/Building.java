@@ -30,7 +30,6 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.osgi.framework.Bundle;
 
 @SuppressWarnings("all")
@@ -78,7 +77,6 @@ public class Building {
       }
       if (_or) {
         monitor.done();
-        InputOutput.<String>println("\uBE4C\uB4DC \uCDE8\uC18C");
         return ((IProject[])Conversions.unwrapArray(CollectionLiterals.<IProject>emptyList(), IProject.class));
       }
       this._javaProjectPart.ensureJavaSourceFolder();
@@ -86,24 +84,25 @@ public class Building {
       PaletteModelGenerator pmg = _paletteModelGenerator;
       IFolder _monitoringFolder = this.config.getMonitoringFolder();
       Palette paletteModel = pmg.generatePalette(_monitoringFolder);
-      IFile _ouputFile = this.config.getOuputFile();
-      boolean _exists = _ouputFile.exists();
-      if (_exists) {
-        IFile _ouputFile_1 = this.config.getOuputFile();
-        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-        _ouputFile_1.delete(true, _nullProgressMonitor);
-      }
       CharSequence _generateJavaSource = this._imageCosntantGenerator.generateJavaSource(paletteModel);
       String _string = _generateJavaSource.toString();
-      byte[] _bytes = _string.getBytes();
-      ByteArrayInputStream _byteArrayInputStream = new ByteArrayInputStream(_bytes);
+      byte[] data = _string.getBytes();
+      ByteArrayInputStream _byteArrayInputStream = new ByteArrayInputStream(data);
       ByteArrayInputStream stream = _byteArrayInputStream;
-      IFile _ouputFile_2 = this.config.getOuputFile();
-      IContainer _parent = _ouputFile_2.getParent();
+      IFile _ouputFile = this.config.getOuputFile();
+      IContainer _parent = _ouputFile.getParent();
       this._resourceExtensions.ensureExist(_parent);
-      IFile _ouputFile_3 = this.config.getOuputFile();
-      NullProgressMonitor _nullProgressMonitor_1 = new NullProgressMonitor();
-      _ouputFile_3.create(stream, true, _nullProgressMonitor_1);
+      IFile _ouputFile_1 = this.config.getOuputFile();
+      boolean _exists = _ouputFile_1.exists();
+      if (_exists) {
+        IFile _ouputFile_2 = this.config.getOuputFile();
+        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+        _ouputFile_2.setContents(stream, true, true, _nullProgressMonitor);
+      } else {
+        IFile _ouputFile_3 = this.config.getOuputFile();
+        NullProgressMonitor _nullProgressMonitor_1 = new NullProgressMonitor();
+        _ouputFile_3.create(stream, true, _nullProgressMonitor_1);
+      }
       stream.close();
       IFile _ouputFile_4 = this.config.getOuputFile();
       boolean _isMarkDerived = this.config.isMarkDerived();

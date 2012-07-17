@@ -8,6 +8,7 @@ import net.jeeeyul.pdetools.icg.builder.model.palette.PaletteFactory
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
+import java.util.List
 
 /**
  * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.
@@ -16,9 +17,14 @@ class PaletteModelGenerator {
 	Stack<PaletteModelGenerationContext> stack
 	ICGConfiguration config
 	(IResource)=>String nameProvider
+	(IFolder)=>IResource[] contentProvider
 	
 	def setNameProvider((IResource)=>String provider){
 		this.nameProvider = provider
+	}
+	
+	def setContentProvider((IFolder)=>IResource[] provider){
+		this.contentProvider = provider
 	}
 
 	new(ICGConfiguration config){
@@ -60,14 +66,30 @@ class PaletteModelGenerator {
 		stack.pop();
 	}
 
-	def private assigneFieldName(FieldNameOwner fieldNameOwner, String preferName){
-		if(!currentContext.isRegisterdFieldName(preferName)) {
+	def private dispatch assigneFieldName(Palette fieldNameOwner, String preferName){
+		if(!currentContext.isRegisteredPaletteFieldName(preferName)) {
 			fieldNameOwner.fieldName = preferName;
 			currentContext.registerFieldName(preferName)
 		} else {
 			var step = 2
 			var newName = preferName + "_" + step;
-			while(currentContext.isRegisterdFieldName(newName)){
+			while(currentContext.isRegisteredPaletteFieldName(newName)){
+				step = step + 1
+				newName = preferName + "_" + step;
+			}
+			fieldNameOwner.fieldName = newName;
+			currentContext.registerFieldName(newName);
+		}
+	}
+	
+	def private dispatch assigneFieldName(FieldNameOwner fieldNameOwner, String preferName){
+		if(!currentContext.isRegisteredIconFieldName(preferName)) {
+			fieldNameOwner.fieldName = preferName;
+			currentContext.registerFieldName(preferName)
+		} else {
+			var step = 2
+			var newName = preferName + "_" + step;
+			while(currentContext.isRegisteredIconFieldName(newName)){
 				step = step + 1
 				newName = preferName + "_" + step;
 			}
@@ -81,7 +103,12 @@ class PaletteModelGenerator {
 	}
 
 	def private pushContext(Palette palette){
-		stack.push(new net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerationContext(palette));
+		var newCtx = new PaletteModelGenerationContext(palette)
+		if(stack.size > 0){
+			newCtx.parent = stack.peek	
+		}
+		
+		stack.push(newCtx);
 	}
 
 	def private safeFieldName(String preferName){
@@ -93,13 +120,23 @@ class PaletteModelGenerator {
 	}
 
 	def private IResource[] validMembers(IFolder folder){
-		var list = folder.members.filter[
+		var List<IResource> elements = null
+		
+		if(contentProvider != null){
+		 	elements = contentProvider.apply(folder)
+		}
+		else{
+			elements = folder.members
+		}
+		
+		var list = elements.filter[
 			if(it instanceof IFolder) {
 				true;
 			} else {
 				config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
 			}
 		];
+		
 		list.sort[a, b|
 			if(a instanceof IFolder && b instanceof IFile) {
 				return -1;

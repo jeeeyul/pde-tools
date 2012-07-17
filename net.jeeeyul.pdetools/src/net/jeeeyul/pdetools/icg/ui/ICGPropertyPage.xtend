@@ -33,6 +33,7 @@ class ICGPropertyPage extends PropertyPage {
 	Text imageFileExtensionsField
 	Text generateSrcFolderField
 	Text generateSrcPackageField
+	Text generateClassNameField
 	Button markDerivedField
 	Button generatePreviewField
 	
@@ -86,6 +87,13 @@ class ICGPropertyPage extends PropertyPage {
 					onClick = [browsePackage()]
 				]
 				
+				Label[text="Class Name:"]
+				generateClassNameField = TextField[
+					layoutData = FILL_HORIZONTAL[
+						horizontalSpan = 2
+					]
+				]
+				
 				generatePreviewField = Checkbox[
 					layoutData = GridData[horizontalSpan = 3]
 					text = "Generate Image Preview in Javadoc"
@@ -114,6 +122,7 @@ class ICGPropertyPage extends PropertyPage {
 		}
 		
 		generateSrcPackageField.text = config.generatePackageName.nullSafeString
+		generateClassNameField.text = config.generateClassName.nullSafeString
 		generatePreviewField.selection = config.generateImagePreview
 		markDerivedField.selection = config.markDerived
 		
@@ -216,7 +225,7 @@ class ICGPropertyPage extends PropertyPage {
 		}
 		
 		config.imageFileExtensions = imageFileExtensionsField.text.trim.split("[ ,]+") 
-		
+		config.generateClassName = generateClassNameField.text.trim
 		config.generatePackageName = generateSrcPackageField.text.trim
 		config.markDerived = markDerivedField.selection
 		config.generateImagePreview = generatePreviewField.selection

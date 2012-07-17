@@ -33,7 +33,7 @@ public class MonitorFolderDecorator extends BaseLabelProvider implements ILightw
 			ICGConfiguration config = new ICGConfiguration(folder.getProject());
 			if (folder.equals(config.getMonitoringFolder())) {
 				replaceImage(decoration, SharedImages.getImageDescriptor(SharedImages.IMAGE_FOLDER));
-				decoration.addSuffix(" (Image Monitoring Folder)");
+				decoration.addSuffix(" (Shared Image Folder)");
 			}
 		}
 	}

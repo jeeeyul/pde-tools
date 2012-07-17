@@ -3,7 +3,7 @@
 <plugin>
    <extension
          id="net.jeeeyul.pdetools.icg.builder"
-         name="Image Constants Generator"
+         name="Shared Image Generator"
          point="org.eclipse.core.resources.builders">
       <builder
             callOnEmptyDelta="false"
@@ -16,7 +16,7 @@
    </extension>
    <extension
          id="net.jeeeyul.pdetools.icg.nature"
-         name="Managed Image Constants Project"
+         name="Managed Shared Image Nature"
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
@@ -34,11 +34,11 @@
          point="org.eclipse.ui.commands">
       <command
             id="net.jeeeyul.pdetools.icg.enableNature"
-            name="Enable Image Constants Generator">
+            name="Enable Shared Image Generator">
       </command>
       <command
             id="net.jeeeyul.pdetools.icg.disableNature"
-            name="Disable Image Constants Generator">
+            name="Disable Shared Image Generator">
       </command>
    </extension>
    <extension
@@ -62,7 +62,7 @@
          <command
                commandId="net.jeeeyul.pdetools.icg.enableNature"
                icon="icons/image.gif"
-               label="Enable Image Constants Generator"
+               label="Enable Shared Image Generator"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -91,7 +91,7 @@
          <command
                commandId="net.jeeeyul.pdetools.icg.disableNature"
                icon="icons/image.gif"
-               label="Disable Image Constants Generator"
+               label="Disable Shared Image Generator"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -123,7 +123,7 @@
             category="org.eclipse.pde.internal.ui.properties.pluginDevelopmentPage"
             class="net.jeeeyul.pdetools.icg.ui.ICGPropertyPage"
             id="net.jeeeyul.pdetools.icg.propertyPage"
-            name="Image Constants Generator">
+            name="Shared Image Generator">
          <enabledWhen>
             <adapt
                   type="org.eclipse.core.resources.IProject">
@@ -169,7 +169,7 @@
             class="net.jeeeyul.pdetools.decorator.IconDecorator"
             icon="icons/image.gif"
             id="net.jeeeyul.pdetools.icondecorator"
-            label="Icon File Decorator"
+            label="PDE Tools - Icon File Decorator"
             lightweight="true"
             location="REPLACE"
             state="true">
@@ -183,7 +183,7 @@
             class="net.jeeeyul.pdetools.decorator.MonitorFolderDecorator"
             icon="icons/image-folder.gif"
             id="net.jeeeyul.pdetools.icg.monitorfolder"
-            label="ICG Monitored Folder Decorator"
+            label="PDE Tools - Shared Image Folder"
             lightweight="true"
             location="REPLACE"
             state="true">

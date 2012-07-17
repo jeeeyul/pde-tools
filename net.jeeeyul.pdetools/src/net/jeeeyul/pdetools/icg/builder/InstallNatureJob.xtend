@@ -43,6 +43,8 @@ class InstallNatureJob extends WorkbenchJob {
 				generatePackageName = "shared"
 			if(generateClassName.nullOrBlank)
 				generateClassName = "SharedImages"
+			generateImagePreview = true
+			markDerived = true
 		]
 		config.save();
 		monitor	.done();

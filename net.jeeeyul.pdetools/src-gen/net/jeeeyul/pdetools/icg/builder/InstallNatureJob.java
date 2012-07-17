@@ -92,6 +92,8 @@ public class InstallNatureJob extends WorkbenchJob {
             if (_nullOrBlank_1) {
               it.setGenerateClassName("SharedImages");
             }
+            it.setGenerateImagePreview(true);
+            it.setMarkDerived(true);
           }
         };
       ICGConfiguration config = ObjectExtensions.<ICGConfiguration>operator_doubleArrow(_iCGConfiguration, _function_1);

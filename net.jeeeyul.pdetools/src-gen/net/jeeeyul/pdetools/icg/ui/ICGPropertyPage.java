@@ -72,6 +72,8 @@ public class ICGPropertyPage extends PropertyPage {
   
   private Text generateSrcPackageField;
   
+  private Text generateClassNameField;
+  
   private Button markDerivedField;
   
   private Button generatePreviewField;
@@ -213,7 +215,26 @@ public class ICGPropertyPage extends PropertyPage {
                       }
                     };
                   ICGPropertyPage.this._sWTExtensions.PushButton(it, _function_6);
-                  final Procedure1<Button> _function_7 = new Procedure1<Button>() {
+                  final Procedure1<Label> _function_7 = new Procedure1<Label>() {
+                      public void apply(final Label it) {
+                        it.setText("Class Name:");
+                      }
+                    };
+                  ICGPropertyPage.this._sWTExtensions.Label(it, _function_7);
+                  final Procedure1<Text> _function_8 = new Procedure1<Text>() {
+                      public void apply(final Text it) {
+                        final Procedure1<GridData> _function = new Procedure1<GridData>() {
+                            public void apply(final GridData it) {
+                              it.horizontalSpan = 2;
+                            }
+                          };
+                        GridData _FILL_HORIZONTAL = ICGPropertyPage.this._sWTExtensions.FILL_HORIZONTAL(_function);
+                        it.setLayoutData(_FILL_HORIZONTAL);
+                      }
+                    };
+                  Text _TextField_2 = ICGPropertyPage.this._sWTExtensions.TextField(it, _function_8);
+                  ICGPropertyPage.this.generateClassNameField = _TextField_2;
+                  final Procedure1<Button> _function_9 = new Procedure1<Button>() {
                       public void apply(final Button it) {
                         final Procedure1<GridData> _function = new Procedure1<GridData>() {
                             public void apply(final GridData it) {
@@ -225,9 +246,9 @@ public class ICGPropertyPage extends PropertyPage {
                         it.setText("Generate Image Preview in Javadoc");
                       }
                     };
-                  Button _Checkbox = ICGPropertyPage.this._sWTExtensions.Checkbox(it, _function_7);
+                  Button _Checkbox = ICGPropertyPage.this._sWTExtensions.Checkbox(it, _function_9);
                   ICGPropertyPage.this.generatePreviewField = _Checkbox;
-                  final Procedure1<Button> _function_8 = new Procedure1<Button>() {
+                  final Procedure1<Button> _function_10 = new Procedure1<Button>() {
                       public void apply(final Button it) {
                         final Procedure1<GridData> _function = new Procedure1<GridData>() {
                             public void apply(final GridData it) {
@@ -239,7 +260,7 @@ public class ICGPropertyPage extends PropertyPage {
                         it.setText("Mark derived");
                       }
                     };
-                  Button _Checkbox_1 = ICGPropertyPage.this._sWTExtensions.Checkbox(it, _function_8);
+                  Button _Checkbox_1 = ICGPropertyPage.this._sWTExtensions.Checkbox(it, _function_10);
                   ICGPropertyPage.this.markDerivedField = _Checkbox_1;
                 }
               };
@@ -282,17 +303,21 @@ public class ICGPropertyPage extends PropertyPage {
     String _nullSafeString = this.nullSafeString(_generatePackageName);
     this.generateSrcPackageField.setText(_nullSafeString);
     ICGConfiguration _config_5 = this.config();
-    boolean _isGenerateImagePreview = _config_5.isGenerateImagePreview();
-    this.generatePreviewField.setSelection(_isGenerateImagePreview);
+    String _generateClassName = _config_5.getGenerateClassName();
+    String _nullSafeString_1 = this.nullSafeString(_generateClassName);
+    this.generateClassNameField.setText(_nullSafeString_1);
     ICGConfiguration _config_6 = this.config();
-    boolean _isMarkDerived = _config_6.isMarkDerived();
-    this.markDerivedField.setSelection(_isMarkDerived);
+    boolean _isGenerateImagePreview = _config_6.isGenerateImagePreview();
+    this.generatePreviewField.setSelection(_isGenerateImagePreview);
     ICGConfiguration _config_7 = this.config();
-    String[] _imageFileExtensions = _config_7.getImageFileExtensions();
+    boolean _isMarkDerived = _config_7.isMarkDerived();
+    this.markDerivedField.setSelection(_isMarkDerived);
+    ICGConfiguration _config_8 = this.config();
+    String[] _imageFileExtensions = _config_8.getImageFileExtensions();
     boolean _notEquals_2 = (!Objects.equal(_imageFileExtensions, null));
     if (_notEquals_2) {
-      ICGConfiguration _config_8 = this.config();
-      String[] _imageFileExtensions_1 = _config_8.getImageFileExtensions();
+      ICGConfiguration _config_9 = this.config();
+      String[] _imageFileExtensions_1 = _config_9.getImageFileExtensions();
       String _join = IterableExtensions.join(((Iterable<? extends Object>)Conversions.doWrapArray(_imageFileExtensions_1)), ", ");
       this.imageFileExtensionsField.setText(_join);
     } else {
@@ -513,17 +538,21 @@ public class ICGPropertyPage extends PropertyPage {
       String[] _split = _trim_2.split("[ ,]+");
       _config_4.setImageFileExtensions(_split);
       ICGConfiguration _config_5 = this.config();
-      String _text_5 = this.generateSrcPackageField.getText();
+      String _text_5 = this.generateClassNameField.getText();
       String _trim_3 = _text_5.trim();
-      _config_5.setGeneratePackageName(_trim_3);
+      _config_5.setGenerateClassName(_trim_3);
       ICGConfiguration _config_6 = this.config();
-      boolean _selection = this.markDerivedField.getSelection();
-      _config_6.setMarkDerived(_selection);
+      String _text_6 = this.generateSrcPackageField.getText();
+      String _trim_4 = _text_6.trim();
+      _config_6.setGeneratePackageName(_trim_4);
       ICGConfiguration _config_7 = this.config();
-      boolean _selection_1 = this.generatePreviewField.getSelection();
-      _config_7.setGenerateImagePreview(_selection_1);
+      boolean _selection = this.markDerivedField.getSelection();
+      _config_7.setMarkDerived(_selection);
       ICGConfiguration _config_8 = this.config();
-      _config_8.save();
+      boolean _selection_1 = this.generatePreviewField.getSelection();
+      _config_8.setGenerateImagePreview(_selection_1);
+      ICGConfiguration _config_9 = this.config();
+      _config_9.save();
       boolean _performOk = super.performOk();
       _xblockexpression = (_performOk);
     }

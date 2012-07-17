@@ -36,25 +36,24 @@ import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.Refactoring;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
-import org.eclipse.ltk.core.refactoring.participants.RenameArguments;
-import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
+import org.eclipse.ltk.core.refactoring.participants.MoveArguments;
+import org.eclipse.ltk.core.refactoring.participants.MoveParticipant;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osgi.framework.Bundle;
 
 @SuppressWarnings("all")
-public class RenamePaletteEntry extends RenameParticipant {
+public class MovePaletteEntry extends MoveParticipant {
   private ICGConfiguration config;
   
   private IResource resource;
   
   private List<Change> result;
-  
-  public RenamePaletteEntry() {
-  }
   
   public RefactoringStatus checkConditions(final IProgressMonitor pm, final CheckConditionsContext context) throws OperationCanceledException {
     return null;
@@ -68,6 +67,8 @@ public class RenamePaletteEntry extends RenameParticipant {
     PaletteModelDeltaGenerator _paletteModelDeltaGenerator = new PaletteModelDeltaGenerator();
     PaletteModelDeltaGenerator deltaGenerator = _paletteModelDeltaGenerator;
     List<PaletteDelta> diffs = deltaGenerator.compare(palette, newPalette);
+    int _size = diffs.size();
+    InputOutput.<Integer>println(Integer.valueOf(_size));
     for (final PaletteDelta eachDelta : diffs) {
       boolean _isRefactorTarget = eachDelta.isRefactorTarget();
       if (_isRefactorTarget) {
@@ -173,22 +174,50 @@ public class RenamePaletteEntry extends RenameParticipant {
     {
       PaletteModelGenerator _paletteModelGenerator = new PaletteModelGenerator(this.config);
       PaletteModelGenerator generator = _paletteModelGenerator;
-      final Function1<IResource,String> _function = new Function1<IResource,String>() {
-          public String apply(final IResource it) {
-            String _xifexpression = null;
-            boolean _equals = Objects.equal(it, RenamePaletteEntry.this.resource);
-            if (_equals) {
-              RenameArguments _arguments = RenamePaletteEntry.this.getArguments();
-              String _newName = _arguments.getNewName();
-              Path _path = new Path(_newName);
-              IPath _removeFileExtension = _path.removeFileExtension();
-              String _lastSegment = _removeFileExtension.lastSegment();
-              _xifexpression = _lastSegment;
+      MoveArguments _arguments = this.getArguments();
+      Object _destination = _arguments.getDestination();
+      String _string = _destination.toString();
+      Path _path = new Path(_string);
+      final IPath destination = _path.removeFirstSegments(1);
+      InputOutput.<IPath>println(destination);
+      final Function1<IFolder,IResource[]> _function = new Function1<IFolder,IResource[]>() {
+          public IResource[] apply(final IFolder it) {
+            try {
+              IPath _fullPath = it.getFullPath();
+              InputOutput.<IPath>println(_fullPath);
+              IResource[] _members = it.members();
+              boolean _contains = ((List<IResource>)Conversions.doWrapArray(_members)).contains(MovePaletteEntry.this.resource);
+              if (_contains) {
+                IResource[] _members_1 = it.members();
+                List<IResource> _list = IterableExtensions.<IResource>toList(((Iterable<? extends IResource>)Conversions.doWrapArray(_members_1)));
+                ArrayList<IResource> _arrayList = new ArrayList<IResource>(_list);
+                ArrayList<IResource> result = _arrayList;
+                result.remove(MovePaletteEntry.this.resource);
+                return ((IResource[])Conversions.unwrapArray(result, IResource.class));
+              } else {
+                IPath _fullPath_1 = it.getFullPath();
+                boolean _equals = Objects.equal(_fullPath_1, destination);
+                if (_equals) {
+                  IResource[] _members_2 = it.members();
+                  List<IResource> _list_1 = IterableExtensions.<IResource>toList(((Iterable<? extends IResource>)Conversions.doWrapArray(_members_2)));
+                  ArrayList<IResource> _arrayList_1 = new ArrayList<IResource>(_list_1);
+                  ArrayList<IResource> result_1 = _arrayList_1;
+                  result_1.add(MovePaletteEntry.this.resource);
+                  return ((IResource[])Conversions.unwrapArray(result_1, IResource.class));
+                } else {
+                  try {
+                    return it.members();
+                  } catch (Exception _e) {
+                    throw Exceptions.sneakyThrow(_e);
+                  }
+                }
+              }
+            } catch (Exception _e_1) {
+              throw Exceptions.sneakyThrow(_e_1);
             }
-            return _xifexpression;
           }
         };
-      generator.setNameProvider(_function);
+      generator.setContentProvider(_function);
       Palette _generate = generator.generate();
       _xblockexpression = (_generate);
     }

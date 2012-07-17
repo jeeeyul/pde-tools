@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.icg.builder.model;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
@@ -36,9 +37,16 @@ public class PaletteModelGenerator {
   
   private Function1<? super IResource,? extends String> nameProvider;
   
+  private Function1<? super IFolder,? extends IResource[]> contentProvider;
+  
   public Function1<? super IResource,? extends String> setNameProvider(final Function1<? super IResource,? extends String> provider) {
     Function1<? super IResource,? extends String> _nameProvider = this.nameProvider = provider;
     return _nameProvider;
+  }
+  
+  public Function1<? super IFolder,? extends IResource[]> setContentProvider(final Function1<? super IFolder,? extends IResource[]> provider) {
+    Function1<? super IFolder,? extends IResource[]> _contentProvider = this.contentProvider = provider;
+    return _contentProvider;
   }
   
   public PaletteModelGenerator(final ICGConfiguration config) {
@@ -106,11 +114,11 @@ public class PaletteModelGenerator {
     return _pop;
   }
   
-  private boolean assigneFieldName(final FieldNameOwner fieldNameOwner, final String preferName) {
+  private boolean _assigneFieldName(final Palette fieldNameOwner, final String preferName) {
     boolean _xifexpression = false;
     PaletteModelGenerationContext _currentContext = this.currentContext();
-    boolean _isRegisterdFieldName = _currentContext.isRegisterdFieldName(preferName);
-    boolean _not = (!_isRegisterdFieldName);
+    boolean _isRegisteredPaletteFieldName = _currentContext.isRegisteredPaletteFieldName(preferName);
+    boolean _not = (!_isRegisteredPaletteFieldName);
     if (_not) {
       boolean _xblockexpression = false;
       {
@@ -127,8 +135,8 @@ public class PaletteModelGenerator {
         String _plus = (preferName + "_");
         String newName = (_plus + Integer.valueOf(step));
         PaletteModelGenerationContext _currentContext_1 = this.currentContext();
-        boolean _isRegisterdFieldName_1 = _currentContext_1.isRegisterdFieldName(newName);
-        boolean _while = _isRegisterdFieldName_1;
+        boolean _isRegisteredPaletteFieldName_1 = _currentContext_1.isRegisteredPaletteFieldName(newName);
+        boolean _while = _isRegisteredPaletteFieldName_1;
         while (_while) {
           {
             int _plus_1 = (step + 1);
@@ -138,8 +146,53 @@ public class PaletteModelGenerator {
             newName = _plus_3;
           }
           PaletteModelGenerationContext _currentContext_2 = this.currentContext();
-          boolean _isRegisterdFieldName_2 = _currentContext_2.isRegisterdFieldName(newName);
-          _while = _isRegisterdFieldName_2;
+          boolean _isRegisteredPaletteFieldName_2 = _currentContext_2.isRegisteredPaletteFieldName(newName);
+          _while = _isRegisteredPaletteFieldName_2;
+        }
+        fieldNameOwner.setFieldName(newName);
+        PaletteModelGenerationContext _currentContext_2 = this.currentContext();
+        boolean _registerFieldName = _currentContext_2.registerFieldName(newName);
+        _xblockexpression_1 = (_registerFieldName);
+      }
+      _xifexpression = _xblockexpression_1;
+    }
+    return _xifexpression;
+  }
+  
+  private boolean _assigneFieldName(final FieldNameOwner fieldNameOwner, final String preferName) {
+    boolean _xifexpression = false;
+    PaletteModelGenerationContext _currentContext = this.currentContext();
+    boolean _isRegisteredIconFieldName = _currentContext.isRegisteredIconFieldName(preferName);
+    boolean _not = (!_isRegisteredIconFieldName);
+    if (_not) {
+      boolean _xblockexpression = false;
+      {
+        fieldNameOwner.setFieldName(preferName);
+        PaletteModelGenerationContext _currentContext_1 = this.currentContext();
+        boolean _registerFieldName = _currentContext_1.registerFieldName(preferName);
+        _xblockexpression = (_registerFieldName);
+      }
+      _xifexpression = _xblockexpression;
+    } else {
+      boolean _xblockexpression_1 = false;
+      {
+        int step = 2;
+        String _plus = (preferName + "_");
+        String newName = (_plus + Integer.valueOf(step));
+        PaletteModelGenerationContext _currentContext_1 = this.currentContext();
+        boolean _isRegisteredIconFieldName_1 = _currentContext_1.isRegisteredIconFieldName(newName);
+        boolean _while = _isRegisteredIconFieldName_1;
+        while (_while) {
+          {
+            int _plus_1 = (step + 1);
+            step = _plus_1;
+            String _plus_2 = (preferName + "_");
+            String _plus_3 = (_plus_2 + Integer.valueOf(step));
+            newName = _plus_3;
+          }
+          PaletteModelGenerationContext _currentContext_2 = this.currentContext();
+          boolean _isRegisteredIconFieldName_2 = _currentContext_2.isRegisteredIconFieldName(newName);
+          _while = _isRegisteredIconFieldName_2;
         }
         fieldNameOwner.setFieldName(newName);
         PaletteModelGenerationContext _currentContext_2 = this.currentContext();
@@ -157,9 +210,20 @@ public class PaletteModelGenerator {
   }
   
   private PaletteModelGenerationContext pushContext(final Palette palette) {
-    PaletteModelGenerationContext _paletteModelGenerationContext = new PaletteModelGenerationContext(palette);
-    PaletteModelGenerationContext _push = this.stack.push(_paletteModelGenerationContext);
-    return _push;
+    PaletteModelGenerationContext _xblockexpression = null;
+    {
+      PaletteModelGenerationContext _paletteModelGenerationContext = new PaletteModelGenerationContext(palette);
+      PaletteModelGenerationContext newCtx = _paletteModelGenerationContext;
+      int _size = this.stack.size();
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        PaletteModelGenerationContext _peek = this.stack.peek();
+        newCtx.setParent(_peek);
+      }
+      PaletteModelGenerationContext _push = this.stack.push(newCtx);
+      _xblockexpression = (_push);
+    }
+    return _xblockexpression;
   }
   
   private String safeFieldName(final String preferName) {
@@ -177,7 +241,15 @@ public class PaletteModelGenerator {
     try {
       List<IResource> _xblockexpression = null;
       {
-        IResource[] _members = folder.members();
+        List<IResource> elements = null;
+        boolean _notEquals = (!Objects.equal(this.contentProvider, null));
+        if (_notEquals) {
+          IResource[] _apply = this.contentProvider.apply(folder);
+          elements = ((List<IResource>)Conversions.doWrapArray(_apply));
+        } else {
+          IResource[] _members = folder.members();
+          elements = ((List<IResource>)Conversions.doWrapArray(_members));
+        }
         final Function1<IResource,Boolean> _function = new Function1<IResource,Boolean>() {
             public Boolean apply(final IResource it) {
               boolean _xifexpression = false;
@@ -200,7 +272,7 @@ public class PaletteModelGenerator {
               return Boolean.valueOf(_xifexpression);
             }
           };
-        Iterable<IResource> list = IterableExtensions.<IResource>filter(((Iterable<IResource>)Conversions.doWrapArray(_members)), _function);
+        Iterable<IResource> list = IterableExtensions.<IResource>filter(elements, _function);
         final Function2<IResource,IResource,Integer> _function_1 = new Function2<IResource,IResource,Integer>() {
             public Integer apply(final IResource a, final IResource b) {
               boolean _and = false;
@@ -259,5 +331,16 @@ public class PaletteModelGenerator {
     String _safeFieldName = this.safeFieldName(name);
     result = _safeFieldName;
     return result;
+  }
+  
+  private boolean assigneFieldName(final FieldNameOwner fieldNameOwner, final String preferName) {
+    if (fieldNameOwner instanceof Palette) {
+      return _assigneFieldName((Palette)fieldNameOwner, preferName);
+    } else if (fieldNameOwner != null) {
+      return _assigneFieldName(fieldNameOwner, preferName);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(fieldNameOwner, preferName).toString());
+    }
   }
 }
