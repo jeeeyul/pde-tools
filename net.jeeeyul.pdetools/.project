@@ -26,28 +26,8 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>kr.co.tomatosystem.pde.tools.resourceAccessorBuilder</name>
+			<name>net.jeeeyul.pdetools.icg.builder</name>
 			<arguments>
-				<dictionary>
-					<key>BUILDER_ARG__MARK_DERIVED</key>
-					<value>false</value>
-				</dictionary>
-				<dictionary>
-					<key>CLASS_NAME</key>
-					<value>SharedImages</value>
-				</dictionary>
-				<dictionary>
-					<key>MONITORED_RESOURCE</key>
-					<value>icons</value>
-				</dictionary>
-				<dictionary>
-					<key>PACKAGE</key>
-					<value>net.jeeeyul.pdetools.shared</value>
-				</dictionary>
-				<dictionary>
-					<key>SRC</key>
-					<value>src-gen</value>
-				</dictionary>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
@@ -55,6 +35,6 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
-		<nature>kr.co.tomatosystem.pde.tools.resourceAccessor</nature>
+		<nature>net.jeeeyul.pdetools.icg.nature</nature>
 	</natures>
 </projectDescription>
