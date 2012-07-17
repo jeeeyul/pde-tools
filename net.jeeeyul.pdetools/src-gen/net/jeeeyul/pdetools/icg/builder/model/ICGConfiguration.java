@@ -123,7 +123,7 @@ public class ICGConfiguration {
           return _trim;
         }
       };
-    List<String> _map = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(_split)), _function);
+    List _map = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(_split)), _function);
     final Function1<String,Boolean> _function_1 = new Function1<String,Boolean>() {
         public Boolean apply(final String it) {
           int _length = it.length();

@@ -170,7 +170,7 @@
    </extension>
    <extension
          id="net.jeeeyul.pdetools.icg.problemmarker"
-         name="ICG Problem Marker"
+         name="Shared Image Generator Problem Marker"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.eclipse.core.resources.problemmarker">
