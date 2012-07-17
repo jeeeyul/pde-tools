@@ -22,10 +22,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -61,6 +61,8 @@ public class RenamePaletteEntry extends RenameParticipant {
   }
   
   public Change createChange(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
+    int workAmount = 10000;
+    pm.beginTask("Update Shared Image References", workAmount);
     ArrayList<Change> _newArrayList = CollectionLiterals.<Change>newArrayList();
     this.result = _newArrayList;
     Palette palette = this.loadPreviousPaletteModel();
@@ -68,6 +70,17 @@ public class RenamePaletteEntry extends RenameParticipant {
     PaletteModelDeltaGenerator _paletteModelDeltaGenerator = new PaletteModelDeltaGenerator();
     PaletteModelDeltaGenerator deltaGenerator = _paletteModelDeltaGenerator;
     List<PaletteDelta> diffs = deltaGenerator.compare(palette, newPalette);
+    int _xifexpression = (int) 0;
+    int _size = diffs.size();
+    boolean _greaterThan = (_size > 0);
+    if (_greaterThan) {
+      int _size_1 = diffs.size();
+      int _divide = (workAmount / _size_1);
+      _xifexpression = _divide;
+    } else {
+      _xifexpression = 1;
+    }
+    int eachWork = _xifexpression;
     for (final PaletteDelta eachDelta : diffs) {
       boolean _isRefactorTarget = eachDelta.isRefactorTarget();
       if (_isRefactorTarget) {
@@ -80,14 +93,19 @@ public class RenamePaletteEntry extends RenameParticipant {
           RenameJavaElementDescriptor desc = javaRefactor.createDescriptor(eachDelta);
           RefactoringStatus _createFatalErrorStatus = RefactoringStatus.createFatalErrorStatus("Error");
           Refactoring refactor = desc.createRefactoring(_createFatalErrorStatus);
-          NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-          RefactoringStatus status = refactor.checkAllConditions(_nullProgressMonitor);
+          int _divide_1 = (eachWork / 2);
+          SubProgressMonitor _subProgressMonitor = new SubProgressMonitor(pm, _divide_1);
+          RefactoringStatus status = refactor.checkAllConditions(_subProgressMonitor);
           boolean _hasFatalError = status.hasFatalError();
           boolean _not = (!_hasFatalError);
           if (_not) {
-            NullProgressMonitor _nullProgressMonitor_1 = new NullProgressMonitor();
-            Change change = refactor.createChange(_nullProgressMonitor_1);
+            int _divide_2 = (eachWork / 2);
+            SubProgressMonitor _subProgressMonitor_1 = new SubProgressMonitor(pm, _divide_2);
+            Change change = refactor.createChange(_subProgressMonitor_1);
             this.result.add(change);
+          } else {
+            int _divide_3 = (eachWork / 2);
+            pm.worked(_divide_3);
           }
         } catch (final Throwable _t) {
           if (_t instanceof Exception) {
@@ -99,6 +117,7 @@ public class RenamePaletteEntry extends RenameParticipant {
         }
       }
     }
+    pm.done();
     boolean _isEmpty = this.result.isEmpty();
     boolean _not_1 = (!_isEmpty);
     if (_not_1) {
@@ -109,7 +128,7 @@ public class RenamePaletteEntry extends RenameParticipant {
   }
   
   public String getName() {
-    return null;
+    return "Update Shared Image References";
   }
   
   protected boolean initialize(final Object element) {

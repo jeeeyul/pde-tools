@@ -15,9 +15,9 @@
 		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
 		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
 
-		<copydir dest="${basedir}/../update-site" src="${build}/repo">
+		<copydir dest="${basedir}/../net.jeeeyul.pdetools.updatesite" src="${build}/repo">
 		</copydir>
-		<copydir dest="${basedir}/../update-site" src="${basedir}/web-resource">
+		<copydir dest="${basedir}/../net.jeeeyul.pdetools.updatesite" src="${basedir}/web-resource">
 		</copydir>
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>

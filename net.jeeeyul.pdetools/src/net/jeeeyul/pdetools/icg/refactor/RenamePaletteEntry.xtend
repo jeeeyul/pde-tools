@@ -12,10 +12,10 @@ import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
+import org.eclipse.core.runtime.SubProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
 import org.eclipse.ltk.core.refactoring.Change
@@ -37,11 +37,17 @@ class RenamePaletteEntry extends RenameParticipant {
 	}
 
 	override createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
+		var workAmount = 10000
+		pm.beginTask("Update Shared Image References", workAmount)
 		result = newArrayList()
 		var palette = loadPreviousPaletteModel()
 		var newPalette = createNewPaletteModel()
 		var deltaGenerator = new PaletteModelDeltaGenerator();
 		var diffs = deltaGenerator.compare(palette, newPalette)
+		
+		var eachWork = if(diffs.size > 0) 
+				workAmount / diffs.size 
+			else 1
 		
 		for(eachDelta : diffs){
 			if(eachDelta.refactorTarget){
@@ -49,16 +55,22 @@ class RenamePaletteEntry extends RenameParticipant {
 					var javaRefactor = new JavaRefactor(eachDelta.before.resource.project)
 					var desc = javaRefactor.createDescriptor(eachDelta)
 					var refactor = desc.createRefactoring(RefactoringStatus::createFatalErrorStatus("Error"));
-					var status = refactor.checkAllConditions(new NullProgressMonitor)
+					var status = refactor.checkAllConditions(new SubProgressMonitor(pm, eachWork/2))
 					if(!status.hasFatalError){
-						var change = refactor.createChange(new NullProgressMonitor)
+						var change = refactor.createChange(new SubProgressMonitor(pm, eachWork/2))
 						result += change
-					}	
+					}
+					else{
+						pm.worked(eachWork / 2)
+					}
+					
 				}catch(Exception e){
 					e.printStackTrace()
 				}
 			}
 		}
+		
+		pm.done
 		
 		if(!result.empty){
 			return new CompositeChange("Update Shared Image Java Referernces", result)
@@ -67,6 +79,7 @@ class RenamePaletteEntry extends RenameParticipant {
 	} 
 
 	override getName() {
+		"Update Shared Image References"
 	}
 
 	override protected initialize(Object element) {

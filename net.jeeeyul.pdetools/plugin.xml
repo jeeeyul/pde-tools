@@ -40,6 +40,17 @@
             id="net.jeeeyul.pdetools.icg.disableNature"
             name="Disable Shared Image Generator">
       </command>
+      <command
+            id="net.jeeeyul.pdetools.command.debug"
+            name="debug">
+         <defaultHandler
+               class="net.jeeeyul.pdetools.Debug">
+            <parameter
+                  name="net.jeeeyul.pdetools.parameter1"
+                  value="net.jeeeyul.pdetools.parameter1">
+            </parameter>
+         </defaultHandler>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -115,6 +126,18 @@
                </iterate>
             </visibleWhen>
          </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="net.jeeeyul.pdetools.toolbar">
+            <command
+                  commandId="net.jeeeyul.pdetools.command.debug"
+                  icon="icons/configure.gif"
+                  style="push">
+            </command>
+         </toolbar>
       </menuContribution>
    </extension>
    <extension
