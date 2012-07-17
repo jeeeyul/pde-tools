@@ -72,6 +72,8 @@ public class ImageCosntantGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.swt.graphics.Image;");
     _builder.newLine();
+    _builder.append("import org.eclipse.swt.widgets.Display;");
+    _builder.newLine();
     _builder.append("import org.eclipse.ui.ISharedImages;");
     _builder.newLine();
     _builder.append("import org.eclipse.ui.PlatformUI;");
@@ -125,7 +127,7 @@ public class ImageCosntantGenerator {
       }
     }
     _builder.append("\t");
-    _builder.append("private static final ImageRegistry REGISTRY = new ImageRegistry();");
+    _builder.append("private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());");
     _builder.newLine();
     _builder.append("\t");
     _builder.newLine();
@@ -188,8 +190,11 @@ public class ImageCosntantGenerator {
     _builder.append("try {");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("URL resource = Platform.getBundle(\"cba\").getResource(key);");
-    _builder.newLine();
+    _builder.append("URL resource = Platform.getBundle(\"");
+    String _bundleId = this.config.getBundleId();
+    _builder.append(_bundleId, "			");
+    _builder.append("\").getResource(key);");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t\t\t");
     _builder.append("Image image = new Image(null, resource.openStream());");
     _builder.newLine();
@@ -220,8 +225,11 @@ public class ImageCosntantGenerator {
     _builder.append("try {");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("URL resource = Platform.getBundle(\"cba\").getResource(key);");
-    _builder.newLine();
+    _builder.append("URL resource = Platform.getBundle(\"");
+    String _bundleId_1 = this.config.getBundleId();
+    _builder.append(_bundleId_1, "			");
+    _builder.append("\").getResource(key);");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t\t\t");
     _builder.append("ImageDescriptor descriptor = ImageDescriptor.createFromURL(resource);");
     _builder.newLine();

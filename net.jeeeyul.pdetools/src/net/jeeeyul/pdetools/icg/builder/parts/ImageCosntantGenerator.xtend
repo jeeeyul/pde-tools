@@ -34,6 +34,7 @@ class ImageCosntantGenerator {
 		import org.eclipse.jface.resource.ImageDescriptor;
 		import org.eclipse.jface.resource.ImageRegistry;
 		import org.eclipse.swt.graphics.Image;
+		import org.eclipse.swt.widgets.Display;
 		import org.eclipse.ui.ISharedImages;
 		import org.eclipse.ui.PlatformUI;
 		
@@ -48,7 +49,7 @@ class ImageCosntantGenerator {
 			« FOR eachFile : rootPalette.imageFiles SEPARATOR lineSeparator »
 				« eachFile.generateField() »
 			« ENDFOR »
-			private static final ImageRegistry REGISTRY = new ImageRegistry();
+			private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());
 			
 			public static Image getImage(String key){
 				Image result = REGISTRY.get(key);
@@ -70,7 +71,7 @@ class ImageCosntantGenerator {
 			
 			private static Image loadImage(String key) {
 				try {
-					URL resource = Platform.getBundle("cba").getResource(key);
+					URL resource = Platform.getBundle("«config.bundleId»").getResource(key);
 					Image image = new Image(null, resource.openStream());
 					return image;
 				} catch (Exception e) {
@@ -81,7 +82,7 @@ class ImageCosntantGenerator {
 			
 			private static ImageDescriptor loadImageDescriptor(String key) {
 				try {
-					URL resource = Platform.getBundle("cba").getResource(key);
+					URL resource = Platform.getBundle("«config.bundleId»").getResource(key);
 					ImageDescriptor descriptor = ImageDescriptor.createFromURL(resource);
 					return descriptor;
 				} catch (Exception e) {

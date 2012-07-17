@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -47,7 +48,7 @@ public class SharedImages{
 	 * Image constant for icons/image.gif
 	 */
 	public static final String IMAGE = "icons/image.gif";
-	private static final ImageRegistry REGISTRY = new ImageRegistry();
+	private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());
 	
 	public static Image getImage(String key){
 		Image result = REGISTRY.get(key);
