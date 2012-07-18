@@ -2,6 +2,9 @@ package net.jeeeyul.pdetools.clipboard;
 
 import org.eclipse.swt.custom.StyleRange;
 
+/**
+ * SWT RTF
+ */
 @SuppressWarnings("all")
 public class StyleAndText {
   private StyleRange[] _styleRanges;
