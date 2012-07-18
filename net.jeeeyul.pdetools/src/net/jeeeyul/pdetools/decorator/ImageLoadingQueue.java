@@ -14,7 +14,10 @@ import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-
+/**
+ * @author Jeeeyul
+ *
+ */
 public class ImageLoadingQueue extends Job {
 	private List<IFile> queue = new LinkedList<IFile>();
 	private ILock lock = Job.getJobManager().newLock();

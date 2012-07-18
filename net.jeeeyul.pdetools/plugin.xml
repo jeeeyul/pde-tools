@@ -292,5 +292,11 @@
          </enablement>
       </moveParticipant>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="net.jeeeyul.pdetools.clipboard.StartClipboardServiceJob">
+      </startup>
+   </extension>
 
 </plugin>

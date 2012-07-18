@@ -1,0 +1,17 @@
+@GenModel(basePackage="net.jeeeyul.pdetools.clipboard.model")
+package clipboard
+
+import java.util.Date
+
+class ClipHistory{
+	contains ClipboardEntry[] entries opposite parent
+}
+
+class ClipboardEntry{
+	int usingCount
+	String textContent
+	String rtfContent
+	Date takenTime
+	
+	container ClipHistory parent opposite entries 
+}
