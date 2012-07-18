@@ -1,16 +1,12 @@
 package net.jeeeyul.pdetools.clipboard
 
-import net.jeeeyul.pdetools.clipboard.AbstractClipboardService
-import javax.swing.text.rtf.RTFEditorKit
-import java.io.StringReader
-import javax.swing.text.StyledDocument
-import java.util.List
-import javax.swing.text.Element
-import java.util.ArrayList
-import sun.reflect.generics.visitor.Visitor
-import javax.swing.text.StyleConstants
+import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory
+
+import static extension net.jeeeyul.pdetools.clipboard.ClipboardService.*
 
 class ClipboardService extends AbstractClipboardService {
+	extension ClipboardFactory = ClipboardFactory::eINSTANCE
+	
 	static ClipboardService INSTANCE;
 	
 	def static initailze(){
@@ -21,7 +17,8 @@ class ClipboardService extends AbstractClipboardService {
 	
 	def static getInstance(){
 		if(INSTANCE == null){
-			throw new IllegalStateException("초기화 되지 않았습니다.");
+			// FIXME 만약 워크벤치가 아직 시작 되지 않은 경우 문제가 발생 할 수 있음.
+			initailze()
 		}
 		return INSTANCE
 	}
@@ -35,42 +32,15 @@ class ClipboardService extends AbstractClipboardService {
 			return;
 		}
 		
-		var rtfText = nativeClipboard.getContents(RTFTransfer) as String
-		
-		var kit = new RTFEditorKit()
-		val doc = kit.createDefaultDocument() as StyledDocument
-		kit.read(new StringReader(rtfText), doc, 0)
-		
-		val List<Element> leafs = new ArrayList()
-		
-		val (Element)=>void visitor = [
-			if(elementCount == 0 && it.name == "content" && it.startOffset != it.endOffset){
-				leafs += it
+		var entry = createClipboardEntry() => [
+			it.textContent = nativeClipboard.getContents(textTransfer) as String
+			
+			if(nativeClipboard.availableTypes.exists[RTFTransfer.isSupportedType(it)]){
+				it.rtfContent = nativeClipboard.getContents(RTFTransfer) as String
 			}
 		]
 		
-		doc.rootElements.forEach[
-			accept(visitor)
-		]
-		
-		leafs.forEach[
-			var text = doc.getText(it.startOffset, it.endOffset - it.startOffset)
-			var enum = it.attributes.attributeNames
-			while(enum.hasMoreElements){
-				println(enum.nextElement)
-			}
-			println(it.attributes.getAttribute(StyleConstants::Foreground))
-		]
-		
+		history.entries.add(0, entry)
 	}
 	
-	def accept(Element element, (Element)=>void visitor){
-		visitor.apply(element)
-		
-		if(!element.leaf){
-			for(i : 0..(element.elementCount-1)){
-				element.getElement(i).accept(visitor)
-			}
-		}
-	}
 }

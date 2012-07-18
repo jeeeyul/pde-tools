@@ -23,4 +23,9 @@ public class StyleAndText {
   public void setText(final String text) {
     this._text = text;
   }
+  
+  public String toString() {
+    String _text = this.getText();
+    return _text;
+  }
 }

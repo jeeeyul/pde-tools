@@ -7,4 +7,7 @@ class StyleAndText {
 	@Property StyleRange[] styleRanges
 	@Property String text
 
+	override String toString(){
+		text
+	}
 }

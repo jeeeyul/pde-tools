@@ -9,11 +9,13 @@ import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.swt.custom.StyleRange;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +37,13 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * @generated
    */
   private EClass clipboardEntryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType styleRangeEDataType = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -187,6 +196,16 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
+  public EDataType getStyleRange()
+  {
+    return styleRangeEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ClipboardFactory getClipboardFactory()
   {
     return (ClipboardFactory)getEFactoryInstance();
@@ -221,6 +240,9 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__RTF_CONTENT);
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__TAKEN_TIME);
     createEReference(clipboardEntryEClass, CLIPBOARD_ENTRY__PARENT);
+
+    // Create data types
+    styleRangeEDataType = createEDataType(STYLE_RANGE);
   }
 
   /**
@@ -266,6 +288,9 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
     initEAttribute(getClipboardEntry_RtfContent(), theEcorePackage.getEString(), "rtfContent", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClipboardEntry_TakenTime(), theEcorePackage.getEDate(), "takenTime", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClipboardEntry_Parent(), this.getClipHistory(), this.getClipHistory_Entries(), "parent", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    // Initialize data types
+    initEDataType(styleRangeEDataType, StyleRange.class, "StyleRange", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

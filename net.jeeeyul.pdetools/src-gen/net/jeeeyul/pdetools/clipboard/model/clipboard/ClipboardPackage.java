@@ -4,6 +4,7 @@ package net.jeeeyul.pdetools.clipboard.model.clipboard;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -170,6 +171,17 @@ public interface ClipboardPackage extends EPackage
 
 
   /**
+   * The meta object id for the '<em>Style Range</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.swt.custom.StyleRange
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getStyleRange()
+   * @generated
+   */
+  int STYLE_RANGE = 2;
+
+
+  /**
    * Returns the meta object for class '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory <em>Clip History</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -256,6 +268,18 @@ public interface ClipboardPackage extends EPackage
   EReference getClipboardEntry_Parent();
 
   /**
+   * Returns the meta object for data type '{@link org.eclipse.swt.custom.StyleRange <em>Style Range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Style Range</em>'.
+   * @see org.eclipse.swt.custom.StyleRange
+   * @model instanceClass="org.eclipse.swt.custom.StyleRange"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel create='return null;' convert='return null;'"
+   * @generated
+   */
+  EDataType getStyleRange();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -339,6 +363,15 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EReference CLIPBOARD_ENTRY__PARENT = eINSTANCE.getClipboardEntry_Parent();
+    /**
+     * The meta object literal for the '<em>Style Range</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.swt.custom.StyleRange
+     * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getStyleRange()
+     * @generated
+     */
+    EDataType STYLE_RANGE = eINSTANCE.getStyleRange();
 
   }
 

@@ -5,12 +5,14 @@ package net.jeeeyul.pdetools.clipboard.model.clipboard.impl;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.*;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.swt.custom.StyleRange;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +78,40 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public Object createFromString(EDataType eDataType, String initialValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case ClipboardPackage.STYLE_RANGE:
+        return createStyleRangeFromString(eDataType, initialValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String convertToString(EDataType eDataType, Object instanceValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case ClipboardPackage.STYLE_RANGE:
+        return convertStyleRangeToString(eDataType, instanceValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ClipHistory createClipHistory()
   {
     ClipHistoryImpl clipHistory = new ClipHistoryImpl();
@@ -91,6 +127,46 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
   {
     ClipboardEntryImpl clipboardEntry = new ClipboardEntryImpl();
     return clipboardEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StyleRange createStyleRange(String it)
+  {
+    return null;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StyleRange createStyleRangeFromString(EDataType eDataType, String initialValue)
+  {
+    return createStyleRange(initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertStyleRange(StyleRange it)
+  {
+    return null;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertStyleRangeToString(EDataType eDataType, Object instanceValue)
+  {
+    return convertStyleRange((StyleRange)instanceValue);
   }
 
   /**

@@ -2,6 +2,13 @@
 package clipboard
 
 import java.util.Date
+import org.eclipse.swt.custom.StyleRange
+
+type StyleRange wraps StyleRange
+create{
+}
+convert{
+}
 
 class ClipHistory{
 	contains ClipboardEntry[] entries opposite parent

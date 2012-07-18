@@ -298,5 +298,15 @@
             class="net.jeeeyul.pdetools.clipboard.StartClipboardServiceJob">
       </startup>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.ui"
+            class="net.jeeeyul.pdetools.clipboard.ClipboardView"
+            id="net.jeeeyul.pdetools.clipboard.ClipboardView"
+            name="Clipboard History"
+            restorable="true">
+      </view>
+   </extension>
 
 </plugin>
