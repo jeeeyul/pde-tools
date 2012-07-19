@@ -51,6 +51,11 @@
             </parameter>
          </defaultHandler>
       </command>
+      <command
+            defaultHandler="net.jeeeyul.pdetools.clipboard.PasteFromClipboardHistoryHandler"
+            id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            name="Paste from clipboard history">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -307,6 +312,15 @@
             name="Clipboard History"
             restorable="true">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+V">
+      </key>
    </extension>
 
 </plugin>

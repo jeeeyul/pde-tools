@@ -4,10 +4,15 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IExecutionListener;
 import org.eclipse.core.commands.NotHandledException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.commands.ICommandService;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
+import org.eclipse.ui.progress.WorkbenchJob;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 /**
  * 
@@ -15,13 +20,18 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
  * 
  */
 public class CopyActionDetector {
+	private ExecutionEvent event;
+
 	private class CommandHook implements IExecutionListener {
+
 		@Override
 		public void notHandled(String commandId, NotHandledException exception) {
+			event = null;
 		}
 
 		@Override
 		public void postExecuteFailure(String commandId, ExecutionException exception) {
+			event = null;
 		}
 
 		@Override
@@ -29,22 +39,24 @@ public class CopyActionDetector {
 			if (ActionFactory.COPY.getCommandId().equals(commandId)) {
 				handleCopyPerformed();
 			}
+			event = null;
 		}
 
 		@Override
 		public void preExecute(String commandId, ExecutionEvent event) {
+			CopyActionDetector.this.event = event;
 		}
 	}
 
 	private CommandHook commandHook;
-	private Procedure0 copyHandler;
+	private Procedure1<ExecutionEvent> copyHandler;
 
 	public CopyActionDetector() {
-		getCommandService().addExecutionListener(getCommandHook());
+		hook();
 	}
 
 	public void dispose() {
-		getCommandService().removeExecutionListener(getCommandHook());
+		unhook();
 		copyHandler = null;
 	}
 
@@ -59,17 +71,39 @@ public class CopyActionDetector {
 		return (ICommandService) PlatformUI.getWorkbench().getService(ICommandService.class);
 	}
 
-	public Procedure0 getCopyHandler() {
+	public Procedure1<ExecutionEvent> getCopyHandler() {
 		return copyHandler;
 	}
 
 	public void handleCopyPerformed() {
 		if (copyHandler != null) {
-			copyHandler.apply();
+			copyHandler.apply(event);
 		}
 	}
 
-	public void setCopyHandler(Procedure0 copyHandler) {
+	private void hook() {
+		Job job = new WorkbenchJob("hook command service") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				getCommandService().addExecutionListener(getCommandHook());
+				return Status.OK_STATUS;
+			}
+		};
+		job.schedule();
+	}
+
+	public void setCopyHandler(Procedure1<ExecutionEvent> copyHandler) {
 		this.copyHandler = copyHandler;
+	}
+
+	private void unhook() {
+		Job job = new WorkbenchJob("hook command service") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				getCommandService().removeExecutionListener(getCommandHook());
+				return Status.OK_STATUS;
+			}
+		};
+		job.schedule();
 	}
 }

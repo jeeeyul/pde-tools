@@ -3,11 +3,12 @@ package net.jeeeyul.pdetools.clipboard;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.RTFTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 public abstract class AbstractClipboardService {
 	private ClipHistory history;
@@ -30,15 +31,15 @@ public abstract class AbstractClipboardService {
 
 	public AbstractClipboardService() {
 		detector = new CopyActionDetector();
-		detector.setCopyHandler(new Procedure0() {
+		detector.setCopyHandler(new Procedure1<ExecutionEvent>() {
 			@Override
-			public void apply() {
-				handleCopy();
+			public void apply(ExecutionEvent event) {
+				handleCopy(event);
 			}
 		});
 	}
 
-	protected abstract void handleCopy();
+	protected abstract void handleCopy(ExecutionEvent event);
 
 	protected TextTransfer getTextTransfer() {
 		return TextTransfer.getInstance();

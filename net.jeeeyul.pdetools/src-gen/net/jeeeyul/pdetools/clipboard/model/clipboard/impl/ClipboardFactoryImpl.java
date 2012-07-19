@@ -4,6 +4,7 @@ package net.jeeeyul.pdetools.clipboard.model.clipboard.impl;
 
 import net.jeeeyul.pdetools.clipboard.model.clipboard.*;
 
+import net.jeeeyul.pdetools.shared.ImageDataSerializer;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -13,6 +14,8 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.dnd.Clipboard;
+import org.eclipse.swt.graphics.ImageData;
 
 /**
  * <!-- begin-user-doc -->
@@ -83,8 +86,10 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
   {
     switch (eDataType.getClassifierID())
     {
-      case ClipboardPackage.STYLE_RANGE:
-        return createStyleRangeFromString(eDataType, initialValue);
+      case ClipboardPackage.CLIPBOARD:
+        return createClipboardFromString(eDataType, initialValue);
+      case ClipboardPackage.IMAGE_DATA:
+        return createImageDataFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -100,8 +105,10 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
   {
     switch (eDataType.getClassifierID())
     {
-      case ClipboardPackage.STYLE_RANGE:
-        return convertStyleRangeToString(eDataType, instanceValue);
+      case ClipboardPackage.CLIPBOARD:
+        return convertClipboardToString(eDataType, instanceValue);
+      case ClipboardPackage.IMAGE_DATA:
+        return convertImageDataToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -134,9 +141,9 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public StyleRange createStyleRange(String it)
+  public Clipboard createClipboardFromString(EDataType eDataType, String initialValue)
   {
-    return null;
+    return (Clipboard)super.createFromString(eDataType, initialValue);
   }
 
   /**
@@ -144,9 +151,9 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public StyleRange createStyleRangeFromString(EDataType eDataType, String initialValue)
+  public String convertClipboardToString(EDataType eDataType, Object instanceValue)
   {
-    return createStyleRange(initialValue);
+    return super.convertToString(eDataType, instanceValue);
   }
 
   /**
@@ -154,9 +161,10 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertStyleRange(StyleRange it)
+  public ImageData createImageData(String it)
   {
-    return null;
+    ImageData _deserialize = ImageDataSerializer.deserialize(it);
+    return _deserialize;
   }
 
   /**
@@ -164,9 +172,30 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertStyleRangeToString(EDataType eDataType, Object instanceValue)
+  public ImageData createImageDataFromString(EDataType eDataType, String initialValue)
   {
-    return convertStyleRange((StyleRange)instanceValue);
+    return createImageData(initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertImageData(ImageData it)
+  {
+    String _serialize = ImageDataSerializer.serialize(it);
+    return _serialize;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertImageDataToString(EDataType eDataType, Object instanceValue)
+  {
+    return convertImageData((ImageData)instanceValue);
   }
 
   /**

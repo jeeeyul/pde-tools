@@ -5,6 +5,8 @@ package net.jeeeyul.pdetools.clipboard.model.clipboard;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -116,13 +118,22 @@ public interface ClipboardPackage extends EPackage
   int CLIPBOARD_ENTRY__USING_COUNT = 0;
 
   /**
+   * The feature id for the '<em><b>Last Used Time</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIPBOARD_ENTRY__LAST_USED_TIME = 1;
+
+  /**
    * The feature id for the '<em><b>Text Content</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY__TEXT_CONTENT = 1;
+  int CLIPBOARD_ENTRY__TEXT_CONTENT = 2;
 
   /**
    * The feature id for the '<em><b>Rtf Content</b></em>' attribute.
@@ -131,7 +142,7 @@ public interface ClipboardPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY__RTF_CONTENT = 2;
+  int CLIPBOARD_ENTRY__RTF_CONTENT = 3;
 
   /**
    * The feature id for the '<em><b>Taken Time</b></em>' attribute.
@@ -140,7 +151,25 @@ public interface ClipboardPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY__TAKEN_TIME = 3;
+  int CLIPBOARD_ENTRY__TAKEN_TIME = 4;
+
+  /**
+   * The feature id for the '<em><b>Image Data</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIPBOARD_ENTRY__IMAGE_DATA = 5;
+
+  /**
+   * The feature id for the '<em><b>Part Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIPBOARD_ENTRY__PART_ID = 6;
 
   /**
    * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -149,7 +178,7 @@ public interface ClipboardPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY__PARENT = 4;
+  int CLIPBOARD_ENTRY__PARENT = 7;
 
   /**
    * The number of structural features of the '<em>Entry</em>' class.
@@ -158,7 +187,25 @@ public interface ClipboardPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY_FEATURE_COUNT = 5;
+  int CLIPBOARD_ENTRY_FEATURE_COUNT = 8;
+
+  /**
+   * The operation id for the '<em>Transfer To</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIPBOARD_ENTRY___TRANSFER_TO__CLIPBOARD = 0;
+
+  /**
+   * The operation id for the '<em>Increase Using</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIPBOARD_ENTRY___INCREASE_USING = 1;
 
   /**
    * The number of operations of the '<em>Entry</em>' class.
@@ -167,19 +214,28 @@ public interface ClipboardPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLIPBOARD_ENTRY_OPERATION_COUNT = 0;
+  int CLIPBOARD_ENTRY_OPERATION_COUNT = 2;
 
 
   /**
-   * The meta object id for the '<em>Style Range</em>' data type.
+   * The meta object id for the '<em>Clipboard</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.swt.custom.StyleRange
-   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getStyleRange()
+   * @see org.eclipse.swt.dnd.Clipboard
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getClipboard()
    * @generated
    */
-  int STYLE_RANGE = 2;
+  int CLIPBOARD = 2;
 
+  /**
+   * The meta object id for the '<em>Image Data</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.swt.graphics.ImageData
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getImageData()
+   * @generated
+   */
+  int IMAGE_DATA = 3;
 
   /**
    * Returns the meta object for class '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory <em>Clip History</em>}'.
@@ -224,6 +280,17 @@ public interface ClipboardPackage extends EPackage
   EAttribute getClipboardEntry_UsingCount();
 
   /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getLastUsedTime <em>Last Used Time</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Last Used Time</em>'.
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getLastUsedTime()
+   * @see #getClipboardEntry()
+   * @generated
+   */
+  EAttribute getClipboardEntry_LastUsedTime();
+
+  /**
    * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getTextContent <em>Text Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -257,6 +324,28 @@ public interface ClipboardPackage extends EPackage
   EAttribute getClipboardEntry_TakenTime();
 
   /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getImageData <em>Image Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Image Data</em>'.
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getImageData()
+   * @see #getClipboardEntry()
+   * @generated
+   */
+  EAttribute getClipboardEntry_ImageData();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getPartId <em>Part Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Part Id</em>'.
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getPartId()
+   * @see #getClipboardEntry()
+   * @generated
+   */
+  EAttribute getClipboardEntry_PartId();
+
+  /**
    * Returns the meta object for the container reference '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#getParent <em>Parent</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -268,16 +357,47 @@ public interface ClipboardPackage extends EPackage
   EReference getClipboardEntry_Parent();
 
   /**
-   * Returns the meta object for data type '{@link org.eclipse.swt.custom.StyleRange <em>Style Range</em>}'.
+   * Returns the meta object for the '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#transferTo(org.eclipse.swt.dnd.Clipboard) <em>Transfer To</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for data type '<em>Style Range</em>'.
-   * @see org.eclipse.swt.custom.StyleRange
-   * @model instanceClass="org.eclipse.swt.custom.StyleRange"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel create='return null;' convert='return null;'"
+   * @return the meta object for the '<em>Transfer To</em>' operation.
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#transferTo(org.eclipse.swt.dnd.Clipboard)
    * @generated
    */
-  EDataType getStyleRange();
+  EOperation getClipboardEntry__TransferTo__Clipboard();
+
+  /**
+   * Returns the meta object for the '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#increaseUsing() <em>Increase Using</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Increase Using</em>' operation.
+   * @see net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry#increaseUsing()
+   * @generated
+   */
+  EOperation getClipboardEntry__IncreaseUsing();
+
+  /**
+   * Returns the meta object for data type '{@link org.eclipse.swt.dnd.Clipboard <em>Clipboard</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Clipboard</em>'.
+   * @see org.eclipse.swt.dnd.Clipboard
+   * @model instanceClass="org.eclipse.swt.dnd.Clipboard"
+   * @generated
+   */
+  EDataType getClipboard();
+
+  /**
+   * Returns the meta object for data type '{@link org.eclipse.swt.graphics.ImageData <em>Image Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for data type '<em>Image Data</em>'.
+   * @see org.eclipse.swt.graphics.ImageData
+   * @model instanceClass="org.eclipse.swt.graphics.ImageData"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel create='<%org.eclipse.swt.graphics.ImageData%> _deserialize = <%net.jeeeyul.pdetools.shared.ImageDataSerializer%>.deserialize(it);\nreturn _deserialize;' convert='<%java.lang.String%> _serialize = <%net.jeeeyul.pdetools.shared.ImageDataSerializer%>.serialize(it);\nreturn _serialize;'"
+   * @generated
+   */
+  EDataType getImageData();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -336,6 +456,13 @@ public interface ClipboardPackage extends EPackage
      */
     EAttribute CLIPBOARD_ENTRY__USING_COUNT = eINSTANCE.getClipboardEntry_UsingCount();
     /**
+     * The meta object literal for the '<em><b>Last Used Time</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLIPBOARD_ENTRY__LAST_USED_TIME = eINSTANCE.getClipboardEntry_LastUsedTime();
+    /**
      * The meta object literal for the '<em><b>Text Content</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -357,6 +484,20 @@ public interface ClipboardPackage extends EPackage
      */
     EAttribute CLIPBOARD_ENTRY__TAKEN_TIME = eINSTANCE.getClipboardEntry_TakenTime();
     /**
+     * The meta object literal for the '<em><b>Image Data</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLIPBOARD_ENTRY__IMAGE_DATA = eINSTANCE.getClipboardEntry_ImageData();
+    /**
+     * The meta object literal for the '<em><b>Part Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLIPBOARD_ENTRY__PART_ID = eINSTANCE.getClipboardEntry_PartId();
+    /**
      * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -364,14 +505,37 @@ public interface ClipboardPackage extends EPackage
      */
     EReference CLIPBOARD_ENTRY__PARENT = eINSTANCE.getClipboardEntry_Parent();
     /**
-     * The meta object literal for the '<em>Style Range</em>' data type.
+     * The meta object literal for the '<em><b>Transfer To</b></em>' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.swt.custom.StyleRange
-     * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getStyleRange()
      * @generated
      */
-    EDataType STYLE_RANGE = eINSTANCE.getStyleRange();
+    EOperation CLIPBOARD_ENTRY___TRANSFER_TO__CLIPBOARD = eINSTANCE.getClipboardEntry__TransferTo__Clipboard();
+    /**
+     * The meta object literal for the '<em><b>Increase Using</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EOperation CLIPBOARD_ENTRY___INCREASE_USING = eINSTANCE.getClipboardEntry__IncreaseUsing();
+    /**
+     * The meta object literal for the '<em>Clipboard</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.swt.dnd.Clipboard
+     * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getClipboard()
+     * @generated
+     */
+    EDataType CLIPBOARD = eINSTANCE.getClipboard();
+    /**
+     * The meta object literal for the '<em>Image Data</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.swt.graphics.ImageData
+     * @see net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardPackageImpl#getImageData()
+     * @generated
+     */
+    EDataType IMAGE_DATA = eINSTANCE.getImageData();
 
   }
 

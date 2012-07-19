@@ -7,15 +7,20 @@ import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
 
+import net.jeeeyul.pdetools.clipboard.model.clipboard.SortMethod;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.dnd.Clipboard;
+import org.eclipse.swt.graphics.ImageData;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,8 +48,13 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EDataType styleRangeEDataType = null;
-
+  private EDataType clipboardEDataType = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EDataType imageDataEDataType = null;
   /**
    * Creates an instance of the model <b>Package</b>, registered with
    * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
@@ -156,7 +166,7 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getClipboardEntry_TextContent()
+  public EAttribute getClipboardEntry_LastUsedTime()
   {
     return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(1);
   }
@@ -166,7 +176,7 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getClipboardEntry_RtfContent()
+  public EAttribute getClipboardEntry_TextContent()
   {
     return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(2);
   }
@@ -176,7 +186,7 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getClipboardEntry_TakenTime()
+  public EAttribute getClipboardEntry_RtfContent()
   {
     return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(3);
   }
@@ -186,9 +196,9 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClipboardEntry_Parent()
+  public EAttribute getClipboardEntry_TakenTime()
   {
-    return (EReference)clipboardEntryEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -196,9 +206,69 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EDataType getStyleRange()
+  public EAttribute getClipboardEntry_ImageData()
   {
-    return styleRangeEDataType;
+    return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClipboardEntry_PartId()
+  {
+    return (EAttribute)clipboardEntryEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClipboardEntry_Parent()
+  {
+    return (EReference)clipboardEntryEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EOperation getClipboardEntry__TransferTo__Clipboard()
+  {
+    return clipboardEntryEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EOperation getClipboardEntry__IncreaseUsing()
+  {
+    return clipboardEntryEClass.getEOperations().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EDataType getClipboard()
+  {
+    return clipboardEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EDataType getImageData()
+  {
+    return imageDataEDataType;
   }
 
   /**
@@ -236,13 +306,19 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
 
     clipboardEntryEClass = createEClass(CLIPBOARD_ENTRY);
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__USING_COUNT);
+    createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__LAST_USED_TIME);
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__TEXT_CONTENT);
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__RTF_CONTENT);
     createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__TAKEN_TIME);
+    createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__IMAGE_DATA);
+    createEAttribute(clipboardEntryEClass, CLIPBOARD_ENTRY__PART_ID);
     createEReference(clipboardEntryEClass, CLIPBOARD_ENTRY__PARENT);
+    createEOperation(clipboardEntryEClass, CLIPBOARD_ENTRY___TRANSFER_TO__CLIPBOARD);
+    createEOperation(clipboardEntryEClass, CLIPBOARD_ENTRY___INCREASE_USING);
 
     // Create data types
-    styleRangeEDataType = createEDataType(STYLE_RANGE);
+    clipboardEDataType = createEDataType(CLIPBOARD);
+    imageDataEDataType = createEDataType(IMAGE_DATA);
   }
 
   /**
@@ -284,13 +360,22 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
 
     initEClass(clipboardEntryEClass, ClipboardEntry.class, "ClipboardEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getClipboardEntry_UsingCount(), theEcorePackage.getEInt(), "usingCount", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClipboardEntry_LastUsedTime(), theEcorePackage.getEDate(), "lastUsedTime", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClipboardEntry_TextContent(), theEcorePackage.getEString(), "textContent", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClipboardEntry_RtfContent(), theEcorePackage.getEString(), "rtfContent", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClipboardEntry_TakenTime(), theEcorePackage.getEDate(), "takenTime", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClipboardEntry_ImageData(), this.getImageData(), "imageData", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClipboardEntry_PartId(), theEcorePackage.getEString(), "partId", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClipboardEntry_Parent(), this.getClipHistory(), this.getClipHistory_Entries(), "parent", null, 0, 1, ClipboardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    EOperation op = initEOperation(getClipboardEntry__TransferTo__Clipboard(), null, "transferTo", 0, 1, !IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, this.getClipboard(), "clipboard", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+    initEOperation(getClipboardEntry__IncreaseUsing(), null, "increaseUsing", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
     // Initialize data types
-    initEDataType(styleRangeEDataType, StyleRange.class, "StyleRange", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(clipboardEDataType, Clipboard.class, "Clipboard", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(imageDataEDataType, ImageData.class, "ImageData", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);
