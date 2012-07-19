@@ -56,7 +56,6 @@ class StyleAndTextFactory {
 				fontStyle = fontStyle || SWT::ITALIC
 			}
 			each.fontStyle = fontStyle
-			
 			ranges += each
 		]
 		result.styleRanges = ranges

@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 
-import org.eclipse.jface.viewers.StyledCellLabelProvider;
-import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.OwnerDrawLabelProvider;
+import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Path;
@@ -16,7 +18,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-public class ClipEntryLabelProvider extends StyledCellLabelProvider {
+public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	private StyleAndTextFactory factory;
 
 	private SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
@@ -24,9 +26,23 @@ public class ClipEntryLabelProvider extends StyledCellLabelProvider {
 	// reused text layout
 	private TextLayout sharedLayout;
 
+	private ColumnViewer viewer;
+
+	public ColumnViewer getViewer() {
+		return viewer;
+	}
+
+	@Override
+	protected void initialize(ColumnViewer viewer, ViewerColumn column) {
+		this.viewer = viewer;
+		super.initialize(viewer, column);
+	}
+
 	public TextLayout getSharedLayout() {
 		if (sharedLayout == null) {
 			sharedLayout = new TextLayout(getViewer().getControl().getDisplay());
+			sharedLayout.setTabs(new int[] { 10, 10, 10, 10 });
+			sharedLayout.setSpacing(0);
 		}
 		return sharedLayout;
 	}
@@ -38,48 +54,37 @@ public class ClipEntryLabelProvider extends StyledCellLabelProvider {
 
 	@Override
 	protected void measure(Event event, Object element) {
-		super.measure(event, element);
 		getSharedLayout().setFont(getViewer().getControl().getFont());
 		getSharedLayout().setText("\r\n\r\n\r\n\r\n");
 		event.height = getSharedLayout().getBounds().height;
 	}
 
 	@Override
-	public void update(ViewerCell cell) {
-		ClipboardEntry model = (ClipboardEntry) cell.getElement();
-		if (model.getRtfContent() == null) {
-			cell.setText(model.getTextContent());
-			cell.setStyleRanges(null);
-		} else {
-			StyleAndText data = factory.createFromRTFString(model.getRtfContent());
-			cell.setText(data.getText());
-			cell.setStyleRanges(data.getStyleRanges());
-		}
-
-		super.update(cell);
-	}
-
-	@Override
 	protected void erase(Event event, Object element) {
-		super.erase(event, element);
+		event.detail &= ~SWT.FOREGROUND;
 	}
 
 	@Override
 	protected void paint(Event event, Object element) {
-		if ((event.detail & SWT.FOCUSED) != 0) {
-			event.detail = event.detail ^ SWT.FOCUSED;
-		}
-
-		super.paint(event, element);
-
-		ClipboardEntry entry = (ClipboardEntry) element;
-
 		TableItem item = (TableItem) event.item;
 		Table table = item.getParent();
 		table.setToolTipText("");
 		boolean isLastItem = table.indexOf(item) == table.getItemCount() - 1;
 
 		Rectangle bounds = item.getBounds();
+
+		ClipboardEntry entry = (ClipboardEntry) element;
+		getSharedLayout().setText(entry.getTextContent());
+
+		if (entry.getRtfContent() != null) {
+			StyleAndText data = factory.createFromRTFString(entry.getRtfContent());
+			getSharedLayout().setText(data.getText());
+			for (StyleRange each : data.getStyleRanges()) {
+				getSharedLayout().setStyle(each, each.start, each.start + each.length);
+			}
+		}
+
+		getSharedLayout().draw(event.gc, bounds.x, bounds.y);
 
 		if (!isLastItem) {
 			event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
@@ -92,8 +97,8 @@ public class ClipEntryLabelProvider extends StyledCellLabelProvider {
 			getSharedLayout().setFont(getViewer().getControl().getFont());
 			getSharedLayout().setText(format.format(entry.getTakenTime()));
 			Rectangle textBounds = getSharedLayout().getBounds();
-			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1, textBounds.width,
-					textBounds.height);
+			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1,
+					textBounds.width, textBounds.height);
 
 			Path path = new Path(getViewer().getControl().getDisplay());
 			int radius = 5;

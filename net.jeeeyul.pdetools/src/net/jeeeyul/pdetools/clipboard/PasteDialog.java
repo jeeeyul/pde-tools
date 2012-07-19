@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -27,25 +28,44 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 
 public class PasteDialog extends Dialog {
+	private static class DefaultExceptionHandler implements IExceptionHandler {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.jface.window.Window.IExceptionHandler#handleException
+		 * (java.lang.Throwable)
+		 */
+		public void handleException(Throwable t) {
+			if (t instanceof ThreadDeath) {
+				// Don't catch ThreadDeath as this is a normal occurrence when
+				// the thread dies
+				throw (ThreadDeath) t;
+			}
+			// Try to keep running.
+			t.printStackTrace();
+		}
+	}
+
+	private Listener hostControlListener = new Listener() {
+		@Override
+		public void handleEvent(Event event) {
+			switch (event.type) {
+			case SWT.KeyDown: {
+				getShell().notifyListeners(event.type, event);
+			}
+			}
+		}
+	};
 	private ClipboardViewer clipboardViewer;
-
 	private ClipboardEntry result;
-
 	private CaretHint referencePoint;
+
+	private static IExceptionHandler exceptionHandler = new DefaultExceptionHandler();
 
 	protected PasteDialog(Shell parentShell) {
 		super(parentShell);
 		setShellStyle(SWT.RESIZE | SWT.ON_TOP);
-	}
-
-	@Override
-	protected IDialogSettings getDialogBoundsSettings() {
-		String sectionName = getClass().getCanonicalName();
-		IDialogSettings section = Activator.getDefault().getDialogSettings().getSection(sectionName);
-		if (section == null) {
-			section = Activator.getDefault().getDialogSettings().addNewSection(sectionName);
-		}
-		return section;
 	}
 
 	@Override
@@ -116,6 +136,9 @@ public class PasteDialog extends Dialog {
 		separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Composite header = new Composite(comp, SWT.NORMAL);
+		header.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		header.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		header.setBackgroundMode(SWT.INHERIT_FORCE);
 		header.setLayout(new GridLayout());
 
 		Button pushButton = new Button(header, SWT.CHECK);
@@ -125,17 +148,31 @@ public class PasteDialog extends Dialog {
 
 	}
 
+	@Override
+	protected IDialogSettings getDialogBoundsSettings() {
+		String sectionName = getClass().getCanonicalName();
+		IDialogSettings section = Activator.getDefault().getDialogSettings().getSection(sectionName);
+		if (section == null) {
+			section = Activator.getDefault().getDialogSettings().addNewSection(sectionName);
+		}
+		return section;
+	}
+
+	@Override
+	protected Point getInitialLocation(Point initialSize) {
+		if (referencePoint != null) {
+			return new Point(referencePoint.getX(), referencePoint.getY() + referencePoint.getHeight());
+		} else
+			return super.getInitialLocation(initialSize);
+	}
+
 	public ClipboardEntry getResult() {
 		return result;
 	}
 
-	private void selectFirstItem() {
-		TableViewer tableViewer = clipboardViewer.getTableViewer();
-		tableViewer.getTable().setFocus();
-		if (ClipboardService.getInstance().getHistory().getEntries().size() > 0) {
-			tableViewer.setSelection(new StructuredSelection(ClipboardService.getInstance().getHistory().getEntries()
-					.get(0)));
-		}
+	protected void handleSelection() {
+		IStructuredSelection selection = (IStructuredSelection) clipboardViewer.getTableViewer().getSelection();
+		setResult((ClipboardEntry) selection.getFirstElement());
 	}
 
 	@Override
@@ -146,30 +183,66 @@ public class PasteDialog extends Dialog {
 				selectFirstItem();
 			}
 		});
-		return super.open();
+
+		if (getShell() == null || getShell().isDisposed()) {
+			create();
+		}
+
+		// limit the shell size to the display size
+		constrainShellSize();
+
+		// open the window
+		getShell().setVisible(true);
+
+		Control host = getParentShell().getDisplay().getFocusControl();
+		host.addListener(SWT.KeyDown, hostControlListener);
+
+		// run the event loop if specified
+		runEventLoop(getShell());
+
+		host.removeListener(SWT.KeyDown, hostControlListener);
+
+		return getReturnCode();
 	}
 
-	@Override
-	protected Point getInitialLocation(Point initialSize) {
-		if (referencePoint != null) {
-			return new Point(referencePoint.getX(), referencePoint.getY() + referencePoint.getHeight());
-		} else
-			return super.getInitialLocation(initialSize);
-	}
-	
+	private void runEventLoop(Shell loopShell) {
 
-	protected void handleSelection() {
-		IStructuredSelection selection = (IStructuredSelection) clipboardViewer.getTableViewer().getSelection();
-		setResult((ClipboardEntry) selection.getFirstElement());
+		// Use the display provided by the shell if possible
+		Display display;
+		if (getShell() == null) {
+			display = Display.getCurrent();
+		} else {
+			display = loopShell.getDisplay();
+		}
+
+		while (loopShell != null && !loopShell.isDisposed()) {
+			try {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+			} catch (Throwable e) {
+				exceptionHandler.handleException(e);
+			}
+		}
+		if (!display.isDisposed())
+			display.update();
+	}
+
+	private void selectFirstItem() {
+		TableViewer tableViewer = clipboardViewer.getTableViewer();
+		if (ClipboardService.getInstance().getHistory().getEntries().size() > 0) {
+			tableViewer.setSelection(new StructuredSelection(ClipboardService.getInstance().getHistory().getEntries()
+					.get(0)));
+		}
+	}
+
+	public void setReferencePoint(CaretHint referencePoint) {
+		this.referencePoint = referencePoint;
 	}
 
 	private void setResult(ClipboardEntry result) {
 		this.result = result;
 		getButton(OK).setEnabled(result != null);
-	}
-
-	public void setReferencePoint(CaretHint referencePoint) {
-		this.referencePoint = referencePoint;
 	}
 
 }

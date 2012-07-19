@@ -3,7 +3,6 @@ package net.jeeeyul.pdetools;
 import net.jeeeyul.pdetools.shared.DebugStream;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
