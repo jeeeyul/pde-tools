@@ -1,5 +1,9 @@
 package net.jeeeyul.pdetools;
 
+import net.jeeeyul.pdetools.shared.DebugStream;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -30,6 +34,9 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		if (Platform.inDebugMode() || Platform.inDevelopmentMode()) {
+			DebugStream.activate();
+		}
 	}
 
 	/*

@@ -156,6 +156,7 @@ public class PasteDialog extends Dialog {
 		} else
 			return super.getInitialLocation(initialSize);
 	}
+	
 
 	protected void handleSelection() {
 		IStructuredSelection selection = (IStructuredSelection) clipboardViewer.getTableViewer().getSelection();

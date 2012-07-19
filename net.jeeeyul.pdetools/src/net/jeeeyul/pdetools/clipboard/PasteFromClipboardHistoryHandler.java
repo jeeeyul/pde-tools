@@ -34,6 +34,10 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 			referencePoint = CaretHint.capture(text);
 		}
 
+		if (referencePoint == null) {
+			return null;
+		}
+
 		PasteDialog dialog = new PasteDialog(activeShell);
 		dialog.setReferencePoint(referencePoint);
 

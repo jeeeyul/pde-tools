@@ -54,7 +54,7 @@
       <command
             defaultHandler="net.jeeeyul.pdetools.clipboard.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
-            name="Paste from clipboard history">
+            name="Paste from Clipboard History">
       </command>
    </extension>
    <extension
@@ -143,6 +143,15 @@
                   style="push">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=paste">
+         <command
+               commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+               icon="icons/clipboard.gif"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -308,6 +317,7 @@
       <view
             category="org.eclipse.ui"
             class="net.jeeeyul.pdetools.clipboard.ClipboardView"
+            icon="icons/clipboard.gif"
             id="net.jeeeyul.pdetools.clipboard.ClipboardView"
             name="Clipboard History"
             restorable="true">
@@ -321,6 +331,17 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
       </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            icon="icons/clipboard.gif">
+      </image>
+      <image
+            commandId="net.jeeeyul.pdetools.icg.enableNature"
+            icon="icons/add.gif">
+      </image>
    </extension>
 
 </plugin>

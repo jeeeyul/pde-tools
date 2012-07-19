@@ -92,7 +92,7 @@ public class ClipEntryLabelProvider extends StyledCellLabelProvider {
 			getSharedLayout().setFont(getViewer().getControl().getFont());
 			getSharedLayout().setText(format.format(entry.getTakenTime()));
 			Rectangle textBounds = getSharedLayout().getBounds();
-			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width, bounds.y, textBounds.width,
+			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1, textBounds.width,
 					textBounds.height);
 
 			Path path = new Path(getViewer().getControl().getDisplay());
@@ -103,6 +103,7 @@ public class ClipEntryLabelProvider extends StyledCellLabelProvider {
 			path.addArc(area.x - radius, area.y + area.height - radius, box, box, 180, 90);
 			path.lineTo(area.x + area.width, area.y + radius + area.height);
 			path.lineTo(area.x + area.width, area.y);
+			path.lineTo(area.x - radius, area.y);
 
 			event.gc.setAlpha(255);
 			event.gc.setBackground(item.getDisplay().getSystemColor(SWT.COLOR_WHITE));

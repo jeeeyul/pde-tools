@@ -23,7 +23,6 @@ public class SharedColor implements IColorProvider {
 		if (result == null) {
 			result = new Color(display, rgb);
 			cache.put(rgb, result);
-			System.out.println(cache.size());
 		}
 		return result;
 	}

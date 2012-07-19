@@ -35,9 +35,9 @@ public class SharedImages{
 	public static final String ADD = "icons/add.gif";
 	
 	/**
-	 * Image constant for icons/bbb.gif
+	 * Image constant for icons/clipboard.gif
 	 */
-	public static final String BBB = "icons/bbb.gif";
+	public static final String CLIPBOARD = "icons/clipboard.gif";
 	
 	/**
 	 * Image constant for icons/configure.gif
