@@ -2,10 +2,10 @@
  */
 package net.jeeeyul.pdetools.clipboard.model.clipboard.impl;
 
-import com.google.common.base.Objects;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
+
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -25,6 +24,8 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.xtext.xbase.lib.Conversions;
+
+import com.google.common.base.Objects;
 
 /**
  * <!-- begin-user-doc -->

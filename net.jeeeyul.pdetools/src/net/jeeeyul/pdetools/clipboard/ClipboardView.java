@@ -8,6 +8,10 @@ public class ClipboardView extends ViewPart {
 	public static final String ID = "net.jeeeyul.pdetools.clipboard.ClipboardView";
 	private ClipboardViewer viewer;
 
+	public ClipboardViewer getViewer() {
+		return viewer;
+	}
+
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new ClipboardViewer(parent, SWT.NORMAL);
@@ -16,7 +20,7 @@ public class ClipboardView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-
+		viewer.getTableViewer().getTable().setFocus();
 	}
 
 }

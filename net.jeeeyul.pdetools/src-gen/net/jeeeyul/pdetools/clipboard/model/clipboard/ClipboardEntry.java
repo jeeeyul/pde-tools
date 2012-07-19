@@ -3,6 +3,7 @@
 package net.jeeeyul.pdetools.clipboard.model.clipboard;
 
 import java.util.Date;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.graphics.ImageData;

@@ -1,9 +1,16 @@
 package net.jeeeyul.pdetools.clipboard;
 
+import net.jeeeyul.pdetools.Activator;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.IOpenListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.layout.GridData;
@@ -26,7 +33,7 @@ public class ClipEntrySelectionDialog {
 		}
 	};
 
-	Listener focusListener = new Listener() {
+	Listener globalFocusHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
 			if (shell == null || shell.isDisposed()) {
@@ -36,7 +43,7 @@ public class ClipEntrySelectionDialog {
 		}
 	};
 
-	Listener tableHook = new Listener() {
+	Listener dialogHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
 			handleTableKeyDown(event);
@@ -49,12 +56,109 @@ public class ClipEntrySelectionDialog {
 	private Table table;
 	private DisposeShellJob closing;
 	private FocusingJob activation;
+	private ClipboardEntry result;
+	private CaretHint caretHint;
 
 	public ClipEntrySelectionDialog(Shell parentShell) {
 		this.parentShell = parentShell;
 	}
 
+	private void activate() {
+		activation.schedule(20);
+	}
+
+	private void allocateShell() {
+		int width = getDialogSettings().getInt("width");
+		int height = getDialogSettings().getInt("height");
+		shell.setSize(width, height);
+		if (caretHint != null) {
+			shell.setLocation(caretHint.getX(), caretHint.getY() + caretHint.getHeight());
+		}
+	}
+
+	private void close() {
+		closing.schedule();
+	}
+
+	private void create() {
+		if (shell != null && !shell.isDisposed()) {
+			return;
+		}
+
+		shell = new Shell(parentShell, SWT.ON_TOP | SWT.RESIZE);
+		GridLayout layout = new GridLayout();
+		layout.marginWidth = layout.marginHeight = 0;
+		shell.setLayout(layout);
+
+		clipboardViewer = new ClipboardViewer(shell, SWT.NORMAL);
+		table = clipboardViewer.getTableViewer().getTable();
+		clipboardViewer.getTableViewer().getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		closing = new DisposeShellJob(shell);
+
+		table.addListener(SWT.KeyDown, dialogHook);
+
+		activation = new FocusingJob(table);
+
+		clipboardViewer.getTableViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				result = (ClipboardEntry) selection.getFirstElement();
+			}
+		});
+
+		clipboardViewer.getTableViewer().addOpenListener(new IOpenListener() {
+			@Override
+			public void open(OpenEvent event) {
+				close();
+			}
+		});
+
+		shell.addListener(SWT.Traverse, dialogHook);
+		if (table.getItemCount() > 0) {
+			table.select(0);
+			table.notifyListeners(SWT.Selection, new Event());
+		}
+	}
+
+	private IDialogSettings getDialogSettings() {
+		IDialogSettings section = Activator.getDefault().getDialogSettings().getSection(getClass().getCanonicalName());
+		if (section == null) {
+			section = Activator.getDefault().getDialogSettings().addNewSection(getClass().getCanonicalName());
+			section.put("width", 400);
+			section.put("height", 400);
+		}
+		return section;
+	}
+
+	public ClipboardEntry getResult() {
+		return result;
+	}
+
+	protected void handleFocusEvent(Event event) {
+		Control control = (Control) event.widget;
+		while (control != null) {
+			if (control == shell) {
+				return;
+			}
+			control = control.getParent();
+		}
+		shell.dispose();
+	}
+
 	protected void handleTableKeyDown(Event event) {
+		if (event.character == SWT.CR) {
+			close();
+			event.doit = false;
+			return;
+		}
+
+		if (event.character == SWT.ESC) {
+			result = null;
+			close();
+			return;
+		}
+
 		int itemCount = table.getItemCount();
 		int visibleRow = table.getClientArea().height / table.getItemHeight();
 		int selection = table.getSelectionIndex();
@@ -94,49 +198,7 @@ public class ClipEntrySelectionDialog {
 
 		table.select(selection);
 		table.showSelection();
-	}
-
-	private void allocateShell() {
-		shell.setBounds(50, 50, 400, 300);
-	}
-
-	public void close() {
-		closing.schedule();
-	}
-
-	private void create() {
-		if (shell != null && !shell.isDisposed()) {
-			return;
-		}
-
-		shell = new Shell(parentShell, SWT.ON_TOP | SWT.RESIZE);
-		GridLayout layout = new GridLayout();
-		layout.marginWidth = layout.marginHeight = 0;
-		shell.setLayout(layout);
-
-		clipboardViewer = new ClipboardViewer(shell, SWT.NORMAL);
-		table = clipboardViewer.getTableViewer().getTable();
-		clipboardViewer.getTableViewer().getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
-		closing = new DisposeShellJob(shell);
-
-		if (table.getItemCount() > 0) {
-			table.select(0);
-		}
-
-		table.addListener(SWT.KeyDown, tableHook);
-
-		activation = new FocusingJob(table);
-	}
-
-	protected void handleFocusEvent(Event event) {
-		Control control = (Control) event.widget;
-		while (control != null) {
-			if (control == shell) {
-				return;
-			}
-			control = control.getParent();
-		}
-		shell.dispose();
+		table.notifyListeners(SWT.Selection, new Event());
 	}
 
 	public ClipboardEntry open() {
@@ -152,7 +214,7 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.KeyDown, hostHook);
 		host.addListener(SWT.Modify, hostHook);
 		host.addListener(ST.VerifyKey, hostHook);
-		display.addFilter(SWT.FocusIn, focusListener);
+		display.addFilter(SWT.FocusIn, globalFocusHook);
 
 		allocateShell();
 		shell.setVisible(true);
@@ -163,9 +225,9 @@ public class ClipEntrySelectionDialog {
 		host.removeListener(SWT.KeyDown, hostHook);
 		host.removeListener(SWT.Modify, hostHook);
 		host.removeListener(ST.VerifyKey, hostHook);
-		display.removeFilter(SWT.FocusIn, focusListener);
+		display.removeFilter(SWT.FocusIn, globalFocusHook);
 
-		return null;
+		return getResult();
 	}
 
 	private boolean performKeyDown(Event event) {
@@ -189,13 +251,19 @@ public class ClipEntrySelectionDialog {
 			return true;
 		}
 
+		if (event.character == SWT.ESC) {
+			result = null;
+			close();
+			return true;
+		}
+
 		switch (event.keyCode) {
 		case SWT.ARROW_DOWN:
 		case SWT.ARROW_UP:
 		case SWT.PAGE_UP:
 		case SWT.PAGE_DOWN:
 			if (event.type == SWT.KeyDown) {
-				tableHook.handleEvent(event);
+				dialogHook.handleEvent(event);
 			}
 			break;
 
@@ -205,10 +273,6 @@ public class ClipEntrySelectionDialog {
 		}
 
 		return true;
-	}
-
-	public void activate() {
-		activation.schedule(20);
 	}
 
 	private void runLoop() {
@@ -223,6 +287,10 @@ public class ClipEntrySelectionDialog {
 		if (!display.isDisposed()) {
 			display.update();
 		}
+	}
+
+	public void setCaretHint(CaretHint caretHint) {
+		this.caretHint = caretHint;
 	}
 
 }

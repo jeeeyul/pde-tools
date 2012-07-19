@@ -1,8 +1,11 @@
 package net.jeeeyul.pdetools.clipboard;
 
+import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -34,7 +37,22 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 		}
 
 		ClipEntrySelectionDialog dialog = new ClipEntrySelectionDialog(activeShell);
-		dialog.open();
+		dialog.setCaretHint(referencePoint);
+
+		ClipboardEntry result = dialog.open();
+		if (result != null) {
+			ITextOperationTarget target = (ITextOperationTarget) activePart.getAdapter(ITextOperationTarget.class);
+			ClipboardEntry backup = ClipboardService.getInstance().createClipEntry();
+			result.transferTo(ClipboardService.getInstance().getNativeClipboard());
+			if (target != null) {
+				target.doOperation(ITextOperationTarget.PASTE);
+			} else if (focusControl instanceof StyledText) {
+				((StyledText) focusControl).paste();
+			} else if (focusControl instanceof Text) {
+				((Text) focusControl).paste();
+			}
+			backup.transferTo(ClipboardService.getInstance().getNativeClipboard());
+		}
 
 		return null;
 	}
