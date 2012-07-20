@@ -2,6 +2,7 @@
 
 ## Features
 * Generates Shared Image Constants for Plugin Developments
+* Icon Previewing Decorator
 * Enhanced Clipboard (History feature)
 * Screen shot tool
 
