@@ -32,11 +32,17 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
+      <category
+            id="net.jeeeyul.pdetools.category"
+            name="PDE Tools">
+      </category>
       <command
+            categoryId="net.jeeeyul.pdetools.category"
             id="net.jeeeyul.pdetools.icg.enableNature"
             name="Enable Shared Image Generator">
       </command>
       <command
+            categoryId="net.jeeeyul.pdetools.category"
             id="net.jeeeyul.pdetools.icg.disableNature"
             name="Disable Shared Image Generator">
       </command>
@@ -52,10 +58,22 @@
          </defaultHandler>
       </command>
       <command
+            categoryId="net.jeeeyul.pdetools.category"
             defaultHandler="net.jeeeyul.pdetools.clipboard.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
             name="Paste from Clipboard History">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            icon="icons/clipboard.gif">
+      </image>
+      <image
+            commandId="net.jeeeyul.pdetools.icg.enableNature"
+            icon="icons/add.gif">
+      </image>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -150,6 +168,22 @@
          <command
                commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
                icon="icons/clipboard.gif"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:net.jeeeyul.pdetools.clipboard.ClipboardView">
+         <command
+               commandId="org.eclipse.ui.edit.delete"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:net.jeeeyul.pdetools.clipboard.ClipboardView">
+         <command
+               commandId="org.eclipse.ui.edit.delete"
                style="push">
          </command>
       </menuContribution>
@@ -333,15 +367,14 @@
       </key>
    </extension>
    <extension
-         point="org.eclipse.ui.commandImages">
-      <image
-            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
-            icon="icons/clipboard.gif">
-      </image>
-      <image
-            commandId="net.jeeeyul.pdetools.icg.enableNature"
-            icon="icons/add.gif">
-      </image>
+         point="org.eclipse.ui.services">
+      <sourceProvider
+            provider="net.jeeeyul.pdetools.AbstractSourceProvider:1">
+         <variable
+               name="net.jeeeyul.pdetools.variable1"
+               priorityLevel="workbench">
+         </variable>
+      </sourceProvider>
    </extension>
 
 </plugin>

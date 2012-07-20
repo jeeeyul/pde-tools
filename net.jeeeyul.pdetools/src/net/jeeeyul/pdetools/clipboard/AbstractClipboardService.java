@@ -10,18 +10,19 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
-public abstract class AbstractClipboardService {
+public abstract class AbstractClipboardService implements IClipboardService {
 	private ClipHistory history;
 	private CopyActionDetector detector;
 	private Clipboard nativeClipboard;
 
+	@Override
 	public Clipboard getNativeClipboard() {
 		if (nativeClipboard == null) {
 			nativeClipboard = new Clipboard(Display.getDefault());
 		}
 		return nativeClipboard;
 	}
-
+	@Override
 	public ClipHistory getHistory() {
 		if (history == null) {
 			history = ClipboardFactory.eINSTANCE.createClipHistory();

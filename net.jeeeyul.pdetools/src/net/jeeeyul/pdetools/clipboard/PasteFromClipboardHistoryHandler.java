@@ -42,8 +42,8 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 		ClipboardEntry result = dialog.open();
 		if (result != null) {
 			ITextOperationTarget target = (ITextOperationTarget) activePart.getAdapter(ITextOperationTarget.class);
-			ClipboardEntry backup = ClipboardService.getInstance().createClipEntry();
-			result.transferTo(ClipboardService.getInstance().getNativeClipboard());
+			ClipboardEntry backup = ClipboardServiceImpl.getInstance().createClipEntry();
+			result.transferTo(ClipboardServiceImpl.getInstance().getNativeClipboard());
 			if (target != null) {
 				target.doOperation(ITextOperationTarget.PASTE);
 			} else if (focusControl instanceof StyledText) {
@@ -51,7 +51,7 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 			} else if (focusControl instanceof Text) {
 				((Text) focusControl).paste();
 			}
-			backup.transferTo(ClipboardService.getInstance().getNativeClipboard());
+			backup.transferTo(ClipboardServiceImpl.getInstance().getNativeClipboard());
 		}
 
 		return null;

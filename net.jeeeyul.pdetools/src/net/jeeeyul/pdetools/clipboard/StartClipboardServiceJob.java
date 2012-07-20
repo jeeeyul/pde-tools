@@ -14,7 +14,7 @@ public class StartClipboardServiceJob extends WorkbenchJob implements IStartup {
 
 	@Override
 	public IStatus runInUIThread(IProgressMonitor monitor) {
-		ClipboardService.initailze();
+		ClipboardServiceImpl.initailze();
 		return Status.OK_STATUS;
 	}
 

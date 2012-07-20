@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.clipboard;
 import com.google.common.base.Objects;
 import java.util.Date;
 import net.jeeeyul.pdetools.clipboard.AbstractClipboardService;
+import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
@@ -28,10 +29,10 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
-public class ClipboardService extends AbstractClipboardService {
+public class ClipboardServiceImpl extends AbstractClipboardService {
   private ClipboardFactory _clipboardFactory = ClipboardFactory.eINSTANCE;
   
-  private static ClipboardService INSTANCE;
+  private static IClipboardService INSTANCE;
   
   private static ILock lock = new Function0<ILock>() {
     public ILock apply() {
@@ -41,65 +42,65 @@ public class ClipboardService extends AbstractClipboardService {
     }
   }.apply();
   
-  public static ClipboardService initailze() {
-    ClipboardService _xblockexpression = null;
+  public static IClipboardService initailze() {
+    IClipboardService _xblockexpression = null;
     {
-      ClipboardService.lock.acquire();
-      ClipboardService _xtrycatchfinallyexpression = null;
+      ClipboardServiceImpl.lock.acquire();
+      IClipboardService _xtrycatchfinallyexpression = null;
       try {
-        ClipboardService _xifexpression = null;
-        boolean _equals = Objects.equal(ClipboardService.INSTANCE, null);
+        IClipboardService _xifexpression = null;
+        boolean _equals = Objects.equal(ClipboardServiceImpl.INSTANCE, null);
         if (_equals) {
-          ClipboardService _clipboardService = new ClipboardService();
-          ClipboardService _INSTANCE = ClipboardService.INSTANCE = _clipboardService;
+          ClipboardServiceImpl _clipboardServiceImpl = new ClipboardServiceImpl();
+          IClipboardService _INSTANCE = ClipboardServiceImpl.INSTANCE = _clipboardServiceImpl;
           _xifexpression = _INSTANCE;
         }
         _xtrycatchfinallyexpression = _xifexpression;
       } finally {
-        ClipboardService.lock.release();
+        ClipboardServiceImpl.lock.release();
       }
       _xblockexpression = (_xtrycatchfinallyexpression);
     }
     return _xblockexpression;
   }
   
-  public static ClipboardService getInstance() {
-    ClipboardService.lock.acquire();
+  public static IClipboardService getInstance() {
+    ClipboardServiceImpl.lock.acquire();
     try {
-      boolean _equals = Objects.equal(ClipboardService.INSTANCE, null);
+      boolean _equals = Objects.equal(ClipboardServiceImpl.INSTANCE, null);
       if (_equals) {
-        ClipboardService.initailze();
+        ClipboardServiceImpl.initailze();
       }
     } finally {
-      ClipboardService.lock.release();
+      ClipboardServiceImpl.lock.release();
     }
-    return ClipboardService.INSTANCE;
+    return ClipboardServiceImpl.INSTANCE;
   }
   
-  private ClipboardService() {
+  private ClipboardServiceImpl() {
   }
   
   public ClipboardEntry createClipEntry() {
     ClipboardEntry _createClipboardEntry = this._clipboardFactory.createClipboardEntry();
     final Procedure1<ClipboardEntry> _function = new Procedure1<ClipboardEntry>() {
         public void apply(final ClipboardEntry it) {
-          Clipboard _nativeClipboard = ClipboardService.this.getNativeClipboard();
-          TextTransfer _textTransfer = ClipboardService.this.getTextTransfer();
+          Clipboard _nativeClipboard = ClipboardServiceImpl.this.getNativeClipboard();
+          TextTransfer _textTransfer = ClipboardServiceImpl.this.getTextTransfer();
           Object _contents = _nativeClipboard.getContents(_textTransfer);
           it.setTextContent(((String) _contents));
-          Clipboard _nativeClipboard_1 = ClipboardService.this.getNativeClipboard();
+          Clipboard _nativeClipboard_1 = ClipboardServiceImpl.this.getNativeClipboard();
           TransferData[] _availableTypes = _nativeClipboard_1.getAvailableTypes();
           final Function1<TransferData,Boolean> _function = new Function1<TransferData,Boolean>() {
               public Boolean apply(final TransferData it) {
-                RTFTransfer _rTFTransfer = ClipboardService.this.getRTFTransfer();
+                RTFTransfer _rTFTransfer = ClipboardServiceImpl.this.getRTFTransfer();
                 boolean _isSupportedType = _rTFTransfer.isSupportedType(it);
                 return Boolean.valueOf(_isSupportedType);
               }
             };
           boolean _exists = IterableExtensions.<TransferData>exists(((Iterable<TransferData>)Conversions.doWrapArray(_availableTypes)), _function);
           if (_exists) {
-            Clipboard _nativeClipboard_2 = ClipboardService.this.getNativeClipboard();
-            RTFTransfer _rTFTransfer = ClipboardService.this.getRTFTransfer();
+            Clipboard _nativeClipboard_2 = ClipboardServiceImpl.this.getNativeClipboard();
+            RTFTransfer _rTFTransfer = ClipboardServiceImpl.this.getRTFTransfer();
             Object _contents_1 = _nativeClipboard_2.getContents(_rTFTransfer);
             it.setRtfContent(((String) _contents_1));
           }
@@ -114,7 +115,7 @@ public class ClipboardService extends AbstractClipboardService {
     TransferData[] _availableTypes = _nativeClipboard.getAvailableTypes();
     final Function1<TransferData,Boolean> _function = new Function1<TransferData,Boolean>() {
         public Boolean apply(final TransferData it) {
-          TextTransfer _textTransfer = ClipboardService.this.getTextTransfer();
+          TextTransfer _textTransfer = ClipboardServiceImpl.this.getTextTransfer();
           boolean _isSupportedType = _textTransfer.isSupportedType(it);
           return Boolean.valueOf(_isSupportedType);
         }

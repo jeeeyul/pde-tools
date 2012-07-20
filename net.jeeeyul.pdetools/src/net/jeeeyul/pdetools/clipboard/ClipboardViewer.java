@@ -95,7 +95,7 @@ public class ClipboardViewer {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				return ClipboardService.getInstance().getHistory().getEntries().toArray();
+				return ClipboardServiceImpl.getInstance().getHistory().getEntries().toArray();
 			}
 
 			@Override
@@ -103,8 +103,8 @@ public class ClipboardViewer {
 			}
 		});
 
-		viewer.setInput(ClipboardService.getInstance().getHistory());
-		ClipboardService.getInstance().getHistory().eAdapters().add(historyListener);
+		viewer.setInput(ClipboardServiceImpl.getInstance().getHistory());
+		ClipboardServiceImpl.getInstance().getHistory().eAdapters().add(historyListener);
 
 		Font font = PlatformUI.getWorkbench().getThemeManager().getCurrentTheme().getFontRegistry()
 				.get("org.eclipse.jface.textfont");
@@ -134,7 +134,7 @@ public class ClipboardViewer {
 
 	public void dispose() {
 		sharedColor.flush();
-		ClipboardService.getInstance().getHistory().eAdapters().remove(historyListener);
+		ClipboardServiceImpl.getInstance().getHistory().eAdapters().remove(historyListener);
 	}
 
 	public TableViewer getTableViewer() {

@@ -29,7 +29,19 @@ public class ClipEntrySelectionDialog {
 			if (shell == null || shell.isDisposed()) {
 				return;
 			}
-			event.doit = !performKeyDown(event);
+			switch (event.type) {
+			case SWT.KeyDown:
+			case SWT.Verify:
+			case SWT.Traverse:
+			case ST.VerifyKey:
+				event.doit = !performKeyDown(event);
+				break;
+
+			case SWT.MouseDown:
+				result = null;
+				close();
+				break;
+			}
 		}
 	};
 
@@ -143,7 +155,8 @@ public class ClipEntrySelectionDialog {
 			}
 			control = control.getParent();
 		}
-		shell.dispose();
+		result = null;
+		close();
 	}
 
 	protected void handleTableKeyDown(Event event) {
@@ -214,6 +227,7 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.KeyDown, hostHook);
 		host.addListener(SWT.Modify, hostHook);
 		host.addListener(ST.VerifyKey, hostHook);
+		host.addListener(SWT.MouseDown, hostHook);
 		display.addFilter(SWT.FocusIn, globalFocusHook);
 
 		allocateShell();
@@ -225,6 +239,7 @@ public class ClipEntrySelectionDialog {
 		host.removeListener(SWT.KeyDown, hostHook);
 		host.removeListener(SWT.Modify, hostHook);
 		host.removeListener(ST.VerifyKey, hostHook);
+		host.removeListener(SWT.MouseDown, hostHook);
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
 
 		return getResult();

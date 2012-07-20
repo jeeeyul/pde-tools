@@ -7,25 +7,23 @@ import org.eclipse.core.runtime.jobs.ILock
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.ui.handlers.HandlerUtil
 
-import static extension net.jeeeyul.pdetools.clipboard.ClipboardService.*
-
-class ClipboardService extends AbstractClipboardService {
+class ClipboardServiceImpl extends AbstractClipboardService {
 	extension ClipboardFactory = ClipboardFactory::eINSTANCE
-	static ClipboardService INSTANCE;
+	static IClipboardService INSTANCE;
 	static ILock lock = Job::jobManager.newLock()
 
 	def static initailze(){
 		lock.acquire()
 		try{
 			if(INSTANCE == null) {
-				INSTANCE = new ClipboardService()
+				INSTANCE = new net.jeeeyul.pdetools.clipboard.ClipboardServiceImpl()
 			}
 		}finally{
 			lock.release()
 		}
 	}
 
-	def static getInstance(){
+	def static IClipboardService getInstance(){
 		lock.acquire()
 		try{
 			if(INSTANCE == null) {
@@ -40,7 +38,7 @@ class ClipboardService extends AbstractClipboardService {
 	private new(){
 	}
 	
-	def createClipEntry(){
+	override createClipEntry(){
 		var entry = createClipboardEntry() => [
 			it.textContent = nativeClipboard.getContents(textTransfer) as String
 			if(nativeClipboard.availableTypes.exists[RTFTransfer.isSupportedType(it)]) {
