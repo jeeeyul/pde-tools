@@ -1,5 +1,6 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
 
+import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 

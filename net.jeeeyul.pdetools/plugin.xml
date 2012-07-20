@@ -59,7 +59,7 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
-            defaultHandler="net.jeeeyul.pdetools.clipboard.PasteFromClipboardHistoryHandler"
+            defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
             name="Paste from Clipboard History">
       </command>
@@ -343,14 +343,14 @@
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="net.jeeeyul.pdetools.clipboard.StartClipboardServiceJob">
+            class="net.jeeeyul.pdetools.clipboard.internal.StartClipboardServiceJob">
       </startup>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
             category="org.eclipse.ui"
-            class="net.jeeeyul.pdetools.clipboard.ClipboardView"
+            class="net.jeeeyul.pdetools.clipboard.internal.ClipboardView"
             icon="icons/clipboard.gif"
             id="net.jeeeyul.pdetools.clipboard.ClipboardView"
             name="Clipboard History"

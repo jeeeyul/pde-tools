@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.clipboard
+package net.jeeeyul.pdetools.clipboard.internal
 
 import java.util.Date
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory
@@ -6,6 +6,7 @@ import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.runtime.jobs.ILock
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.ui.handlers.HandlerUtil
+import net.jeeeyul.pdetools.clipboard.IClipboardService
 
 class ClipboardServiceImpl extends AbstractClipboardService {
 	extension ClipboardFactory = ClipboardFactory::eINSTANCE
@@ -16,7 +17,7 @@ class ClipboardServiceImpl extends AbstractClipboardService {
 		lock.acquire()
 		try{
 			if(INSTANCE == null) {
-				INSTANCE = new net.jeeeyul.pdetools.clipboard.ClipboardServiceImpl()
+				INSTANCE = new ClipboardServiceImpl()
 			}
 		}finally{
 			lock.release()

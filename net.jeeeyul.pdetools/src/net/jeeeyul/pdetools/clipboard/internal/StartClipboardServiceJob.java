@@ -1,4 +1,6 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
+
+import net.jeeeyul.pdetools.clipboard.ClipboardServiceImpl;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

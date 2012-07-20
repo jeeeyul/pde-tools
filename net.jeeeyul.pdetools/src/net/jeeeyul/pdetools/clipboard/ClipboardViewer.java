@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.clipboard;
 
+import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 
 import org.eclipse.emf.common.notify.Notification;

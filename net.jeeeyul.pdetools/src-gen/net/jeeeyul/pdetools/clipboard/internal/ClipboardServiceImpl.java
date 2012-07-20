@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
 
 import com.google.common.base.Objects;
 import java.util.Date;

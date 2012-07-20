@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;

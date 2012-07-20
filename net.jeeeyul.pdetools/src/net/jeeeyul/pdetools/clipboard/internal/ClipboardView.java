@@ -1,7 +1,11 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.jeeeyul.pdetools.clipboard.ClipboardHistoryAction;
+import net.jeeeyul.pdetools.clipboard.ClipboardServiceImpl;
+import net.jeeeyul.pdetools.clipboard.ClipboardViewer;
 
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;

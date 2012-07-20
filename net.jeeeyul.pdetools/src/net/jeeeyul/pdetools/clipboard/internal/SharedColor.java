@@ -1,7 +1,9 @@
-package net.jeeeyul.pdetools.clipboard;
+package net.jeeeyul.pdetools.clipboard.internal;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import net.jeeeyul.pdetools.clipboard.IColorProvider;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
