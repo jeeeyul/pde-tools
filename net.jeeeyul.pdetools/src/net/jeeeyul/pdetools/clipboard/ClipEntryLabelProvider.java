@@ -41,7 +41,10 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	public TextLayout getSharedLayout() {
 		if (sharedLayout == null) {
 			sharedLayout = new TextLayout(getViewer().getControl().getDisplay());
-			sharedLayout.setTabs(new int[] { 10, 10, 10, 10 });
+			sharedLayout.setFont(getViewer().getControl().getFont());
+			sharedLayout.setText(" ");
+			int spaceWidth = sharedLayout.getBounds().width;
+			sharedLayout.setTabs(new int[] { spaceWidth * 2 });
 			sharedLayout.setSpacing(0);
 		}
 		return sharedLayout;
