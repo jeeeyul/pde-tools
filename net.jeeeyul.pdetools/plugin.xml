@@ -47,17 +47,6 @@
             name="Disable Shared Image Generator">
       </command>
       <command
-            id="net.jeeeyul.pdetools.command.debug"
-            name="debug">
-         <defaultHandler
-               class="net.jeeeyul.pdetools.Debug">
-            <parameter
-                  name="net.jeeeyul.pdetools.parameter1"
-                  value="net.jeeeyul.pdetools.parameter1">
-            </parameter>
-         </defaultHandler>
-      </command>
-      <command
             categoryId="net.jeeeyul.pdetools.category"
             defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
@@ -356,6 +345,14 @@
             name="Clipboard History"
             restorable="true">
       </view>
+      <view
+            category="org.eclipse.ui"
+            class="net.jeeeyul.pdetools.snapshot.SnapshotView"
+            icon="icons/camera.gif"
+            id="net.jeeeyul.pdetools.snapshot.SnapshotView"
+            name="Screen Shot View"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -365,16 +362,6 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
       </key>
-   </extension>
-   <extension
-         point="org.eclipse.ui.services">
-      <sourceProvider
-            provider="net.jeeeyul.pdetools.AbstractSourceProvider:1">
-         <variable
-               name="net.jeeeyul.pdetools.variable1"
-               priorityLevel="workbench">
-         </variable>
-      </sourceProvider>
    </extension>
 
 </plugin>
