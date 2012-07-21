@@ -48,9 +48,19 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
-            defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
             name="Paste from Clipboard History">
+         <defaultHandler
+               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
+         </defaultHandler>
+      </command>
+      <command
+            categoryId="net.jeeeyul.pdetools.category"
+            id="net.jeeeyul.pdetools.snapshot.screenshot"
+            name="Take a Screen Shot">
+         <defaultHandler
+               class="net.jeeeyul.pdetools.snapshot.TakeScreenShotHandler">
+         </defaultHandler>
       </command>
    </extension>
    <extension
@@ -157,14 +167,6 @@
          <command
                commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
                icon="icons/clipboard.gif"
-               style="push">
-         </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="toolbar:net.jeeeyul.pdetools.clipboard.ClipboardView">
-         <command
-               commandId="org.eclipse.ui.edit.delete"
                style="push">
          </command>
       </menuContribution>
@@ -342,7 +344,7 @@
             class="net.jeeeyul.pdetools.clipboard.internal.ClipboardView"
             icon="icons/clipboard.gif"
             id="net.jeeeyul.pdetools.clipboard.ClipboardView"
-            name="Clipboard History"
+            name="Clipboard"
             restorable="true">
       </view>
       <view
@@ -350,7 +352,7 @@
             class="net.jeeeyul.pdetools.snapshot.SnapshotView"
             icon="icons/camera.gif"
             id="net.jeeeyul.pdetools.snapshot.SnapshotView"
-            name="Screen Shot View"
+            name="Screen Shot"
             restorable="true">
       </view>
    </extension>
