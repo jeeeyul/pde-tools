@@ -3,7 +3,6 @@ package net.jeeeyul.pdetools.icg.builder
 import com.google.inject.Inject
 import java.io.ByteArrayInputStream
 import java.util.HashMap
-import net.jeeeyul.pdetools.Activator
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
 import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
@@ -74,7 +73,7 @@ class Building {
 		stream.close()
 		config.ouputFile.derived = config.markDerived
 		
-		var uri = URI::createPlatformResourceURI(project.fullPath.append('''.settings/«Activator::^default.bundle.symbolicName».palette.xml''').toPortableString, false)
+		var uri = URI::createPlatformResourceURI(project.fullPath.append('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».palette.xml''').toPortableString, false)
 		var resource = new XMLResourceImpl(uri)
 		resource.contents.add(paletteModel)
 		resource.save(new HashMap())

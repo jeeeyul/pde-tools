@@ -1,15 +1,24 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 
 import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.RTFTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -63,14 +72,29 @@ public class ClipboardServiceImpl implements IClipboardService {
 	public ClipHistory getHistory() {
 		if (history == null) {
 			try {
-
+				URI uri = getPersistanceURI();
+				if (new File(uri.toFileString()).exists()) {
+					XMLResourceImpl resourceImpl = new XMLResourceImpl(uri);
+					resourceImpl.load(new HashMap<Object, Object>());
+					history = (ClipHistory) resourceImpl.getContents().get(0);
+				} else {
+					history = ClipboardFactory.eINSTANCE.createClipHistory();
+				}
 			}
 
 			catch (Exception e) {
+				e.printStackTrace();
 				history = ClipboardFactory.eINSTANCE.createClipHistory();
 			}
 		}
 		return history;
+	}
+
+	private URI getPersistanceURI() {
+		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
+		IPath clipboardURI = stateLocation.append("clipboard.xml");
+		URI uri = URI.createFileURI(clipboardURI.toPortableString());
+		return uri;
 	}
 
 	public ClipboardServiceImpl() {
@@ -139,5 +163,16 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void doSave() {
+		XMLResourceImpl resource = new XMLResourceImpl(getPersistanceURI());
+		resource.getContents().add(EcoreUtil.copy(getHistory()));
+		try {
+			resource.save(new HashMap<Object, Object>());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

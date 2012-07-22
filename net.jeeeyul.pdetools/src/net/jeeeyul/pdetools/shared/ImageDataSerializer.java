@@ -25,7 +25,7 @@ public class ImageDataSerializer {
 	}
 
 	public static final ImageData deserialize(String code) {
-		ByteArrayInputStream is = new ByteArrayInputStream(code.getBytes());
+		ByteArrayInputStream is = new ByteArrayInputStream(Base64Coder.decode(code));
 		imageLoader.load(is);
 		try {
 			is.close();

@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools;
 
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.shared.DebugStream;
 
 import org.eclipse.core.runtime.Platform;
@@ -9,18 +10,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class PDEToolsCore extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "net.jeeeyul.pdetools"; //$NON-NLS-1$
 
 	// The shared instance
-	private static Activator plugin;
+	private static PDEToolsCore plugin;
 
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public PDEToolsCore() {
 	}
 
 	/*
@@ -46,6 +47,8 @@ public class Activator extends AbstractUIPlugin {
 	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
+		ClipboardServiceImpl.getInstance().doSave();
+
 		plugin = null;
 		super.stop(context);
 	}
@@ -55,7 +58,7 @@ public class Activator extends AbstractUIPlugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static PDEToolsCore getDefault() {
 		return plugin;
 	}
 

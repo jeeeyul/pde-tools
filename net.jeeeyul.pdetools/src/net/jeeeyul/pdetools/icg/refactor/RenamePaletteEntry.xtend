@@ -2,7 +2,6 @@ package net.jeeeyul.pdetools.icg.refactor
 
 import java.util.HashMap
 import java.util.List
-import net.jeeeyul.pdetools.Activator
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelDeltaGenerator
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
@@ -93,7 +92,7 @@ class RenamePaletteEntry extends RenameParticipant {
 
 	def loadPreviousPaletteModel(){
 		try{
-			var uri = URI::createPlatformResourceURI(resource.project.fullPath.append('''.settings/«Activator::^default.bundle.symbolicName».palette.xml''').toPortableString, true)
+			var uri = URI::createPlatformResourceURI(resource.project.fullPath.append('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».palette.xml''').toPortableString, true)
 			var resource = new XMLResourceImpl(uri)
 			resource.load(new HashMap)
 			resource.contents.get(0) as Palette

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import net.jeeeyul.pdetools.Activator;
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteDelta;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelDeltaGenerator;
@@ -158,7 +158,7 @@ public class RenamePaletteEntry extends RenameParticipant {
         IPath _fullPath = _project.getFullPath();
         StringConcatenation _builder = new StringConcatenation();
         _builder.append(".settings/");
-        Activator _default = Activator.getDefault();
+        PDEToolsCore _default = PDEToolsCore.getDefault();
         Bundle _bundle = _default.getBundle();
         String _symbolicName = _bundle.getSymbolicName();
         _builder.append(_symbolicName, "");

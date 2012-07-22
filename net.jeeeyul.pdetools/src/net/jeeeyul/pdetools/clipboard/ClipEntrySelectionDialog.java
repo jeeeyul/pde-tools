@@ -1,6 +1,6 @@
 package net.jeeeyul.pdetools.clipboard;
 
-import net.jeeeyul.pdetools.Activator;
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
@@ -157,9 +157,9 @@ public class ClipEntrySelectionDialog {
 	}
 
 	private IDialogSettings getDialogSettings() {
-		IDialogSettings section = Activator.getDefault().getDialogSettings().getSection(getClass().getCanonicalName());
+		IDialogSettings section = PDEToolsCore.getDefault().getDialogSettings().getSection(getClass().getCanonicalName());
 		if (section == null) {
-			section = Activator.getDefault().getDialogSettings().addNewSection(getClass().getCanonicalName());
+			section = PDEToolsCore.getDefault().getDialogSettings().addNewSection(getClass().getCanonicalName());
 			section.put("width", 400);
 			section.put("height", 400);
 		}

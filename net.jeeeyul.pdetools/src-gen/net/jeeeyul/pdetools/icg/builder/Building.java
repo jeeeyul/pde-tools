@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
-import net.jeeeyul.pdetools.Activator;
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator;
 import net.jeeeyul.pdetools.icg.builder.model.palette.Palette;
@@ -111,7 +111,7 @@ public class Building {
       IPath _fullPath = _project.getFullPath();
       StringConcatenation _builder = new StringConcatenation();
       _builder.append(".settings/");
-      Activator _default = Activator.getDefault();
+      PDEToolsCore _default = PDEToolsCore.getDefault();
       Bundle _bundle = _default.getBundle();
       String _symbolicName = _bundle.getSymbolicName();
       _builder.append(_symbolicName, "");

@@ -2,7 +2,7 @@ package net.jeeeyul.pdetools.icg.builder.model;
 
 import com.google.common.base.Objects;
 import java.util.List;
-import net.jeeeyul.pdetools.Activator;
+import net.jeeeyul.pdetools.PDEToolsCore;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -145,7 +145,7 @@ public class ICGConfiguration {
     if (_equals) {
       ProjectScope _projectScope = new ProjectScope(this.project);
       StringConcatenation _builder = new StringConcatenation();
-      Activator _default = Activator.getDefault();
+      PDEToolsCore _default = PDEToolsCore.getDefault();
       Bundle _bundle = _default.getBundle();
       String _symbolicName = _bundle.getSymbolicName();
       _builder.append(_symbolicName, "");
@@ -225,7 +225,7 @@ public class ICGConfiguration {
   public IFile getSaveFile() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".settings/");
-    Activator _default = Activator.getDefault();
+    PDEToolsCore _default = PDEToolsCore.getDefault();
     Bundle _bundle = _default.getBundle();
     String _symbolicName = _bundle.getSymbolicName();
     _builder.append(_symbolicName, "");

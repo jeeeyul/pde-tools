@@ -202,6 +202,10 @@
             class="net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage"
             uri="http://jeeeyul.net/pde-tools/icg/palette">
       </package>
+      <package
+            class="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage"
+            uri="http://jeeeyul.net/pde-tools/clipboard">
+      </package>
    </extension>
    <extension
          id="net.jeeeyul.pdetools.icg.problemmarker"

@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
-import net.jeeeyul.pdetools.Activator;
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.icg.builder.model.BuildContext;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
 import org.eclipse.core.resources.IFolder;
@@ -23,7 +23,7 @@ public class ResourceDeltaPart {
     final List<IPath> affectPathes = CollectionLiterals.<IPath>newArrayList();
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".settings/");
-    _builder.append(Activator.PLUGIN_ID, "");
+    _builder.append(PDEToolsCore.PLUGIN_ID, "");
     _builder.append(".icg.prefs");
     Path _path = new Path(_builder.toString());
     affectPathes.add(_path);

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: PDE Tools
 Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: net.jeeeyul.pdetools.Activator
+Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: Jeeeyul
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

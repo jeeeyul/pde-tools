@@ -1,6 +1,5 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import net.jeeeyul.pdetools.Activator
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
@@ -9,9 +8,9 @@ import org.eclipse.core.runtime.Assert
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.pde.core.plugin.PluginRegistry
 import org.eclipse.ui.preferences.ScopedPreferenceStore
+import org.eclipse.core.runtime.Path
 
 import static net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration.*
-import org.eclipse.core.runtime.Path
 
 class ICGConfiguration {
 	private static val MONITORING_FOLDER = "monitoring-folder" ;
@@ -86,7 +85,7 @@ class ICGConfiguration {
 
 	def private store() {
 		if(_store == null) {
-			_store = new ScopedPreferenceStore(new ProjectScope(project), '''«Activator::^default.bundle.symbolicName».icg''');
+			_store = new ScopedPreferenceStore(new ProjectScope(project), '''«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».icg''');
 		}
 		return _store;
 	}
@@ -134,6 +133,6 @@ class ICGConfiguration {
 	}
 	
 	def getSaveFile(){
-		project.getFile(new Path('''.settings/«Activator::getDefault().bundle.symbolicName».icg.prefs'''))
+		project.getFile(new Path('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault().bundle.symbolicName».icg.prefs'''))
 	}
 }

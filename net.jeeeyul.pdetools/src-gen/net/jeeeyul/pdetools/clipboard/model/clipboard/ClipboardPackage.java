@@ -42,7 +42,7 @@ public interface ClipboardPackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI = "clipboard";
+  String eNS_URI = "http://jeeeyul.net/pde-tools/clipboard";
 
   /**
    * The package namespace name.
@@ -50,7 +50,7 @@ public interface ClipboardPackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_PREFIX = "clipboard";
+  String eNS_PREFIX = "c";
 
   /**
    * The singleton instance of the package.

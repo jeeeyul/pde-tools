@@ -1,3 +1,4 @@
+@Ecore(nsURI="http://jeeeyul.net/pde-tools/clipboard", nsPrefix="c")
 @GenModel(basePackage="net.jeeeyul.pdetools.clipboard.model")
 package clipboard
 

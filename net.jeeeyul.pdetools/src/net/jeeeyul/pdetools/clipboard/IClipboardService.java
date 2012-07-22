@@ -11,4 +11,6 @@ public interface IClipboardService {
 	Clipboard getNativeClipboard();
 
 	ClipboardEntry createClipEntry();
+	
+	void doSave();
 }

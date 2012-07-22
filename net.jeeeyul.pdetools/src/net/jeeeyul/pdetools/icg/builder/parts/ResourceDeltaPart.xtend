@@ -8,7 +8,6 @@ import com.google.inject.Singleton
 import java.util.List
 import org.eclipse.core.runtime.IPath
 import org.eclipse.core.runtime.Path
-import net.jeeeyul.pdetools.Activator
 
 @Singleton
 class ResourceDeltaPart {
@@ -19,7 +18,7 @@ class ResourceDeltaPart {
 		/*
 		 * 빌더 설정 변경시 다시 빌드
 		 */
-		affectPathes += new Path('''.settings/«Activator::PLUGIN_ID».icg.prefs''')
+		affectPathes += new Path('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::PLUGIN_ID».icg.prefs''')
 		
 		/*
 		 * 모니터링 폴더 내부의 컨텐츠 변경

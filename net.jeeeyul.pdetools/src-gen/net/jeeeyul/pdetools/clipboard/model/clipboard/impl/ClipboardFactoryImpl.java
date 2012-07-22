@@ -37,7 +37,7 @@ public class ClipboardFactoryImpl extends EFactoryImpl implements ClipboardFacto
   {
     try
     {
-      ClipboardFactory theClipboardFactory = (ClipboardFactory)EPackage.Registry.INSTANCE.getEFactory("clipboard"); 
+      ClipboardFactory theClipboardFactory = (ClipboardFactory)EPackage.Registry.INSTANCE.getEFactory("http://jeeeyul.net/pde-tools/clipboard"); 
       if (theClipboardFactory != null)
       {
         return theClipboardFactory;
