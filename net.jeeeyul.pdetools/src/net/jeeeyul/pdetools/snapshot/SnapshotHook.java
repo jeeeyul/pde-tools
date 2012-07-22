@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.snapshot;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
@@ -64,6 +65,7 @@ public class SnapshotHook {
 
 	protected void handleClick(Event event) {
 		event.doit = false;
+		capture();
 		stop();
 	}
 
@@ -91,6 +93,10 @@ public class SnapshotHook {
 		GC gc = new GC(targetControl);
 		gc.copyArea(image, 0, 0);
 		gc.dispose();
+		ImageData imageData = image.getImageData();
+		image.dispose();
+		
+		
 
 		isCapturing = false;
 	}

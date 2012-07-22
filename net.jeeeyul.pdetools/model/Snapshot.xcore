@@ -1,0 +1,26 @@
+
+@Ecore(nsURI="http://jeeeyul.net/pde-tools/snapshot", nsPrefix="s")
+@GenModel(basePackage="net.jeeeyul.pdetools.snapshot.model")
+package snapshot
+
+import java.util.Date
+
+class SnapshotRepository
+{
+	String repositoryLocation
+	contains SnapshotGroup [] groups opposite parent
+}
+
+class SnapshotGroup
+{
+	container SnapshotRepository parent opposite groups
+	Date date
+	contains SnapshotEntry [] entries opposite parent
+}
+
+class SnapshotEntry
+{
+	container SnapshotGroup parent opposite entries
+	Date takenTime
+	String fileName
+}

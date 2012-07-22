@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.snapshot;
 
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
@@ -10,7 +11,8 @@ public class SnapshotView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new GalleryTreeViewer(parent);
+		viewer = new GalleryTreeViewer(parent, SWT.V_SCROLL);
+		viewer.setInput(SnapshotCore.getRepository());
 	}
 
 	@Override

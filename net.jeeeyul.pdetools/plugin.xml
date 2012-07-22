@@ -206,6 +206,10 @@
             class="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage"
             uri="http://jeeeyul.net/pde-tools/clipboard">
       </package>
+      <package
+            class="net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage"
+            uri="http://jeeeyul.net/pde-tools/snapshot">
+      </package>
    </extension>
    <extension
          id="net.jeeeyul.pdetools.icg.problemmarker"
