@@ -15,5 +15,5 @@ public abstract class ClipboardHistoryAction extends Action {
 		this.clipHistory = clipHistory;
 	}
 
-	protected abstract void update();
+	public abstract void update();
 }

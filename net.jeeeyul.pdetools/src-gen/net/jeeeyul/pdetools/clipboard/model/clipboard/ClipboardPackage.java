@@ -215,7 +215,6 @@ public interface ClipboardPackage extends EPackage
    */
   int CLIPBOARD_ENTRY_OPERATION_COUNT = 2;
 
-
   /**
    * The meta object id for the '<em>Clipboard</em>' data type.
    * <!-- begin-user-doc -->
@@ -235,6 +234,7 @@ public interface ClipboardPackage extends EPackage
    * @generated
    */
   int IMAGE_DATA = 3;
+
 
   /**
    * Returns the meta object for class '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory <em>Clip History</em>}'.
@@ -431,6 +431,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EClass CLIP_HISTORY = eINSTANCE.getClipHistory();
+
     /**
      * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
@@ -438,6 +439,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EReference CLIP_HISTORY__ENTRIES = eINSTANCE.getClipHistory_Entries();
+
     /**
      * The meta object literal for the '{@link net.jeeeyul.pdetools.clipboard.model.clipboard.impl.ClipboardEntryImpl <em>Entry</em>}' class.
      * <!-- begin-user-doc -->
@@ -447,6 +449,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EClass CLIPBOARD_ENTRY = eINSTANCE.getClipboardEntry();
+
     /**
      * The meta object literal for the '<em><b>Using Count</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -454,6 +457,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__USING_COUNT = eINSTANCE.getClipboardEntry_UsingCount();
+
     /**
      * The meta object literal for the '<em><b>Last Used Time</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -461,6 +465,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__LAST_USED_TIME = eINSTANCE.getClipboardEntry_LastUsedTime();
+
     /**
      * The meta object literal for the '<em><b>Text Content</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -468,6 +473,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__TEXT_CONTENT = eINSTANCE.getClipboardEntry_TextContent();
+
     /**
      * The meta object literal for the '<em><b>Rtf Content</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -475,6 +481,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__RTF_CONTENT = eINSTANCE.getClipboardEntry_RtfContent();
+
     /**
      * The meta object literal for the '<em><b>Taken Time</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -482,6 +489,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__TAKEN_TIME = eINSTANCE.getClipboardEntry_TakenTime();
+
     /**
      * The meta object literal for the '<em><b>Image Data</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -489,6 +497,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__IMAGE_DATA = eINSTANCE.getClipboardEntry_ImageData();
+
     /**
      * The meta object literal for the '<em><b>Part Id</b></em>' attribute feature.
      * <!-- begin-user-doc -->
@@ -496,6 +505,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EAttribute CLIPBOARD_ENTRY__PART_ID = eINSTANCE.getClipboardEntry_PartId();
+
     /**
      * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
      * <!-- begin-user-doc -->
@@ -503,6 +513,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EReference CLIPBOARD_ENTRY__PARENT = eINSTANCE.getClipboardEntry_Parent();
+
     /**
      * The meta object literal for the '<em><b>Transfer To</b></em>' operation.
      * <!-- begin-user-doc -->
@@ -510,6 +521,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EOperation CLIPBOARD_ENTRY___TRANSFER_TO__CLIPBOARD = eINSTANCE.getClipboardEntry__TransferTo__Clipboard();
+
     /**
      * The meta object literal for the '<em><b>Increase Using</b></em>' operation.
      * <!-- begin-user-doc -->
@@ -517,6 +529,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EOperation CLIPBOARD_ENTRY___INCREASE_USING = eINSTANCE.getClipboardEntry__IncreaseUsing();
+
     /**
      * The meta object literal for the '<em>Clipboard</em>' data type.
      * <!-- begin-user-doc -->
@@ -526,6 +539,7 @@ public interface ClipboardPackage extends EPackage
      * @generated
      */
     EDataType CLIPBOARD = eINSTANCE.getClipboard();
+
     /**
      * The meta object literal for the '<em>Image Data</em>' data type.
      * <!-- begin-user-doc -->

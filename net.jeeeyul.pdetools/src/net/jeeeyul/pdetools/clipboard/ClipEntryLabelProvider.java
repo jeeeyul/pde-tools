@@ -79,14 +79,17 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		ClipboardEntry entry = (ClipboardEntry) element;
 		getSharedLayout().setText(entry.getTextContent());
 
-		if (entry.getRtfContent() != null) {
+		if (entry.getRtfContent() != null && (event.detail & SWT.SELECTED) == 0) {
 			StyleAndText data = factory.createFromRTFString(entry.getRtfContent());
 			getSharedLayout().setText(data.getText());
 			for (StyleRange each : data.getStyleRanges()) {
 				getSharedLayout().setStyle(each, each.start, each.start + each.length);
 			}
+		} else {
+			if ((event.detail & SWT.SELECTED) != 0) {
+				getViewer().getControl().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
+			}
 		}
-
 		getSharedLayout().draw(event.gc, bounds.x, bounds.y);
 
 		if (!isLastItem) {
@@ -99,6 +102,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		if (entry.getTakenTime() != null) {
 			getSharedLayout().setFont(getViewer().getControl().getFont());
 			getSharedLayout().setText(format.format(entry.getTakenTime()));
+
 			Rectangle textBounds = getSharedLayout().getBounds();
 			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1,
 					textBounds.width, textBounds.height);

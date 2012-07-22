@@ -2,7 +2,10 @@
  */
 package net.jeeeyul.pdetools.clipboard.model.clipboard.impl;
 
+import com.google.common.base.Objects;
+
 import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,20 +15,25 @@ import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.RTFTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.xtext.xbase.lib.Conversions;
 
-import com.google.common.base.Objects;
+import org.eclipse.swt.graphics.ImageData;
+
+import org.eclipse.xtext.xbase.lib.Conversions;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,6 +66,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final int USING_COUNT_EDEFAULT = 0;
+
   /**
    * The cached value of the '{@link #getUsingCount() <em>Using Count</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -77,6 +86,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final Date LAST_USED_TIME_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getLastUsedTime() <em>Last Used Time</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -86,6 +96,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected Date lastUsedTime = LAST_USED_TIME_EDEFAULT;
+
   /**
    * The default value of the '{@link #getTextContent() <em>Text Content</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -95,6 +106,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final String TEXT_CONTENT_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getTextContent() <em>Text Content</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -104,6 +116,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected String textContent = TEXT_CONTENT_EDEFAULT;
+
   /**
    * The default value of the '{@link #getRtfContent() <em>Rtf Content</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -113,6 +126,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final String RTF_CONTENT_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getRtfContent() <em>Rtf Content</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -132,6 +146,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final Date TAKEN_TIME_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getTakenTime() <em>Taken Time</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -151,6 +166,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final ImageData IMAGE_DATA_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getImageData() <em>Image Data</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -170,6 +186,7 @@ public class ClipboardEntryImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final String PART_ID_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getPartId() <em>Part Id</em>}' attribute.
    * <!-- begin-user-doc -->

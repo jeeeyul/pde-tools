@@ -14,8 +14,11 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.eclipse.swt.dnd.Clipboard;
+
 import org.eclipse.swt.graphics.ImageData;
 
 /**
@@ -32,6 +35,7 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * @generated
    */
   private EClass clipHistoryEClass = null;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -45,12 +49,14 @@ public class ClipboardPackageImpl extends EPackageImpl implements ClipboardPacka
    * @generated
    */
   private EDataType clipboardEDataType = null;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   private EDataType imageDataEDataType = null;
+
   /**
    * Creates an instance of the model <b>Package</b>, registered with
    * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package

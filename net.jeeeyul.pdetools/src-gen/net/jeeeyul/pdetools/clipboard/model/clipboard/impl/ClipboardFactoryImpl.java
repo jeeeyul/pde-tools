@@ -2,19 +2,21 @@
  */
 package net.jeeeyul.pdetools.clipboard.model.clipboard.impl;
 
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
+import net.jeeeyul.pdetools.clipboard.model.clipboard.*;
+
 import net.jeeeyul.pdetools.shared.ImageDataSerializer;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
 import org.eclipse.swt.dnd.Clipboard;
+
 import org.eclipse.swt.graphics.ImageData;
 
 /**

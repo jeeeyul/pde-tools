@@ -48,19 +48,15 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
+            defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
             name="Paste from Clipboard History">
-         <defaultHandler
-               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
-         </defaultHandler>
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
+            defaultHandler="net.jeeeyul.pdetools.snapshot.TakeScreenShotHandler"
             id="net.jeeeyul.pdetools.snapshot.screenshot"
             name="Take a Screen Shot">
-         <defaultHandler
-               class="net.jeeeyul.pdetools.snapshot.TakeScreenShotHandler">
-         </defaultHandler>
       </command>
    </extension>
    <extension
@@ -364,6 +360,15 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
       </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.services">
+      <serviceFactory
+            factoryClass="net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceFactory">
+         <service
+               serviceClass="net.jeeeyul.pdetools.clipboard.IClipboardService">
+         </service>
+      </serviceFactory>
    </extension>
 
 </plugin>

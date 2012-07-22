@@ -3,6 +3,7 @@
 package net.jeeeyul.pdetools.clipboard.model.clipboard;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -23,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ClipHistory extends EObject
 {
-
   /**
    * Returns the value of the '<em><b>Entries</b></em>' containment reference list.
    * The list contents are of type {@link net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry}.
@@ -41,4 +41,5 @@ public interface ClipHistory extends EObject
    * @generated
    */
   EList<ClipboardEntry> getEntries();
+
 } // ClipHistory

@@ -13,7 +13,7 @@ public class RemoveAllAction extends ClipboardHistoryAction {
 	}
 
 	@Override
-	protected void update() {
+	public void update() {
 		setEnabled(getClipHistory().getEntries().size() > 0);
 	}
 

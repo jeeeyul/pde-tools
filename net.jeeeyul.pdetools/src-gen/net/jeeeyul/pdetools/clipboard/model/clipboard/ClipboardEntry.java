@@ -5,7 +5,9 @@ package net.jeeeyul.pdetools.clipboard.model.clipboard;
 import java.util.Date;
 
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.swt.dnd.Clipboard;
+
 import org.eclipse.swt.graphics.ImageData;
 
 /**
@@ -33,7 +35,6 @@ import org.eclipse.swt.graphics.ImageData;
  */
 public interface ClipboardEntry extends EObject
 {
-
   /**
    * Returns the value of the '<em><b>Using Count</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -260,4 +261,5 @@ public interface ClipboardEntry extends EObject
    * @generated
    */
   void increaseUsing();
+
 } // ClipboardEntry
