@@ -93,10 +93,10 @@ public class SnapshotHook {
 		GC gc = new GC(targetControl);
 		gc.copyArea(image, 0, 0);
 		gc.dispose();
+
 		ImageData imageData = image.getImageData();
+		new NewSnapshotEntryJob(imageData).schedule();
 		image.dispose();
-		
-		
 
 		isCapturing = false;
 	}

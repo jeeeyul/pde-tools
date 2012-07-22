@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.swt.graphics.ImageData;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
@@ -44,5 +45,9 @@ public class SnapshotCore {
 			repository.setRepositoryLocation(getPersistanceURI().toString());
 		}
 		return repository;
+	}
+	
+	public void createNewSnapShotEntry(ImageData imageData){
+		
 	}
 }
