@@ -12,6 +12,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer;
+import org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
@@ -45,8 +46,13 @@ public class SnapshotView extends ViewPart {
 		viewer.setContentProvider(new SnapshotContentProvider());
 		viewer.setLabelProvider(new SnapshotLabelProvider());
 		viewer.setInput(SnapshotCore.getRepository());
+
 		DefaultGalleryGroupRenderer rederer = (DefaultGalleryGroupRenderer) viewer.getGallery().getGroupRenderer();
 		rederer.setAutoMargin(true);
+
+		DefaultGalleryItemRenderer itemRenderer = (DefaultGalleryItemRenderer) viewer.getGallery().getItemRenderer();
+		itemRenderer.setDropShadows(true);
+		itemRenderer.setDropShadowsSize(5);
 
 		SnapshotCore.getRepository().eAdapters().add(refresher);
 
