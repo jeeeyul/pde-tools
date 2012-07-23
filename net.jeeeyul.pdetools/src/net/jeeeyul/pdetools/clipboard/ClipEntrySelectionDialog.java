@@ -12,7 +12,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
@@ -23,6 +22,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 
 public class ClipEntrySelectionDialog {
+	private static final int ST_VerifyKey = 3005;
+	
 	Listener hostHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
@@ -33,7 +34,7 @@ public class ClipEntrySelectionDialog {
 			case SWT.KeyDown:
 			case SWT.Verify:
 			case SWT.Traverse:
-			case ST.VerifyKey:
+			case ST_VerifyKey:
 				event.doit = !performKeyDown(event);
 				break;
 
@@ -246,7 +247,7 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.Traverse, hostHook);
 		host.addListener(SWT.KeyDown, hostHook);
 		host.addListener(SWT.Modify, hostHook);
-		host.addListener(ST.VerifyKey, hostHook);
+		host.addListener(ST_VerifyKey, hostHook);
 		host.addListener(SWT.MouseDown, hostHook);
 		display.addFilter(SWT.FocusIn, globalFocusHook);
 		parentShell.addListener(SWT.Deactivate, shellHook);
@@ -259,7 +260,7 @@ public class ClipEntrySelectionDialog {
 		host.removeListener(SWT.Traverse, hostHook);
 		host.removeListener(SWT.KeyDown, hostHook);
 		host.removeListener(SWT.Modify, hostHook);
-		host.removeListener(ST.VerifyKey, hostHook);
+		host.removeListener(ST_VerifyKey, hostHook);
 		host.removeListener(SWT.MouseDown, hostHook);
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
 		parentShell.removeListener(SWT.Deactivate, shellHook);

@@ -7,7 +7,6 @@ Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: Jeeeyul
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.xtext.xbase.lib,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,
  org.eclipse.jdt.ui,
@@ -17,7 +16,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.editors,
  org.eclipse.jface.text,
- org.eclipse.xtext.xbase,
  org.eclipse.ltk.core.refactoring,
  org.eclipse.jdt.core.manipulation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -27,4 +25,9 @@ Bundle-ClassPath: lib/aopalliance.jar,
  lib/javax.inject.jar,
  lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270822.jar,
  lib/org.eclipse.nebula.widgets.compositetable_1.0.0.201206270822.jar,
+ lib/com.google.guava_10.0.1.v201203051515.jar,
+ lib/org.eclipse.xtend.lib_2.4.0.v201207181106.jar,
+ lib/org.eclipse.xtend2.lib_2.4.0.v201207181106.jar,
+ lib/org.eclipse.xtext.xbase_2.4.0.v201207181106.jar,
+ lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207181106.jar,
  .
