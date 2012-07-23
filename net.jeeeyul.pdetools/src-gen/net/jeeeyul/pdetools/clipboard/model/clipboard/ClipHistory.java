@@ -3,7 +3,6 @@
 package net.jeeeyul.pdetools.clipboard.model.clipboard;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
