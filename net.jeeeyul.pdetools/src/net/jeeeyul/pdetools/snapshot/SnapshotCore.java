@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.eclipse.swt.graphics.ImageData;
-
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
+
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 public class SnapshotCore {
 	private static SnapshotRepository repository;
@@ -25,9 +25,13 @@ public class SnapshotCore {
 	}
 
 	private static URI getPersistanceURI() {
-		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot.xml");
+		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot");
+		File folder = path.setDevice(null).toFile();
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
 
-		URI url = URI.createFileURI(path.toPortableString());
+		URI url = URI.createFileURI(path.append("snapshot.xml").toPortableString());
 		return url;
 	}
 
@@ -46,8 +50,15 @@ public class SnapshotCore {
 		}
 		return repository;
 	}
-	
-	public void createNewSnapShotEntry(ImageData imageData){
-		
+
+	public static void doSave() {
+		XMLResource resource = new XMLResourceImpl(getPersistanceURI());
+		resource.getContents().add(EcoreUtil.copy(getRepository()));
+		try {
+			resource.save(new HashMap<Object, Object>());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

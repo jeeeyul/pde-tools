@@ -8,10 +8,11 @@ import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup
 
 class SnapshotContentProvider implements ITreeContentProvider{
 	override getChildren(Object parentElement) {
+		(parentElement as SnapshotGroup).entries.toArray
 	}
 	
 	override getElements(Object inputElement) {
-		(inputElement as SnapshotRepository).groups
+		(inputElement as SnapshotRepository).groups.toArray
 	}
 	
 	override getParent(Object element) {

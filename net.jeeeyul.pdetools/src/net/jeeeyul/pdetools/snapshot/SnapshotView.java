@@ -12,6 +12,8 @@ public class SnapshotView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new GalleryTreeViewer(parent, SWT.V_SCROLL);
+		viewer.setContentProvider(new SnapshotContentProvider());
+		viewer.setLabelProvider(new SnapshotLabelProvider());
 		viewer.setInput(SnapshotCore.getRepository());
 	}
 

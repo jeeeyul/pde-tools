@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
@@ -35,8 +35,10 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 	protected IStatus run(IProgressMonitor monitor) {
 		try {
 			String location = SnapshotCore.getRepository().getRepositoryLocation();
-			File folder = new File(location);
-			File file = new File(folder, System.currentTimeMillis() + ".png");
+			IPath path = new Path(location);
+			path = path.removeLastSegments(1).append("F" + System.currentTimeMillis() + ".png");
+			path = path.setDevice(null);
+			File file = path.toFile();
 
 			ImageLoader imageLoader = new ImageLoader();
 			imageLoader.data = new ImageData[] { imageData };
@@ -48,8 +50,9 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			entry.setTakenTime(new Date());
 			entry.setFileName(file.getName());
 
+			computeTargetGroup().getEntries().add(0, entry);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return Status.OK_STATUS;
@@ -59,10 +62,20 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		SnapshotGroup result = null;
 
 		SnapshotRepository repository = SnapshotCore.getRepository();
+		long lengthOfDay = 24 * 60 * 60 * 1000;
+
+		long now = System.currentTimeMillis();
 		if (repository.getGroups().size() > 0) {
 			SnapshotGroup head = repository.getGroups().get(0);
-
+			long offset = now - (now % lengthOfDay);
+			if (head.getDate().getTime() == offset) {
+				return head;
+			}
 		}
+
+		result = SnapshotFactory.eINSTANCE.createSnapshotGroup();
+		result.setDate(new Date(now - (now % lengthOfDay)));
+		SnapshotCore.getRepository().getGroups().add(0, result);
 
 		return result;
 	}
@@ -74,9 +87,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 
 	@Override
 	public boolean isConflicting(ISchedulingRule rule) {
-		if (rule == this) {
-			return false;
-		} else if (rule instanceof NewSnapshotEntryJob) {
+		if (rule instanceof NewSnapshotEntryJob) {
 			return true;
 		}
 		return false;

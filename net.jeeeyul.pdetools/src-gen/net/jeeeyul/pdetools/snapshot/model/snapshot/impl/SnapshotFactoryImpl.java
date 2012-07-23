@@ -2,6 +2,7 @@
  */
 package net.jeeeyul.pdetools.snapshot.model.snapshot.impl;
 
+import net.jeeeyul.pdetools.snapshot.model.snapshot.*;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;

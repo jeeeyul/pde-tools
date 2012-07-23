@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools;
 
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.shared.DebugStream;
+import net.jeeeyul.pdetools.snapshot.SnapshotCore;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -48,6 +49,7 @@ public class PDEToolsCore extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		ClipboardServiceImpl.getInstance().doSave();
+		SnapshotCore.doSave();
 
 		plugin = null;
 		super.stop(context);

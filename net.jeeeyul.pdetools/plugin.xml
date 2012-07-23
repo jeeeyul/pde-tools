@@ -368,6 +368,12 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
       </key>
+      <key
+            commandId="net.jeeeyul.pdetools.snapshot.screenshot"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+M3+2">
+      </key>
    </extension>
    <extension
          point="org.eclipse.ui.services">
