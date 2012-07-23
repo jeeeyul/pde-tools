@@ -65,16 +65,19 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		long lengthOfDay = 24 * 60 * 60 * 1000;
 
 		long now = System.currentTimeMillis();
+		int startTimeOffset = 9 * 60 * 60 * 1000;
+
 		if (repository.getGroups().size() > 0) {
 			SnapshotGroup head = repository.getGroups().get(0);
-			long offset = now - (now % lengthOfDay);
+
+			long offset = now - (now % lengthOfDay) - startTimeOffset;
 			if (head.getDate().getTime() == offset) {
 				return head;
 			}
 		}
 
 		result = SnapshotFactory.eINSTANCE.createSnapshotGroup();
-		result.setDate(new Date(now - (now % lengthOfDay)));
+		result.setDate(new Date(now - (now % lengthOfDay) - startTimeOffset));
 		SnapshotCore.getRepository().getGroups().add(0, result);
 
 		return result;
