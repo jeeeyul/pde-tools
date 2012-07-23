@@ -14,12 +14,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.ui.ide,
  org.eclipse.pde.core,
- org.eclipse.ui.workbench.texteditor;bundle-version="3.8.0",
+ org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.editors,
  org.eclipse.jface.text,
  org.eclipse.xtext.xbase,
  org.eclipse.ltk.core.refactoring,
- org.eclipse.jdt.core.manipulation;bundle-version="1.5.0"
+ org.eclipse.jdt.core.manipulation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/aopalliance.jar,
