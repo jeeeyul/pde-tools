@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardView;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
@@ -17,13 +18,18 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 public class ClipEntrySelectionDialog {
 	private static final int ST_VerifyKey = 3005;
-	
+
 	Listener hostHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
@@ -127,6 +133,16 @@ public class ClipEntrySelectionDialog {
 		shell.setLayout(layout);
 
 		clipboardViewer = new ClipboardViewer(shell, SWT.NORMAL);
+		Link link = new Link(shell, SWT.NORMAL);
+		link.setText("<a href=\"open-view\">Show in View</a>");
+		link.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
+		link.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				showView();
+			}
+		});
+
 		table = clipboardViewer.getTableViewer().getTable();
 		clipboardViewer.getTableViewer().getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		closing = new DisposeShellJob(shell);
@@ -157,8 +173,29 @@ public class ClipEntrySelectionDialog {
 		}
 	}
 
+	protected void showView() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (window == null) {
+			return;
+		}
+
+		IWorkbenchPage activePage = window.getActivePage();
+		if (activePage == null) {
+			return;
+		}
+
+		try {
+			activePage.showView(ClipboardView.ID);
+			result = null;
+			close();
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private IDialogSettings getDialogSettings() {
-		IDialogSettings section = PDEToolsCore.getDefault().getDialogSettings().getSection(getClass().getCanonicalName());
+		IDialogSettings section = PDEToolsCore.getDefault().getDialogSettings()
+				.getSection(getClass().getCanonicalName());
 		if (section == null) {
 			section = PDEToolsCore.getDefault().getDialogSettings().addNewSection(getClass().getCanonicalName());
 			section.put("width", 400);

@@ -1,8 +1,7 @@
 package net.jeeeyul.pdetools.clipboard;
 
-import java.text.SimpleDateFormat;
-
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider;
 
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.OwnerDrawLabelProvider;
@@ -20,8 +19,6 @@ import org.eclipse.swt.widgets.TableItem;
 
 public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	private StyleAndTextFactory factory;
-
-	private SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
 
 	// reused text layout
 	private TextLayout sharedLayout;
@@ -100,12 +97,21 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		}
 
 		if (entry.getTakenTime() != null) {
+			long elpasedTime = System.currentTimeMillis() - entry.getTakenTime().getTime();
+
 			getSharedLayout().setFont(getViewer().getControl().getFont());
-			getSharedLayout().setText(format.format(entry.getTakenTime()));
+			getSharedLayout().setText(ElapsedTimeLabelProvider.getText(elpasedTime));
 
 			Rectangle textBounds = getSharedLayout().getBounds();
 			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1,
 					textBounds.width, textBounds.height);
+			Rectangle textArea = new Rectangle(area.x - 2, area.y + 1, area.width, area.height);
+
+			ImageData imageData = entry.getImageData();
+			if (imageData != null) {
+				area.x -= imageData.width + 4;
+				area.width += imageData.width + 4;
+			}
 
 			Path path = new Path(getViewer().getControl().getDisplay());
 			int radius = 5;
@@ -118,25 +124,24 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 			path.lineTo(area.x - radius, area.y);
 
 			event.gc.setAlpha(255);
-			event.gc.setBackground(item.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+			event.gc.setBackground(item.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+			event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			event.gc.fillPath(path);
 
 			event.gc.setAlpha(40);
 			event.gc.drawPath(path);
 
 			event.gc.setAlpha(255);
-			event.gc.drawText(format.format(entry.getTakenTime()), area.x - 2, area.y + 2, true);
-
+			getSharedLayout().draw(event.gc, textArea.x - 2, textArea.y + 2);
 			path.dispose();
+
+			if (imageData != null) {
+				Image image = new Image(item.getDisplay(), imageData);
+				event.gc.drawImage(image, area.x - 2, area.y + (area.height - imageData.height) / 2 + 3);
+				image.dispose();
+			}
 		}
 
-		ImageData imageData = entry.getImageData();
-		if (imageData != null) {
-			Image image = new Image(item.getDisplay(), imageData);
-			event.gc.drawImage(image, bounds.width - imageData.width - 2 + bounds.x, bounds.height + bounds.y
-					- imageData.height - 2);
-			image.dispose();
-		}
 	}
 
 	@Override

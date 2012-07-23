@@ -17,5 +17,4 @@ class ICGBuilder extends IncrementalProjectBuilder {
 		Guice::createInjector(new BuildModule(this, kind)).injectMembers(building)
 		return building.build(monitor)
 	}
-}
- 
+}
