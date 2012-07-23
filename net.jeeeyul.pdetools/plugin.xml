@@ -69,6 +69,10 @@
             commandId="net.jeeeyul.pdetools.icg.enableNature"
             icon="icons/add.gif">
       </image>
+      <image
+            commandId="net.jeeeyul.pdetools.snapshot.screenshot"
+            icon="icons/camera.gif">
+      </image>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -151,8 +155,7 @@
          <toolbar
                id="net.jeeeyul.pdetools.toolbar">
             <command
-                  commandId="net.jeeeyul.pdetools.command.debug"
-                  icon="icons/configure.gif"
+                  commandId="net.jeeeyul.pdetools.snapshot.screenshot"
                   style="push">
             </command>
          </toolbar>

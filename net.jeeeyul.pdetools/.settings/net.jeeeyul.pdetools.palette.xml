@@ -7,4 +7,5 @@
   <imageFiles fieldName="DELETE_ALL" file="/net.jeeeyul.pdetools/icons/delete-all.gif"/>
   <imageFiles fieldName="IMAGE_FOLDER" file="/net.jeeeyul.pdetools/icons/image-folder.gif"/>
   <imageFiles fieldName="IMAGE" file="/net.jeeeyul.pdetools/icons/image.gif"/>
+  <imageFiles fieldName="REFRESH" file="/net.jeeeyul.pdetools/icons/refresh.gif"/>
 </p:Palette>

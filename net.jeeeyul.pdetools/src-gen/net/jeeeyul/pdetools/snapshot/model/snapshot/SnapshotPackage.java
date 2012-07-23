@@ -197,13 +197,22 @@ public interface SnapshotPackage extends EPackage
   int SNAPSHOT_ENTRY__FILE_NAME = 2;
 
   /**
+   * The feature id for the '<em><b>Absoulte File Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = 3;
+
+  /**
    * The number of structural features of the '<em>Entry</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY_FEATURE_COUNT = 3;
+  int SNAPSHOT_ENTRY_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Entry</em>' class.
@@ -334,6 +343,17 @@ public interface SnapshotPackage extends EPackage
   EAttribute getSnapshotEntry_FileName();
 
   /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath <em>Absoulte File Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Absoulte File Path</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath()
+   * @see #getSnapshotEntry()
+   * @generated
+   */
+  EAttribute getSnapshotEntry_AbsoulteFilePath();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -450,6 +470,14 @@ public interface SnapshotPackage extends EPackage
      * @generated
      */
     EAttribute SNAPSHOT_ENTRY__FILE_NAME = eINSTANCE.getSnapshotEntry_FileName();
+
+    /**
+     * The meta object literal for the '<em><b>Absoulte File Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = eINSTANCE.getSnapshotEntry_AbsoulteFilePath();
 
   }
 

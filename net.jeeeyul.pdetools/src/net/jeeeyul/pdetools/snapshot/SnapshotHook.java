@@ -55,11 +55,25 @@ public class SnapshotHook {
 	}
 
 	protected void handleKeyPressed(Event event) {
-		if (event.keyCode == SWT.ARROW_UP) {
+		switch (event.keyCode) {
+		case SWT.ARROW_UP:
 			if (targetControl != null) {
 				setTargetControl(targetControl.getParent());
 				event.doit = false;
 			}
+			break;
+		}
+
+		switch (event.character) {
+		case SWT.CR:
+			capture();
+			stop();
+
+			break;
+
+		case SWT.ESC:
+			stop();
+			break;
 		}
 	}
 
@@ -112,6 +126,10 @@ public class SnapshotHook {
 		gc.setLineWidth(2);
 		Rectangle bounds = getTargetControl().getBounds();
 		gc.drawRectangle(1, 1, bounds.width - 2, bounds.height - 2);
+
+		gc.setBackground(getTargetControl().getDisplay().getSystemColor(SWT.COLOR_RED));
+		gc.setAlpha(100);
+		gc.fillRectangle(0, 0, bounds.width, bounds.height);
 	}
 
 	public void setTargetControl(Control targetControl) {
@@ -121,6 +139,7 @@ public class SnapshotHook {
 			}
 			return;
 		}
+
 		if (this.targetControl != null) {
 			this.targetControl.removeListener(SWT.Paint, paintHandler);
 			this.targetControl.removeListener(SWT.Dispose, disposeHandler);

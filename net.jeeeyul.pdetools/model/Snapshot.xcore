@@ -4,6 +4,7 @@
 package snapshot
 
 import java.util.Date
+import org.eclipse.core.runtime.Path
 
 class SnapshotRepository
 {
@@ -23,4 +24,10 @@ class SnapshotEntry
 	container SnapshotGroup parent opposite entries
 	Date takenTime
 	String fileName
+	
+	derived String absoulteFilePath get{
+		var base = new Path(parent.parent.repositoryLocation).removeLastSegments(1).setDevice(null)
+		var filePath = base.append(fileName)
+		return filePath.toFile.absolutePath
+	}
 }

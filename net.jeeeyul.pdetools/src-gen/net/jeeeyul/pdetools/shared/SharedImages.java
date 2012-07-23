@@ -70,6 +70,12 @@ public class SharedImages{
 	 * Image constant for icons/image.gif
 	 */
 	public static final String IMAGE = "icons/image.gif";
+	
+	/**
+	 * <img src="data:image/gif;base64,R0lGODlhEAAQANUAAPj46P797/jwsPvwtPnolPjomPvpnvndevDYgPHag/jgiPDgqPHTc/vehcOWHcKZIPjQYPjYePjYgPnNX72EFrF4E7uBFbqBFbZ8FLZ9FLZ9FbqBFqhuEK1yEaluEahuEa1yEq1zEqxyEqxzEqZrEP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAQABAAAAZkwJJwSCwaiRTK0UgJKJdDSyBw2WygGMJgO0holpWDYTxmPJagSQOUboygnomn9Jlwhs+kkETa450lFABPR4ICSQALhEUUCgKPjwgOSxkRBZcFERhQISAiEhAdUEMkEH2je6dHQQA7">
+	 * Image constant for icons/refresh.gif
+	 */
+	public static final String REFRESH = "icons/refresh.gif";
 	private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());
 	
 	public static Image getImage(String key){

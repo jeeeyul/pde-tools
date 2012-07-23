@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getTakenTime <em>Taken Time</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -105,5 +106,21 @@ public interface SnapshotEntry extends EObject
    * @generated
    */
   void setFileName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Absoulte File Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Absoulte File Path</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Absoulte File Path</em>' attribute.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_AbsoulteFilePath()
+   * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel get='<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup%> _parent = this.getParent();\n<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository%> _parent_1 = _parent.getParent();\n<%java.lang.String%> _repositoryLocation = _parent_1.getRepositoryLocation();\n<%org.eclipse.core.runtime.Path%> _path = new <%org.eclipse.core.runtime.Path%>(_repositoryLocation);\n<%org.eclipse.core.runtime.IPath%> _removeLastSegments = _path.removeLastSegments(1);\n<%org.eclipse.core.runtime.IPath%> base = _removeLastSegments.setDevice(null);\n<%java.lang.String%> _fileName = this.getFileName();\n<%org.eclipse.core.runtime.IPath%> filePath = base.append(_fileName);\n<%java.io.File%> _file = filePath.toFile();\nreturn _file.getAbsolutePath();'"
+   * @generated
+   */
+  String getAbsoulteFilePath();
 
 } // SnapshotEntry

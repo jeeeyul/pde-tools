@@ -2,12 +2,16 @@
  */
 package net.jeeeyul.pdetools.snapshot.model.snapshot.impl;
 
+import java.io.File;
 import java.util.Date;
 
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage;
+import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -26,6 +30,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getTakenTime <em>Taken Time</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +77,16 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * @ordered
    */
   protected String fileName = FILE_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getAbsoulteFilePath() <em>Absoulte File Path</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAbsoulteFilePath()
+   * @generated
+   * @ordered
+   */
+  protected static final String ABSOULTE_FILE_PATH_EDEFAULT = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -190,6 +205,25 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getAbsoulteFilePath()
+  {
+    SnapshotGroup _parent = this.getParent();
+    SnapshotRepository _parent_1 = _parent.getParent();
+    String _repositoryLocation = _parent_1.getRepositoryLocation();
+    Path _path = new Path(_repositoryLocation);
+    IPath _removeLastSegments = _path.removeLastSegments(1);
+    IPath base = _removeLastSegments.setDevice(null);
+    String _fileName = this.getFileName();
+    IPath filePath = base.append(_fileName);
+    File _file = filePath.toFile();
+    return _file.getAbsolutePath();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -251,6 +285,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return getTakenTime();
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         return getFileName();
+      case SnapshotPackage.SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH:
+        return getAbsoulteFilePath();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -317,6 +353,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return TAKEN_TIME_EDEFAULT == null ? takenTime != null : !TAKEN_TIME_EDEFAULT.equals(takenTime);
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
+      case SnapshotPackage.SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH:
+        return ABSOULTE_FILE_PATH_EDEFAULT == null ? getAbsoulteFilePath() != null : !ABSOULTE_FILE_PATH_EDEFAULT.equals(getAbsoulteFilePath());
     }
     return super.eIsSet(featureID);
   }
