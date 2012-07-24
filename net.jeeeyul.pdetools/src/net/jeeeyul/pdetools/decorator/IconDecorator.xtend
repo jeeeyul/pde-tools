@@ -60,6 +60,9 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 		if(!file.exists) {
 			return false
 		}
+		if(file.projectRelativePath.fileExtension == null){
+			return false;
+		}
 		return IMAGE_FILES.contains(file.projectRelativePath.fileExtension.toLowerCase)
 	}
 

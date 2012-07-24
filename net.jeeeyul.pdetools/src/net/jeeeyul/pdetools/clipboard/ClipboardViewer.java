@@ -1,5 +1,10 @@
 package net.jeeeyul.pdetools.clipboard;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
@@ -16,6 +21,7 @@ import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
 import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
+import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.DisposeEvent;
@@ -83,7 +89,7 @@ public class ClipboardViewer {
 		viewer.getTable().getDisplay().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				if(viewer.getTable().isDisposed()){
+				if (viewer.getTable().isDisposed()) {
 					return;
 				}
 				resizer.handleEvent(null);
@@ -113,13 +119,27 @@ public class ClipboardViewer {
 		viewer.getTable().setFont(font);
 
 		DragSource dragSource = new DragSource(viewer.getTable(), DND.DROP_COPY);
-		dragSource.setTransfer(new Transfer[] { TextTransfer.getInstance() });
+		dragSource.setTransfer(new Transfer[] { TextTransfer.getInstance(), FileTransfer.getInstance() });
 		dragSource.addDragListener(new DragSourceAdapter() {
 			@Override
 			public void dragSetData(DragSourceEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 				if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
 					event.data = ((ClipboardEntry) selection.getFirstElement()).getTextContent();
+				}
+
+				if (FileTransfer.getInstance().isSupportedType(event.dataType)) {
+					String data = ((ClipboardEntry) selection.getFirstElement()).getTextContent();
+					try {
+						File file = File.createTempFile("temp", ".txt");
+						file.deleteOnExit();
+						FileWriter writer = new FileWriter(file);
+						writer.write(data);
+						writer.close();
+						event.data = new String[] { file.getAbsolutePath() };
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 

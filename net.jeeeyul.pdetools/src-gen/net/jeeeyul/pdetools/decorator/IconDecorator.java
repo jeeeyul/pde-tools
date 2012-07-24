@@ -102,7 +102,13 @@ public class IconDecorator extends BaseLabelProvider implements ILightweightLabe
     }
     IPath _projectRelativePath = file.getProjectRelativePath();
     String _fileExtension = _projectRelativePath.getFileExtension();
-    String _lowerCase = _fileExtension.toLowerCase();
+    boolean _equals = Objects.equal(_fileExtension, null);
+    if (_equals) {
+      return false;
+    }
+    IPath _projectRelativePath_1 = file.getProjectRelativePath();
+    String _fileExtension_1 = _projectRelativePath_1.getFileExtension();
+    String _lowerCase = _fileExtension_1.toLowerCase();
     return IconDecorator.IMAGE_FILES.contains(_lowerCase);
   }
   
