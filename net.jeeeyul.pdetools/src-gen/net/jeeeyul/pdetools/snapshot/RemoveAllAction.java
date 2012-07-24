@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.snapshot;
 import com.google.common.collect.Iterators;
 import java.io.File;
 import java.util.Iterator;
+import net.jeeeyul.pdetools.shared.ConfirmDialog;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.snapshot.SnapshotAction;
 import net.jeeeyul.pdetools.snapshot.SnapshotCore;
@@ -14,6 +15,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
@@ -28,6 +30,14 @@ public class RemoveAllAction extends SnapshotAction {
   }
   
   public void run() {
+    ConfirmDialog _confirmDialog = new ConfirmDialog("dont-ask-when-remove-all-snapshots");
+    ConfirmDialog dialog = _confirmDialog;
+    dialog.setMessage("Do you really want to remove all snapshots?");
+    int _open = dialog.open();
+    boolean _equals = (_open == IDialogConstants.NO_ID);
+    if (_equals) {
+      return;
+    }
     SnapshotRepository _repository = this.getRepository();
     String _repositoryLocation = _repository.getRepositoryLocation();
     Path _path = new Path(_repositoryLocation);

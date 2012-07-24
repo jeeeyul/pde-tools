@@ -97,10 +97,9 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		}
 
 		if (entry.getTakenTime() != null) {
-			long elpasedTime = System.currentTimeMillis() - entry.getTakenTime().getTime();
 
 			getSharedLayout().setFont(getViewer().getControl().getFont());
-			getSharedLayout().setText(ElapsedTimeLabelProvider.getText(elpasedTime));
+			getSharedLayout().setText(ElapsedTimeLabelProvider.getText(entry.getTakenTime()));
 
 			Rectangle textBounds = getSharedLayout().getBounds();
 			Rectangle area = new Rectangle(table.getClientArea().width - textBounds.width - 2, bounds.y + 1,

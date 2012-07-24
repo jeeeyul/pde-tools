@@ -1,7 +1,10 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
+
 import net.jeeeyul.pdetools.clipboard.ClipboardHistoryAction;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
+import net.jeeeyul.pdetools.shared.ConfirmDialog;
 import net.jeeeyul.pdetools.shared.SharedImages;
 
 public class RemoveAllAction extends ClipboardHistoryAction {
@@ -19,6 +22,11 @@ public class RemoveAllAction extends ClipboardHistoryAction {
 
 	@Override
 	public void run() {
+		ConfirmDialog dialog = new ConfirmDialog("dont-ask-when-remove-all-clipboard-entries");
+		dialog.setMessage("Do you really want to remove all clipboard histories?");
+		if (dialog.open() == IDialogConstants.NO_ID) {
+			return;
+		}
 		getClipHistory().getEntries().clear();
 	}
 }

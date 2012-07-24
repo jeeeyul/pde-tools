@@ -1,7 +1,6 @@
 package net.jeeeyul.pdetools.clipboard;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 

@@ -81,6 +81,7 @@ public class SnapshotView extends ViewPart {
 		});
 
 		configureDragSource();
+		updateActions();
 	}
 
 	protected void doOpen(SnapshotEntry snapshotEntry) {
@@ -152,6 +153,10 @@ public class SnapshotView extends ViewPart {
 	private void handleModelChange() {
 		getUpdate().schedule();
 
+		updateActions();
+	}
+
+	private void updateActions() {
 		for (SnapshotAction eachAction : snapshotActions) {
 			eachAction.update();
 		}

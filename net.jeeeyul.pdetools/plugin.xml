@@ -356,7 +356,7 @@
             class="net.jeeeyul.pdetools.snapshot.SnapshotView"
             icon="icons/camera.gif"
             id="net.jeeeyul.pdetools.snapshot.SnapshotView"
-            name="Screen Shot"
+            name="Snapshot"
             restorable="true">
       </view>
    </extension>

@@ -5,7 +5,6 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "net.jeeeyul.pdetools.shared.messages"; //$NON-NLS-1$
 	public static String ElapsedTimeLabelProvider_DAYS_AGO;
-	public static String ElapsedTimeLabelProvider_HALF_MONTH_AGO;
 	public static String ElapsedTimeLabelProvider_HALF_YEARS_AGO;
 	public static String ElapsedTimeLabelProvider_HOURS_AGO;
 	public static String ElapsedTimeLabelProvider_JUST_NOW;

@@ -4,6 +4,8 @@ import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository
 import org.eclipse.core.runtime.Path
 import net.jeeeyul.pdetools.shared.SharedImages
+import net.jeeeyul.pdetools.shared.ConfirmDialog
+import org.eclipse.jface.dialogs.IDialogConstants
 
 class RemoveAllAction extends SnapshotAction {
 	new(SnapshotRepository repository) {
@@ -13,6 +15,11 @@ class RemoveAllAction extends SnapshotAction {
 	}
 
 	override run() {
+		var dialog = new ConfirmDialog("dont-ask-when-remove-all-snapshots")
+		dialog.message = "Do you really want to remove all snapshots?"
+		if(dialog.open() == IDialogConstants::NO_ID) {
+			return;
+		}
 		var basePath = new Path(repository.repositoryLocation).removeLastSegments(1).setDevice(null);
 		var entries = repository.eAllContents.filter(typeof(SnapshotEntry)).toIterable
 		for(each : entries){
