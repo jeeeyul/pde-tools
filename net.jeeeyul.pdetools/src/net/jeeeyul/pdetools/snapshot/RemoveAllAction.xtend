@@ -23,7 +23,7 @@ class RemoveAllAction extends SnapshotAction {
 		var basePath = new Path(repository.repositoryLocation).removeLastSegments(1).setDevice(null);
 		var entries = repository.eAllContents.filter(typeof(SnapshotEntry)).toIterable
 		for(each : entries){
-			var eachFile = basePath.append(each.fileName).toFile
+			var eachFile = basePath.append(each.getOriginalFile).toFile
 			if(eachFile.exists) {
 				try{
 					eachFile.delete();

@@ -387,10 +387,10 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.jeeeyul.pdetools.snapshot.SnapshotEditor"
+            class="net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor"
             default="false"
             icon="icons/camera.gif"
-            id="net.jeeeyul.pdetools.snapshot.SnapshotEditor"
+            id="net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor"
             name="Snapshot Editor">
       </editor>
    </extension>

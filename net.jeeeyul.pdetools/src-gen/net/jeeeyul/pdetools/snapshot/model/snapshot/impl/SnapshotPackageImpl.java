@@ -224,7 +224,7 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSnapshotEntry_FileName()
+  public EAttribute getSnapshotEntry_OriginalFile()
   {
     return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(2);
   }
@@ -234,7 +234,7 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSnapshotEntry_ControlType()
+  public EAttribute getSnapshotEntry_RenderedFile()
   {
     return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(3);
   }
@@ -244,9 +244,19 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getSnapshotEntry_ControlType()
+  {
+    return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getSnapshotEntry_ShellInfo()
   {
-    return (EReference)snapshotEntryEClass.getEStructuralFeatures().get(4);
+    return (EReference)snapshotEntryEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -256,7 +266,7 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    */
   public EAttribute getSnapshotEntry_AbsoulteFilePath()
   {
-    return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -341,7 +351,8 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
     snapshotEntryEClass = createEClass(SNAPSHOT_ENTRY);
     createEReference(snapshotEntryEClass, SNAPSHOT_ENTRY__PARENT);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__TAKEN_TIME);
-    createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__FILE_NAME);
+    createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__ORIGINAL_FILE);
+    createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__RENDERED_FILE);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__CONTROL_TYPE);
     createEReference(snapshotEntryEClass, SNAPSHOT_ENTRY__SHELL_INFO);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH);
@@ -399,7 +410,8 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
     initEClass(snapshotEntryEClass, SnapshotEntry.class, "SnapshotEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSnapshotEntry_Parent(), this.getSnapshotGroup(), this.getSnapshotGroup_Entries(), "parent", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_TakenTime(), theEcorePackage.getEDate(), "takenTime", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSnapshotEntry_FileName(), theEcorePackage.getEString(), "fileName", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSnapshotEntry_OriginalFile(), theEcorePackage.getEString(), "originalFile", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSnapshotEntry_RenderedFile(), theEcorePackage.getEString(), "renderedFile", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_ControlType(), theEcorePackage.getEString(), "controlType", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSnapshotEntry_ShellInfo(), this.getShellInfo(), null, "shellInfo", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_AbsoulteFilePath(), theEcorePackage.getEString(), "absoulteFilePath", null, 0, 1, SnapshotEntry.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);

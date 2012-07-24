@@ -50,8 +50,8 @@ public class RemoveAllAction extends SnapshotAction {
     Iterable<SnapshotEntry> entries = IteratorExtensions.<SnapshotEntry>toIterable(_filter);
     for (final SnapshotEntry each : entries) {
       {
-        String _fileName = each.getFileName();
-        IPath _append = basePath.append(_fileName);
+        String _originalFile = each.getOriginalFile();
+        IPath _append = basePath.append(_originalFile);
         File eachFile = _append.toFile();
         boolean _exists = eachFile.exists();
         if (_exists) {

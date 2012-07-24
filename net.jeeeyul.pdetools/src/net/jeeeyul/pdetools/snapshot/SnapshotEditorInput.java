@@ -31,7 +31,7 @@ public class SnapshotEditorInput implements IEditorInput {
 
 	@Override
 	public String getName() {
-		return snapshot.getFileName();
+		return snapshot.getOriginalFile();
 	}
 
 	@Override

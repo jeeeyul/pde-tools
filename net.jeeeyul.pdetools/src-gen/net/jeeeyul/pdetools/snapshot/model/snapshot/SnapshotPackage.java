@@ -188,13 +188,22 @@ public interface SnapshotPackage extends EPackage
   int SNAPSHOT_ENTRY__TAKEN_TIME = 1;
 
   /**
-   * The feature id for the '<em><b>File Name</b></em>' attribute.
+   * The feature id for the '<em><b>Original File</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY__FILE_NAME = 2;
+  int SNAPSHOT_ENTRY__ORIGINAL_FILE = 2;
+
+  /**
+   * The feature id for the '<em><b>Rendered File</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SNAPSHOT_ENTRY__RENDERED_FILE = 3;
 
   /**
    * The feature id for the '<em><b>Control Type</b></em>' attribute.
@@ -203,7 +212,7 @@ public interface SnapshotPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY__CONTROL_TYPE = 3;
+  int SNAPSHOT_ENTRY__CONTROL_TYPE = 4;
 
   /**
    * The feature id for the '<em><b>Shell Info</b></em>' containment reference.
@@ -212,7 +221,7 @@ public interface SnapshotPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY__SHELL_INFO = 4;
+  int SNAPSHOT_ENTRY__SHELL_INFO = 5;
 
   /**
    * The feature id for the '<em><b>Absoulte File Path</b></em>' attribute.
@@ -221,7 +230,7 @@ public interface SnapshotPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = 5;
+  int SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = 6;
 
   /**
    * The number of structural features of the '<em>Entry</em>' class.
@@ -230,7 +239,7 @@ public interface SnapshotPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY_FEATURE_COUNT = 6;
+  int SNAPSHOT_ENTRY_FEATURE_COUNT = 7;
 
   /**
    * The number of operations of the '<em>Entry</em>' class.
@@ -406,15 +415,26 @@ public interface SnapshotPackage extends EPackage
   EAttribute getSnapshotEntry_TakenTime();
 
   /**
-   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName <em>File Name</em>}'.
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getOriginalFile <em>Original File</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>File Name</em>'.
-   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName()
+   * @return the meta object for the attribute '<em>Original File</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getOriginalFile()
    * @see #getSnapshotEntry()
    * @generated
    */
-  EAttribute getSnapshotEntry_FileName();
+  EAttribute getSnapshotEntry_OriginalFile();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getRenderedFile <em>Rendered File</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Rendered File</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getRenderedFile()
+   * @see #getSnapshotEntry()
+   * @generated
+   */
+  EAttribute getSnapshotEntry_RenderedFile();
 
   /**
    * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType <em>Control Type</em>}'.
@@ -603,12 +623,20 @@ public interface SnapshotPackage extends EPackage
     EAttribute SNAPSHOT_ENTRY__TAKEN_TIME = eINSTANCE.getSnapshotEntry_TakenTime();
 
     /**
-     * The meta object literal for the '<em><b>File Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Original File</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SNAPSHOT_ENTRY__FILE_NAME = eINSTANCE.getSnapshotEntry_FileName();
+    EAttribute SNAPSHOT_ENTRY__ORIGINAL_FILE = eINSTANCE.getSnapshotEntry_OriginalFile();
+
+    /**
+     * The meta object literal for the '<em><b>Rendered File</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SNAPSHOT_ENTRY__RENDERED_FILE = eINSTANCE.getSnapshotEntry_RenderedFile();
 
     /**
      * The meta object literal for the '<em><b>Control Type</b></em>' attribute feature.

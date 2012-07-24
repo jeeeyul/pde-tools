@@ -1,4 +1,6 @@
-package net.jeeeyul.pdetools.snapshot;
+package net.jeeeyul.pdetools.snapshot.editor;
+
+import net.jeeeyul.pdetools.snapshot.SnapshotEditorInput;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
@@ -9,7 +11,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
 public class SnapshotEditor extends EditorPart {
-	public static final String ID = "net.jeeeyul.pdetools.snapshot.SnapshotEditor";
+	public static final String ID = "net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor";
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -25,6 +27,11 @@ public class SnapshotEditor extends EditorPart {
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
 		setInput(input);
+	}
+	
+	@Override
+	public SnapshotEditorInput getEditorInput() {
+		return (SnapshotEditorInput) super.getEditorInput();
 	}
 
 	@Override

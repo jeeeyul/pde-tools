@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
+import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 
 import org.eclipse.emf.common.notify.Notification;

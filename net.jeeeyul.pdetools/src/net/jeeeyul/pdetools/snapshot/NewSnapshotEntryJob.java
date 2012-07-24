@@ -102,7 +102,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 
 			SnapshotEntry entry = SnapshotFactory.eINSTANCE.createSnapshotEntry();
 			entry.setTakenTime(new Date());
-			entry.setFileName(file.getName());
+			entry.setOriginalFile(file.getName());
 
 			computeTargetGroup().getEntries().add(0, entry);
 

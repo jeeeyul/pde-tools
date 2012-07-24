@@ -30,7 +30,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <ul>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getTakenTime <em>Taken Time</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getOriginalFile <em>Original File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getRenderedFile <em>Rendered File</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getControlType <em>Control Type</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getShellInfo <em>Shell Info</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
@@ -62,24 +63,44 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
   protected Date takenTime = TAKEN_TIME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getFileName() <em>File Name</em>}' attribute.
+   * The default value of the '{@link #getOriginalFile() <em>Original File</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFileName()
+   * @see #getOriginalFile()
    * @generated
    * @ordered
    */
-  protected static final String FILE_NAME_EDEFAULT = null;
+  protected static final String ORIGINAL_FILE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getFileName() <em>File Name</em>}' attribute.
+   * The cached value of the '{@link #getOriginalFile() <em>Original File</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFileName()
+   * @see #getOriginalFile()
    * @generated
    * @ordered
    */
-  protected String fileName = FILE_NAME_EDEFAULT;
+  protected String originalFile = ORIGINAL_FILE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getRenderedFile() <em>Rendered File</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRenderedFile()
+   * @generated
+   * @ordered
+   */
+  protected static final String RENDERED_FILE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRenderedFile() <em>Rendered File</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRenderedFile()
+   * @generated
+   * @ordered
+   */
+  protected String renderedFile = RENDERED_FILE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getControlType() <em>Control Type</em>}' attribute.
@@ -215,9 +236,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFileName()
+  public String getOriginalFile()
   {
-    return fileName;
+    return originalFile;
   }
 
   /**
@@ -225,12 +246,35 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFileName(String newFileName)
+  public void setOriginalFile(String newOriginalFile)
   {
-    String oldFileName = fileName;
-    fileName = newFileName;
+    String oldOriginalFile = originalFile;
+    originalFile = newOriginalFile;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME, oldFileName, fileName));
+      eNotify(new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__ORIGINAL_FILE, oldOriginalFile, originalFile));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getRenderedFile()
+  {
+    return renderedFile;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRenderedFile(String newRenderedFile)
+  {
+    String oldRenderedFile = renderedFile;
+    renderedFile = newRenderedFile;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__RENDERED_FILE, oldRenderedFile, renderedFile));
   }
 
   /**
@@ -317,8 +361,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
     Path _path = new Path(_repositoryLocation);
     IPath _removeLastSegments = _path.removeLastSegments(1);
     IPath base = _removeLastSegments.setDevice(null);
-    String _fileName = this.getFileName();
-    IPath filePath = base.append(_fileName);
+    String _originalFile = this.getOriginalFile();
+    IPath filePath = base.append(_originalFile);
     File _file = filePath.toFile();
     return _file.getAbsolutePath();
   }
@@ -389,8 +433,10 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return getParent();
       case SnapshotPackage.SNAPSHOT_ENTRY__TAKEN_TIME:
         return getTakenTime();
-      case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
-        return getFileName();
+      case SnapshotPackage.SNAPSHOT_ENTRY__ORIGINAL_FILE:
+        return getOriginalFile();
+      case SnapshotPackage.SNAPSHOT_ENTRY__RENDERED_FILE:
+        return getRenderedFile();
       case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
         return getControlType();
       case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
@@ -417,8 +463,11 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
       case SnapshotPackage.SNAPSHOT_ENTRY__TAKEN_TIME:
         setTakenTime((Date)newValue);
         return;
-      case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
-        setFileName((String)newValue);
+      case SnapshotPackage.SNAPSHOT_ENTRY__ORIGINAL_FILE:
+        setOriginalFile((String)newValue);
+        return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__RENDERED_FILE:
+        setRenderedFile((String)newValue);
         return;
       case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
         setControlType((String)newValue);
@@ -446,8 +495,11 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
       case SnapshotPackage.SNAPSHOT_ENTRY__TAKEN_TIME:
         setTakenTime(TAKEN_TIME_EDEFAULT);
         return;
-      case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
-        setFileName(FILE_NAME_EDEFAULT);
+      case SnapshotPackage.SNAPSHOT_ENTRY__ORIGINAL_FILE:
+        setOriginalFile(ORIGINAL_FILE_EDEFAULT);
+        return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__RENDERED_FILE:
+        setRenderedFile(RENDERED_FILE_EDEFAULT);
         return;
       case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
         setControlType(CONTROL_TYPE_EDEFAULT);
@@ -473,8 +525,10 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return getParent() != null;
       case SnapshotPackage.SNAPSHOT_ENTRY__TAKEN_TIME:
         return TAKEN_TIME_EDEFAULT == null ? takenTime != null : !TAKEN_TIME_EDEFAULT.equals(takenTime);
-      case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
-        return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
+      case SnapshotPackage.SNAPSHOT_ENTRY__ORIGINAL_FILE:
+        return ORIGINAL_FILE_EDEFAULT == null ? originalFile != null : !ORIGINAL_FILE_EDEFAULT.equals(originalFile);
+      case SnapshotPackage.SNAPSHOT_ENTRY__RENDERED_FILE:
+        return RENDERED_FILE_EDEFAULT == null ? renderedFile != null : !RENDERED_FILE_EDEFAULT.equals(renderedFile);
       case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
         return CONTROL_TYPE_EDEFAULT == null ? controlType != null : !CONTROL_TYPE_EDEFAULT.equals(controlType);
       case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
@@ -498,8 +552,10 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (takenTime: ");
     result.append(takenTime);
-    result.append(", fileName: ");
-    result.append(fileName);
+    result.append(", originalFile: ");
+    result.append(originalFile);
+    result.append(", renderedFile: ");
+    result.append(renderedFile);
     result.append(", controlType: ");
     result.append(controlType);
     result.append(')');

@@ -110,7 +110,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 				null);
 
 		for (SnapshotEntry each : entries) {
-			IPath filePath = path.append(each.getFileName());
+			IPath filePath = path.append(each.getOriginalFile());
 			registry.remove(filePath.toFile().getAbsolutePath());
 		}
 

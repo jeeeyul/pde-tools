@@ -16,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getTakenTime <em>Taken Time</em>}</li>
- *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getOriginalFile <em>Original File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getRenderedFile <em>Rendered File</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType <em>Control Type</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getShellInfo <em>Shell Info</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
@@ -84,30 +85,56 @@ public interface SnapshotEntry extends EObject
   void setTakenTime(Date value);
 
   /**
-   * Returns the value of the '<em><b>File Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Original File</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>File Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>File Name</em>' attribute.
-   * @see #setFileName(String)
-   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_FileName()
+   * @return the value of the '<em>Original File</em>' attribute.
+   * @see #setOriginalFile(String)
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_OriginalFile()
    * @model unique="false"
    * @generated
    */
-  String getFileName();
+  String getOriginalFile();
 
   /**
-   * Sets the value of the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName <em>File Name</em>}' attribute.
+   * Sets the value of the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getOriginalFile <em>Original File</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>File Name</em>' attribute.
-   * @see #getFileName()
+   * @param value the new value of the '<em>Original File</em>' attribute.
+   * @see #getOriginalFile()
    * @generated
    */
-  void setFileName(String value);
+  void setOriginalFile(String value);
+
+  /**
+   * Returns the value of the '<em><b>Rendered File</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Rendered File</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Rendered File</em>' attribute.
+   * @see #setRenderedFile(String)
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_RenderedFile()
+   * @model unique="false"
+   * @generated
+   */
+  String getRenderedFile();
+
+  /**
+   * Sets the value of the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getRenderedFile <em>Rendered File</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Rendered File</em>' attribute.
+   * @see #getRenderedFile()
+   * @generated
+   */
+  void setRenderedFile(String value);
 
   /**
    * Returns the value of the '<em><b>Control Type</b></em>' attribute.
@@ -172,7 +199,7 @@ public interface SnapshotEntry extends EObject
    * @return the value of the '<em>Absoulte File Path</em>' attribute.
    * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_AbsoulteFilePath()
    * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel get='<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup%> _parent = this.getParent();\n<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository%> _parent_1 = _parent.getParent();\n<%java.lang.String%> _repositoryLocation = _parent_1.getRepositoryLocation();\n<%org.eclipse.core.runtime.Path%> _path = new <%org.eclipse.core.runtime.Path%>(_repositoryLocation);\n<%org.eclipse.core.runtime.IPath%> _removeLastSegments = _path.removeLastSegments(1);\n<%org.eclipse.core.runtime.IPath%> base = _removeLastSegments.setDevice(null);\n<%java.lang.String%> _fileName = this.getFileName();\n<%org.eclipse.core.runtime.IPath%> filePath = base.append(_fileName);\n<%java.io.File%> _file = filePath.toFile();\nreturn _file.getAbsolutePath();'"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel get='<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup%> _parent = this.getParent();\n<%net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository%> _parent_1 = _parent.getParent();\n<%java.lang.String%> _repositoryLocation = _parent_1.getRepositoryLocation();\n<%org.eclipse.core.runtime.Path%> _path = new <%org.eclipse.core.runtime.Path%>(_repositoryLocation);\n<%org.eclipse.core.runtime.IPath%> _removeLastSegments = _path.removeLastSegments(1);\n<%org.eclipse.core.runtime.IPath%> base = _removeLastSegments.setDevice(null);\n<%java.lang.String%> _originalFile = this.getOriginalFile();\n<%org.eclipse.core.runtime.IPath%> filePath = base.append(_originalFile);\n<%java.io.File%> _file = filePath.toFile();\nreturn _file.getAbsolutePath();'"
    * @generated
    */
   String getAbsoulteFilePath();
