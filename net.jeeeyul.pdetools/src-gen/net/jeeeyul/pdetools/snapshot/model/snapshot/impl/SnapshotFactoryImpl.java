@@ -2,6 +2,7 @@
  */
 package net.jeeeyul.pdetools.snapshot.model.snapshot.impl;
 
+import net.jeeeyul.pdetools.snapshot.model.snapshot.*;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
@@ -69,6 +70,7 @@ public class SnapshotFactoryImpl extends EFactoryImpl implements SnapshotFactory
       case SnapshotPackage.SNAPSHOT_REPOSITORY: return createSnapshotRepository();
       case SnapshotPackage.SNAPSHOT_GROUP: return createSnapshotGroup();
       case SnapshotPackage.SNAPSHOT_ENTRY: return createSnapshotEntry();
+      case SnapshotPackage.SHELL_INFO: return createShellInfo();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -105,6 +107,17 @@ public class SnapshotFactoryImpl extends EFactoryImpl implements SnapshotFactory
   {
     SnapshotEntryImpl snapshotEntry = new SnapshotEntryImpl();
     return snapshotEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ShellInfo createShellInfo()
+  {
+    ShellInfoImpl shellInfo = new ShellInfoImpl();
+    return shellInfo;
   }
 
   /**

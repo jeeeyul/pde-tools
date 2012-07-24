@@ -50,6 +50,15 @@ public interface SnapshotFactory extends EFactory
   SnapshotEntry createSnapshotEntry();
 
   /**
+   * Returns a new object of class '<em>Shell Info</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Shell Info</em>'.
+   * @generated
+   */
+  ShellInfo createShellInfo();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

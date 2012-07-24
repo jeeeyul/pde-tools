@@ -197,13 +197,31 @@ public interface SnapshotPackage extends EPackage
   int SNAPSHOT_ENTRY__FILE_NAME = 2;
 
   /**
+   * The feature id for the '<em><b>Control Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SNAPSHOT_ENTRY__CONTROL_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Shell Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SNAPSHOT_ENTRY__SHELL_INFO = 4;
+
+  /**
    * The feature id for the '<em><b>Absoulte File Path</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = 3;
+  int SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = 5;
 
   /**
    * The number of structural features of the '<em>Entry</em>' class.
@@ -212,7 +230,7 @@ public interface SnapshotPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SNAPSHOT_ENTRY_FEATURE_COUNT = 4;
+  int SNAPSHOT_ENTRY_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Entry</em>' class.
@@ -222,6 +240,62 @@ public interface SnapshotPackage extends EPackage
    * @ordered
    */
   int SNAPSHOT_ENTRY_OPERATION_COUNT = 0;
+
+
+  /**
+   * The meta object id for the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.ShellInfoImpl <em>Shell Info</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.impl.ShellInfoImpl
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotPackageImpl#getShellInfo()
+   * @generated
+   */
+  int SHELL_INFO = 3;
+
+  /**
+   * The feature id for the '<em><b>Icon</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHELL_INFO__ICON = 0;
+
+  /**
+   * The feature id for the '<em><b>Shell Style</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHELL_INFO__SHELL_STYLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Shell Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHELL_INFO__SHELL_TITLE = 2;
+
+  /**
+   * The number of structural features of the '<em>Shell Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHELL_INFO_FEATURE_COUNT = 3;
+
+  /**
+   * The number of operations of the '<em>Shell Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHELL_INFO_OPERATION_COUNT = 0;
 
 
   /**
@@ -343,6 +417,28 @@ public interface SnapshotPackage extends EPackage
   EAttribute getSnapshotEntry_FileName();
 
   /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType <em>Control Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Control Type</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType()
+   * @see #getSnapshotEntry()
+   * @generated
+   */
+  EAttribute getSnapshotEntry_ControlType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getShellInfo <em>Shell Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Shell Info</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getShellInfo()
+   * @see #getSnapshotEntry()
+   * @generated
+   */
+  EReference getSnapshotEntry_ShellInfo();
+
+  /**
    * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath <em>Absoulte File Path</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -352,6 +448,49 @@ public interface SnapshotPackage extends EPackage
    * @generated
    */
   EAttribute getSnapshotEntry_AbsoulteFilePath();
+
+  /**
+   * Returns the meta object for class '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo <em>Shell Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Shell Info</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo
+   * @generated
+   */
+  EClass getShellInfo();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getIcon <em>Icon</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Icon</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getIcon()
+   * @see #getShellInfo()
+   * @generated
+   */
+  EAttribute getShellInfo_Icon();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getShellStyle <em>Shell Style</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Shell Style</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getShellStyle()
+   * @see #getShellInfo()
+   * @generated
+   */
+  EAttribute getShellInfo_ShellStyle();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getShellTitle <em>Shell Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Shell Title</em>'.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo#getShellTitle()
+   * @see #getShellInfo()
+   * @generated
+   */
+  EAttribute getShellInfo_ShellTitle();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -472,12 +611,62 @@ public interface SnapshotPackage extends EPackage
     EAttribute SNAPSHOT_ENTRY__FILE_NAME = eINSTANCE.getSnapshotEntry_FileName();
 
     /**
+     * The meta object literal for the '<em><b>Control Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SNAPSHOT_ENTRY__CONTROL_TYPE = eINSTANCE.getSnapshotEntry_ControlType();
+
+    /**
+     * The meta object literal for the '<em><b>Shell Info</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SNAPSHOT_ENTRY__SHELL_INFO = eINSTANCE.getSnapshotEntry_ShellInfo();
+
+    /**
      * The meta object literal for the '<em><b>Absoulte File Path</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH = eINSTANCE.getSnapshotEntry_AbsoulteFilePath();
+
+    /**
+     * The meta object literal for the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.ShellInfoImpl <em>Shell Info</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.jeeeyul.pdetools.snapshot.model.snapshot.impl.ShellInfoImpl
+     * @see net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotPackageImpl#getShellInfo()
+     * @generated
+     */
+    EClass SHELL_INFO = eINSTANCE.getShellInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Icon</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SHELL_INFO__ICON = eINSTANCE.getShellInfo_Icon();
+
+    /**
+     * The meta object literal for the '<em><b>Shell Style</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SHELL_INFO__SHELL_STYLE = eINSTANCE.getShellInfo_ShellStyle();
+
+    /**
+     * The meta object literal for the '<em><b>Shell Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SHELL_INFO__SHELL_TITLE = eINSTANCE.getShellInfo_ShellTitle();
 
   }
 

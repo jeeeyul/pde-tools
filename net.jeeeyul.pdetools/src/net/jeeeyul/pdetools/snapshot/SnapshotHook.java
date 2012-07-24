@@ -1,5 +1,8 @@
 package net.jeeeyul.pdetools.snapshot;
 
+import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
+import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -10,6 +13,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 
 public class SnapshotHook {
 	private boolean isCapturing = false;
@@ -66,13 +70,15 @@ public class SnapshotHook {
 
 		switch (event.character) {
 		case SWT.CR:
-			capture();
+			capture(true);
 			stop();
+			event.doit = false;
 
 			break;
 
 		case SWT.ESC:
 			stop();
+			event.doit = false;
 			break;
 		}
 	}
@@ -94,22 +100,56 @@ public class SnapshotHook {
 	}
 
 	public synchronized void capture() {
+		capture(false);
+	}
+
+	public synchronized void capture(boolean captureShell) {
 		if (targetControl == null || targetControl.isDisposed() || isCapturing) {
 			return;
 		}
 		isCapturing = true;
 
+		Control captureTarget = targetControl;
+		if (captureShell) {
+			captureTarget = captureTarget.getShell();
+		}
+
 		targetControl.redraw();
 		targetControl.update();
 
-		Point size = targetControl.getSize();
-		Image image = new Image(targetControl.getDisplay(), size.x, size.y);
-		GC gc = new GC(targetControl);
-		gc.copyArea(image, 0, 0);
+		Point size = captureTarget.getSize();
+		if (captureTarget instanceof Shell) {
+			Rectangle clientArea = ((Shell) captureTarget).getClientArea();
+			size = new Point(clientArea.width, clientArea.height);
+		}
+
+		Image image = new Image(captureTarget.getDisplay(), size.x, size.y);
+		GC gc = new GC(captureTarget);
+
+		if (captureShell) {
+			Rectangle clientArea = ((Shell) captureTarget).getClientArea();
+			gc.copyArea(image, clientArea.x, clientArea.y);
+		} else {
+			gc.copyArea(image, 0, 0);
+		}
+
 		gc.dispose();
 
 		ImageData imageData = image.getImageData();
-		new NewSnapshotEntryJob(imageData).schedule();
+		NewSnapshotEntryJob job = new NewSnapshotEntryJob(imageData);
+		job.setControlType(captureTarget.getClass().getCanonicalName());
+
+		if (captureShell) {
+			Shell shell = (Shell) captureTarget;
+			ShellInfo shellInfo = SnapshotFactory.eINSTANCE.createShellInfo();
+			if (shell.getImage() != null) {
+				shellInfo.setIcon(shell.getImage().getImageData());
+			}
+			shellInfo.setShellStyle(shell.getStyle());
+			shellInfo.setShellTitle(shell.getText());
+			job.setShellInfo(shellInfo);
+		}
+		job.schedule();
 		image.dispose();
 
 		isCapturing = false;
@@ -160,6 +200,7 @@ public class SnapshotHook {
 		isStarted = true;
 		Display.getDefault().addFilter(SWT.MouseMove, mouseHandler);
 		Display.getDefault().addFilter(SWT.KeyDown, keyHandler);
+		Display.getDefault().addFilter(SWT.Traverse, keyHandler);
 		Display.getDefault().addFilter(SWT.MouseDown, clickListener);
 	}
 
@@ -171,6 +212,7 @@ public class SnapshotHook {
 		isStarted = false;
 		Display.getDefault().removeFilter(SWT.MouseMove, mouseHandler);
 		Display.getDefault().removeFilter(SWT.KeyDown, keyHandler);
+		Display.getDefault().removeFilter(SWT.Traverse, keyHandler);
 		Display.getDefault().removeFilter(SWT.MouseDown, clickListener);
 	}
 }

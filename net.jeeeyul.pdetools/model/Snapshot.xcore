@@ -5,6 +5,7 @@ package snapshot
 
 import java.util.Date
 import org.eclipse.core.runtime.Path
+import net.jeeeyul.pdetools.clipboard.model.clipboard.ImageData
 
 class SnapshotRepository
 {
@@ -24,10 +25,18 @@ class SnapshotEntry
 	container SnapshotGroup parent opposite entries
 	Date takenTime
 	String fileName
+	String controlType
+	contains ShellInfo shellInfo
 	
 	derived String absoulteFilePath get{
 		var base = new Path(parent.parent.repositoryLocation).removeLastSegments(1).setDevice(null)
 		var filePath = base.append(fileName)
 		return filePath.toFile.absolutePath
 	}
+}
+
+class ShellInfo{
+	ImageData icon
+	int shellStyle
+	String shellTitle
 }

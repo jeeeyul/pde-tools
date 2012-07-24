@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <p:Palette xmlns:p="http://jeeeyul.net/pde-tools/icg/palette" fieldName="ICONS" folder="/net.jeeeyul.pdetools/icons">
+  <subPalettes fieldName="FRAMES" folder="/net.jeeeyul.pdetools/icons/frames">
+    <imageFiles fieldName="WIN7_BASIC" file="/net.jeeeyul.pdetools/icons/frames/win7-basic.png"/>
+  </subPalettes>
   <imageFiles fieldName="ADD" file="/net.jeeeyul.pdetools/icons/add.gif"/>
   <imageFiles fieldName="CAMERA" file="/net.jeeeyul.pdetools/icons/camera.gif"/>
   <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools/icons/clipboard.gif"/>

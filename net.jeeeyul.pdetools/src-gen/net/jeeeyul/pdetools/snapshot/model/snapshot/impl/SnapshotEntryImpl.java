@@ -5,6 +5,7 @@ package net.jeeeyul.pdetools.snapshot.model.snapshot.impl;
 import java.io.File;
 import java.util.Date;
 
+import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage;
@@ -30,6 +31,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getTakenTime <em>Taken Time</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getControlType <em>Control Type</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getShellInfo <em>Shell Info</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.impl.SnapshotEntryImpl#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
  * </ul>
  * </p>
@@ -77,6 +80,36 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * @ordered
    */
   protected String fileName = FILE_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getControlType() <em>Control Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getControlType()
+   * @generated
+   * @ordered
+   */
+  protected static final String CONTROL_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getControlType() <em>Control Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getControlType()
+   * @generated
+   * @ordered
+   */
+  protected String controlType = CONTROL_TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getShellInfo() <em>Shell Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getShellInfo()
+   * @generated
+   * @ordered
+   */
+  protected ShellInfo shellInfo;
 
   /**
    * The default value of the '{@link #getAbsoulteFilePath() <em>Absoulte File Path</em>}' attribute.
@@ -205,6 +238,77 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getControlType()
+  {
+    return controlType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setControlType(String newControlType)
+  {
+    String oldControlType = controlType;
+    controlType = newControlType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE, oldControlType, controlType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ShellInfo getShellInfo()
+  {
+    return shellInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetShellInfo(ShellInfo newShellInfo, NotificationChain msgs)
+  {
+    ShellInfo oldShellInfo = shellInfo;
+    shellInfo = newShellInfo;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO, oldShellInfo, newShellInfo);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setShellInfo(ShellInfo newShellInfo)
+  {
+    if (newShellInfo != shellInfo)
+    {
+      NotificationChain msgs = null;
+      if (shellInfo != null)
+        msgs = ((InternalEObject)shellInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO, null, msgs);
+      if (newShellInfo != null)
+        msgs = ((InternalEObject)newShellInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO, null, msgs);
+      msgs = basicSetShellInfo(newShellInfo, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO, newShellInfo, newShellInfo));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getAbsoulteFilePath()
   {
     SnapshotGroup _parent = this.getParent();
@@ -249,6 +353,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
     {
       case SnapshotPackage.SNAPSHOT_ENTRY__PARENT:
         return basicSetParent(null, msgs);
+      case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
+        return basicSetShellInfo(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -285,6 +391,10 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return getTakenTime();
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         return getFileName();
+      case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
+        return getControlType();
+      case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
+        return getShellInfo();
       case SnapshotPackage.SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH:
         return getAbsoulteFilePath();
     }
@@ -310,6 +420,12 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         setFileName((String)newValue);
         return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
+        setControlType((String)newValue);
+        return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
+        setShellInfo((ShellInfo)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -333,6 +449,12 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         setFileName(FILE_NAME_EDEFAULT);
         return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
+        setControlType(CONTROL_TYPE_EDEFAULT);
+        return;
+      case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
+        setShellInfo((ShellInfo)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -353,6 +475,10 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
         return TAKEN_TIME_EDEFAULT == null ? takenTime != null : !TAKEN_TIME_EDEFAULT.equals(takenTime);
       case SnapshotPackage.SNAPSHOT_ENTRY__FILE_NAME:
         return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
+      case SnapshotPackage.SNAPSHOT_ENTRY__CONTROL_TYPE:
+        return CONTROL_TYPE_EDEFAULT == null ? controlType != null : !CONTROL_TYPE_EDEFAULT.equals(controlType);
+      case SnapshotPackage.SNAPSHOT_ENTRY__SHELL_INFO:
+        return shellInfo != null;
       case SnapshotPackage.SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH:
         return ABSOULTE_FILE_PATH_EDEFAULT == null ? getAbsoulteFilePath() != null : !ABSOULTE_FILE_PATH_EDEFAULT.equals(getAbsoulteFilePath());
     }
@@ -374,6 +500,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
     result.append(takenTime);
     result.append(", fileName: ");
     result.append(fileName);
+    result.append(", controlType: ");
+    result.append(controlType);
     result.append(')');
     return result.toString();
   }

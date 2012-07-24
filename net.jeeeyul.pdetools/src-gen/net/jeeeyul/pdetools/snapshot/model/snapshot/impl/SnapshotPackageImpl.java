@@ -2,6 +2,8 @@
  */
 package net.jeeeyul.pdetools.snapshot.model.snapshot.impl;
 
+import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage;
+import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
@@ -43,6 +45,13 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    * @generated
    */
   private EClass snapshotEntryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass shellInfoEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -93,7 +102,7 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
     isInited = true;
 
     // Initialize simple dependencies
-    EcorePackage.eINSTANCE.eClass();
+    ClipboardPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theSnapshotPackage.createPackageContents();
@@ -225,9 +234,69 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSnapshotEntry_AbsoulteFilePath()
+  public EAttribute getSnapshotEntry_ControlType()
   {
     return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSnapshotEntry_ShellInfo()
+  {
+    return (EReference)snapshotEntryEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSnapshotEntry_AbsoulteFilePath()
+  {
+    return (EAttribute)snapshotEntryEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getShellInfo()
+  {
+    return shellInfoEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getShellInfo_Icon()
+  {
+    return (EAttribute)shellInfoEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getShellInfo_ShellStyle()
+  {
+    return (EAttribute)shellInfoEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getShellInfo_ShellTitle()
+  {
+    return (EAttribute)shellInfoEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -273,7 +342,14 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
     createEReference(snapshotEntryEClass, SNAPSHOT_ENTRY__PARENT);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__TAKEN_TIME);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__FILE_NAME);
+    createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__CONTROL_TYPE);
+    createEReference(snapshotEntryEClass, SNAPSHOT_ENTRY__SHELL_INFO);
     createEAttribute(snapshotEntryEClass, SNAPSHOT_ENTRY__ABSOULTE_FILE_PATH);
+
+    shellInfoEClass = createEClass(SHELL_INFO);
+    createEAttribute(shellInfoEClass, SHELL_INFO__ICON);
+    createEAttribute(shellInfoEClass, SHELL_INFO__SHELL_STYLE);
+    createEAttribute(shellInfoEClass, SHELL_INFO__SHELL_TITLE);
   }
 
   /**
@@ -302,6 +378,7 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+    ClipboardPackage theClipboardPackage = (ClipboardPackage)EPackage.Registry.INSTANCE.getEPackage(ClipboardPackage.eNS_URI);
 
     // Create type parameters
 
@@ -323,7 +400,14 @@ public class SnapshotPackageImpl extends EPackageImpl implements SnapshotPackage
     initEReference(getSnapshotEntry_Parent(), this.getSnapshotGroup(), this.getSnapshotGroup_Entries(), "parent", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_TakenTime(), theEcorePackage.getEDate(), "takenTime", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_FileName(), theEcorePackage.getEString(), "fileName", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSnapshotEntry_ControlType(), theEcorePackage.getEString(), "controlType", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSnapshotEntry_ShellInfo(), this.getShellInfo(), null, "shellInfo", null, 0, 1, SnapshotEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSnapshotEntry_AbsoulteFilePath(), theEcorePackage.getEString(), "absoulteFilePath", null, 0, 1, SnapshotEntry.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+    initEClass(shellInfoEClass, ShellInfo.class, "ShellInfo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getShellInfo_Icon(), theClipboardPackage.getImageData(), "icon", null, 0, 1, ShellInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getShellInfo_ShellStyle(), theEcorePackage.getEInt(), "shellStyle", null, 0, 1, ShellInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getShellInfo_ShellTitle(), theEcorePackage.getEString(), "shellTitle", null, 0, 1, ShellInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

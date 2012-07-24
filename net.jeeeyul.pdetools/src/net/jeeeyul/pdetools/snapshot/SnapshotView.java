@@ -9,7 +9,9 @@ import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer;
@@ -22,6 +24,7 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
 public class SnapshotView extends ViewPart {
@@ -67,7 +70,25 @@ public class SnapshotView extends ViewPart {
 		snapshotActions.add(removeAllAction);
 		getViewSite().getActionBars().getToolBarManager().add(removeAllAction);
 
+		viewer.addOpenListener(new IOpenListener() {
+			@Override
+			public void open(OpenEvent event) {
+				List<SnapshotEntry> selection = getSelection();
+				if (selection.size() == 1) {
+					doOpen(selection.get(0));
+				}
+			}
+		});
+
 		configureDragSource();
+	}
+
+	protected void doOpen(SnapshotEntry snapshotEntry) {
+		try {
+			getViewSite().getPage().openEditor(new SnapshotEditorInput(snapshotEntry), SnapshotEditor.ID);
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void configureDragSource() {

@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.Iterator;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.snapshot.SnapshotAction;
+import net.jeeeyul.pdetools.snapshot.SnapshotCore;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
@@ -59,6 +60,7 @@ public class RemoveAllAction extends SnapshotAction {
     SnapshotRepository _repository_2 = this.getRepository();
     EList<SnapshotGroup> _groups = _repository_2.getGroups();
     _groups.clear();
+    SnapshotCore.doSave();
   }
   
   public void update() {

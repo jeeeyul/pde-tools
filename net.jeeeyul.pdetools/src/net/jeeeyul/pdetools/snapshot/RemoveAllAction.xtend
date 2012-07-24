@@ -26,6 +26,7 @@ class RemoveAllAction extends SnapshotAction {
 			}
 		}
 		repository.groups.clear();
+		SnapshotCore::doSave();
 	}
 
 	override update() {

@@ -384,5 +384,15 @@
          </service>
       </serviceFactory>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.jeeeyul.pdetools.snapshot.SnapshotEditor"
+            default="false"
+            icon="icons/camera.gif"
+            id="net.jeeeyul.pdetools.snapshot.SnapshotEditor"
+            name="Snapshot Editor">
+      </editor>
+   </extension>
 
 </plugin>

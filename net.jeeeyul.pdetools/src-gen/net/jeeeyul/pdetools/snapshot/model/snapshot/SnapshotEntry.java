@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getParent <em>Parent</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getTakenTime <em>Taken Time</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getFileName <em>File Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType <em>Control Type</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getShellInfo <em>Shell Info</em>}</li>
  *   <li>{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getAbsoulteFilePath <em>Absoulte File Path</em>}</li>
  * </ul>
  * </p>
@@ -106,6 +108,58 @@ public interface SnapshotEntry extends EObject
    * @generated
    */
   void setFileName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Control Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Control Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Control Type</em>' attribute.
+   * @see #setControlType(String)
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_ControlType()
+   * @model unique="false"
+   * @generated
+   */
+  String getControlType();
+
+  /**
+   * Sets the value of the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getControlType <em>Control Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Control Type</em>' attribute.
+   * @see #getControlType()
+   * @generated
+   */
+  void setControlType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Shell Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Shell Info</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Shell Info</em>' containment reference.
+   * @see #setShellInfo(ShellInfo)
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage#getSnapshotEntry_ShellInfo()
+   * @model containment="true"
+   * @generated
+   */
+  ShellInfo getShellInfo();
+
+  /**
+   * Sets the value of the '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry#getShellInfo <em>Shell Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Shell Info</em>' containment reference.
+   * @see #getShellInfo()
+   * @generated
+   */
+  void setShellInfo(ShellInfo value);
 
   /**
    * Returns the value of the '<em><b>Absoulte File Path</b></em>' attribute.

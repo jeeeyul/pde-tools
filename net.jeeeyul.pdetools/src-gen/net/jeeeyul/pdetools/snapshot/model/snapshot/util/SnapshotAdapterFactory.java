@@ -90,6 +90,11 @@ public class SnapshotAdapterFactory extends AdapterFactoryImpl
         return createSnapshotEntryAdapter();
       }
       @Override
+      public Adapter caseShellInfo(ShellInfo object)
+      {
+        return createShellInfoAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -152,6 +157,21 @@ public class SnapshotAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSnapshotEntryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo <em>Shell Info</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo
+   * @generated
+   */
+  public Adapter createShellInfoAdapter()
   {
     return null;
   }
