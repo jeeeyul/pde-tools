@@ -94,7 +94,6 @@
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="net.jeeeyul.pdetools.icg.enableNature"
-               icon="icons/image.gif"
                label="Enable Shared Image Generator"
                style="push">
             <visibleWhen
@@ -123,7 +122,6 @@
          </command>
          <command
                commandId="net.jeeeyul.pdetools.icg.disableNature"
-               icon="icons/image.gif"
                label="Disable Shared Image Generator"
                style="push">
             <visibleWhen
@@ -181,7 +179,6 @@
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            category="org.eclipse.pde.internal.ui.properties.pluginDevelopmentPage"
             class="net.jeeeyul.pdetools.icg.ui.ICGPropertyPage"
             id="net.jeeeyul.pdetools.icg.propertyPage"
             name="Shared Image Generator">
