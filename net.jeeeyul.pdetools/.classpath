@@ -2,11 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib_2.4.0.v201207240245.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend2.lib_2.4.0.v201207240245.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207240245.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/com.google.guava_10.0.1.v201203051515.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib_2.4.0.v201207181106.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend2.lib_2.4.0.v201207181106.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtext.xbase_2.4.0.v201207181106.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207181106.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.widgets.compositetable_1.0.0.201206270822.jar" sourcepath="lib-src/org.eclipse.nebula.widgets.compositetable.source_1.0.0.201206270822.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270822.jar" sourcepath="lib-src/org.eclipse.nebula.widgets.gallery.source_0.5.3.201206270822.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javax.inject.jar"/>
