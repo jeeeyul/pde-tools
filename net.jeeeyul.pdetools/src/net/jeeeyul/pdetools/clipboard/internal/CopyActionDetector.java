@@ -1,5 +1,8 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IExecutionListener;
@@ -9,7 +12,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -20,6 +22,9 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
  * 
  */
 public class CopyActionDetector {
+	private static final String[] COPY_COMMANDS = new String[] {
+			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy" };
+	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);
 	private ExecutionEvent event;
 
 	private class CommandHook implements IExecutionListener {
@@ -36,7 +41,7 @@ public class CopyActionDetector {
 
 		@Override
 		public void postExecuteSuccess(String commandId, Object returnValue) {
-			if (ActionFactory.COPY.getCommandId().equals(commandId)) {
+			if (COPY_COMMAND_LIST.contains(commandId)) {
 				handleCopyPerformed();
 			}
 			event = null;

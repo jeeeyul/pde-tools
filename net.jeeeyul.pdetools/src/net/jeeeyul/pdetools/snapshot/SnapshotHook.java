@@ -3,6 +3,9 @@ package net.jeeeyul.pdetools.snapshot;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -14,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.progress.UIJob;
 
 public class SnapshotHook {
 	private boolean isCapturing = false;
@@ -54,56 +58,15 @@ public class SnapshotHook {
 		}
 	};
 
-	public Control getTargetControl() {
-		return targetControl;
-	}
-
-	protected void handleKeyPressed(Event event) {
-		switch (event.keyCode) {
-		case SWT.ARROW_UP:
-			if (targetControl != null) {
-				setTargetControl(targetControl.getParent());
-				event.doit = false;
-			}
-			break;
-		}
-
-		switch (event.character) {
-		case SWT.CR:
-			capture(true);
-			stop();
-			event.doit = false;
-
-			break;
-
-		case SWT.ESC:
-			stop();
-			event.doit = false;
-			break;
-		}
-	}
-
-	protected void handleClick(Event event) {
-		event.doit = false;
-		capture();
-		stop();
-	}
-
-	protected void handleDispose(Event event) {
-		setTargetControl(null);
-	}
-
-	protected void handleMouseMove(Event event) {
-		if (event.widget instanceof Control) {
-			setTargetControl((Control) event.widget);
-		}
-	}
+	private UIJob stopJob;
 
 	public synchronized void capture() {
 		capture(false);
 	}
 
 	public synchronized void capture(boolean captureShell) {
+		System.out.println("Ä¸ÃÄ´Ù");
+		new Exception().printStackTrace();
 		if (targetControl == null || targetControl.isDisposed() || isCapturing) {
 			return;
 		}
@@ -153,6 +116,76 @@ public class SnapshotHook {
 		image.dispose();
 
 		isCapturing = false;
+	}
+
+	public UIJob getStopJob() {
+		if (stopJob == null) {
+			stopJob = new UIJob("Stop Hooking") {
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					if (!isStarted) {
+						return Status.OK_STATUS;
+					}
+					setTargetControl(null);
+					isStarted = false;
+					Display.getDefault().removeFilter(SWT.MouseMove, mouseHandler);
+					Display.getDefault().removeFilter(SWT.KeyDown, keyHandler);
+					Display.getDefault().removeFilter(SWT.Traverse, keyHandler);
+					Display.getDefault().removeFilter(SWT.MouseDown, clickListener);
+					return Status.OK_STATUS;
+				}
+			};
+			stopJob.setSystem(true);
+		}
+		return stopJob;
+	}
+
+	public Control getTargetControl() {
+		return targetControl;
+	}
+
+	protected void handleClick(Event event) {
+		event.doit = false;
+		if ((event.stateMask & SWT.MOD1) != 0) {
+			capture(true);
+		} else
+			capture();
+		stop();
+	}
+
+	protected void handleDispose(Event event) {
+		setTargetControl(null);
+	}
+
+	protected void handleKeyPressed(Event event) {
+		switch (event.keyCode) {
+		case SWT.ARROW_UP:
+			if (targetControl != null) {
+				setTargetControl(targetControl.getParent());
+				event.doit = false;
+			}
+			break;
+		}
+
+		switch (event.character) {
+		case SWT.CR:
+			capture(true);
+			stop();
+			event.doit = false;
+
+			break;
+
+		case SWT.ESC:
+			stop();
+			event.doit = false;
+			break;
+		}
+	}
+
+	protected void handleMouseMove(Event event) {
+		if (event.widget instanceof Control) {
+			setTargetControl((Control) event.widget);
+		}
 	}
 
 	protected void handlePaint(Event event) {

@@ -130,7 +130,7 @@ public class ClipboardViewer {
 				if (FileTransfer.getInstance().isSupportedType(event.dataType)) {
 					String data = ((ClipboardEntry) selection.getFirstElement()).getTextContent();
 					try {
-						File file = File.createTempFile("temp", ".txt");
+						File file = File.createTempFile("clip-board-", ".txt");
 						file.deleteOnExit();
 						FileWriter writer = new FileWriter(file);
 						writer.write(data);

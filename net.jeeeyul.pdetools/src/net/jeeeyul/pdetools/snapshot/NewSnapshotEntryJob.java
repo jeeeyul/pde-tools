@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import net.jeeeyul.pdetools.snapshot.editor.ShellFrame;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
@@ -20,6 +21,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 
@@ -94,8 +96,16 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			path = path.setDevice(null);
 			File file = path.toFile();
 
+			if (shellInfo != null) {
+				Rectangle area = new Rectangle(9, 31, 118, 82);
+				ImageData data = new ImageData(ShellFrame.class.getResourceAsStream("win7-basic.png"));
+				ShellFrame frame = new ShellFrame(data, area);
+				imageData = frame.decorate(imageData);
+			}
+
 			ImageLoader imageLoader = new ImageLoader();
 			imageLoader.data = new ImageData[] { imageData };
+
 			FileOutputStream fos = new FileOutputStream(file);
 			imageLoader.save(fos, SWT.IMAGE_PNG);
 			fos.close();
