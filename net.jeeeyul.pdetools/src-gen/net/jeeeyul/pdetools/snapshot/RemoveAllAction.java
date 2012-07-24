@@ -7,6 +7,7 @@ import net.jeeeyul.pdetools.shared.ConfirmDialog;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.snapshot.SnapshotAction;
 import net.jeeeyul.pdetools.snapshot.SnapshotCore;
+import net.jeeeyul.pdetools.snapshot.SnapshotPreferenceConstants;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
@@ -30,7 +31,7 @@ public class RemoveAllAction extends SnapshotAction {
   }
   
   public void run() {
-    ConfirmDialog _confirmDialog = new ConfirmDialog("dont-ask-when-remove-all-snapshots");
+    ConfirmDialog _confirmDialog = new ConfirmDialog(SnapshotPreferenceConstants.DONT_ASK_WHEN_REMOVE_ALL_SNAPSHOT);
     ConfirmDialog dialog = _confirmDialog;
     dialog.setMessage("Do you really want to remove all snapshots?");
     int _open = dialog.open();

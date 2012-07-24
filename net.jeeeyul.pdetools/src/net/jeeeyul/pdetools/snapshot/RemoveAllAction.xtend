@@ -15,7 +15,7 @@ class RemoveAllAction extends SnapshotAction {
 	}
 
 	override run() {
-		var dialog = new ConfirmDialog("dont-ask-when-remove-all-snapshots")
+		var dialog = new ConfirmDialog(SnapshotPreferenceConstants::DONT_ASK_WHEN_REMOVE_ALL_SNAPSHOT)
 		dialog.message = "Do you really want to remove all snapshots?"
 		if(dialog.open() == IDialogConstants::NO_ID) {
 			return;
