@@ -97,8 +97,8 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			File file = path.toFile();
 
 			if (shellInfo != null) {
-				Rectangle area = new Rectangle(9, 31, 118, 82);
-				ImageData data = new ImageData(ShellFrame.class.getResourceAsStream("win7-basic.png"));
+				Rectangle area = new Rectangle(21, 42, 395, 389);
+				ImageData data = new ImageData(ShellFrame.class.getResourceAsStream("win7-aero.png"));
 				ShellFrame frame = new ShellFrame(data, area);
 				imageData = frame.decorate(imageData);
 			}

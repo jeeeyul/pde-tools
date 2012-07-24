@@ -148,8 +148,8 @@ public class ShellFrame {
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
 
-		Rectangle area = new Rectangle(9, 31, 118, 82);
-		ImageData data = new ImageData(ShellFrame.class.getResourceAsStream("win7-basic.png"));
+		Rectangle area = new Rectangle(21, 42, 395, 389);
+		ImageData data = new ImageData(ShellFrame.class.getResourceAsStream("win7-aero.png"));
 		ShellFrame frame = new ShellFrame(data, area);
 
 		ImageData source = new ImageData(ShellFrame.class.getResourceAsStream("test.jpg"));
@@ -157,7 +157,7 @@ public class ShellFrame {
 		ImageData decorate = frame.decorate(source);
 		Image image = new Image(display, decorate);
 
-		Shell shell = new Shell();
+		Shell shell = new Shell(SWT.TITLE);
 		shell.setLayout(new FillLayout());
 		Label label = new Label(shell, SWT.NORMAL);
 		label.setImage(image);

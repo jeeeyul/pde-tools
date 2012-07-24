@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 
@@ -66,7 +67,6 @@ public class SnapshotHook {
 
 	public synchronized void capture(boolean captureShell) {
 		System.out.println("Ä¸ÃÄ´Ù");
-		new Exception().printStackTrace();
 		if (targetControl == null || targetControl.isDisposed() || isCapturing) {
 			return;
 		}
@@ -90,8 +90,26 @@ public class SnapshotHook {
 		GC gc = new GC(captureTarget);
 
 		if (captureShell) {
-			Rectangle clientArea = ((Shell) captureTarget).getClientArea();
-			gc.copyArea(image, clientArea.x, clientArea.y);
+			Shell shell = (Shell) captureTarget;
+			Display display = targetControl.getDisplay();
+			GC gdc = new GC(display);
+			Rectangle clientArea = shell.getClientArea();
+			Rectangle test = shell.computeTrim(0, 0, 0, 0);
+			System.out.println(test.height);
+			Menu menu = shell.getMenuBar();
+			shell.setMenuBar(null);
+			Rectangle test2 = shell.computeTrim(0, 0, 0, 0);
+			shell.setMenuBar(menu);
+			System.out.println(test.height - test2.height);
+
+			Point offset = shell.toDisplay(clientArea.x, clientArea.y);
+			if (menu != null && menu.isVisible()) {
+				int menuHeight = 20;
+				offset.y -= menuHeight;
+
+			}
+			gdc.copyArea(image, offset.x, offset.y);
+			gdc.dispose();
 		} else {
 			gc.copyArea(image, 0, 0);
 		}
