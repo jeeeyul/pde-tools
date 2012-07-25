@@ -2,7 +2,7 @@
 <?artifactRepository version='1.1.0'?>
 <repository name='PDE-Tools' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1343127052249'/>
+    <property name='p2.timestamp' value='1343231720408'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <mappings size='3'>
@@ -10,20 +10,27 @@
     <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
-  <artifacts size='2'>
-    <artifact classifier='osgi.bundle' id='net.jeeeyul.pdetools' version='1.0.0.201207241950'>
-      <properties size='3'>
-        <property name='artifact.size' value='4193760'/>
-        <property name='download.size' value='4193760'/>
-        <property name='download.md5' value='4509c77648d25391082c1318a3e9da69'/>
+  <artifacts size='3'>
+    <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.pdetools.feature' version='1.0.0.201207260055'>
+      <properties size='4'>
+        <property name='artifact.size' value='741'/>
+        <property name='download.size' value='741'/>
+        <property name='download.md5' value='599ee28c8a97573a8c90e74d3c8506b2'/>
+        <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.pdetools.feature' version='1.0.0.201207241950'>
-      <properties size='4'>
-        <property name='artifact.size' value='729'/>
-        <property name='download.size' value='729'/>
-        <property name='download.md5' value='99040e28a8b58c7aaf5c411521e5c6fc'/>
-        <property name='download.contentType' value='application/zip'/>
+    <artifact classifier='osgi.bundle' id='net.jeeeyul.pdetools.core' version='1.0.0.201207260055'>
+      <properties size='3'>
+        <property name='artifact.size' value='2955795'/>
+        <property name='download.size' value='2955795'/>
+        <property name='download.md5' value='9ee6813ea53c39628c483f28b5a59a2b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.jeeeyul.pdetools.model' version='1.0.0.201207260055'>
+      <properties size='3'>
+        <property name='artifact.size' value='74633'/>
+        <property name='download.size' value='74633'/>
+        <property name='download.md5' value='23b613415b66c059c6591af2159336c2'/>
       </properties>
     </artifact>
   </artifacts>
