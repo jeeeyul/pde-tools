@@ -1,0 +1,27 @@
+SMAP
+JavaProjectPart.java
+Xtend
+*S Xtend
+*F
++ 0 JavaProjectPart.xtend
+src/net/jeeeyul/pdetools/icg/builder/parts/JavaProjectPart.xtend
+*L
+31:47
+33:48,2
+36:50,11
+39:61,2
+40:63,2
+41:65,4
+42:69,3
+39:72
+45:73
+46:74,2
+47:76,10
+49:86,4
+50:90,3
+51:93
+52:94
+50:95
+54:96
+31:97,3
+*E

@@ -1,0 +1,30 @@
+SMAP
+EnableICGNatureHandler.java
+Xtend
+*S Xtend
+*F
++ 0 EnableICGNatureHandler.xtend
+src/net/jeeeyul/pdetools/icg/builder/EnableICGNatureHandler.xtend
+*L
+16:26
+17:27,3
+18:30
+17:31
+21:32,2
+22:34,2
+23:36
+22:37
+26:38,2
+27:40,3
+28:43,3
+29:46,2
+30:48
+31:49,2
+32:51
+33:52,2
+34:54,2
+29:56
+27:57,2
+37:59
+16:60,3
+*E

@@ -1,0 +1,31 @@
+SMAP
+RemoveAllAction.java
+Xtend
+*S Xtend
+*F
++ 0 RemoveAllAction.xtend
+src/net/jeeeyul/pdetools/snapshot/RemoveAllAction.xtend
+*L
+12:27
+13:28
+14:29,2
+18:34,2
+19:36
+20:37,3
+21:40
+20:41
+23:42,5
+24:47,4
+25:51,2
+26:53,3
+27:56,3
+29:59
+27:60,2
+30:62
+31:63
+27:64,5
+25:69,2
+35:71,3
+36:74
+40:78,5
+*E

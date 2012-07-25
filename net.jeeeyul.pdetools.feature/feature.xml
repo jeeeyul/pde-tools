@@ -18,14 +18,14 @@
    </license>
 
    <plugin
-         id="net.jeeeyul.pdetools.core"
+         id="net.jeeeyul.pdetools.model"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="net.jeeeyul.pdetools.model"
+         id="net.jeeeyul.pdetools"
          download-size="0"
          install-size="0"
          version="0.0.0"
