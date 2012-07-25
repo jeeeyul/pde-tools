@@ -108,7 +108,7 @@ public class SharedImages{
 	
 	private static Image loadImage(String key) {
 		try {
-			URL resource = Platform.getBundle("net.jeeeyul.pdetools.core").getResource(key);
+			URL resource = Platform.getBundle("net.jeeeyul.pdetools").getResource(key);
 			Image image = new Image(null, resource.openStream());
 			return image;
 		} catch (Exception e) {
@@ -119,7 +119,7 @@ public class SharedImages{
 	
 	private static ImageDescriptor loadImageDescriptor(String key) {
 		try {
-			URL resource = Platform.getBundle("net.jeeeyul.pdetools.core").getResource(key);
+			URL resource = Platform.getBundle("net.jeeeyul.pdetools").getResource(key);
 			ImageDescriptor descriptor = ImageDescriptor.createFromURL(resource);
 			return descriptor;
 		} catch (Exception e) {
