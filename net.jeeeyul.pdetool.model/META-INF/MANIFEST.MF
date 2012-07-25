@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: net.jeeeyul.pdetool.model;singleton:=true
+Bundle-SymbolicName: net.jeeeyul.pdetools.model;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -17,7 +17,7 @@ Export-Package: net.jeeeyul.pdetool.shared,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.xtext.xbase.lib;visibility:=reexport,
- net.jeeeyul.pdetool.model;visibility:=reexport,
+ net.jeeeyul.pdetools.model;visibility:=reexport,
  org.eclipse.ui;bundle-version="3.103.0",
  org.eclipse.core.resources;bundle-version="3.8.0"
 Bundle-ActivationPolicy: lazy
