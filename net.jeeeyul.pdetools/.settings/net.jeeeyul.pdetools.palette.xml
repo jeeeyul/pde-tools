@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<p:Palette xmlns:p="http://jeeeyul.net/pde-tools/icg/palette" fieldName="ICONS" folder="/net.jeeeyul.pdetools.core/icons">
-  <subPalettes fieldName="FRAMES" folder="/net.jeeeyul.pdetools.core/icons/frames">
-    <imageFiles fieldName="WIN7_BASIC" file="/net.jeeeyul.pdetools.core/icons/frames/win7-basic.png"/>
+<p:Palette xmlns:p="http://jeeeyul.net/pde-tools/icg/palette" fieldName="ICONS" folder="/net.jeeeyul.pdetools/icons">
+  <subPalettes fieldName="FRAMES" folder="/net.jeeeyul.pdetools/icons/frames">
+    <imageFiles fieldName="WIN7_BASIC" file="/net.jeeeyul.pdetools/icons/frames/win7-basic.png"/>
   </subPalettes>
-  <imageFiles fieldName="ADD" file="/net.jeeeyul.pdetools.core/icons/add.gif"/>
-  <imageFiles fieldName="CAMERA" file="/net.jeeeyul.pdetools.core/icons/camera.gif"/>
-  <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools.core/icons/clipboard.gif"/>
-  <imageFiles fieldName="CONFIGURE" file="/net.jeeeyul.pdetools.core/icons/configure.gif"/>
-  <imageFiles fieldName="DELETE_ALL" file="/net.jeeeyul.pdetools.core/icons/delete-all.gif"/>
-  <imageFiles fieldName="IMAGE_FOLDER" file="/net.jeeeyul.pdetools.core/icons/image-folder.gif"/>
-  <imageFiles fieldName="IMAGE" file="/net.jeeeyul.pdetools.core/icons/image.gif"/>
-  <imageFiles fieldName="REFRESH" file="/net.jeeeyul.pdetools.core/icons/refresh.gif"/>
+  <imageFiles fieldName="ADD" file="/net.jeeeyul.pdetools/icons/add.gif"/>
+  <imageFiles fieldName="CAMERA" file="/net.jeeeyul.pdetools/icons/camera.gif"/>
+  <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools/icons/clipboard.gif"/>
+  <imageFiles fieldName="CONFIGURE" file="/net.jeeeyul.pdetools/icons/configure.gif"/>
+  <imageFiles fieldName="DELETE_ALL" file="/net.jeeeyul.pdetools/icons/delete-all.gif"/>
+  <imageFiles fieldName="IMAGE_FOLDER" file="/net.jeeeyul.pdetools/icons/image-folder.gif"/>
+  <imageFiles fieldName="IMAGE" file="/net.jeeeyul.pdetools/icons/image.gif"/>
+  <imageFiles fieldName="REFRESH" file="/net.jeeeyul.pdetools/icons/refresh.gif"/>
 </p:Palette>
