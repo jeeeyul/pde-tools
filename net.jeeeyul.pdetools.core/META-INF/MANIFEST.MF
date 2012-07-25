@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PDE-Tools
-Bundle-SymbolicName: net.jeeeyul.pdetools.core;singleton:=true
+Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: jeeeyul@gmail.com
@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.ltk.core.refactoring,
  org.eclipse.jdt.core.manipulation,
- net.jeeeyul.pdetools.model;bundle-version="1.0.0"
+ net.jeeeyul.pdetools.model
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/aopalliance.jar,
