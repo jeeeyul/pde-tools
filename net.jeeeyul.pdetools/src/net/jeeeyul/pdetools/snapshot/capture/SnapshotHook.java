@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -19,7 +20,6 @@ import org.eclipse.swt.widgets.Shell;
 
 public class SnapshotHook {
 	private Set<Integer> hookingTypes = new HashSet<Integer>();
-
 	private HookingState state = HookingState.NONE;
 
 	private Listener dispatcher = new Listener() {
@@ -30,11 +30,8 @@ public class SnapshotHook {
 	};
 
 	private Display display;
-
 	private CaptureBoundsShell captureBoundsShell;
-
 	private ControlCapture controlCapture;
-
 	private Control controlUnderMouse;
 
 	public SnapshotHook(Display display) {
@@ -120,6 +117,9 @@ public class SnapshotHook {
 			shellInfo.setShellStyle(shell.getStyle());
 			shellInfo.setShellTitle(shell.getText());
 			job.setShellInfo(shellInfo);
+			job.setControlType(shell.getClass().getCanonicalName());
+		} else {
+			job.setControlType(controlUnderMouse.getClass().getCanonicalName());
 		}
 		job.schedule();
 
@@ -159,12 +159,22 @@ public class SnapshotHook {
 	}
 
 	private void onKeyDown(Event event) {
+		if (event.keyCode == SWT.ESC) {
+			transite(HookingState.NONE);
+			return;
+		}
+
 		switch (state) {
 			case TRACK_CONTROL:
-				if (event.keyCode == SWT.MOD1) {
-					transite(HookingState.TRACK_SHELL);
+				switch (event.keyCode) {
+					case SWT.ARROW_UP:
+						Composite parent = controlUnderMouse.getParent();
+						if (parent != null) {
+							controlUnderMouse = parent;
+							getCaptureBoundsShell().setTarget(controlUnderMouse);
+						}
+						break;
 				}
-				break;
 
 			default:
 				break;
@@ -234,7 +244,8 @@ public class SnapshotHook {
 			case NONE:
 				unhookAll();
 				controlUnderMouse = null;
-				getCaptureBoundsShell().hide();
+				getCaptureBoundsShell().dispose();
+
 				break;
 		}
 	}
