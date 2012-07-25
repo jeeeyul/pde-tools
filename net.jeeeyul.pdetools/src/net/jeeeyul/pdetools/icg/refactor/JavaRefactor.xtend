@@ -22,7 +22,7 @@ class JavaRefactor {
 	new(IProject project){
 		this.config = new ICGConfiguration(project)
 	}
-		
+	
 	def RenameJavaElementDescriptor createDescriptor(PaletteDelta delta){
 		var RefactoringContribution contribution = null
 		if(delta.before instanceof Palette){

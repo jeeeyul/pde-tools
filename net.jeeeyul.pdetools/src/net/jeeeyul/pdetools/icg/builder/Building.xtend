@@ -51,7 +51,7 @@ class Building {
 		// 빌드 할 필요가 없거나, 빌드가 불가능하면 종료한다.
 		if(!canBuild() || !hasResourceDelta()) {
 			monitor.done()
-			return emptyList
+			return emptyList 
 		}
 		
 		// 출력될 자바 소스가 담길 자바 소스 폴더를 확보한다.

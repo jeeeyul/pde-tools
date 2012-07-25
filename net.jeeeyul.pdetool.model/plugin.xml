@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="net.jeeeyul.pdetools.icg.builder.model.palette.PalettePackage"
+            uri="http://jeeeyul.net/pde-tools/icg/palette">
+      </package>
+      <package
+            class="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardPackage"
+            uri="http://jeeeyul.net/pde-tools/clipboard">
+      </package>
+      <package
+            class="net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage"
+            uri="http://jeeeyul.net/pde-tools/snapshot">
+      </package>
+   </extension>
+
+</plugin>
