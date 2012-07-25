@@ -48,7 +48,12 @@ public class ClipEntrySelectionDialog {
 				result = null;
 				close();
 				break;
+
+			case SWT.MouseWheel:
+				handleWheel(event);
+				break;
 			}
+
 		}
 	};
 
@@ -87,6 +92,18 @@ public class ClipEntrySelectionDialog {
 
 	public ClipEntrySelectionDialog(Shell parentShell) {
 		this.parentShell = parentShell;
+	}
+
+	protected void handleWheel(Event event) {
+		event.doit = false;
+
+		int index = table.getTopIndex();
+		index -= event.count;
+
+		index = Math.min(Math.max(0, index), table.getItemCount() - 1);
+		table.setTopIndex(index);
+		System.out.println(index);
+
 	}
 
 	protected void handleShellEvent(Event event) {
@@ -286,6 +303,7 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.Modify, hostHook);
 		host.addListener(ST_VerifyKey, hostHook);
 		host.addListener(SWT.MouseDown, hostHook);
+		host.addListener(SWT.MouseWheel, hostHook);
 		display.addFilter(SWT.FocusIn, globalFocusHook);
 		parentShell.addListener(SWT.Deactivate, shellHook);
 
@@ -293,7 +311,7 @@ public class ClipEntrySelectionDialog {
 		shell.setVisible(true);
 
 		runLoop();
-
+		host.removeListener(SWT.MouseWheel, hostHook);
 		host.removeListener(SWT.Traverse, hostHook);
 		host.removeListener(SWT.KeyDown, hostHook);
 		host.removeListener(SWT.Modify, hostHook);
