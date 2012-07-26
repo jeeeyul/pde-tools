@@ -10,6 +10,10 @@ import org.eclipse.ui.IPersistableElement;
 public class SnapshotEditorInput implements IEditorInput {
 	private SnapshotEntry snapshot;
 
+	public SnapshotEntry getSnapshot() {
+		return snapshot;
+	}
+
 	public SnapshotEditorInput(SnapshotEntry snapshotEntry) {
 		snapshot = snapshotEntry;
 	}

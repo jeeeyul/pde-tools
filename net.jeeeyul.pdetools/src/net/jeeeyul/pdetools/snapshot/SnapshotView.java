@@ -110,7 +110,7 @@ public class SnapshotView extends ViewPart {
 				List<SnapshotEntry> selection = getSelection();
 				List<String> result = new ArrayList<String>();
 				for (SnapshotEntry each : selection) {
-					result.add(each.getAbsoulteFilePath());
+					result.add(each.getAbsoulteVisibleFilePath());
 				}
 				event.data = result.toArray(new String[result.size()]);
 			}

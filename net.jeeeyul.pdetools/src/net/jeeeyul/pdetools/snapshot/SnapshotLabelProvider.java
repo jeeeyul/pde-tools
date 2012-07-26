@@ -41,7 +41,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 		loadingQueue.setImageLoader(new Function1<SnapshotEntry, ImageData>() {
 			@Override
 			public ImageData apply(SnapshotEntry p) {
-				ImageData imageData = new ImageData(p.getAbsoulteFilePath());
+				ImageData imageData = new ImageData(p.getAbsoulteVisibleFilePath());
 				return ImageScaler.scale(imageData, 200);
 			}
 		});
@@ -60,7 +60,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 	public Image getImage(Object element) {
 		if (element instanceof SnapshotEntry) {
 			SnapshotEntry entry = (SnapshotEntry) element;
-			Image image = registry.get(entry.getAbsoulteFilePath());
+			Image image = registry.get(entry.getAbsoulteVisibleFilePath());
 			if (image == null) {
 				loadingQueue.add(entry);
 				return SharedImages.getImage(SharedImages.REFRESH);
@@ -90,7 +90,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 	public void handleLoad(final List<ImageLoadingEntry<SnapshotEntry>> result) {
 		final List<SnapshotEntry> changedElements = new ArrayList<SnapshotEntry>();
 		for (ImageLoadingEntry<SnapshotEntry> each : result) {
-			registry.put(each.key.getAbsoulteFilePath(), ImageDescriptor.createFromImageData(each.image));
+			registry.put(each.key.getAbsoulteVisibleFilePath(), ImageDescriptor.createFromImageData(each.image));
 			changedElements.add(each.key);
 		}
 

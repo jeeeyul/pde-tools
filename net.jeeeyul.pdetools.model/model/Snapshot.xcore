@@ -27,11 +27,18 @@ class SnapshotEntry
 	String originalFile
 	String renderedFile
 	String controlType
+	String name
 	contains ShellInfo shellInfo
 	
-	derived String absoulteFilePath get{
+	derived String absoulteVisibleFilePath get{
 		var base = new Path(parent.parent.repositoryLocation).removeLastSegments(1).setDevice(null)
-		var filePath = base.append(getOriginalFile)
+		
+		var filePath = if(renderedFile != null){
+			base.append(renderedFile)
+		} else{
+			base.append(getOriginalFile)	
+		}
+		
 		return filePath.toFile.absolutePath
 	}
 }
