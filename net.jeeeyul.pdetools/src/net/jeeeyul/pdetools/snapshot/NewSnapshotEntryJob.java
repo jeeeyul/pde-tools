@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.snapshot.editor.ShellFrame;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
@@ -118,15 +119,14 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			computeTargetGroup().getEntries().add(0, entry);
 
 			Job[] family = Job.getJobManager().find(SnapshotCore.getRepository());
-			System.out.println(family.length);
 
 			if (family.length == 1) {
 				SnapshotCore.doSave();
-				System.out.println("ºº¿Ã∫Í");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new Status(IStatus.ERROR, PDEToolsCore.PLUGIN_ID, e.getLocalizedMessage(), e);
 		}
 
 		return Status.OK_STATUS;

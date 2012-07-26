@@ -166,6 +166,11 @@ public class SnapshotHook {
 
 		switch (state) {
 			case TRACK_CONTROL:
+				if (event.keyCode == SWT.MOD1) {
+					transite(HookingState.TRACK_SHELL);
+					return;
+				}
+
 				switch (event.keyCode) {
 					case SWT.ARROW_UP:
 						Composite parent = controlUnderMouse.getParent();

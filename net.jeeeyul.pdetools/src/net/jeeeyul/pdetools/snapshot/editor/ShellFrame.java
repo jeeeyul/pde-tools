@@ -141,7 +141,6 @@ public class ShellFrame {
 				result.setAlpha(x, y, imageData.getAlpha(x, y));
 			}
 		}
-		System.out.println("¾÷¹Í½º");
 		return result;
 	}
 
@@ -163,7 +162,6 @@ public class ShellFrame {
 		label.setImage(image);
 		label.setBackground(display.getSystemColor(SWT.COLOR_RED));
 		shell.pack();
-
 		shell.open();
 
 		while (!shell.isDisposed()) {
