@@ -4,4 +4,5 @@ generate-image-preview=true
 generate-package=net.jeeeyul.pdetool.shared
 generate-src-folder=src-gen
 image-file-extensions=gif, jpg, png
+mark-derived=true
 monitoring-folder=icons
