@@ -32,7 +32,7 @@ public class SnapshotHook {
 	};
 
 	private Display display;
-	private CaptureBoundsShell captureBoundsShell;
+	private CaptureBoundsIndicator captureBoundsShell;
 	private ControlCapture controlCapture;
 	private Control controlUnderMouse;
 	private Cursor captureCursor;
@@ -88,9 +88,9 @@ public class SnapshotHook {
 		getCaptureCursor().dispose();
 	}
 
-	private CaptureBoundsShell getCaptureBoundsShell() {
+	private CaptureBoundsIndicator getCaptureBoundsShell() {
 		if (captureBoundsShell == null) {
-			captureBoundsShell = new CaptureBoundsShell(Display.getCurrent());
+			captureBoundsShell = new CaptureBoundsIndicator(Display.getCurrent());
 		}
 		return captureBoundsShell;
 	}

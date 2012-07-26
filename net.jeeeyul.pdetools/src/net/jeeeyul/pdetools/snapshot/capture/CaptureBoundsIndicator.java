@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.snapshot.capture;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
@@ -10,7 +11,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class CaptureBoundsShell {
+public class CaptureBoundsIndicator {
 	private Control target;
 	private Shell shell;
 	private Region region;
@@ -19,6 +20,13 @@ public class CaptureBoundsShell {
 	public Control getTarget() {
 		return target;
 	}
+
+	private Thread flashing = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			doFlashing();
+		}
+	});
 
 	public void setTarget(Control target) {
 		if (this.target == target) {
@@ -30,7 +38,6 @@ public class CaptureBoundsShell {
 			shell.setVisible(false);
 			return;
 		}
-
 		shell.setVisible(true);
 
 		Point size = null;
@@ -53,15 +60,39 @@ public class CaptureBoundsShell {
 		}
 		region = new Region(display);
 		region.add(rectangle);
-		SWTExtensions.expand(rectangle, -4, -4);
-		SWTExtensions.translate(rectangle, 2, 2);
+		SWTExtensions.expand(rectangle, -6, -6);
+		SWTExtensions.translate(rectangle, 3, 3);
 		if (rectangle.width > 0 && rectangle.height > 0)
 			region.subtract(rectangle);
 
 		shell.setRegion(region);
+
 	}
 
-	public CaptureBoundsShell(Display display) {
+	protected void doFlashing() {
+		while (!shell.isDisposed()) {
+			shell.getDisplay().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (shell.isDisposed()) {
+						return;
+					}
+					long time = System.currentTimeMillis() % 1000L;
+					double theta = (time / 1000d) * Math.PI * 2d;
+					int addition = (int) ((Math.sin(theta) + 1d) * 96);
+					shell.setAlpha(64 + addition);
+				}
+			});
+
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public CaptureBoundsIndicator(Display display) {
 		this.display = display;
 		create(display);
 	}
@@ -70,6 +101,15 @@ public class CaptureBoundsShell {
 		shell = new Shell(display, SWT.NO_TRIM | SWT.ON_TOP);
 		shell.setBackground(display.getSystemColor(SWT.COLOR_RED));
 		region = new Region(display);
+
+		GC gc = new GC(shell);
+		gc.setAdvanced(true);
+		boolean isAdvanced = gc.getAdvanced();
+		gc.dispose();
+
+		if (isAdvanced) {
+			flashing.start();
+		}
 	}
 
 	public void dispose() {
