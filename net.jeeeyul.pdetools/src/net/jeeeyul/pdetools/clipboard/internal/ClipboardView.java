@@ -3,7 +3,6 @@ package net.jeeeyul.pdetools.clipboard.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.jeeeyul.pdetools.clipboard.ClipboardHistoryAction;
 import net.jeeeyul.pdetools.clipboard.ClipboardViewer;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
 

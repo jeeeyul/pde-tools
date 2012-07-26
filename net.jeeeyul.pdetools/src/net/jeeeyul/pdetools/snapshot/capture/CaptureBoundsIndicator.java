@@ -21,13 +21,6 @@ public class CaptureBoundsIndicator {
 		return target;
 	}
 
-	private Thread flashing = new Thread(new Runnable() {
-		@Override
-		public void run() {
-			doFlashing();
-		}
-	});
-
 	public void setTarget(Control target) {
 		if (this.target == target) {
 			return;
@@ -104,12 +97,7 @@ public class CaptureBoundsIndicator {
 
 		GC gc = new GC(shell);
 		gc.setAdvanced(true);
-		boolean isAdvanced = gc.getAdvanced();
 		gc.dispose();
-
-		if (isAdvanced) {
-			flashing.start();
-		}
 	}
 
 	public void dispose() {

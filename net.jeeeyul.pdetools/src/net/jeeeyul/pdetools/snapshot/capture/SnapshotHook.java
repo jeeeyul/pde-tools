@@ -8,6 +8,9 @@ import net.jeeeyul.pdetools.snapshot.NewSnapshotEntryJob;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.graphics.Cursor;
@@ -19,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.progress.UIJob;
 
 public class SnapshotHook {
 	private Set<Integer> hookingTypes = new HashSet<Integer>();
@@ -27,7 +31,10 @@ public class SnapshotHook {
 	private Listener dispatcher = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			SnapshotHook.this.handleEvent(event);
+			event.doit = false;
+			if (state != HookingState.DISPOSED) {
+				SnapshotHook.this.handleEvent(event);
+			}
 		}
 	};
 
@@ -37,8 +44,32 @@ public class SnapshotHook {
 	private Control controlUnderMouse;
 	private Cursor captureCursor;
 
+	private UIJob disposing = new UIJob("Disposing Snapshot Hook") {
+		@Override
+		public IStatus runInUIThread(IProgressMonitor monitor) {
+			transite(HookingState.DISPOSING);
+
+			if (controlUnderMouse != null) {
+				restoreCursor(controlUnderMouse);
+			}
+			unhookAll();
+			controlUnderMouse = null;
+			getCaptureBoundsShell().dispose();
+			getCaptureCursor().dispose();
+
+			transite(HookingState.DISPOSED);
+			return Status.OK_STATUS;
+		}
+	};
+
 	public SnapshotHook(Display display) {
 		this.display = display;
+	}
+
+	private void applyCaptureCursor(Control newControl) {
+		Cursor oldCursor = newControl.getCursor();
+		newControl.setData("pdetools-old-cursor", oldCursor);
+		newControl.setCursor(getCaptureCursor());
 	}
 
 	private void capture() {
@@ -74,18 +105,12 @@ public class SnapshotHook {
 		}
 		job.schedule();
 
-		transite(HookingState.NONE);
+		dispose();
 
 	}
 
 	private void dispose() {
-		if (controlUnderMouse != null) {
-			restoreCursor(controlUnderMouse);
-		}
-		unhookAll();
-		controlUnderMouse = null;
-		getCaptureBoundsShell().dispose();
-		getCaptureCursor().dispose();
+		disposing.schedule();
 	}
 
 	private CaptureBoundsIndicator getCaptureBoundsShell() {
@@ -148,8 +173,20 @@ public class SnapshotHook {
 
 	private void onKeyDown(Event event) {
 		if (event.keyCode == SWT.ESC) {
-			transite(HookingState.NONE);
+			dispose();
 			return;
+		}
+
+		if (event.character == SWT.CR) {
+			switch (state) {
+				case TRACK_CONTROL:
+				case TRACK_SHELL:
+					capture();
+					return;
+
+				default:
+					return;
+			}
 		}
 
 		switch (state) {
@@ -218,6 +255,14 @@ public class SnapshotHook {
 
 	}
 
+	private void restoreCursor(Control control) {
+		Cursor oldCursor = (Cursor) control.getData("pdetools-old-cursor");
+		if (oldCursor != null && oldCursor.isDisposed()) {
+			oldCursor = null;
+		}
+		control.setCursor(oldCursor);
+	}
+
 	/**
 	 * 
 	 * 3005 is used for comparability to support under version of 3.8,
@@ -228,7 +273,7 @@ public class SnapshotHook {
 			return;
 		}
 
-		hook(SWT.MouseMove, SWT.MouseDown, SWT.MouseUp, SWT.KeyDown, SWT.KeyUp, 3005);
+		hook(SWT.MouseMove, SWT.MouseDown, SWT.MouseUp, SWT.KeyDown, SWT.KeyUp, 3005, SWT.Traverse, SWT.Verify);
 		controlUnderMouse = display.getCursorControl();
 		transite(HookingState.TRACK_CONTROL);
 	}
@@ -256,7 +301,9 @@ public class SnapshotHook {
 
 			case NONE:
 				dispose();
+				break;
 
+			default:
 				break;
 		}
 	}
@@ -288,19 +335,5 @@ public class SnapshotHook {
 		if (newControl != null) {
 			applyCaptureCursor(newControl);
 		}
-	}
-
-	private void applyCaptureCursor(Control newControl) {
-		Cursor oldCursor = newControl.getCursor();
-		newControl.setData("pdetools-old-cursor", oldCursor);
-		newControl.setCursor(getCaptureCursor());
-	}
-
-	private void restoreCursor(Control control) {
-		Cursor oldCursor = (Cursor) control.getData("pdetools-old-cursor");
-		if (oldCursor != null && oldCursor.isDisposed()) {
-			oldCursor = null;
-		}
-		control.setCursor(oldCursor);
 	}
 }

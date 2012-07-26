@@ -24,7 +24,10 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
@@ -58,6 +61,11 @@ public class ClipboardServiceImpl implements IClipboardService {
 	private ClipHistory history;
 	private CopyActionDetector detector;
 	private Clipboard nativeClipboard;
+	private IWindowListener windowHook = new WindowAdaptor() {
+		public void windowActivated(IWorkbenchWindow window) {
+			handleCopy(null);
+		};
+	};
 
 	@Override
 	public Clipboard getNativeClipboard() {
@@ -104,6 +112,8 @@ public class ClipboardServiceImpl implements IClipboardService {
 				handleCopy(event);
 			}
 		});
+
+		PlatformUI.getWorkbench().addWindowListener(windowHook);
 	}
 
 	protected void handleCopy(ExecutionEvent event) {
@@ -120,11 +130,16 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 		}
 		ClipboardEntry entry = createClipEntry();
-		IWorkbenchPart part = HandlerUtil.getActivePart(event);
-		if (part != null) {
-			entry.setImageData(part.getTitleImage().getImageData());
-			entry.setPartId(part.getSite().getId());
+
+		// clip entry from outside of elcipse.
+		if (event != null) {
+			IWorkbenchPart part = HandlerUtil.getActivePart(event);
+			if (part != null) {
+				entry.setImageData(part.getTitleImage().getImageData());
+				entry.setPartId(part.getSite().getId());
+			}
 		}
+
 		entry.setTakenTime(new Date());
 		getHistory().getEntries().add(0, entry);
 	}
@@ -138,12 +153,12 @@ public class ClipboardServiceImpl implements IClipboardService {
 	}
 
 	public void dispose() {
+		PlatformUI.getWorkbench().removeWindowListener(windowHook);
 		nativeClipboard.dispose();
 		detector.dispose();
 	}
 
 	public ClipboardEntry createClipEntry() {
-
 		ClipboardEntry entry = ClipboardFactory.eINSTANCE.createClipboardEntry();
 		entry.setTextContent((String) getNativeClipboard().getContents(getTextTransfer()));
 

@@ -403,5 +403,19 @@
          </viewShortcut>
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.jeeeyul.pdetools.internal.PDEToolsPreferncePage"
+            id="net.jeeeyul.pdetools.internal.PDEToolsPreferncePage"
+            name="PDE-Tools">
+      </page>
+      <page
+            category="net.jeeeyul.pdetools.internal.PDEToolsPreferncePage"
+            class="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage"
+            id="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage"
+            name="Clipboard">
+      </page>
+   </extension>
 
 </plugin>

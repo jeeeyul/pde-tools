@@ -2,8 +2,6 @@ package net.jeeeyul.pdetools.clipboard.internal;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 
-import net.jeeeyul.pdetools.clipboard.ClipboardHistoryAction;
-import net.jeeeyul.pdetools.clipboard.ClipboardPreferenceConstants;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.shared.ConfirmDialog;
 import net.jeeeyul.pdetools.shared.SharedImages;

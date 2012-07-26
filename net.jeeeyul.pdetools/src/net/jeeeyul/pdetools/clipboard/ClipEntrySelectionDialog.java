@@ -37,21 +37,21 @@ public class ClipEntrySelectionDialog {
 				return;
 			}
 			switch (event.type) {
-			case SWT.KeyDown:
-			case SWT.Verify:
-			case SWT.Traverse:
-			case ST_VerifyKey:
-				event.doit = !performKeyDown(event);
-				break;
+				case SWT.KeyDown:
+				case SWT.Verify:
+				case SWT.Traverse:
+				case ST_VerifyKey:
+					event.doit = !performKeyDown(event);
+					break;
 
-			case SWT.MouseDown:
-				result = null;
-				close();
-				break;
+				case SWT.MouseDown:
+					result = null;
+					close();
+					break;
 
-			case SWT.MouseWheel:
-				handleWheel(event);
-				break;
+				case SWT.MouseWheel:
+					handleWheel(event);
+					break;
 			}
 
 		}
@@ -102,8 +102,6 @@ public class ClipEntrySelectionDialog {
 
 		index = Math.min(Math.max(0, index), table.getItemCount() - 1);
 		table.setTopIndex(index);
-		System.out.println(index);
-
 	}
 
 	protected void handleShellEvent(Event event) {
@@ -254,34 +252,34 @@ public class ClipEntrySelectionDialog {
 			selection = 0;
 		}
 		switch (event.keyCode) {
-		case SWT.ARROW_DOWN:
-			selection += 1;
-			if (selection >= itemCount) {
-				selection = 0;
-			}
-			event.doit = false;
-			break;
+			case SWT.ARROW_DOWN:
+				selection += 1;
+				if (selection >= itemCount) {
+					selection = 0;
+				}
+				event.doit = false;
+				break;
 
-		case SWT.ARROW_UP:
-			selection -= 1;
-			if (selection < 0) {
-				selection = itemCount - 1;
-			}
-			event.doit = false;
-			break;
+			case SWT.ARROW_UP:
+				selection -= 1;
+				if (selection < 0) {
+					selection = itemCount - 1;
+				}
+				event.doit = false;
+				break;
 
-		case SWT.PAGE_UP:
-			selection = Math.max(0, selection - visibleRow);
-			event.doit = false;
-			break;
+			case SWT.PAGE_UP:
+				selection = Math.max(0, selection - visibleRow);
+				event.doit = false;
+				break;
 
-		case SWT.PAGE_DOWN:
-			selection = Math.min(itemCount - 1, selection + visibleRow);
-			event.doit = false;
-			break;
+			case SWT.PAGE_DOWN:
+				selection = Math.min(itemCount - 1, selection + visibleRow);
+				event.doit = false;
+				break;
 
-		default:
-			return;
+			default:
+				return;
 		}
 
 		table.select(selection);
@@ -351,19 +349,19 @@ public class ClipEntrySelectionDialog {
 		}
 
 		switch (event.keyCode) {
-		case SWT.ARROW_DOWN:
-		case SWT.ARROW_UP:
-		case SWT.PAGE_UP:
-		case SWT.PAGE_DOWN:
-			if (event.type == SWT.KeyDown) {
-				dialogHook.handleEvent(event);
-			}
-			break;
+			case SWT.ARROW_DOWN:
+			case SWT.ARROW_UP:
+			case SWT.PAGE_UP:
+			case SWT.PAGE_DOWN:
+				if (event.type == SWT.KeyDown) {
+					dialogHook.handleEvent(event);
+				}
+				break;
 
-		default:
-			result = null;
-			close();
-			return false;
+			default:
+				result = null;
+				close();
+				return false;
 		}
 
 		return true;
