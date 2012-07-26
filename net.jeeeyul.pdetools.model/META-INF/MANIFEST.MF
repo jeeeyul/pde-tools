@@ -7,11 +7,11 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: net.jeeeyul.pdetool.shared,
- net.jeeeyul.pdetools.clipboard.model.clipboard,
+Export-Package: net.jeeeyul.pdetools.clipboard.model.clipboard,
  net.jeeeyul.pdetools.clipboard.model.clipboard.util,
  net.jeeeyul.pdetools.icg.builder.model.palette,
  net.jeeeyul.pdetools.icg.builder.model.palette.util,
+ net.jeeeyul.pdetools.shared,
  net.jeeeyul.pdetools.snapshot.model.snapshot,
  net.jeeeyul.pdetools.snapshot.model.snapshot.util
 Require-Bundle: org.eclipse.core.runtime,

@@ -9,7 +9,7 @@ import org.eclipse.swt.dnd.Transfer
 import org.eclipse.swt.dnd.TextTransfer
 import org.eclipse.swt.dnd.RTFTransfer
 import org.eclipse.swt.graphics.ImageData
-import net.jeeeyul.pdetool.shared.ImageDataSerializer
+import net.jeeeyul.pdetools.shared.ImageDataSerializer
 
 type Clipboard wraps Clipboard
 type ImageData wraps ImageData

@@ -14,7 +14,7 @@
 // Please contact the author if you need another license.
 // This module is provided "as is", without warranties of any kind.
 
-package net.jeeeyul.pdetool.shared;
+package net.jeeeyul.pdetools.shared;
 
 /**
  * A Base64 encoder/decoder.

@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetool.model;
+package net.jeeeyul.pdetools.model;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

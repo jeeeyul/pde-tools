@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetool.shared;
+package net.jeeeyul.pdetools.shared;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
