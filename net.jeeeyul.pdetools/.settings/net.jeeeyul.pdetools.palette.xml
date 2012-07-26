@@ -3,6 +3,7 @@
   <subPalettes fieldName="FRAMES" folder="/net.jeeeyul.pdetools/icons/frames">
     <imageFiles fieldName="WIN7_BASIC" file="/net.jeeeyul.pdetools/icons/frames/win7-basic.png"/>
   </subPalettes>
+  <imageFiles fieldName="COPY_OF_CAMERA" file="/net.jeeeyul.pdetools/icons/Copy of camera.gif"/>
   <imageFiles fieldName="ADD" file="/net.jeeeyul.pdetools/icons/add.gif"/>
   <imageFiles fieldName="CAMERA" file="/net.jeeeyul.pdetools/icons/camera.gif"/>
   <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools/icons/clipboard.gif"/>
