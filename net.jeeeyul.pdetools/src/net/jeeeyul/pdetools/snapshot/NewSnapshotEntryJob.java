@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.snapshot;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
@@ -93,7 +94,9 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		try {
 			String location = SnapshotCore.getRepository().getRepositoryLocation();
 			IPath path = new Path(location);
-			path = path.removeLastSegments(1).append("F" + System.currentTimeMillis() + ".png");
+			String newFileName = generateNewFileName();
+
+			path = path.removeLastSegments(1).append(newFileName);
 			path = path.setDevice(null);
 			File file = path.toFile();
 
@@ -115,6 +118,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			entry.setTakenTime(new Date());
 			entry.setOriginalFile(file.getName());
 			entry.setControlType(controlType);
+			System.out.println(file.getName());
 
 			computeTargetGroup().getEntries().add(0, entry);
 
@@ -130,6 +134,17 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		}
 
 		return Status.OK_STATUS;
+	}
+
+	private String generateNewFileName() {
+		String prefix = null;
+		int lastPeriod = controlType.lastIndexOf(".");
+		prefix = controlType.substring(lastPeriod + 1);
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		prefix += " " + format.format(new Date());
+
+		return prefix + ".png";
 	}
 
 	public void setControlType(String controlType) {

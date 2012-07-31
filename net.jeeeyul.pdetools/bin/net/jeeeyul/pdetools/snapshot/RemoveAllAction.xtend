@@ -17,7 +17,7 @@ class RemoveAllAction extends SnapshotAction {
 	override run() {
 		var dialog = new ConfirmDialog(SnapshotPreferenceConstants::DONT_ASK_WHEN_REMOVE_ALL_SNAPSHOT)
 		dialog.message = "Do you really want to remove all snapshots?"
-		if(dialog.open() == IDialogConstants::NO_ID) {
+		if(dialog.open() != IDialogConstants::YES_ID) {
 			return;
 		}
 		var basePath = new Path(repository.repositoryLocation).removeLastSegments(1).setDevice(null);

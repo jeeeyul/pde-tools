@@ -72,6 +72,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		boolean isLastItem = table.indexOf(item) == table.getItemCount() - 1;
 
 		Rectangle bounds = item.getBounds();
+		event.gc.setClipping(bounds);
 
 		ClipboardEntry entry = (ClipboardEntry) element;
 		getSharedLayout().setText(entry.getTextContent());
