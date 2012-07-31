@@ -31,6 +31,7 @@ class RemoveAllAction extends SnapshotAction {
 					eachFile.deleteOnExit();
 				}
 			}
+			each.parent = null
 		}
 		repository.groups.clear();
 		SnapshotCore::doSave();

@@ -5,25 +5,44 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Pattern;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 public class ImageCanvas extends Canvas {
 	private Image backgroundImage;
 	private Pattern backgroundPattern;
 
 	private Image image;
+	private Procedure1<Point> deltaHandler = new Procedure1<Point>() {
+		@Override
+		public void apply(Point delta) {
+			handleDelta(delta);
+		}
+	};
 
 	public Image getImage() {
 		return image;
 	}
 
+	protected void handleDelta(Point delta) {
+		int newX = getHorizontalBar().getSelection() - delta.x;
+		int newY = getVerticalBar().getSelection() - delta.y;
+		getHorizontalBar().setSelection(newX);
+		getVerticalBar().setSelection(newY);
+		redraw();
+	}
+
 	public ImageCanvas(Composite parent) {
 		super(parent, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED);
+
+		DragAdapter dragAdapter = new DragAdapter(this);
+		dragAdapter.setDeltaHandler(deltaHandler);
 
 		addListener(SWT.Paint, new Listener() {
 			@Override

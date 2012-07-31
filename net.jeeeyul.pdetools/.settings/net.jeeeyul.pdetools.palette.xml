@@ -9,6 +9,8 @@
   <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools/icons/clipboard.gif"/>
   <imageFiles fieldName="CONFIGURE" file="/net.jeeeyul.pdetools/icons/configure.gif"/>
   <imageFiles fieldName="DELETE_ALL" file="/net.jeeeyul.pdetools/icons/delete-all.gif"/>
+  <imageFiles fieldName="GRAB" file="/net.jeeeyul.pdetools/icons/grab.gif"/>
+  <imageFiles fieldName="HAND" file="/net.jeeeyul.pdetools/icons/hand.gif"/>
   <imageFiles fieldName="IMAGE_FOLDER" file="/net.jeeeyul.pdetools/icons/image-folder.gif"/>
   <imageFiles fieldName="IMAGE" file="/net.jeeeyul.pdetools/icons/image.gif"/>
   <imageFiles fieldName="REFRESH" file="/net.jeeeyul.pdetools/icons/refresh.gif"/>

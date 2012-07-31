@@ -6,8 +6,11 @@ import java.io.FileInputStream;
 import net.jeeeyul.pdetools.shared.ImageCanvas;
 import net.jeeeyul.pdetools.snapshot.SnapshotEditorInput;
 import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
+import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -27,6 +30,33 @@ public class SnapshotEditor extends EditorPart {
 		};
 	};
 
+	private EContentAdapter inputAdapter = new EContentAdapter() {
+		public void notifyChanged(Notification notification) {
+			if (!notification.isTouch()) {
+				handleInputChangeEvent(notification);
+			}
+			super.notifyChanged(notification);
+		};
+	};
+
+	protected void handleInputChangeEvent(Notification notification) {
+		switch (notification.getEventType()) {
+			case Notification.SET:
+			case Notification.UNSET:
+				if (notification.getFeature() == SnapshotPackage.eINSTANCE.getSnapshotEntry_Parent()) {
+					if (getEditorInput().getSnapshot().getParent() == null) {
+						doClose();
+					}
+				}
+				break;
+			default:
+		}
+	}
+
+	private void doClose() {
+		getSite().getPage().closeEditor(this, false);
+	}
+
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 
@@ -34,6 +64,7 @@ public class SnapshotEditor extends EditorPart {
 
 	protected void doLoad() {
 		SnapshotEntry snapshot = getEditorInput().getSnapshot();
+
 		File file = new File(snapshot.getAbsoulteVisibleFilePath());
 		try {
 			FileInputStream fis = new FileInputStream(file);
@@ -50,6 +81,7 @@ public class SnapshotEditor extends EditorPart {
 					imageCanvas.setImage(image);
 				}
 			});
+			snapshot.eAdapters().add(inputAdapter);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,6 +94,7 @@ public class SnapshotEditor extends EditorPart {
 			imageCanvas.getImage().dispose();
 		}
 		super.dispose();
+		getEditorInput().getSnapshot().eAdapters().remove(inputAdapter);
 	}
 
 	@Override
