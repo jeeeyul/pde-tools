@@ -73,6 +73,8 @@ public class SnapshotEditor extends EditorPart {
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
 		setInput(input);
+
+		setPartName(input.getName());
 	}
 
 	@Override
