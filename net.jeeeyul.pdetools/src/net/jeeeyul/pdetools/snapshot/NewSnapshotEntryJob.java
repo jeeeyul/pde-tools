@@ -99,6 +99,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			path = path.removeLastSegments(1).append(newFileName);
 			path = path.setDevice(null);
 			File file = path.toFile();
+			System.out.println(file);
 
 			if (shellInfo != null) {
 				Rectangle area = new Rectangle(21, 42, 395, 389);

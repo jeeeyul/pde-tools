@@ -16,8 +16,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.RTFTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -81,7 +81,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 			try {
 				URI uri = getPersistanceURI();
 				if (new File(uri.toFileString()).exists()) {
-					XMLResourceImpl resourceImpl = new XMLResourceImpl(uri);
+					BinaryResourceImpl resourceImpl = new BinaryResourceImpl(uri);
 					resourceImpl.load(new HashMap<Object, Object>());
 					history = (ClipHistory) resourceImpl.getContents().get(0);
 				} else {
@@ -99,7 +99,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 	private URI getPersistanceURI() {
 		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
-		IPath clipboardURI = stateLocation.append("clipboard.xml");
+		IPath clipboardURI = stateLocation.append("clipboard.data");
 		URI uri = URI.createFileURI(clipboardURI.toPortableString());
 		return uri;
 	}
@@ -181,7 +181,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 	@Override
 	public void doSave() {
-		XMLResourceImpl resource = new XMLResourceImpl(getPersistanceURI());
+		BinaryResourceImpl resource = new BinaryResourceImpl(getPersistanceURI());
 		resource.getContents().add(EcoreUtil.copy(getHistory()));
 		try {
 			resource.save(new HashMap<Object, Object>());

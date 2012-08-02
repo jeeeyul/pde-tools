@@ -10,16 +10,15 @@ import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 public class SnapshotCore {
 	private static SnapshotRepository repository;
 
 	private static SnapshotRepository doLoad() throws IOException {
 		URI url = getPersistanceURI();
-		XMLResource resource = new XMLResourceImpl(url);
+		BinaryResourceImpl resource = new BinaryResourceImpl(url);
 		resource.load(new HashMap<Object, Object>());
 		return (SnapshotRepository) resource.getContents().get(0);
 	}
@@ -31,7 +30,7 @@ public class SnapshotCore {
 			folder.mkdirs();
 		}
 
-		URI url = URI.createFileURI(path.append("snapshot.xml").toPortableString());
+		URI url = URI.createFileURI(path.append("snapshot.data").toPortableString());
 		return url;
 	}
 
@@ -52,7 +51,7 @@ public class SnapshotCore {
 	}
 
 	public static void doSave() {
-		XMLResource resource = new XMLResourceImpl(getPersistanceURI());
+		BinaryResourceImpl resource = new BinaryResourceImpl(getPersistanceURI());
 		resource.getContents().add(EcoreUtil.copy(getRepository()));
 		try {
 			resource.save(new HashMap<Object, Object>());
