@@ -152,7 +152,7 @@ public class SnapshotView extends ViewPart {
 	}
 
 	private void handleModelChange() {
-		getUpdate().schedule(100);
+		getUpdate().schedule();
 		updateActions();
 	}
 
