@@ -9,4 +9,5 @@ encoding//src/net/jeeeyul/pdetools/icg/refactor/JavaRefactor.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/refactor/MoveMonitorFolder.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/refactor/RenameMonitorFolder.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/refactor/RenamePaletteEntry.xtend=UTF-8
+encoding/<project>=MS949
 encoding/README.md=UTF-8
