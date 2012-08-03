@@ -45,7 +45,7 @@ public class SnapshotCore {
 			} else {
 				repository = SnapshotFactory.eINSTANCE.createSnapshotRepository();
 			}
-			repository.setRepositoryLocation(getPersistanceURI().toString());
+			repository.setRepositoryLocation(getPersistanceURI().toFileString());
 		}
 		return repository;
 	}

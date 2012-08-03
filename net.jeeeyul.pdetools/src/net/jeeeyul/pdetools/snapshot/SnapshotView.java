@@ -15,7 +15,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer;
-import org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
@@ -54,9 +53,10 @@ public class SnapshotView extends ViewPart {
 		DefaultGalleryGroupRenderer rederer = (DefaultGalleryGroupRenderer) viewer.getGallery().getGroupRenderer();
 		rederer.setAutoMargin(true);
 
-		DefaultGalleryItemRenderer itemRenderer = (DefaultGalleryItemRenderer) viewer.getGallery().getItemRenderer();
+		SafeItemRenderer itemRenderer = new SafeItemRenderer();
 		itemRenderer.setDropShadows(true);
 		itemRenderer.setDropShadowsSize(5);
+		viewer.getGallery().setItemRenderer(itemRenderer);
 
 		SnapshotCore.getRepository().eAdapters().add(refresher);
 
@@ -152,8 +152,7 @@ public class SnapshotView extends ViewPart {
 	}
 
 	private void handleModelChange() {
-		getUpdate().schedule();
-
+		getUpdate().schedule(100);
 		updateActions();
 	}
 

@@ -101,6 +101,8 @@ public class ClipboardServiceImpl implements IClipboardService {
 		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
 		IPath clipboardURI = stateLocation.append("clipboard.data");
 		URI uri = URI.createFileURI(clipboardURI.toPortableString());
+		System.out.println(uri);
+		System.out.println(uri.toFileString());
 		return uri;
 	}
 

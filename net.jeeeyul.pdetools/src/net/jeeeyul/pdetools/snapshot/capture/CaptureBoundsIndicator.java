@@ -110,10 +110,12 @@ public class CaptureBoundsIndicator {
 
 	public void hide() {
 		shell.setVisible(false);
+		shell.update();
 	}
 
 	public void show() {
 		shell.setVisible(true);
+		shell.update();
 	}
 
 }
