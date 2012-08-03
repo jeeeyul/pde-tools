@@ -142,8 +142,8 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		int lastPeriod = controlType.lastIndexOf(".");
 		prefix = controlType.substring(lastPeriod + 1);
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-		prefix += " " + format.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		prefix += "_" + format.format(new Date());
 
 		return prefix + ".png";
 	}

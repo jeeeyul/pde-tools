@@ -58,6 +58,5 @@ public class SnapshotCore {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }
