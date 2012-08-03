@@ -1,4 +1,3 @@
-
 @Ecore(nsURI="http://jeeeyul.net/pde-tools/snapshot", nsPrefix="s")
 @GenModel(basePackage="net.jeeeyul.pdetools.snapshot.model")
 package snapshot
