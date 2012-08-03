@@ -93,6 +93,7 @@ public class CaptureBoundsIndicator {
 	private void create(Display display) {
 		shell = new Shell(display, SWT.NO_TRIM | SWT.ON_TOP);
 		shell.setBackground(display.getSystemColor(SWT.COLOR_RED));
+		shell.setVisible(false);
 		region = new Region(display);
 
 		GC gc = new GC(shell);

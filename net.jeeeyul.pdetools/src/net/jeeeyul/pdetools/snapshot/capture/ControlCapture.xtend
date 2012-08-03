@@ -10,6 +10,8 @@ import static extension net.jeeeyul.pdetools.shared.SWTExtensions.*
 
 class ControlCapture {
 	def dispatch Image capture(Control control){
+		control.redraw();
+		control.update();
 		var size = control.size
 		var image = new Image(display, size.x, size.y)
 		var gc = new GC(control)
@@ -19,6 +21,9 @@ class ControlCapture {
 	}
 
 	def dispatch Image capture(Shell shell){
+		shell.redraw();
+		shell.update();
+		
 		var clientArea = shell.clientArea
 		clientArea.location = shell.toDisplay(clientArea.location)
 		if(shell.menuBar != null) {
