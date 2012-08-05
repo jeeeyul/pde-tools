@@ -9,9 +9,33 @@ import org.eclipse.swt.dnd.Transfer
 import org.eclipse.swt.dnd.TextTransfer
 import org.eclipse.swt.dnd.RTFTransfer
 import org.eclipse.swt.graphics.ImageData
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.resources.IFolder
+import org.eclipse.core.runtime.Path
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
 
-type Clipboard wraps Clipboard
+
+
+type File wraps IFile create
+{
+	ResourcesPlugin::workspace.root.getFile(new Path(it) )
+}
+convert
+{
+	it.fullPath.toPortableString
+}
+
+type Folder wraps IFolder create
+{ 
+	ResourcesPlugin::workspace.root.getFolder(new Path(it))
+}
+convert
+{
+	it.fullPath.toPortableString
+}
+
+
 type ImageData wraps ImageData
 create{
 	ImageDataSerializer::deserialize(it)
@@ -19,6 +43,8 @@ create{
 convert{
 	ImageDataSerializer::serialize(it)
 }
+
+type Clipboard wraps Clipboard
 
 class ClipHistory{
 	contains ClipboardEntry[] entries opposite parent
@@ -32,6 +58,7 @@ class ClipboardEntry{
 	Date takenTime
 	ImageData imageData
 	String partId
+	File releatedFile
 	
 	container ClipHistory parent opposite entries 
 	

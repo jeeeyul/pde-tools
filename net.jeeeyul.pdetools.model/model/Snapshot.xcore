@@ -3,8 +3,42 @@
 package snapshot
 
 import java.util.Date
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ImageData
+import org.eclipse.core.resources.IFolder
+import net.jeeeyul.pdetools.shared.ImageDataSerializer
+import org.eclipse.swt.graphics.ImageData
+
+type File wraps IFile create
+{
+	ResourcesPlugin::workspace.root.getFile(new Path(it) )
+}
+convert
+{
+	it.fullPath.toPortableString
+}
+
+type Folder wraps IFolder create
+{ 
+	ResourcesPlugin::workspace.root.getFolder(new Path(it))
+}
+convert
+{
+	it.fullPath.toPortableString
+}
+
+
+
+type ImageData wraps ImageData
+create{
+	ImageDataSerializer::deserialize(it)
+}
+convert{
+	ImageDataSerializer::serialize(it)
+}
+
+
 
 class SnapshotRepository
 {

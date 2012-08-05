@@ -12,6 +12,8 @@ import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
 
 import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
@@ -101,8 +103,6 @@ public class ClipboardServiceImpl implements IClipboardService {
 		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
 		IPath clipboardURI = stateLocation.append("clipboard.data");
 		URI uri = URI.createFileURI(clipboardURI.toPortableString());
-		System.out.println(uri);
-		System.out.println(uri.toFileString());
 		return uri;
 	}
 
@@ -139,6 +139,10 @@ public class ClipboardServiceImpl implements IClipboardService {
 			if (part != null) {
 				entry.setImageData(part.getTitleImage().getImageData());
 				entry.setPartId(part.getSite().getId());
+			}
+
+			if (part.getAdapter(IResource.class) instanceof IFile) {
+				entry.setReleatedFile((IFile) part.getAdapter(IResource.class));
 			}
 		}
 
