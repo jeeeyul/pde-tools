@@ -86,6 +86,21 @@
          <class
                class="net.jeeeyul.pdetools.icg.builder.DisableICGNatureHandler"></class>
       </handler>
+      <handler
+            commandId="org.eclipse.ui.edit.delete">
+         <activeWhen>
+            <and>
+               <iterate>
+                  <instanceof
+                        value="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry">
+                  </instanceof>
+               </iterate>
+            </and>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.clipboard.internal.RemoveClipboardEntryHandler">
+         </class>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">

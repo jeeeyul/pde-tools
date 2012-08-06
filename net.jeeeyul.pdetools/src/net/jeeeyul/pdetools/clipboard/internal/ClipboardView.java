@@ -41,7 +41,7 @@ public class ClipboardView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new ClipboardViewer(parent, SWT.NORMAL);
+		viewer = new ClipboardViewer(parent, SWT.MULTI);
 		TableViewer tableViewer = viewer.getTableViewer();
 		getViewSite().setSelectionProvider(tableViewer);
 

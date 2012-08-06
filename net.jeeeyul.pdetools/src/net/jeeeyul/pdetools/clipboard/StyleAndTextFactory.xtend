@@ -13,15 +13,17 @@ import org.eclipse.swt.graphics.RGB
 import org.eclipse.swt.SWT
 import net.jeeeyul.pdetools.shared.BitExtensions
 
+/**
+ * converts RTF String to StyleAndText
+ */
 class StyleAndTextFactory {
 	extension BitExtensions = new BitExtensions()
-	
 	IColorProvider colorProvider
-	
+
 	new(IColorProvider colorProvider){
 		this.colorProvider = colorProvider
 	}
-	
+
 	def StyleAndText createFromRTFString(String rtfString){
 		var result = new StyleAndText()
 		var kit = new RTFEditorKit()
@@ -37,22 +39,20 @@ class StyleAndTextFactory {
 			it.accept(leafCollector)
 		]
 		result.text = leafs.join("")[ doc.getText(it.startOffset, it.endOffset - it.startOffset) ]
-		
 		val List<StyleRange> ranges = new ArrayList()
 		leafs.forEach[
 			var each = new StyleRange()
 			each.start = it.startOffset
 			each.length = it.endOffset - it.startOffset
-			
 			var foreground = it.attributes.getAttribute(StyleConstants::Foreground) as Color
-			if(foreground != null){
+			if(foreground != null) {
 				each.foreground = colorProvider.getColor(foreground.asRGB)
 			}
 			var fontStyle = SWT::NORMAL
-			if(StyleConstants::isBold(it.attributes)){
+			if(StyleConstants::isBold(it.attributes)) {
 				fontStyle = fontStyle || SWT::BOLD
 			}
-			if(StyleConstants::isItalic(it.attributes)){
+			if(StyleConstants::isItalic(it.attributes)) {
 				fontStyle = fontStyle || SWT::ITALIC
 			}
 			each.fontStyle = fontStyle
@@ -70,7 +70,7 @@ class StyleAndTextFactory {
 			}
 		}
 	}
-	
+
 	def asRGB(Color awtColor){
 		return new RGB(awtColor.red, awtColor.green, awtColor.blue)
 	}

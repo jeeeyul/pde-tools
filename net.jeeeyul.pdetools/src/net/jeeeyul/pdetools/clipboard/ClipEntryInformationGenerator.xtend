@@ -16,7 +16,17 @@ class ClipEntryInformationGenerator {
 		<style>
 			body{
 				background-color: «Display::^default.getSystemColor(SWT::COLOR_INFO_BACKGROUND).RGB.toHtmlColor»;
+			}
+			
+			*{
 				font-size: 13px;
+			}
+			h1, h2, h3{
+				margin: 5px;
+			}
+			
+			ul{
+				margin-top: 5px;
 			}
 		</style>
 		<script type="text/javascript">
@@ -40,6 +50,11 @@ class ClipEntryInformationGenerator {
 						Time: «entry.takenTime.toLocaleString»
 					</li>
 				«ENDIF»
+			</ul>
+			
+			<h2>Stats</h2>
+			<ul>
+				<li>«entry.usingCount» time(s) used.</li>
 			</ul>
 		</body>
 		</html>

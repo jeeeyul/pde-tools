@@ -54,6 +54,7 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 				((Text) focusControl).paste();
 			}
 			backup.transferTo(ClipboardServiceImpl.getInstance().getNativeClipboard());
+			result.increaseUsing();
 		}
 
 		return null;
