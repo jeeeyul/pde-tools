@@ -15,7 +15,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Path;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
@@ -28,8 +27,9 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	private StyleAndTextFactory factory;
 	private TextLayout sharedLayout;
 	private ElapsedTimeLabelProvider elapsedTimeLabelProvider = new ElapsedTimeLabelProvider();
-
+	private int numberOfLineForRow = 5;
 	private ColumnViewer viewer;
+	private boolean colorizeTextOnSelection = false;
 
 	public ClipEntryLabelProvider(IColorProvider colorProvider) {
 		super();
@@ -45,50 +45,13 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		super.dispose();
 	}
 
-	private ImageDescriptor getImageDescriptor(ClipboardEntry entry) {
-		IFile file = entry.getReleatedFile();
-		if (file == null) {
-			return getPartImage(entry.getPartId());
-		}
-
-		try {
-			if (file.getContentDescription() != null) {
-				IContentType contentType = file.getContentDescription().getContentType();
-				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName(), contentType);
-			} else {
-				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private ImageDescriptor getPartImage(String partId) {
-		if (partId == null) {
-			return null;
-		}
-
-		IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(partId);
-		if (editor != null) {
-			return editor.getImageDescriptor();
-		}
-
-		IViewDescriptor view = PlatformUI.getWorkbench().getViewRegistry().find(partId);
-		if (view != null) {
-			return view.getImageDescriptor();
-		}
-
-		return null;
-	}
-
 	private void drawBadge(Event event, ClipboardEntry entry) {
+		Table table = (Table) event.widget;
 		TableItem item = (TableItem) event.item;
-		Rectangle itemBounds = item.getBounds();
-		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
+		KRectangle itemBounds = new KRectangle(event);
+		itemBounds.width = table.getClientArea().width;
 
-		Table table = item.getParent();
+		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
 
 		String text = elapsedTimeLabelProvider.getText(entry.getTakenTime());
 		int r = 5;
@@ -150,6 +113,48 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		event.detail &= ~SWT.FOREGROUND;
 	}
 
+	private ImageDescriptor getImageDescriptor(ClipboardEntry entry) {
+		IFile file = entry.getReleatedFile();
+		if (file == null) {
+			return getPartImage(entry.getPartId());
+		}
+
+		try {
+			if (file.getContentDescription() != null) {
+				IContentType contentType = file.getContentDescription().getContentType();
+				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName(), contentType);
+			} else {
+				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public int getNumberOfLineForRow() {
+		return numberOfLineForRow;
+	}
+
+	private ImageDescriptor getPartImage(String partId) {
+		if (partId == null) {
+			return null;
+		}
+
+		IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(partId);
+		if (editor != null) {
+			return editor.getImageDescriptor();
+		}
+
+		IViewDescriptor view = PlatformUI.getWorkbench().getViewRegistry().find(partId);
+		if (view != null) {
+			return view.getImageDescriptor();
+		}
+
+		return null;
+	}
+
 	public TextLayout getSharedLayout() {
 		if (sharedLayout == null) {
 			sharedLayout = new TextLayout(getViewer().getControl().getDisplay());
@@ -172,11 +177,22 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		super.initialize(viewer, column);
 	}
 
+	public boolean isColorizeTextOnSelection() {
+		return colorizeTextOnSelection;
+	}
+
 	@Override
 	protected void measure(Event event, Object element) {
+		Table table = (Table) event.widget;
+
 		getSharedLayout().setFont(getViewer().getControl().getFont());
-		getSharedLayout().setText("\r\n\r\n\r\n\r\n");
+		String evaluate = "";
+		for (int i = 0; i < numberOfLineForRow - 1; i++) {
+			evaluate += "\r\n";
+		}
+		getSharedLayout().setText(evaluate);
 		event.height = getSharedLayout().getBounds().height;
+		event.width = table.getClientArea().width;
 	}
 
 	@Override
@@ -185,12 +201,16 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		Table table = item.getParent();
 		table.setToolTipText("");
 
-		Rectangle bounds = item.getBounds();
+		KRectangle bounds = new KRectangle(event);
+		bounds.width = table.getClientArea().width;
 
 		ClipboardEntry entry = (ClipboardEntry) element;
 		getSharedLayout().setText(entry.getTextContent());
 
-		if (entry.getRtfContent() != null && (event.detail & SWT.SELECTED) == 0) {
+		boolean hasToStyle = entry.getRtfContent() != null
+				&& (colorizeTextOnSelection || (event.detail & SWT.SELECTED) == 0);
+
+		if (hasToStyle) {
 			StyleAndText data = factory.createFromRTFString(entry.getRtfContent());
 			getSharedLayout().setText(data.getText());
 			for (StyleRange each : data.getStyleRanges()) {
@@ -208,5 +228,13 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		event.gc.drawLine(0, bounds.y + bounds.height - 1, item.getParent().getSize().x, bounds.y + bounds.height - 1);
 
 		drawBadge(event, entry);
+	}
+
+	public void setColorizeTextOnSelection(boolean colorizeTextOnSelection) {
+		this.colorizeTextOnSelection = colorizeTextOnSelection;
+	}
+
+	public void setNumberOfLineForRow(int numberOfLineForRow) {
+		this.numberOfLineForRow = numberOfLineForRow;
 	}
 }

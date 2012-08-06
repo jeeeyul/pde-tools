@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.shared;
 
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Event;
 
 public class KRectangle {
 	public int x;
@@ -20,6 +21,10 @@ public class KRectangle {
 
 	public KRectangle(Rectangle bounds) {
 		this(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
+	public KRectangle(Event event) {
+		this(event.x, event.y, event.width, event.height);
 	}
 
 	public boolean contains(int x, int y, int width, int height) {

@@ -22,7 +22,7 @@ public class RemoveAllAction extends ClipboardHistoryAction {
 	@Override
 	public void run() {
 		ConfirmDialog dialog = new ConfirmDialog(
-				ClipboardPreferenceConstants.DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES);
+				ClipboardPreferenceConstants.CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES);
 		dialog.setMessage("Do you really want to remove all clipboard histories?");
 
 		if (dialog.open() == IDialogConstants.YES_ID) {

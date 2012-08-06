@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -35,6 +40,12 @@ public class ClipboardViewer {
 	private SharedColor sharedColor;
 	private TableViewer viewer;
 	private TableViewerColumn column;
+	private IPropertyChangeListener preferenceListener = new IPropertyChangeListener() {
+		@Override
+		public void propertyChange(PropertyChangeEvent event) {
+			handlePreferenceChange(event);
+		}
+	};
 
 	private EContentAdapter historyListener = new EContentAdapter() {
 		public void notifyChanged(Notification notification) {
@@ -44,6 +55,7 @@ public class ClipboardViewer {
 		};
 	};
 	private int style;
+	private ClipEntryLabelProvider labelProvider;
 
 	public ClipboardViewer(Composite parent, int style) {
 		this.style = style;
@@ -54,6 +66,22 @@ public class ClipboardViewer {
 				dispose();
 			}
 		});
+
+		getPreferenceStore().addPropertyChangeListener(preferenceListener);
+	}
+
+	private IPreferenceStore getPreferenceStore() {
+		return PDEToolsCore.getDefault().getPreferenceStore();
+	}
+
+	protected void handlePreferenceChange(PropertyChangeEvent event) {
+		updateLabelProvider();
+		viewer.refresh();
+	}
+
+	private void updateLabelProvider() {
+		labelProvider.setColorizeTextOnSelection(getPreferenceStore().getBoolean(
+				ClipboardPreferenceConstants.CLIPBOARD_COLORLIZE_IN_SELECTION));
 	}
 
 	private void create(Composite parent) {
@@ -62,7 +90,10 @@ public class ClipboardViewer {
 		viewer.setUseHashlookup(true);
 
 		column = new TableViewerColumn(viewer, SWT.NORMAL);
-		column.setLabelProvider(new ClipEntryLabelProvider(sharedColor));
+		labelProvider = new ClipEntryLabelProvider(sharedColor);
+		updateLabelProvider();
+
+		column.setLabelProvider(labelProvider);
 
 		/*
 		 * prevent drawing ugly focus
@@ -156,6 +187,7 @@ public class ClipboardViewer {
 	public void dispose() {
 		sharedColor.flush();
 		ClipboardServiceImpl.getInstance().getHistory().eAdapters().remove(historyListener);
+		getPreferenceStore().removePropertyChangeListener(preferenceListener);
 	}
 
 	public TableViewer getTableViewer() {

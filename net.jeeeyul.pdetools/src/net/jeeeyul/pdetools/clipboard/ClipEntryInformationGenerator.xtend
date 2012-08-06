@@ -26,6 +26,7 @@ class ClipEntryInformationGenerator {
 			}
 			
 			*{
+				font-family: Helvetica, "Segoe UI";
 				font-size: 13px;
 			}
 			h1, h2, h3{
@@ -43,7 +44,7 @@ class ClipEntryInformationGenerator {
 		<body>
 			«IF entry.partId != null»
 				<h2>
-					Captured from «entry.partId.asPartIcon»«entry.partId.asPartName»
+					«entry.partId.asPartIcon» Captured from «entry.partId.asPartName»
 				</h2>
 			«ELSE»
 				<h2>Capture Information</h2>
@@ -51,7 +52,10 @@ class ClipEntryInformationGenerator {
 			<ul>
 				«IF entry.releatedFile != null»
 					<li>
-						Resource: <a href="#" onclick="openResource('«entry.releatedFile.fullPath.toPortableString»')">«entry.releatedFile.fullPath.toPortableString»</a>
+						Resource: 
+						<a href="#" onclick="openResource('«entry.releatedFile.fullPath.toPortableString»')">
+							«entry.releatedFile.name»
+						</a>
 					</li>
 				«ENDIF»
 				«IF entry.takenTime != null»
