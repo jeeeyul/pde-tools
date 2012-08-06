@@ -11,7 +11,7 @@ public class ElapsedTimeLabelProvider {
 	public static final long MONTH = 30;
 	public static final long YEAR = 365;
 
-	public static String getText(Date time) {
+	public String getText(Date time) {
 		long today = (System.currentTimeMillis() - (9 * HOUR)) / DAY;
 		long thatDay = (time.getTime() - (9 * HOUR)) / DAY;
 		long dayElapsed = today - thatDay;

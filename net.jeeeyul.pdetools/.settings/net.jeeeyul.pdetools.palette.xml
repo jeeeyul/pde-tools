@@ -8,6 +8,7 @@
   <imageFiles fieldName="CAMERA" file="/net.jeeeyul.pdetools/icons/camera.gif"/>
   <imageFiles fieldName="CLIPBOARD" file="/net.jeeeyul.pdetools/icons/clipboard.gif"/>
   <imageFiles fieldName="CONFIGURE" file="/net.jeeeyul.pdetools/icons/configure.gif"/>
+  <imageFiles fieldName="DEBUG_STREAM" file="/net.jeeeyul.pdetools/icons/debug-stream.gif"/>
   <imageFiles fieldName="DELETE_ALL" file="/net.jeeeyul.pdetools/icons/delete-all.gif"/>
   <imageFiles fieldName="GRAB" file="/net.jeeeyul.pdetools/icons/grab.gif"/>
   <imageFiles fieldName="HAND" file="/net.jeeeyul.pdetools/icons/hand.gif"/>

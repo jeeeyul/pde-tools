@@ -1,21 +1,33 @@
 package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider;
+import net.jeeeyul.pdetools.shared.KPoint;
+import net.jeeeyul.pdetools.shared.KRectangle;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.OwnerDrawLabelProvider;
 import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.views.IViewDescriptor;
 
 public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	private StyleAndTextFactory factory;
 	private TextLayout sharedLayout;
+	private ElapsedTimeLabelProvider elapsedTimeLabelProvider = new ElapsedTimeLabelProvider();
 
 	private ColumnViewer viewer;
 
@@ -33,8 +45,104 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		super.dispose();
 	}
 
-	private void drawBadge(Event event, ClipboardEntry entry) {
+	private ImageDescriptor getImageDescriptor(ClipboardEntry entry) {
+		IFile file = entry.getReleatedFile();
+		if (file == null) {
+			return getPartImage(entry.getPartId());
+		}
 
+		try {
+			if (file.getContentDescription() != null) {
+				IContentType contentType = file.getContentDescription().getContentType();
+				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName(), contentType);
+			} else {
+				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private ImageDescriptor getPartImage(String partId) {
+		if (partId == null) {
+			return null;
+		}
+
+		IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(partId);
+		if (editor != null) {
+			return editor.getImageDescriptor();
+		}
+
+		IViewDescriptor view = PlatformUI.getWorkbench().getViewRegistry().find(partId);
+		if (view != null) {
+			return view.getImageDescriptor();
+		}
+
+		return null;
+	}
+
+	private void drawBadge(Event event, ClipboardEntry entry) {
+		TableItem item = (TableItem) event.item;
+		Rectangle itemBounds = item.getBounds();
+		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
+
+		Table table = item.getParent();
+
+		String text = elapsedTimeLabelProvider.getText(entry.getTakenTime());
+		int r = 5;
+
+		getSharedLayout().setText(text);
+		KRectangle textBounds = new KRectangle(getSharedLayout().getBounds()).expand(r, 0);
+		if (iconDescriptor != null) {
+			textBounds.expand(16, 0);
+		}
+
+		KPoint textOffset = new KPoint(itemBounds.x + itemBounds.width - textBounds.width, itemBounds.y
+				+ itemBounds.height - textBounds.height);
+
+		KPoint boxOffset = textOffset.getCopy();
+
+		textOffset.translate(-1, -1);
+		boxOffset.translate(-1, -1);
+
+		if (iconDescriptor != null) {
+			textOffset.translate(16, 0);
+		}
+
+		Path path = new Path(table.getDisplay());
+		path.addArc(boxOffset.x - r, boxOffset.y - r, r * 2, r * 2, 90, 90);
+		path.lineTo(boxOffset.x - r, boxOffset.y + textBounds.height);
+		path.lineTo(boxOffset.x + textBounds.width, boxOffset.y + textBounds.height);
+		path.lineTo(boxOffset.x + textBounds.width, boxOffset.y - r);
+		path.lineTo(boxOffset.x, boxOffset.y - r);
+
+		event.gc.setAlpha(255);
+		event.gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		event.gc.fillPath(path);
+
+		getSharedLayout().draw(event.gc, textOffset.x, textOffset.y - r / 2);
+		path.dispose();
+
+		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		event.gc.setAlpha(40);
+		boxOffset.translate(-1, -1);
+		path = new Path(table.getDisplay());
+		path.addArc(boxOffset.x - r, boxOffset.y - r, r * 2, r * 2, 90, 90);
+		path.lineTo(boxOffset.x - r, boxOffset.y + textBounds.height);
+		path.lineTo(boxOffset.x + textBounds.width, boxOffset.y + textBounds.height);
+		path.lineTo(boxOffset.x + textBounds.width, boxOffset.y - r);
+		path.lineTo(boxOffset.x, boxOffset.y - r);
+		event.gc.drawPath(path);
+		path.dispose();
+
+		if (iconDescriptor != null) {
+			event.gc.setAlpha(255);
+			Image image = iconDescriptor.createImage();
+			event.gc.drawImage(image, boxOffset.x - 2, boxOffset.y - r / 2 + 1);
+			image.dispose();
+		}
 	}
 
 	@Override
@@ -76,7 +184,6 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		TableItem item = (TableItem) event.item;
 		Table table = item.getParent();
 		table.setToolTipText("");
-		boolean isLastItem = table.indexOf(item) == table.getItemCount() - 1;
 
 		Rectangle bounds = item.getBounds();
 
@@ -96,12 +203,9 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		}
 		getSharedLayout().draw(event.gc, bounds.x, bounds.y);
 
-		if (!isLastItem) {
-			event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-			event.gc.setAlpha(40);
-			event.gc.drawLine(0, bounds.y + bounds.height - 1, item.getParent().getSize().x, bounds.y + bounds.height
-					- 1);
-		}
+		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		event.gc.setAlpha(40);
+		event.gc.drawLine(0, bounds.y + bounds.height - 1, item.getParent().getSize().x, bounds.y + bounds.height - 1);
 
 		drawBadge(event, entry);
 	}

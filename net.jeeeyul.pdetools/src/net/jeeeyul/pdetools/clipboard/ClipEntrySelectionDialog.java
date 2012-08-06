@@ -7,6 +7,8 @@ import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -283,6 +285,20 @@ public class ClipEntrySelectionDialog {
 				event.doit = false;
 				break;
 
+			case SWT.HOME:
+				if (itemCount > 0) {
+					selection = 0;
+				}
+				event.doit = false;
+				break;
+
+			case SWT.END:
+				if (itemCount > 0) {
+					selection = itemCount - 1;
+				}
+				event.doit = false;
+				break;
+
 			default:
 				return;
 		}
@@ -314,24 +330,29 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.Traverse, hostHook);
 		host.addListener(SWT.KeyDown, hostHook);
 		host.addListener(SWT.Modify, hostHook);
+		host.addListener(SWT.Verify, hostHook);
 		host.addListener(ST_VerifyKey, hostHook);
 		host.addListener(SWT.MouseDown, hostHook);
 		host.addListener(SWT.MouseWheel, hostHook);
 		display.addFilter(SWT.FocusIn, globalFocusHook);
-		parentShell.addListener(SWT.Deactivate, shellHook);
 
 		allocateShell();
 		shell.setVisible(true);
 
 		runLoop();
-		host.removeListener(SWT.MouseWheel, hostHook);
-		host.removeListener(SWT.Traverse, hostHook);
-		host.removeListener(SWT.KeyDown, hostHook);
-		host.removeListener(SWT.Modify, hostHook);
-		host.removeListener(ST_VerifyKey, hostHook);
-		host.removeListener(SWT.MouseDown, hostHook);
+		if (!host.isDisposed()) {
+			host.removeListener(SWT.MouseWheel, hostHook);
+			host.removeListener(SWT.Traverse, hostHook);
+			host.removeListener(SWT.KeyDown, hostHook);
+			host.removeListener(SWT.Modify, hostHook);
+			host.removeListener(ST_VerifyKey, hostHook);
+			host.removeListener(SWT.Verify, hostHook);
+			host.removeListener(SWT.MouseDown, hostHook);
+		}
+
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
-		parentShell.removeListener(SWT.Deactivate, shellHook);
+		if (parentShell != null && !parentShell.isDisposed())
+			parentShell.removeListener(SWT.Deactivate, shellHook);
 
 		return getResult();
 	}
@@ -368,6 +389,8 @@ public class ClipEntrySelectionDialog {
 			case SWT.ARROW_UP:
 			case SWT.PAGE_UP:
 			case SWT.PAGE_DOWN:
+			case SWT.HOME:
+			case SWT.END:
 				if (event.type == SWT.KeyDown) {
 					dialogHook.handleEvent(event);
 				}
@@ -386,8 +409,14 @@ public class ClipEntrySelectionDialog {
 		Display display = parentShell.getDisplay();
 
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+			try {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+			} catch (Exception e) {
+				PDEToolsCore.getDefault().getLog()
+						.log(new Status(IStatus.ERROR, PDEToolsCore.PLUGIN_ID, e.getMessage(), e));
+				e.printStackTrace();
 			}
 		}
 
