@@ -1,16 +1,15 @@
 package net.jeeeyul.pdetools.clipboard.internal
 
+import net.jeeeyul.pdetools.PDEToolsCore
+import net.jeeeyul.pdetools.shared.SWTExtensions
 import org.eclipse.jface.preference.PreferencePage
-import org.eclipse.ui.IWorkbenchPreferencePage
+import org.eclipse.swt.SWT
+import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
-import org.eclipse.swt.SWT
-import net.jeeeyul.pdetools.shared.SWTExtensions
-import org.eclipse.swt.widgets.Button
-import net.jeeeyul.pdetools.PDEToolsCore
+import org.eclipse.ui.IWorkbenchPreferencePage
 
 import static net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants.*
-import org.eclipse.swt.widgets.Text
 
 class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	def static getId(){
@@ -20,7 +19,6 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	extension SWTExtensions = new SWTExtensions
 	Button dontAskRemoveAllButton
 	Button colorizeSelectionButton
-	Text linePerRowText
 
 	new(){
 		preferenceStore = PDEToolsCore::^default.preferenceStore
@@ -45,11 +43,6 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 			Label[
 				text = "Lines per row:"
 			]
-			
-			linePerRowText = TextField[
-			]
-			
-			
 		]
 		update()
 		return result
