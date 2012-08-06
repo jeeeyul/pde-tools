@@ -5,6 +5,7 @@ import net.jeeeyul.pdetools.clipboard.internal.ClipboardView;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.KRectangle;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IOpenListener;
@@ -13,6 +14,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
@@ -89,35 +91,10 @@ public class ClipEntrySelectionDialog {
 	private FocusingJob activation;
 	private ClipboardEntry result;
 	private CaretHint caretHint;
+	private ClipEntryInformationDialog informationDialog;
 
 	public ClipEntrySelectionDialog(Shell parentShell) {
 		this.parentShell = parentShell;
-	}
-
-	protected void handleWheel(Event event) {
-		event.doit = false;
-
-		int index = table.getTopIndex();
-		index -= event.count;
-
-		index = Math.min(Math.max(0, index), table.getItemCount() - 1);
-		table.setTopIndex(index);
-	}
-
-	protected void handleShellEvent(Event event) {
-		if (event.type == SWT.Deactivate) {
-			shell.getDisplay().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (shell == null || shell.isDisposed()) {
-						return;
-					}
-					if (shell.getDisplay().getActiveShell() != shell) {
-						close();
-					}
-				}
-			});
-		}
 	}
 
 	private void activate() {
@@ -127,13 +104,38 @@ public class ClipEntrySelectionDialog {
 	private void allocateShell() {
 		int width = getDialogSettings().getInt("width");
 		int height = getDialogSettings().getInt("height");
-		shell.setSize(width, height);
+
+		KRectangle monitor = new KRectangle(parentShell.getMonitor().getClientArea());
+		KRectangle bounds = new KRectangle(0, 0, width, height);
+
+		bounds.setSize(width, height);
 		if (caretHint != null) {
-			shell.setLocation(caretHint.getX(), caretHint.getY() + caretHint.getHeight());
+			bounds.setLocation(caretHint.getX(), caretHint.getY() + caretHint.getHeight());
+		} else {
+			bounds.x = (monitor.width - width) / 2 + monitor.x;
+			bounds.y = (monitor.height - height) / 2 + monitor.y;
 		}
+
+		if (!monitor.contains(bounds.getRight())) {
+			bounds.translate(-bounds.width, 0);
+		}
+
+		if (!monitor.contains(bounds.getBottom())) {
+			bounds.translate(0, -bounds.height);
+			if (caretHint != null) {
+				bounds.translate(0, -caretHint.getHeight());
+			}
+		}
+
+		shell.setBounds(bounds.toRectangle());
 	}
 
 	private void close() {
+		if (shell != null && !shell.isDisposed()) {
+			Rectangle bounds = shell.getBounds();
+			getDialogSettings().put("width", bounds.width);
+			getDialogSettings().put("height", bounds.height);
+		}
 		closing.schedule();
 	}
 
@@ -186,26 +188,8 @@ public class ClipEntrySelectionDialog {
 			table.select(0);
 			table.notifyListeners(SWT.Selection, new Event());
 		}
-	}
 
-	protected void showView() {
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (window == null) {
-			return;
-		}
-
-		IWorkbenchPage activePage = window.getActivePage();
-		if (activePage == null) {
-			return;
-		}
-
-		try {
-			activePage.showView(ClipboardView.ID);
-			result = null;
-			close();
-		} catch (PartInitException e) {
-			e.printStackTrace();
-		}
+		informationDialog = new ClipEntryInformationDialog(shell, clipboardViewer.getTableViewer());
 	}
 
 	private IDialogSettings getDialogSettings() {
@@ -225,11 +209,32 @@ public class ClipEntrySelectionDialog {
 
 	protected void handleFocusEvent(Event event) {
 		Control control = (Control) event.widget;
-		if (control.getShell() == shell) {
+		if (control.getShell() == shell || control.getShell() == informationDialog.getShell()) {
 			return;
 		}
 		result = null;
 		close();
+	}
+
+	protected void handleShellEvent(Event event) {
+		if (event.type == SWT.Deactivate) {
+			if (shell == null || shell.isDisposed()) {
+				return;
+			}
+			shell.getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (shell == null || shell.isDisposed()) {
+						return;
+					}
+					Shell activeShell = shell.getDisplay().getActiveShell();
+					if (activeShell != shell && activeShell != informationDialog.getShell()) {
+						result = null;
+						close();
+					}
+				}
+			});
+		}
 	}
 
 	protected void handleTableKeyDown(Event event) {
@@ -285,6 +290,16 @@ public class ClipEntrySelectionDialog {
 		table.select(selection);
 		table.showSelection();
 		table.notifyListeners(SWT.Selection, new Event());
+	}
+
+	protected void handleWheel(Event event) {
+		event.doit = false;
+
+		int index = table.getTopIndex();
+		index -= event.count;
+
+		index = Math.min(Math.max(0, index), table.getItemCount() - 1);
+		table.setTopIndex(index);
 	}
 
 	public ClipboardEntry open() {
@@ -383,6 +398,26 @@ public class ClipEntrySelectionDialog {
 
 	public void setCaretHint(CaretHint caretHint) {
 		this.caretHint = caretHint;
+	}
+
+	protected void showView() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (window == null) {
+			return;
+		}
+
+		IWorkbenchPage activePage = window.getActivePage();
+		if (activePage == null) {
+			return;
+		}
+
+		try {
+			activePage.showView(ClipboardView.ID);
+			result = null;
+			close();
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

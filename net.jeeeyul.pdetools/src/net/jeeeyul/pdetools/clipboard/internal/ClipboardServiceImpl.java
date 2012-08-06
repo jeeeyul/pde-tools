@@ -26,6 +26,9 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -141,8 +144,15 @@ public class ClipboardServiceImpl implements IClipboardService {
 				entry.setPartId(part.getSite().getId());
 			}
 
-			if (part.getAdapter(IResource.class) instanceof IFile) {
+			if (part != null && part.getAdapter(IResource.class) instanceof IFile) {
 				entry.setReleatedFile((IFile) part.getAdapter(IResource.class));
+			}
+			
+			if(part instanceof IEditorPart){
+				IEditorInput editorInput = ((IEditorPart) part).getEditorInput();
+				if(editorInput instanceof IFileEditorInput){
+					entry.setReleatedFile(((IFileEditorInput) editorInput).getFile());
+				}
 			}
 		}
 
