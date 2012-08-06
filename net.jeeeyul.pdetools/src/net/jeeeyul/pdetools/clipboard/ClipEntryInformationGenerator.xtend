@@ -1,16 +1,19 @@
 package net.jeeeyul.pdetools.clipboard
 
+import java.io.ByteArrayOutputStream
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry
+import net.jeeeyul.pdetools.shared.Base64Coder
+import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider
+import org.eclipse.jface.resource.ImageDescriptor
+import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.ImageLoader
 import org.eclipse.swt.graphics.RGB
 import org.eclipse.swt.widgets.Display
-import org.eclipse.swt.SWT
 import org.eclipse.ui.PlatformUI
-import org.eclipse.jface.resource.ImageDescriptor
-import org.eclipse.swt.graphics.ImageLoader
-import java.io.ByteArrayOutputStream
-import net.jeeeyul.pdetools.shared.Base64Coder
 
 class ClipEntryInformationGenerator {
+	ElapsedTimeLabelProvider elapsedTimeLabelProvider = new ElapsedTimeLabelProvider
+	
 	def generate(ClipboardEntry entry)'''
 		<!DOCTYPE html>
 		<html>
@@ -68,6 +71,9 @@ class ClipEntryInformationGenerator {
 			<h2>Stats</h2>
 			<ul>
 				<li>«entry.usingCount.times» used.</li>
+				«IF entry.lastUsedTime != null»
+					<li>Recent using: «elapsedTimeLabelProvider.getText(entry.lastUsedTime)»</li>
+				«ENDIF»
 			</ul>
 		</body>
 		</html>

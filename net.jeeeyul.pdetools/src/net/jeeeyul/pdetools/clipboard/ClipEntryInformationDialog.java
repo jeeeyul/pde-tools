@@ -70,7 +70,7 @@ public class ClipEntryInformationDialog implements ISelectionChangedListener {
 		KRectangle monitor = new KRectangle(parentShell.getMonitor().getClientArea());
 		KRectangle parentBounds = new KRectangle(parentShell.getBounds());
 		KRectangle newBounds = parentBounds.translate(parentBounds.width, 0);
-		if (!monitor.contains(newBounds)) {
+		if (!monitor.contains(newBounds.getRight())) {
 			newBounds.translate(parentBounds.width * -2, 0);
 		}
 		shell.setBounds(newBounds.toRectangle());
