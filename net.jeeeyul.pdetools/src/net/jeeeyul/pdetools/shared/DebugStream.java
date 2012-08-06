@@ -16,23 +16,49 @@ public class DebugStream extends PrintStream {
 
 	private static final DebugStream INSTANCE = new DebugStream();
 
+	private static boolean isActivated = false;
+	private static PrintStream orignal;
+
 	public static void activate() {
+		if (isActivated) {
+			return;
+		}
+		orignal = System.out;
 		System.setOut(INSTANCE);
 		System.out.println("Debug Stream Activated");
+		isActivated = true;
+	}
+
+	public static void deactivate() {
+		if (!isActivated) {
+			return;
+		}
+		System.setOut(orignal);
+		isActivated = false;
 	}
 
 	private DebugStream() {
 		super(System.out);
 	}
 
-	@Override
-	public void println(Object x) {
-		showLocation();
-		super.println(x);
+	private StackTraceElement findUserFrame() {
+		for (StackTraceElement each : Thread.currentThread().getStackTrace()) {
+			if (!FILTER.contains(each.getClassName())) {
+				return each;
+			}
+		}
+
+		return null;
 	}
 
 	@Override
-	public void println(String x) {
+	public void println() {
+		showLocation();
+		super.println();
+	}
+
+	@Override
+	public void println(boolean x) {
 		showLocation();
 		super.println(x);
 	}
@@ -62,25 +88,25 @@ public class DebugStream extends PrintStream {
 	}
 
 	@Override
+	public void println(int x) {
+		showLocation();
+		super.println(x);
+	}
+
+	@Override
 	public void println(long x) {
 		showLocation();
 		super.println(x);
 	}
 
 	@Override
-	public void println(boolean x) {
+	public void println(Object x) {
 		showLocation();
 		super.println(x);
 	}
 
 	@Override
-	public void println() {
-		showLocation();
-		super.println();
-	}
-
-	@Override
-	public void println(int x) {
+	public void println(String x) {
 		showLocation();
 		super.println(x);
 	}
@@ -88,15 +114,5 @@ public class DebugStream extends PrintStream {
 	private void showLocation() {
 		StackTraceElement element = findUserFrame();
 		super.print(MessageFormat.format("({0}:{1, number,#}) : ", element.getFileName(), element.getLineNumber()));
-	}
-
-	private StackTraceElement findUserFrame() {
-		for (StackTraceElement each : Thread.currentThread().getStackTrace()) {
-			if (!FILTER.contains(each.getClassName())) {
-				return each;
-			}
-		}
-
-		return null;
 	}
 }
