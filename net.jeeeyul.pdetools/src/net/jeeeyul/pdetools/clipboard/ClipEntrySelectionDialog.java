@@ -298,7 +298,7 @@ public class ClipEntrySelectionDialog {
 				}
 				event.doit = false;
 				break;
-
+				
 			default:
 				return;
 		}
@@ -353,7 +353,7 @@ public class ClipEntrySelectionDialog {
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
 		if (parentShell != null && !parentShell.isDisposed())
 			parentShell.removeListener(SWT.Deactivate, shellHook);
-
+		
 		return getResult();
 	}
 
