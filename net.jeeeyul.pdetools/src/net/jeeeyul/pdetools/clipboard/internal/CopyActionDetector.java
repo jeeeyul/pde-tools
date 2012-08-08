@@ -23,7 +23,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
  */
 public class CopyActionDetector {
 	private static final String[] COPY_COMMANDS = new String[] {
-			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy" };
+			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy" , "org.eclipse.ui.edit.cut"};
 	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);
 	private ExecutionEvent event;
 
