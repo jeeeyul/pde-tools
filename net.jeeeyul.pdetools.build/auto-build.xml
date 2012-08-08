@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="default">
-	<property name="build" location="${basedir}/build" />
-	<property name="repository-name" value="PDE-Tools" />
-	<property file="keystore.properties" />
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="lib/xmltask.jar" />
+	<taskdef name="updateVersion" classname="net.jeeeyul.pdetools.build.task.UpdateVersionTask" classpath="bin" />
 
-	<target name="default" description="description" depends="clean">
-		<eclipse.buildScript elements="feature@net.jeeeyul.pdetools.feature" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
+	<property name="build" location="${basedir}/build" />
+	<property name="repository-name" value="Jeeeyul's PDE-Tools" />
+	<property file="keystore.properties" />
+	<property name="feature-id" value="net.jeeeyul.pdetools.feature" />
+	<property name="update-project" value="net.jeeeyul.pdetools.updatesite" />
+	<property name="version" value="1.0.0" />
+
+	<target name="default" description="description" depends="clean, init">
+		<eclipse.buildScript elements="feature@${feature-id}" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
 
 		<signjar jar="${build}/features/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 		<signjar jar="${build}/plugins/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
-		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="Jeeeyul's Eclipse Tools" artifactrepositoryname="Jeeeyul's Eclipse Tools" category="file:${basedir}/category.xml">
+		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="${repository-name}" artifactrepositoryname="${repository-name}" category="file:${basedir}/category.xml">
 			<features dir="${build}/features" includes="*.jar" />
 			<bundles dir="${build}/plugins" includes="*.jar" />
 		</eclipse.publish.featuresAndBundles>
-
 		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
 		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
 		<jar destfile="${build}/repo/artifacts.jar">
@@ -28,15 +33,15 @@
 		<delete dir="${build}/repo/" includes="*.xml" />
 		<signjar jar="${build}/repo/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
-		<copydir dest="${basedir}/../net.jeeeyul.pdetools.updatesite" src="${build}/repo">
+		<copydir dest="${basedir}/../${update-project}" src="${build}/repo">
 		</copydir>
-		<copydir dest="${basedir}/../net.jeeeyul.pdetools.updatesite" src="${basedir}/web-resource">
+		<copydir dest="${basedir}/../${update-project}" src="${basedir}/web-resource">
 		</copydir>
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
 	<target name="executeBuildScripts">
-		<ant antfile="../net.jeeeyul.pdetools.feature/build.xml" inheritall="false">
+		<ant antfile="../${feature-id}/build.xml" inheritall="false">
 			<property name="javacSource" value="1.6" />
 			<property name="javacTarget" value="1.6" />
 			<property name="buildDirectory" value="temp-build" />
@@ -50,7 +55,7 @@
 			<fileset dir="${build}">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="${basedir}/../net.jeeeyul.pdetools.updatesite">
+			<fileset dir="${basedir}/../${update-project}">
 				<include name="**/*" />
 				<exclude name=".project" />
 			</fileset>
@@ -77,5 +82,14 @@
 		</delete>
 	</target>
 
+	<target name="init">
+		<updateVersion feature="${feature-id}" version="${version}" />
+
+		<echo>카테고리 버전 수정중: ${version}</echo>
+		<xmltask source="${basedir}/category.xml" dest="${basedir}/category.xml" encoding="UTF-8">
+			<replace path="site/feature[@id='${feature-id}']/@version" withText="${version}.qualifier" />
+		</xmltask>
+		<eclipse.refreshLocal depth="infinite" resource="/" />
+	</target>
 </project>
 

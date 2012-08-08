@@ -5,6 +5,13 @@ Bundle-SymbolicName: net.jeeeyul.pdetools.build
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.build.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.xtend.lib,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.core.resources;bundle-version="3.8.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: lib/ant.jar,
+ .
+
