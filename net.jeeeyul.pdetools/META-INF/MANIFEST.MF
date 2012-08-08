@@ -21,13 +21,4 @@ Require-Bundle: org.eclipse.ui,
  net.jeeeyul.pdetools.model;bundle-version=1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/aopalliance.jar,
- lib/guice-3.0.jar,
- lib/javax.inject.jar,
- lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270822.jar,
- lib/org.eclipse.nebula.widgets.compositetable_1.0.0.201206270822.jar,
- lib/com.google.guava_10.0.1.v201203051515.jar,
- lib/org.eclipse.xtend.lib_2.4.0.v201207240245.jar,
- lib/org.eclipse.xtend2.lib_2.4.0.v201207240245.jar,
- lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207240245.jar,
- .
+Bundle-ClassPath: .

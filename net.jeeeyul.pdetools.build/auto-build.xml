@@ -4,7 +4,7 @@
 	<taskdef name="updateVersion" classname="net.jeeeyul.pdetools.build.task.UpdateVersionTask" classpath="bin" />
 
 	<property name="build" location="${basedir}/build" />
-	<property name="repository-name" value="Jeeeyul's PDE-Tools" />
+	<property name="repository-name" value="PDE-Tools from Jeeeyul" />
 	<property file="keystore.properties" />
 	<property name="feature-id" value="net.jeeeyul.pdetools.feature" />
 	<property name="update-project" value="net.jeeeyul.pdetools.updatesite" />
@@ -85,7 +85,7 @@
 	<target name="init">
 		<updateVersion feature="${feature-id}" version="${version}" />
 
-		<echo>카테고리 버전 수정중: ${version}</echo>
+		<echo>Update versions on category.xml: ${version}</echo>
 		<xmltask source="${basedir}/category.xml" dest="${basedir}/category.xml" encoding="UTF-8">
 			<replace path="site/feature[@id='${feature-id}']/@version" withText="${version}.qualifier" />
 		</xmltask>

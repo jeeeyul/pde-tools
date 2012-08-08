@@ -44,14 +44,14 @@ public class UpdateVersionTask extends Task {
 			}
 
 			for (Manifest m : manifests) {
-				System.out.println(m.getBundleId() + " 버전 수정 > " + this.version
+				System.out.println(m.getBundleId() + " Update version > " + this.version
 						+ ".qualifier");
 				m.setBundleVersion(this.version + ".qualifier");
 				m.updateDependencies(bundleIdList, this.version);
 				m.save();
 			}
 
-			System.out.println("피쳐 파일의 버전을 수정하는 중...");
+			System.out.println("Update versions on feature");
 			IFile featureFile = getFeatureProject().getFile("feature.xml");
 			String featureContent = read(featureFile.getContents(),
 					featureFile.getCharset());
