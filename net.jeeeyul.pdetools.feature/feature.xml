@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="net.jeeeyul.pdetools.feature"
-      label="PDE-Tools"
+      label="Jeeeyul&apos;s PDE-Tools"
       version="1.0.0.qualifier"
       provider-name="jeeeyul@gmail.com">
 
