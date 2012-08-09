@@ -1,7 +1,5 @@
 # pde-tools
 
-![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/clipboard-history-paste.png)
-
 ## Features
 * Generates Shared Image Constants for Plugin Developments
 * Icon Previewing Decorator
@@ -22,9 +20,15 @@ It also provides view.
 
 
 ## Icon Preview
+Icon files are directly showed in Package Explorer or other navigators.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/icon-preview.png)
 
 ## Shared Image Generator
+PDE Tools generates Java constants for monitored folder.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/shared-image-generator.png)
+
+1. Select a plugin project and press right mouse button.
+2. Select "Configure > Enable Shared Image Generator"
+3. That's all.
