@@ -1,6 +1,6 @@
 # pde-tools
 
-Jeeeyul's PDE-tools provide some features for Eclipse Plugin Developers.
+Jeeeyul's PDE-tools provides some cool features for Eclipse Plugin Developers.
 
 It was originated for me and my team. And it works greate for me. I hope it helps you too.
 
