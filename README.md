@@ -1,5 +1,9 @@
 # pde-tools
 
+Jeeeyul's PDE-tools provide some features for Eclipse Plugin Developers.
+
+It was originated for me and my team. And it works greate for me. I hope it helps you too.
+
 ## Features
 * Generates Shared Image Constants for Plugin Developments
 * Icon Previewing Decorator
