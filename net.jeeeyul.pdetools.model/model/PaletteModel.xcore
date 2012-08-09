@@ -9,7 +9,7 @@ import org.eclipse.core.resources.IFolder
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
 import org.eclipse.swt.graphics.ImageData
 
-type File wraps IFile create
+type IFile wraps IFile create
 {
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
@@ -18,7 +18,7 @@ convert
 	it.fullPath.toPortableString
 }
 
-type Folder wraps IFolder create
+type IFolder wraps IFolder create
 { 
 	ResourcesPlugin::workspace.root.getFolder(new Path(it))
 }
@@ -48,7 +48,7 @@ class Palette extends FieldNameOwner
 	/**
 	 * 팔레트가 표현하는 워크스페이스상의 폴더.
 	 */
-	Folder folder
+	IFolder folder
 	
 	contains Palette[] subPalettes opposite parent
 	contains ImageFile[] imageFiles opposite parent
@@ -61,5 +61,5 @@ class ImageFile extends FieldNameOwner
 	/**
 	 * 워크스페이스 상의 실제 IFile
 	 */
-	id File file
+	id IFile file
 }

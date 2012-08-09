@@ -10,7 +10,7 @@ import org.eclipse.core.resources.IFolder
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
 import org.eclipse.swt.graphics.ImageData
 
-type File wraps IFile create
+type IFile wraps IFile create
 {
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
@@ -19,7 +19,7 @@ convert
 	it.fullPath.toPortableString
 }
 
-type Folder wraps IFolder create
+type IFolder wraps IFolder create
 { 
 	ResourcesPlugin::workspace.root.getFolder(new Path(it))
 }
@@ -28,8 +28,6 @@ convert
 	it.fullPath.toPortableString
 }
 
-
-
 type ImageData wraps ImageData
 create{
 	ImageDataSerializer::deserialize(it)
@@ -37,8 +35,6 @@ create{
 convert{
 	ImageDataSerializer::serialize(it)
 }
-
-
 
 class SnapshotRepository
 {

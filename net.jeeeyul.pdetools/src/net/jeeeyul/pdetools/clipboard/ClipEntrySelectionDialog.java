@@ -7,6 +7,7 @@ import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -30,6 +31,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.progress.UIJob;
 
 public class ClipEntrySelectionDialog {
 	private static final int ST_VerifyKey = 3005;
@@ -94,6 +96,8 @@ public class ClipEntrySelectionDialog {
 	private ClipboardEntry result;
 	private CaretHint caretHint;
 	private ClipEntryInformationDialog informationDialog;
+
+	private UIJob cancelJob;
 
 	public ClipEntrySelectionDialog(Shell parentShell) {
 		this.parentShell = parentShell;
@@ -194,6 +198,20 @@ public class ClipEntrySelectionDialog {
 		informationDialog = new ClipEntryInformationDialog(shell, clipboardViewer.getTableViewer());
 	}
 
+	public UIJob getCancelJob() {
+		if (cancelJob == null) {
+			cancelJob = new UIJob("Cancel") {
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					result = null;
+					close();
+					return Status.OK_STATUS;
+				}
+			};
+		}
+		return cancelJob;
+	}
+
 	private IDialogSettings getDialogSettings() {
 		IDialogSettings section = PDEToolsCore.getDefault().getDialogSettings()
 				.getSection(getClass().getCanonicalName());
@@ -212,10 +230,24 @@ public class ClipEntrySelectionDialog {
 	protected void handleFocusEvent(Event event) {
 		Control control = (Control) event.widget;
 		if (control.getShell() == shell || control.getShell() == informationDialog.getShell()) {
+			getCancelJob().cancel();
 			return;
 		}
 		result = null;
 		close();
+	}
+
+	protected void handleParentShellEvent(Event event) {
+		switch (event.type) {
+			case SWT.Deactivate:
+				if (Display.getDefault().getActiveShell() == null) {
+					result = null;
+					close();
+				}
+
+			default:
+		}
+
 	}
 
 	protected void handleShellEvent(Event event) {
@@ -223,19 +255,7 @@ public class ClipEntrySelectionDialog {
 			if (shell == null || shell.isDisposed()) {
 				return;
 			}
-			shell.getDisplay().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (shell == null || shell.isDisposed()) {
-						return;
-					}
-					Shell activeShell = shell.getDisplay().getActiveShell();
-					if (activeShell != shell && activeShell != informationDialog.getShell()) {
-						result = null;
-						close();
-					}
-				}
-			});
+			getCancelJob().schedule(10);
 		}
 	}
 
@@ -298,7 +318,7 @@ public class ClipEntrySelectionDialog {
 				}
 				event.doit = false;
 				break;
-				
+
 			default:
 				return;
 		}
@@ -335,6 +355,7 @@ public class ClipEntrySelectionDialog {
 		host.addListener(SWT.MouseDown, hostHook);
 		host.addListener(SWT.MouseWheel, hostHook);
 		display.addFilter(SWT.FocusIn, globalFocusHook);
+		parentShell.addListener(SWT.Deactivate, shellHook);
 
 		allocateShell();
 		shell.setVisible(true);
@@ -353,7 +374,7 @@ public class ClipEntrySelectionDialog {
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
 		if (parentShell != null && !parentShell.isDisposed())
 			parentShell.removeListener(SWT.Deactivate, shellHook);
-		
+
 		return getResult();
 	}
 

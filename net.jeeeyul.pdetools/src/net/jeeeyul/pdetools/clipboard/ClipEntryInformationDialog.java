@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.clipboard.internal.OpenResourceFunction;
+import net.jeeeyul.pdetools.clipboard.internal.OpenJavaElementFunction;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
@@ -59,6 +60,7 @@ public class ClipEntryInformationDialog implements ISelectionChangedListener {
 		shell.setBackgroundMode(SWT.INHERIT_FORCE);
 		shell.setLayout(new FillLayout());
 		browser = new Browser(shell, SWT.NORMAL);
+		new OpenJavaElementFunction(browser);
 		new OpenResourceFunction(browser);
 	}
 

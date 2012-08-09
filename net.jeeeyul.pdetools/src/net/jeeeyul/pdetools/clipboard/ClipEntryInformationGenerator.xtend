@@ -25,7 +25,7 @@ class ClipEntryInformationGenerator {
 			html, body{
 				background-color: «Display::^default.getSystemColor(SWT::COLOR_INFO_BACKGROUND).RGB.toHtmlColor»;
 				margin: 0px;
-				padding: 0px;
+				padding: 5px;
 			}
 			
 			*{
@@ -40,6 +40,10 @@ class ClipEntryInformationGenerator {
 			ul{
 				margin-top: 5px;
 			}
+			
+			.line-wrap{
+				word-wrap:break-word;
+			}
 		</style>
 		<script type="text/javascript">
 			
@@ -53,11 +57,48 @@ class ClipEntryInformationGenerator {
 				<h2>Capture Information</h2>
 			«ENDIF»
 			<ul>
-				«IF entry.releatedFile != null»
+				«IF entry.javaInfo != null && entry.releatedFile != null && entry.textRange != null»
+					<li>Java Element: 
+						<a href="#" class="line-wrap" onclick="openResource('«entry.releatedFile.fullPath.toPortableString»', «entry.textRange.offset», «entry.textRange.length»)">
+							«IF entry.javaInfo.enclosingElementName!= null»
+								«entry.javaInfo.enclosingElementName» (Line: «entry.textRange.startLine + 1»)
+							«ELSE»
+								«entry.javaInfo.qualifiedTypeName» (Line: «entry.textRange.startLine + 1»)
+							«ENDIF»
+						</a>
+					</li>
+				«ELSEIF entry.javaInfo != null && entry.releatedFile == null && entry.textRange != null»
+					<li>Java Element: 
+						<a href="#" class="line-wrap" onclick="openJavaElement('«entry.javaInfo.qualifiedTypeName»', «entry.textRange.offset», «entry.textRange.length»)">
+							«IF entry.javaInfo.enclosingElementName!= null»
+								«entry.javaInfo.enclosingElementName» (Line: «entry.textRange.startLine + 1»)
+							«ELSE»
+								«entry.javaInfo.qualifiedTypeName» (Line: «entry.textRange.startLine + 1»)
+							«ENDIF»
+						</a>
+					</li>
+				«ELSEIF entry.javaInfo != null && entry.releatedFile == null && entry.textRange == null»
+					<li>Java Element: 
+						<a href="#" class="line-wrap" onclick="openJavaElement('«entry.javaInfo.qualifiedTypeName»')">
+							«IF entry.javaInfo.enclosingElementName!= null»
+								«entry.javaInfo.enclosingElementName»
+							«ELSE»
+								«entry.javaInfo.qualifiedTypeName»
+							«ENDIF»
+						</a>
+					</li>
+				«ELSEIF entry.releatedFile != null && entry.textRange == null»
 					<li>
 						Resource: 
 						<a href="#" onclick="openResource('«entry.releatedFile.fullPath.toPortableString»')">
 							«entry.releatedFile.name»
+						</a>
+					</li>
+				«ELSEIF entry.releatedFile != null && entry.textRange != null»
+					<li>
+						Resource: 
+						<a href="#" onclick="openResource('«entry.releatedFile.fullPath.toPortableString»', «entry.textRange.offset», «entry.textRange.length»)">
+							«entry.releatedFile.name» (Line: «entry.textRange.startLine + 1»)
 						</a>
 					</li>
 				«ENDIF»
@@ -117,5 +158,21 @@ class ClipEntryInformationGenerator {
 			} else {
 				return times + " times"
 			}
+	}
+	
+	def String lastSegment(String source){
+		if(source == null){
+			return ""
+		}
+		
+		source.split("\\.").last
+	}
+	
+	def String lineWrapable(String source){
+		if(source == null){
+			return ""
+		}
+		
+		source.split("\\.").join(".")['''<span class="line-wrap">«it»</span>'''].toString
 	}
 }

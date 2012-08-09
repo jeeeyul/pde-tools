@@ -10,6 +10,8 @@ import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
 import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
+import net.jeeeyul.pdetools.clipboard.model.clipboard.JavaInfo;
+import net.jeeeyul.pdetools.clipboard.model.clipboard.TextRange;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.IFile;
@@ -20,6 +22,17 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IMember;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeRoot;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.ui.JavaElementLabels;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.osgi.util.TextProcessor;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.RTFTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -139,21 +152,63 @@ public class ClipboardServiceImpl implements IClipboardService {
 		// clip entry from outside of elcipse.
 		if (event != null) {
 			IWorkbenchPart part = HandlerUtil.getActivePart(event);
+			IFile file = null;
+			ITextSelection textSelection = null;
+
+			if (part != null && part.getAdapter(IResource.class) instanceof IFile) {
+				file = (IFile) part.getAdapter(IResource.class);
+			}
+
 			if (part != null) {
-				entry.setImageData(part.getTitleImage().getImageData());
 				entry.setPartId(part.getSite().getId());
 			}
 
-			if (part != null && part.getAdapter(IResource.class) instanceof IFile) {
-				entry.setReleatedFile((IFile) part.getAdapter(IResource.class));
+			if (file != null) {
+				entry.setReleatedFile(file);
 			}
-			
-			if(part instanceof IEditorPart){
-				IEditorInput editorInput = ((IEditorPart) part).getEditorInput();
-				if(editorInput instanceof IFileEditorInput){
-					entry.setReleatedFile(((IFileEditorInput) editorInput).getFile());
+
+			if (part != null) {
+				ISelectionProvider selectionProvider = part.getSite().getSelectionProvider();
+				ISelection selection = selectionProvider.getSelection();
+
+				if (selection instanceof ITextSelection) {
+					textSelection = (ITextSelection) selection;
+					TextRange range = ClipboardFactory.eINSTANCE.createTextRange();
+					range.setStartLine(textSelection.getStartLine());
+					range.setOffset(textSelection.getOffset());
+					range.setEndLine(textSelection.getEndLine());
+					range.setLength(textSelection.getLength());
+					entry.setTextRange(range);
 				}
 			}
+
+			if (part instanceof IEditorPart) {
+				IEditorInput editorInput = ((IEditorPart) part).getEditorInput();
+				if (editorInput instanceof IFileEditorInput) {
+					entry.setReleatedFile(((IFileEditorInput) editorInput).getFile());
+				}
+
+				IJavaElement element = JavaUI.getEditorInputJavaElement(editorInput);
+				if (element instanceof ITypeRoot && textSelection != null) {
+					ITypeRoot root = (ITypeRoot) element;
+					try {
+						IType primaryType = root.findPrimaryType();
+						IJavaElement cursorElement = root.getElementAt(textSelection.getOffset());
+
+						JavaInfo javaInfo = ClipboardFactory.eINSTANCE.createJavaInfo();
+						javaInfo.setQualifiedTypeName(getQualifiedName(primaryType));
+
+						if (cursorElement instanceof IMember) {
+							if (!cursorElement.equals(primaryType) && !cursorElement.equals(root))
+								javaInfo.setEnclosingElementName(getQualifiedName(cursorElement));
+						}
+						entry.setJavaInfo(javaInfo);
+					} catch (JavaModelException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
 		}
 
 		entry.setTakenTime(new Date());
@@ -204,5 +259,14 @@ public class ClipboardServiceImpl implements IClipboardService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private String getQualifiedName(IJavaElement element) {
+		long LABEL_FLAGS = new Long(JavaElementLabels.F_FULLY_QUALIFIED | JavaElementLabels.M_FULLY_QUALIFIED
+				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
+				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
+				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
+				.longValue();
+		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
 	}
 }

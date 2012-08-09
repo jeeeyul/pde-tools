@@ -5,9 +5,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.texteditor.ITextEditor;
 
 public class OpenResourceFunction extends BrowserFunction {
 
@@ -18,9 +20,18 @@ public class OpenResourceFunction extends BrowserFunction {
 	@Override
 	public Object function(Object[] arguments) {
 		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path((String) arguments[0]));
-		System.out.println(file);
+
 		try {
-			IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), file);
+			IEditorPart editor = IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
+					file);
+
+			if (arguments.length == 3 && editor instanceof ITextEditor) {
+				int offset = (int) Double.parseDouble(arguments[1].toString());
+				int length = (int) Double.parseDouble(arguments[2].toString());
+				ITextEditor textEditor = (ITextEditor) editor;
+				textEditor.selectAndReveal(offset, length);
+			}
+
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

@@ -15,9 +15,7 @@ import org.eclipse.core.resources.IFolder
 import org.eclipse.core.runtime.Path
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
 
-
-
-type File wraps IFile create
+type IFile wraps IFile create
 {
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
@@ -26,7 +24,7 @@ convert
 	it.fullPath.toPortableString
 }
 
-type Folder wraps IFolder create
+type IFolder wraps IFolder create
 { 
 	ResourcesPlugin::workspace.root.getFolder(new Path(it))
 }
@@ -56,11 +54,12 @@ class ClipboardEntry{
 	String textContent
 	String rtfContent
 	Date takenTime
-	ImageData imageData
 	String partId
-	File releatedFile
+	IFile releatedFile
 	
 	container ClipHistory parent opposite entries 
+	contains TextRange textRange
+	contains JavaInfo javaInfo
 	
 	op void transferTo(Clipboard clipboard){
 		var transferList = new ArrayList<Transfer>
@@ -83,4 +82,16 @@ class ClipboardEntry{
 		usingCount = usingCount + 1
 		lastUsedTime = new Date()
 	}
+}
+
+class TextRange{
+	int offset
+	int length
+	int startLine
+	int endLine
+}
+
+class JavaInfo{
+	String qualifiedTypeName
+	String enclosingElementName
 }
