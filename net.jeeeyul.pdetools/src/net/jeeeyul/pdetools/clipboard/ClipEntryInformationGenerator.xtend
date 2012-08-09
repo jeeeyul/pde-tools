@@ -44,6 +44,18 @@ class ClipEntryInformationGenerator {
 			.line-wrap{
 				word-wrap:break-word;
 			}
+			
+			pre{
+				margin: 5px;
+				margin-left: 10px;
+			}
+			
+			span.tab{
+				width: 1em;
+				height: 1em;
+				display:inline-block;
+				overflow: hidden;
+			}
 		</style>
 		<script type="text/javascript">
 			
@@ -101,7 +113,12 @@ class ClipEntryInformationGenerator {
 							«entry.releatedFile.name» (Line: «entry.textRange.startLine + 1»)
 						</a>
 					</li>
+				«ELSEIF entry.partId == null»
+					<li>
+						Unknown location, Captured from outside of Workbench.
+					</li>
 				«ENDIF»
+				
 				«IF entry.takenTime != null»
 					<li>
 						Time: «entry.takenTime.toLocaleString»
@@ -116,6 +133,11 @@ class ClipEntryInformationGenerator {
 					<li>Recent using: «elapsedTimeLabelProvider.getText(entry.lastUsedTime)»</li>
 				«ENDIF»
 			</ul>
+			
+			<h2>Full Content</h2>
+			<pre>
+		«entry.textContent.replace("<", "&lt;").replace(">", "&gt;").replace("\t", '''<span class="tab">«"\t"»</span>''')»
+			</pre>
 		</body>
 		</html>
 	'''
