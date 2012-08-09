@@ -6,6 +6,7 @@ import net.jeeeyul.pdetools.shared.KPoint;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -120,6 +121,9 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		}
 
 		try {
+			if(!file.isSynchronized(IResource.DEPTH_ONE)){
+				file.refreshLocal(IResource.DEPTH_ONE, null);
+			}
 			if (file.getContentDescription() != null) {
 				IContentType contentType = file.getContentDescription().getContentType();
 				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName(), contentType);
