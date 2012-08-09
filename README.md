@@ -6,9 +6,6 @@
 * Enhanced Clipboard (History feature)
 * Screen shot tool
 
-## Warning
-* A lot of code wrtten with [Xtend](http://www.eclipse.org/xtend/).
-
 ## Clipboard History
 Just press Control + Shift + V instead of Control + V, then you will paste contents from history of Clipboard.
 
