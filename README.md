@@ -14,7 +14,7 @@ It was originated for me and my team. And it works greate for me. I hope it help
 * Update Site(Eclipse 3.7 ~ 4.2): https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite
 
 ## Clipboard History
-Just press Control + Shift + V instead of Control + V, then you will paste contents from history of Clipboard.
+Just press Control + Shift + V instead of Control + V, then you can paste contents from history of Clipboard.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/clipboard-history-paste.png)
 
