@@ -23,6 +23,8 @@ It also provides view.
 ## Icon Preview
 Icon files are directly showed in Package Explorer or other navigators.
 
+It's fast and light-weight, content change sensitive.
+
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/icon-preview.png)
 
 ## Shared Image Generator
