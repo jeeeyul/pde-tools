@@ -55,6 +55,9 @@ public class ClipEntryInformationDialog implements ISelectionChangedListener {
 	}
 
 	private void create() {
+		if (shell != null && !shell.isDisposed()) {
+			return;
+		}
 		shell = new Shell(parentShell, SWT.ON_TOP | SWT.RESIZE);
 		shell.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 		shell.setBackgroundMode(SWT.INHERIT_FORCE);
@@ -113,6 +116,9 @@ public class ClipEntryInformationDialog implements ISelectionChangedListener {
 	}
 
 	public Shell getShell() {
+		if (shell == null || shell.isDisposed()) {
+			create();
+		}
 		return shell;
 	}
 

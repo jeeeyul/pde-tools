@@ -80,10 +80,10 @@ public class ClipEntrySelectionDialog {
 		}
 	};
 
-	Listener shellHook = new Listener() {
+	Listener deactivateHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			handleShellEvent(event);
+			handleShellDeactivation(event);
 		}
 	};
 
@@ -250,7 +250,7 @@ public class ClipEntrySelectionDialog {
 
 	}
 
-	protected void handleShellEvent(Event event) {
+	protected void handleShellDeactivation(Event event) {
 		if (event.type == SWT.Deactivate) {
 			if (shell == null || shell.isDisposed()) {
 				return;
@@ -354,8 +354,11 @@ public class ClipEntrySelectionDialog {
 		host.addListener(ST_VerifyKey, hostHook);
 		host.addListener(SWT.MouseDown, hostHook);
 		host.addListener(SWT.MouseWheel, hostHook);
+
 		display.addFilter(SWT.FocusIn, globalFocusHook);
-		parentShell.addListener(SWT.Deactivate, shellHook);
+		parentShell.addListener(SWT.Deactivate, deactivateHook);
+		shell.addListener(SWT.Deactivate, deactivateHook);
+		informationDialog.getShell().addListener(SWT.Deactivate, deactivateHook);
 
 		allocateShell();
 		shell.setVisible(true);
@@ -373,7 +376,7 @@ public class ClipEntrySelectionDialog {
 
 		display.removeFilter(SWT.FocusIn, globalFocusHook);
 		if (parentShell != null && !parentShell.isDisposed())
-			parentShell.removeListener(SWT.Deactivate, shellHook);
+			parentShell.removeListener(SWT.Deactivate, deactivateHook);
 
 		return getResult();
 	}
