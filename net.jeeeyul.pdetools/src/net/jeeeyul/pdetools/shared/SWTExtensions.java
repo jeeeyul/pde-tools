@@ -1,5 +1,7 @@
 package net.jeeeyul.pdetools.shared;
 
+import java.util.Iterator;
+
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -40,27 +42,27 @@ public class SWTExtensions {
 		return rectangle;
 	}
 
-	public static int getMenubarHeight(){
-		if(MENU_BAR_HEIGHT != null){
+	public static int getMenubarHeight() {
+		if (MENU_BAR_HEIGHT != null) {
 			return MENU_BAR_HEIGHT;
 		}
-		
-		if(Display.getCurrent() == null){
+
+		if (Display.getCurrent() == null) {
 			throw new SWTException("Invalid Thread Exception");
 		}
-		
+
 		Shell dummy = new Shell();
 		Menu menu = new Menu(dummy, SWT.BAR);
 		dummy.setMenuBar(menu);
 		Rectangle boundsWithMenu = dummy.computeTrim(0, 0, 0, 0);
-		
+
 		dummy.setMenuBar(null);
 		Rectangle boundsWithoutMenu = dummy.computeTrim(0, 0, 0, 0);
-		
+
 		dummy.dispose();
-		
+
 		MENU_BAR_HEIGHT = boundsWithMenu.height - boundsWithoutMenu.height;
-		
+
 		return MENU_BAR_HEIGHT;
 	}
 
@@ -119,6 +121,10 @@ public class SWTExtensions {
 		GridData _gridData = new GridData(GridData.FILL_HORIZONTAL);
 		GridData gd = _gridData;
 		return gd;
+	}
+
+	public Iterator<? extends Widget> getAllContents(Composite root) {
+		return new WidgetIterator(root);
 	}
 
 	public GridData FILL_HORIZONTAL(final Procedure1<? super GridData> initializer) {
@@ -394,15 +400,15 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-	
-	public static Point getLocation(Rectangle rectangle){
+
+	public static Point getLocation(Rectangle rectangle) {
 		return new Point(rectangle.x, rectangle.y);
 	}
-	
-	public static Rectangle setLocation(Rectangle rectangle, Point location){
+
+	public static Rectangle setLocation(Rectangle rectangle, Point location) {
 		rectangle.x = location.x;
 		rectangle.y = location.y;
 		return rectangle;
-		
+
 	}
 }

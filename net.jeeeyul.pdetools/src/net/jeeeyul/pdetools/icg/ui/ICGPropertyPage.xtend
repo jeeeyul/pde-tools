@@ -23,6 +23,10 @@ import org.eclipse.ui.model.BaseWorkbenchContentProvider
 import net.jeeeyul.pdetools.shared.SimpleViewerFilter
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFolder
+import org.eclipse.jface.fieldassist.ControlDecoration
+import org.eclipse.swt.SWT
+import net.jeeeyul.pdetools.shared.SharedImages
+import org.eclipse.swt.layout.GridData
 
 class ICGPropertyPage extends PropertyPage {
 	public static  val ID = "net.jeeeyul.pdetools.icg.propertyPage"
@@ -39,7 +43,7 @@ class ICGPropertyPage extends PropertyPage {
 	
 	override protected createContents(Composite parent) {
 		schedule[refresh()]
-		parent.Composite[
+		var contents = parent.Composite[
 			layout = GridLayout
 			
 			Group[
@@ -105,6 +109,17 @@ class ICGPropertyPage extends PropertyPage {
 				]
 			]
 		]
+		
+		for(e : contents.allContents.filter(typeof(Text)).toList){
+			var gridData = e.layoutData as GridData
+			gridData.horizontalIndent = 16
+			
+			var deco = new ControlDecoration(e, SWT::LEFT)
+			deco.setImage(SharedImages::getImage(SharedImages::ADD))
+			deco.setDescriptionText("Fuck");
+		}
+		
+		return contents
 	}
 	
 	def private void refresh(){
