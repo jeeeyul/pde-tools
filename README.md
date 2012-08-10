@@ -2,7 +2,7 @@
 
 Jeeeyul's PDE-tools provides some cool features for Eclipse Plugin Developers.
 
-It was originated for me and my team. And it works greate for me. I hope it helps you too.
+It was originated for me and my team. And it works great for me. I hope it helps you too.
 
 <table style="border: none;">
   <tbody>
