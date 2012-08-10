@@ -78,7 +78,7 @@ class ImageCosntantGenerator {
 					URL resource = null;
 					
 					if(bundle != null){
-						Platform.getBundle("«config.bundleId»").getResource(key);
+						resource = Platform.getBundle("«config.bundleId»").getResource(key);
 					}else{
 						resource = new File(key).toURI().toURL();	
 					}
@@ -97,7 +97,7 @@ class ImageCosntantGenerator {
 					URL resource = null;
 					
 					if(bundle != null){
-						Platform.getBundle("«config.bundleId»").getResource(key);
+						resource = Platform.getBundle("«config.bundleId»").getResource(key);
 					}else{
 						resource = new File(key).toURI().toURL();	
 					}
