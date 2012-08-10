@@ -4,6 +4,21 @@ Jeeeyul's PDE-tools provides some cool features for Eclipse Plugin Developers.
 
 It was originated for me and my team. And it works greate for me. I hope it helps you too.
 
+<table style="border: none;">
+  <tbody>
+    <tr style="border:none;">
+      <td style="vertical-align: middle; padding-top: 10px; border: none;">
+        <a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=367947' title='Drag and drop into a running Eclipse Indigo workspace to install PDE Tools'> 
+          <img src='http://marketplace.eclipse.org/misc/installbutton.png'/>
+        </a>
+      </td>
+      <td style="vertical-align: middle; text-align: left; border: none;">
+        ← Drag it to your eclipse workbench to install! (I recommand Main Toolbar as Drop Target)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## Features
 * Generates Shared Image Constants for Plugin Developments
 * Icon Previewing Decorator
