@@ -48,6 +48,9 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 			
 			maxItemCountField = TextField[
 				validExpression = "[0-9]{0,3}"
+				layoutData = GridData[
+					widthHint = 100
+				]
 			]
 			
 		]
