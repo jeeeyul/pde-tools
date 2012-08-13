@@ -82,6 +82,22 @@ class ClipboardEntry{
 		usingCount = usingCount + 1
 		lastUsedTime = new Date()
 	}
+	
+	op int hashCode(){
+		if(textContent != null){
+			textContent.hashCode
+		}else{
+			-1
+		}
+	}
+	
+	op boolean eqauls(Object other){
+		if(other instanceof ClipboardEntry){
+			return this.hashCode == other.hashCode
+		}else{
+			return false
+		}
+	}
 }
 
 class TextRange{
