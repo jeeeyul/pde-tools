@@ -213,6 +213,15 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 		entry.setTakenTime(new Date());
 		getHistory().getEntries().add(0, entry);
+
+		int maxSize = PDEToolsCore.getDefault().getPreferenceStore()
+				.getInt(ClipboardPreferenceConstants.CLIPBOARD_MAXIMUM_HISTORY_SIZE);
+
+		if (maxSize > 0) {
+			while (getHistory().getEntries().size() > maxSize) {
+				getHistory().getEntries().remove(getHistory().getEntries().size() - 1);
+			}
+		}
 	}
 
 	protected TextTransfer getTextTransfer() {

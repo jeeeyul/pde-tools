@@ -433,5 +433,11 @@
             name="Clipboard">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

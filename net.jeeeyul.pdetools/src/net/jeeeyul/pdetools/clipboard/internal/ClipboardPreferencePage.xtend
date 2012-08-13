@@ -10,6 +10,7 @@ import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 
 import static net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants.*
+import org.eclipse.swt.widgets.Text
 
 class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	def static getId(){
@@ -19,6 +20,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	extension SWTExtensions = new SWTExtensions
 	Button dontAskRemoveAllButton
 	Button colorizeSelectionButton
+	Text maxItemCountField
 
 	new(){
 		preferenceStore = PDEToolsCore::^default.preferenceStore
@@ -41,21 +43,40 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 			]
 			
 			Label[
-				text = "Lines per row:"
+				text = "Max item count:"
 			]
+			
+			maxItemCountField = TextField[
+				validExpression = "[0-9]{0,3}"
+				layoutData = GridData[
+					widthHint = 100
+				]
+			]
+			
 		]
 		update()
 		return result
+	}
+	
+	def private setValidExpression(Text text, String regExp){
+		text.addListener(SWT::Verify)[
+			var before = text.text
+			var after = before.subSequence(0, text.selection.x) + it.text + before.substring(text.selection.y)
+			var evaluate = after.trim()
+			it.doit = evaluate.matches(regExp)
+		]
 	}
 
 	def private update() {
 		dontAskRemoveAllButton.selection = preferenceStore.getBoolean(CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES)
 		colorizeSelectionButton.selection = preferenceStore.getBoolean(CLIPBOARD_COLORLIZE_IN_SELECTION)
+		maxItemCountField.text = Integer::toString(preferenceStore.getInt(CLIPBOARD_MAXIMUM_HISTORY_SIZE))
 	}
 	
 	override performOk() {
 		preferenceStore.setValue(CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES, dontAskRemoveAllButton.selection)
 		preferenceStore.setValue(CLIPBOARD_COLORLIZE_IN_SELECTION, colorizeSelectionButton.selection)
+		preferenceStore.setValue(CLIPBOARD_MAXIMUM_HISTORY_SIZE, Integer::parseInt(maxItemCountField.text))
 		
 		return true
 	}
@@ -63,6 +84,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	override protected performDefaults() {
 		dontAskRemoveAllButton.selection = preferenceStore.getDefaultBoolean(CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES)
 		colorizeSelectionButton.selection = preferenceStore.getDefaultBoolean(CLIPBOARD_COLORLIZE_IN_SELECTION)
+		maxItemCountField.text = Integer::toString(preferenceStore.getDefaultInt(CLIPBOARD_MAXIMUM_HISTORY_SIZE))
 	}
 
 	override init(IWorkbench workbench) {
