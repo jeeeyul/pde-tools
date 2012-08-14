@@ -1,4 +1,4 @@
-# pde-tools
+# pde-tools, Make your Eclipse more AWESOME!
 
 Jeeeyul's PDE-tools provides some cool features for Eclipse Plugin Developers.
 
