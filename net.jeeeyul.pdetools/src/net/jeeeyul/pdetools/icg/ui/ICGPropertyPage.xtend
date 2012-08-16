@@ -25,6 +25,7 @@ import org.eclipse.ui.PlatformUI
 import org.eclipse.ui.dialogs.ElementListSelectionDialog
 import org.eclipse.ui.dialogs.PropertyPage
 import org.eclipse.ui.model.WorkbenchLabelProvider
+import org.eclipse.ui.progress.UIJob
 
 class ICGPropertyPage extends PropertyPage {
 	public static  val ID = "net.jeeeyul.pdetools.icg.propertyPage"
@@ -37,11 +38,66 @@ class ICGPropertyPage extends PropertyPage {
 	Text generateClassNameField
 	Button markDerivedField
 	Button generatePreviewField
-	Composite contents
+	
+	UIJob validateJob = newUIJob[|
+		if(control == null || control.isDisposed()){
+			return;
+		}
+		doValidate()
+	]
+	
+	def void doValidate() {
+		(control as Composite).allContents.filter(typeof(Text)).forEach[
+			it.errorMessage = null
+		]
+		
+		var folderPath = monitoringFolderField.text.trim
+		if(folderPath.empty){
+			monitoringFolderField.errorMessage = ("Image folder must be setted.")
+		}else{
+			var folder = project.getFolder(new Path(folderPath))
+			if(!folder.exists) {
+				monitoringFolderField.errorMessage = ("Non-existing Folder")
+			}
+		}
+		
+		var fileExtensions = imageFileExtensionsField.text.trim
+		if(fileExtensions.empty){
+			imageFileExtensionsField.errorMessage = ("Image file extensions are must be setted.")
+		}
+		
+		var srcFolder = generateSrcFolderField.text.trim
+		if(srcFolder.empty){
+			generateSrcFolderField.errorMessage = ("Generated Source Folder must be setted.")
+		}
+		
+		var packageName = generateSrcPackageField.text.trim
+		if(packageName.empty){
+			generateSrcPackageField.errorMessage = ("Generated Package Name must be setted.")
+		}else if(!packageName.matches("[a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*")){
+			generateSrcPackageField.errorMessage = ("Invalid pacakge name.")
+		}
+		
+		var className = generateClassNameField.text.trim
+		if(className.empty){
+			generateClassNameField.errorMessage = ("Generated Class Name must be setted.")
+		}else if(!className.matches("[a-zA-Z_][a-zA-Z0-9_]*")){
+			generateClassNameField.errorMessage = ("Invalid class name.")
+		}
+		
+		(control as Composite).allContents.filter(typeof(Text)).forEach[
+			if(it.errorMessage != null){
+				it.decoration.descriptionText = it.errorMessage
+				it.decoration.show()
+			}else{
+				it.decoration.hide()
+			}
+		]
+	}
 
 	override protected createContents(Composite parent) {
 		schedule[refresh()]
-		contents = parent.Composite[
+		var container = parent.Composite[
 			layout = GridLayout
 			Group[
 				text = "Monitoring"
@@ -104,7 +160,7 @@ class ICGPropertyPage extends PropertyPage {
 				]
 			]
 		]
-		for(e : contents.allContents.filter(typeof(Text)).toList){
+		for(e : container.allContents.filter(typeof(Text)).toList){
 			var gridData = e.layoutData as GridData
 			gridData.horizontalIndent = 16
 			var deco = new ControlDecoration(e, SWT::LEFT)
@@ -115,7 +171,7 @@ class ICGPropertyPage extends PropertyPage {
 				validate()
 			]
 		}
-		return contents
+		return container
 	}
 
 	def getDecoration(Text text){
@@ -189,6 +245,10 @@ class ICGPropertyPage extends PropertyPage {
 		dialog.setMessage("Choose a folder to monitor image files:")
 		dialog.setTitle("Image Constants Generator");
 		dialog.targetProject = config.project
+		var folderPath = monitoringFolderField.text.trim
+		if(!folderPath.empty){
+			dialog.setInitialSelection(project.getFolder(new Path(folderPath)))
+		}
 		if(dialog.open() == IDialogConstants::OK_ID) {
 			monitoringFolderField.text = (dialog.result.get(0) as IFolder).projectRelativePath.toPortableString
 		}
@@ -238,60 +298,18 @@ class ICGPropertyPage extends PropertyPage {
 	}
 
 	override protected performDefaults() {
-		
 		refresh();
 	}
 	
-	def showError(Text text, String message){
-		var deco = text.decoration
-		deco.descriptionText = message
-		if(message != null){
-			deco.show()
-		}else{
-			deco.hide()
-		}
+	def setErrorMessage(Text text, String errorMessage){
+		text.setData("error-message", errorMessage)
 	}
-
-	def clearError(Text text){
-		text.showError(null)
+	
+	def String getErrorMessage(Text text){
+		return text.getData("error-message") as String
 	}
 
 	def validate(){
-		contents.allContents.filter(typeof(Text)).forEach[it.clearError]
-		
-		var folderPath = monitoringFolderField.text.trim
-	
-		if(folderPath.empty){
-			monitoringFolderField.showError("Image folder must be setted.")
-		}else{
-			var folder = project.getFolder(new Path(folderPath))
-			if(!folder.exists) {
-				monitoringFolderField.showError("Non-existing Folder")
-			}
-		}
-		
-		var fileExtensions = imageFileExtensionsField.text.trim
-		if(fileExtensions.empty){
-			imageFileExtensionsField.showError("Image file extensions are must be setted.")
-		}
-		
-		var srcFolder = generateSrcFolderField.text.trim
-		if(srcFolder.empty){
-			generateSrcFolderField.showError("Generated Source Folder must be setted.")
-		}
-		
-		var packageName = generateSrcPackageField.text.trim
-		if(packageName.empty){
-			generateSrcPackageField.showError("Generated Package Name must be setted.")
-		}else if(!packageName.matches("[a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*")){
-			generateSrcPackageField.showError("Invalid pacakge name.")
-		}
-		
-		var className = generateClassNameField.text.trim
-		if(className.empty){
-			generateClassNameField.showError("Generated Class Name must be setted.")
-		}else if(!className.matches("[a-zA-Z_][a-zA-Z0-9_]*")){
-			generateClassNameField.showError("Invalid class name.")
-		}
+		validateJob.schedule()
 	}
 }

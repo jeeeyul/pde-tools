@@ -2,6 +2,9 @@ package net.jeeeyul.pdetools.shared;
 
 import java.util.Iterator;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -29,8 +32,10 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 public class SWTExtensions {
@@ -410,5 +415,18 @@ public class SWTExtensions {
 		rectangle.y = location.y;
 		return rectangle;
 
+	}
+
+	public UIJob newUIJob(final Procedure0 work) {
+		UIJob uiJob = new UIJob("job") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				work.apply();
+				return Status.OK_STATUS;
+			}
+		};
+		uiJob.setSystem(true);
+		uiJob.setUser(false);
+		return uiJob;
 	}
 }

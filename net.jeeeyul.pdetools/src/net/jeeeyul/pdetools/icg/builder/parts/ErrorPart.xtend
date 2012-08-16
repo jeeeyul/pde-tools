@@ -116,7 +116,7 @@ class ErrorPart {
 			
 			if(!included){
 				error[
-					fatal = true
+					fatal = false
 					message = '''Monitoring Folder(«config.monitoringFolder.fullPath.toPortableString») is not included to binary build entry'''
 					relatedResource = project.getFile("build.properties")
 					lineNumber = doc.getLineOfOffset((binaryBuildEntry as IDocumentKey).offset) + 1
