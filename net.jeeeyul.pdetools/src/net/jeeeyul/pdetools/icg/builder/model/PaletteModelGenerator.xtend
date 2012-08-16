@@ -132,8 +132,10 @@ class PaletteModelGenerator {
 		var list = elements.filter[
 			if(it instanceof IFolder) {
 				true;
-			} else {
+			} else if(it.fileExtension != null){
 				config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
+			} else{
+				false
 			}
 		];
 		
