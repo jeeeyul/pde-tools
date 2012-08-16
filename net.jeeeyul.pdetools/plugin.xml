@@ -190,6 +190,26 @@
                commandId="org.eclipse.ui.edit.delete"
                style="push">
          </command>
+         <separator
+               name="additions"
+               visible="true">
+         </separator>
+         <command
+               commandId="org.eclipse.ui.file.properties"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:net.jeeeyul.pdetools.clipboard.ClipboardView">
+         <command
+               commandId="org.eclipse.ui.window.preferences"
+               style="push">
+            <parameter
+                  name="preferencePageId"
+                  value="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage">
+            </parameter>
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -209,6 +229,16 @@
                      value="net.jeeeyul.pdetools.icg.nature">
                </test>
             </adapt>
+         </enabledWhen>
+      </page>
+      <page
+            class="net.jeeeyul.pdetools.clipboard.ClipEntryPropertyPage"
+            id="net.jeeeyul.pdetools.clipboard.ClipEntryPropertyPage"
+            name="Clipboard Entry">
+         <enabledWhen>
+            <instanceof
+                  value="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry">
+            </instanceof>
          </enabledWhen>
       </page>
    </extension>
@@ -438,6 +468,16 @@
       <initializer
             class="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardElement"
+            class="net.jeeeyul.pdetools.clipboard.internal.ClipboardWorkbenchAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

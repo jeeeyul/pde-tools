@@ -44,11 +44,15 @@ convert{
 
 type Clipboard wraps Clipboard
 
-class ClipHistory{
+class ClipboardElement{
+	
+}
+
+class ClipHistory extends ClipboardElement{
 	contains ClipboardEntry[] entries opposite parent
 }
 
-class ClipboardEntry{
+class ClipboardEntry extends ClipboardElement{
 	int usingCount
 	Date lastUsedTime
 	String textContent
@@ -100,14 +104,14 @@ class ClipboardEntry{
 	}
 }
 
-class TextRange{
+class TextRange extends ClipboardElement{
 	int offset
 	int length
 	int startLine
 	int endLine
 }
 
-class JavaInfo{
+class JavaInfo extends ClipboardElement{
 	String qualifiedTypeName
 	String enclosingElementName
 }
