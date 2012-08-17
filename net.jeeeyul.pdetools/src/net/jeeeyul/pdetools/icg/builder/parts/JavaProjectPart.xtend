@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.IJavaProject
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.pde.core.IEditableModel
 import org.eclipse.pde.core.plugin.PluginRegistry
-import org.eclipse.pde.internal.core.build.WorkspaceBuildModel
 
 class JavaProjectPart {
 	@Inject
@@ -43,7 +42,7 @@ class JavaProjectPart {
 		}
 		
 		var model = PluginRegistry::findModel(project)
-		var buildModel = PluginRegistry::createBuildModel(model) as WorkspaceBuildModel
+		var buildModel = PluginRegistry::createBuildModel(model)
 		var entry = buildModel.build.buildEntries.findFirst[it.name == "source.."]
 		
 		var srcPath = config.generateSrcFolder.projectRelativePath.toPortableString + "/"
