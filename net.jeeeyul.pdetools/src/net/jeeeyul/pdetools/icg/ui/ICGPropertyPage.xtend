@@ -164,8 +164,8 @@ class ICGPropertyPage extends PropertyPage {
 			var gridData = e.layoutData as GridData
 			gridData.horizontalIndent = 16
 			var deco = new ControlDecoration(e, SWT::LEFT)
-			deco.setImage(SharedImages::getImage(SharedImages::ERROR))
 			deco.hide()
+			deco.setImage(SharedImages::getImage(SharedImages::ERROR))
 			e.setData("decoration", deco)
 			e.onModified = [
 				validate()
