@@ -1,6 +1,7 @@
-@Ecore(nsURI="http://jeeeyul.net/pde-tools/clipboard", nsPrefix="c")
 @GenModel(basePackage="net.jeeeyul.pdetools.clipboard.model")
+@Ecore(nsURI="http://jeeeyul.net/pde-tools/clipboard", nsPrefix="cb")
 package clipboard
+
 
 import java.util.Date
 import org.eclipse.swt.dnd.Clipboard
@@ -33,7 +34,6 @@ convert
 	it.fullPath.toPortableString
 }
 
-
 type ImageData wraps ImageData
 create{
 	ImageDataSerializer::deserialize(it)
@@ -50,7 +50,7 @@ class ClipboardElement{
 
 class ClipHistory extends ClipboardElement{
 	contains ClipboardEntry[] entries opposite parent
-}
+} 
 
 class ClipboardEntry extends ClipboardElement{
 	int usingCount
@@ -85,22 +85,6 @@ class ClipboardEntry extends ClipboardElement{
 	op void increaseUsing(){
 		usingCount = usingCount + 1
 		lastUsedTime = new Date()
-	}
-	
-	op int hashCode(){
-		if(textContent != null){
-			textContent.hashCode
-		}else{
-			-1
-		}
-	}
-	
-	op boolean eqauls(Object other){
-		if(other instanceof ClipboardEntry){
-			return this.hashCode == other.hashCode
-		}else{
-			return false
-		}
 	}
 }
 

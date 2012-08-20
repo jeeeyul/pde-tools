@@ -27,8 +27,6 @@ convert
 	it.fullPath.toPortableString
 }
 
-
-
 type ImageData wraps ImageData
 create{
 	ImageDataSerializer::deserialize(it)

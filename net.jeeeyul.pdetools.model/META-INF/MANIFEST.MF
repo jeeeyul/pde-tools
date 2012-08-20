@@ -65,5 +65,6 @@ Export-Package: com.google.common.annotations,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.ui,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.ui.views
 Bundle-ActivationPolicy: lazy
