@@ -1,4 +1,4 @@
-@GenModel(basePackage="net.jeeeyul.pdetools.model")
+@GenModel(basePackage="net.jeeeyul.pdetools.model", editDirectory="/net.jeeeyul.pdetools.edit/src-gen")
 @Ecore(nsURI="http://jeeeyul.net/pde-tools", nsPrefix="p")
 package pdetools
 
