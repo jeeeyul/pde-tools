@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup;
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
 import net.jeeeyul.pdetools.shared.SharedImages;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;

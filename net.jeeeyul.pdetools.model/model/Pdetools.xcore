@@ -1,7 +1,6 @@
-@GenModel(basePackage="net.jeeeyul.pdetools.clipboard.model")
-@Ecore(nsURI="http://jeeeyul.net/pde-tools/clipboard", nsPrefix="cb")
-package clipboard
-
+@GenModel(basePackage="net.jeeeyul.pdetools.model")
+@Ecore(nsURI="http://jeeeyul.net/pde-tools", nsPrefix="p")
+package pdetools
 
 import java.util.Date
 import org.eclipse.swt.dnd.Clipboard
@@ -52,6 +51,7 @@ class ClipHistory extends ClipboardElement{
 	contains ClipboardEntry[] entries opposite parent
 } 
 
+@GenModel(labelFeature="textContent")
 class ClipboardEntry extends ClipboardElement{
 	int usingCount
 	Date lastUsedTime
@@ -98,4 +98,76 @@ class TextRange extends ClipboardElement{
 class JavaInfo extends ClipboardElement{
 	String qualifiedTypeName
 	String enclosingElementName
+}
+
+
+// for icg
+interface FieldNameOwner{
+	String fieldName
+}
+
+class Palette extends FieldNameOwner
+{
+	container Palette parent opposite subPalettes
+	
+	/**
+	 * 팔레트가 표현하는 워크스페이스상의 폴더.
+	 */
+	IFolder folder
+	
+	contains Palette[] subPalettes opposite parent
+	contains ImageFile[] imageFiles opposite parent
+}
+
+class ImageFile extends FieldNameOwner
+{
+	container Palette parent opposite imageFiles
+	
+	/**
+	 * 워크스페이스 상의 실제 IFile
+	 */
+	id IFile file
+}
+
+// snapshot
+class SnapshotRepository
+{
+	String repositoryLocation
+	contains SnapshotGroup [] groups opposite parent
+}
+
+class SnapshotGroup
+{
+	container SnapshotRepository parent opposite groups
+	Date date
+	contains SnapshotEntry [] entries opposite parent
+}
+
+class SnapshotEntry
+{
+	container SnapshotGroup parent opposite entries
+	Date takenTime
+	String originalFile
+	String renderedFile
+	String controlType
+	String name
+	contains ShellInfo shellInfo
+	
+	derived String absoulteVisibleFilePath get{
+		var base = new Path(parent.parent.repositoryLocation).removeLastSegments(1).setDevice(null)
+		
+		var filePath = if(renderedFile != null){
+			base.append(renderedFile)
+		} else{
+			base.append(getOriginalFile)	
+		}
+		
+		return filePath.toFile.absolutePath
+	}
+}
+
+class ShellInfo{
+	ImageData icon
+	int shellStyle
+	String shellTitle
 }

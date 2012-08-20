@@ -8,7 +8,7 @@ import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;

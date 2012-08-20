@@ -1,8 +1,8 @@
 package net.jeeeyul.pdetools.clipboard;
 
-import net.jeeeyul.pdetools.clipboard.internal.OpenResourceFunction;
 import net.jeeeyul.pdetools.clipboard.internal.OpenJavaElementFunction;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.clipboard.internal.OpenResourceFunction;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
 import org.eclipse.core.runtime.IProgressMonitor;

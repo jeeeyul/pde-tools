@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.clipboard
 
 import java.io.ByteArrayOutputStream
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry
 import net.jeeeyul.pdetools.shared.Base64Coder
 import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider
 import org.eclipse.jface.resource.ImageDescriptor

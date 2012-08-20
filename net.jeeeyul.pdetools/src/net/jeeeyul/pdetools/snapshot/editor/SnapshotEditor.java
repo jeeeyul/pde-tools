@@ -3,10 +3,10 @@ package net.jeeeyul.pdetools.snapshot.editor;
 import java.io.File;
 import java.io.FileInputStream;
 
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
 import net.jeeeyul.pdetools.shared.ImageCanvas;
 import net.jeeeyul.pdetools.snapshot.SnapshotEditorInput;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotPackage;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
@@ -43,7 +43,7 @@ public class SnapshotEditor extends EditorPart {
 		switch (notification.getEventType()) {
 			case Notification.SET:
 			case Notification.UNSET:
-				if (notification.getFeature() == SnapshotPackage.eINSTANCE.getSnapshotEntry_Parent()) {
+				if (notification.getFeature() == PdetoolsPackage.eINSTANCE.getSnapshotEntry_Parent()) {
 					if (getEditorInput().getSnapshot().getParent() == null) {
 						doClose();
 					}

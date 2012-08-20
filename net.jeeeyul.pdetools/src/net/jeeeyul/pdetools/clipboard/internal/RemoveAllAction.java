@@ -1,10 +1,10 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 import net.jeeeyul.pdetools.shared.ConfirmDialog;
 import net.jeeeyul.pdetools.shared.SharedImages;
+
+import org.eclipse.jface.dialogs.IDialogConstants;
 
 public class RemoveAllAction extends ClipboardHistoryAction {
 	public RemoveAllAction(ClipHistory clipHistory) {

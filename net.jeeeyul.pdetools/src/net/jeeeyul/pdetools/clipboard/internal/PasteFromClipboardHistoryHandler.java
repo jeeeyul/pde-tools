@@ -2,7 +2,7 @@ package net.jeeeyul.pdetools.clipboard.internal;
 
 import net.jeeeyul.pdetools.clipboard.CaretHint;
 import net.jeeeyul.pdetools.clipboard.ClipEntrySelectionDialog;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;

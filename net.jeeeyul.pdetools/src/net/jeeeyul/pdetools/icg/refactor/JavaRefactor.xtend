@@ -2,19 +2,17 @@ package net.jeeeyul.pdetools.icg.refactor
 
 import java.util.ArrayList
 import java.util.List
-import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
-import net.jeeeyul.pdetools.icg.refactor.TargetFieldFinder
-import net.jeeeyul.pdetools.icg.refactor.TargetInterfaceFinder
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import net.jeeeyul.pdetools.icg.builder.model.PaletteDelta
 import org.eclipse.core.resources.IProject
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.core.refactoring.IJavaRefactorings
 import org.eclipse.jdt.core.refactoring.descriptors.RenameJavaElementDescriptor
 import org.eclipse.ltk.core.refactoring.RefactoringContribution
 import org.eclipse.ltk.core.refactoring.RefactoringCore
-import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
-import net.jeeeyul.pdetools.icg.builder.model.PaletteDelta
+import net.jeeeyul.pdetools.model.pdetools.Palette
+import net.jeeeyul.pdetools.model.pdetools.ImageFile
+import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
 
 class JavaRefactor {
 	ICGConfiguration config

@@ -1,10 +1,10 @@
 package net.jeeeyul.pdetools.snapshot
 
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository
-import org.eclipse.core.runtime.Path
-import net.jeeeyul.pdetools.shared.SharedImages
+import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry
+import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository
 import net.jeeeyul.pdetools.shared.ConfirmDialog
+import net.jeeeyul.pdetools.shared.SharedImages
+import org.eclipse.core.runtime.Path
 import org.eclipse.jface.dialogs.IDialogConstants
 
 class RemoveAllAction extends SnapshotAction {

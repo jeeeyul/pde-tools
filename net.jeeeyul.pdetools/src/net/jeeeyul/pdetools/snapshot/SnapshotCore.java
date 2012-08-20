@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
@@ -40,10 +40,10 @@ public class SnapshotCore {
 				try {
 					repository = doLoad();
 				} catch (Exception e) {
-					repository = SnapshotFactory.eINSTANCE.createSnapshotRepository();
+					repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
 				}
 			} else {
-				repository = SnapshotFactory.eINSTANCE.createSnapshotRepository();
+				repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
 			}
 			repository.setRepositoryLocation(getPersistanceURI().toFileString());
 		}

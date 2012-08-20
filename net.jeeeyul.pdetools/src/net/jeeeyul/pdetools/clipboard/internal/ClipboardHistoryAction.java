@@ -1,6 +1,6 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 
 import org.eclipse.jface.action.Action;
 

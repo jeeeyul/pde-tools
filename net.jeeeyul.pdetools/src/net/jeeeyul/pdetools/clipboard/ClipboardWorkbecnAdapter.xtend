@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.clipboard
 
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry
 import net.jeeeyul.pdetools.shared.SharedImages
 import org.eclipse.ui.model.IWorkbenchAdapter
 

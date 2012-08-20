@@ -1,14 +1,14 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
+import java.util.List
 import java.util.Stack
-import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
-import net.jeeeyul.pdetools.icg.builder.model.palette.PaletteFactory
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IResource
-import java.util.List
+import net.jeeeyul.pdetools.model.pdetools.Palette
+import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory
+import net.jeeeyul.pdetools.model.pdetools.ImageFile
 
 /**
  * 모니터링 중인 폴더를 바탕으로 팔레트 모델을 생성합니다.
@@ -38,7 +38,7 @@ class PaletteModelGenerator {
 	}
 
 	def Palette generatePalette(IFolder folder){
-		var palette = PaletteFactory::eINSTANCE.createPalette();
+		var palette = PdetoolsFactory::eINSTANCE.createPalette();
 		palette.folder = folder
 		palette.assigneFieldName(folder.preferFieldName);
 		if(currentContext.palette != null) {
@@ -56,7 +56,7 @@ class PaletteModelGenerator {
 	}
 
 	def ImageFile generateImageFile(IFile file) {
-		return  PaletteFactory::eINSTANCE.createImageFile() => [
+		return PdetoolsFactory::eINSTANCE.createImageFile() => [
 			it.file = file
 			assigneFieldName(file.preferFieldName)
 		]

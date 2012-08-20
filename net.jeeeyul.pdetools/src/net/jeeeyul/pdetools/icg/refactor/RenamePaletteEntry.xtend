@@ -5,9 +5,9 @@ import java.util.List
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelDeltaGenerator
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
-import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
+import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
+import net.jeeeyul.pdetools.model.pdetools.ImageFile
+import net.jeeeyul.pdetools.model.pdetools.Palette
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor

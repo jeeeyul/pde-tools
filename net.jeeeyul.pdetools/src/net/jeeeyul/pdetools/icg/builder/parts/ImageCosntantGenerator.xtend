@@ -1,9 +1,9 @@
 package net.jeeeyul.pdetools.icg.builder.parts
 
-import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
 import com.google.inject.Inject
+import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
+import net.jeeeyul.pdetools.model.pdetools.Palette
+import net.jeeeyul.pdetools.model.pdetools.ImageFile
 
 class ImageCosntantGenerator {
 	@Inject

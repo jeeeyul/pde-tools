@@ -3,10 +3,10 @@ package net.jeeeyul.pdetools.snapshot.capture;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.ShellInfo;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.snapshot.NewSnapshotEntryJob;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -92,7 +92,7 @@ public class SnapshotHook {
 		NewSnapshotEntryJob job = new NewSnapshotEntryJob(imageData);
 		if (state == HookingState.CAPTURING_SHELL) {
 			Shell shell = controlUnderMouse.getShell();
-			ShellInfo shellInfo = SnapshotFactory.eINSTANCE.createShellInfo();
+			ShellInfo shellInfo = PdetoolsFactory.eINSTANCE.createShellInfo();
 			if (shell.getImage() != null) {
 				shellInfo.setIcon(shell.getImage().getImageData());
 			}
@@ -108,7 +108,7 @@ public class SnapshotHook {
 		dispose();
 
 	}
-	
+
 	private void dispose() {
 		disposing.schedule();
 	}

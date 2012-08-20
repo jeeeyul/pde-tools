@@ -1,7 +1,8 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.HashSet
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
+import org.eclipse.xtend.lib.Property
+import net.jeeeyul.pdetools.model.pdetools.Palette
 
 class PaletteModelGenerationContext {
 	@Property PaletteModelGenerationContext parent

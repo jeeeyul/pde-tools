@@ -6,12 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.ShellInfo;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository;
 import net.jeeeyul.pdetools.snapshot.editor.ShellFrame;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.ShellInfo;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotFactory;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -61,7 +61,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			}
 		}
 
-		result = SnapshotFactory.eINSTANCE.createSnapshotGroup();
+		result = PdetoolsFactory.eINSTANCE.createSnapshotGroup();
 		result.setDate(new Date(now - (now % lengthOfDay) - startTimeOffset));
 		SnapshotCore.getRepository().getGroups().add(0, result);
 
@@ -115,7 +115,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			imageLoader.save(fos, SWT.IMAGE_PNG);
 			fos.close();
 
-			SnapshotEntry entry = SnapshotFactory.eINSTANCE.createSnapshotEntry();
+			SnapshotEntry entry = PdetoolsFactory.eINSTANCE.createSnapshotEntry();
 			entry.setTakenTime(new Date());
 			entry.setOriginalFile(file.getName());
 			entry.setControlType(controlType);

@@ -1,6 +1,6 @@
 package net.jeeeyul.pdetools.snapshot;
 
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository;
+import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository;
 
 import org.eclipse.jface.action.Action;
 

@@ -2,7 +2,7 @@ package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.clipboard.internal.OpenJavaElementFunction;
 import net.jeeeyul.pdetools.clipboard.internal.OpenResourceFunction;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;

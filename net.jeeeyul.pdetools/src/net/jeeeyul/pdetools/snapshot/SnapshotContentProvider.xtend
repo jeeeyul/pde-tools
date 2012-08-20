@@ -1,10 +1,10 @@
 package net.jeeeyul.pdetools.snapshot
 
+import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup
+import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.Viewer
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotRepository
-import org.eclipse.emf.ecore.EObject
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotGroup
 
 class SnapshotContentProvider implements ITreeContentProvider{
 	override getChildren(Object parentElement) {

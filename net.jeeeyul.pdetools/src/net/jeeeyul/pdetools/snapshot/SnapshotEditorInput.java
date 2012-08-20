@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.snapshot;
 
+import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
 import net.jeeeyul.pdetools.shared.SharedImages;
-import net.jeeeyul.pdetools.snapshot.model.snapshot.SnapshotEntry;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;

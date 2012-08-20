@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
 import org.eclipse.xtend.lib.Property
+import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
 
 class PaletteDelta {
 	@Property FieldNameOwner before

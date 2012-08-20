@@ -3,10 +3,10 @@ package net.jeeeyul.pdetools.icg.builder.model
 import java.util.HashMap
 import java.util.List
 import java.util.Map
-import net.jeeeyul.pdetools.icg.builder.model.palette.FieldNameOwner
-import net.jeeeyul.pdetools.icg.builder.model.palette.ImageFile
-import net.jeeeyul.pdetools.icg.builder.model.palette.Palette
 import org.eclipse.core.resources.IResource
+import net.jeeeyul.pdetools.model.pdetools.Palette
+import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
+import net.jeeeyul.pdetools.model.pdetools.ImageFile
 
 class PaletteModelDeltaGenerator {
 	def compare(Palette a, Palette b){

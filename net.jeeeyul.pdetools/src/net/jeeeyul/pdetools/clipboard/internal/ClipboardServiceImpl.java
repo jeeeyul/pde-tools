@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipHistory;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardFactory;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.JavaInfo;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.TextRange;
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
+import net.jeeeyul.pdetools.model.pdetools.JavaInfo;
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.TextRange;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.IFile;
@@ -103,13 +103,13 @@ public class ClipboardServiceImpl implements IClipboardService {
 					resourceImpl.load(new HashMap<Object, Object>());
 					history = (ClipHistory) resourceImpl.getContents().get(0);
 				} else {
-					history = ClipboardFactory.eINSTANCE.createClipHistory();
+					history = PdetoolsFactory.eINSTANCE.createClipHistory();
 				}
 			}
 
 			catch (Exception e) {
 				e.printStackTrace();
-				history = ClipboardFactory.eINSTANCE.createClipHistory();
+				history = PdetoolsFactory.eINSTANCE.createClipHistory();
 			}
 		}
 		return history;
@@ -173,7 +173,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 				if (selection instanceof ITextSelection) {
 					textSelection = (ITextSelection) selection;
-					TextRange range = ClipboardFactory.eINSTANCE.createTextRange();
+					TextRange range = PdetoolsFactory.eINSTANCE.createTextRange();
 					range.setStartLine(textSelection.getStartLine());
 					range.setOffset(textSelection.getOffset());
 					range.setEndLine(textSelection.getEndLine());
@@ -195,7 +195,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 						IType primaryType = root.findPrimaryType();
 						IJavaElement cursorElement = root.getElementAt(textSelection.getOffset());
 
-						JavaInfo javaInfo = ClipboardFactory.eINSTANCE.createJavaInfo();
+						JavaInfo javaInfo = PdetoolsFactory.eINSTANCE.createJavaInfo();
 						javaInfo.setQualifiedTypeName(getQualifiedName(primaryType));
 
 						if (cursorElement instanceof IMember) {
@@ -239,7 +239,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 	}
 
 	public ClipboardEntry createClipEntry() {
-		ClipboardEntry entry = ClipboardFactory.eINSTANCE.createClipboardEntry();
+		ClipboardEntry entry = PdetoolsFactory.eINSTANCE.createClipboardEntry();
 		entry.setTextContent((String) getNativeClipboard().getContents(getTextTransfer()));
 
 		if (hasDataFor(getRTFTransfer())) {

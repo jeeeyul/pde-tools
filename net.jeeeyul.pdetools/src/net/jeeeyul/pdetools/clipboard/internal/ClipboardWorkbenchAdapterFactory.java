@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
 import net.jeeeyul.pdetools.clipboard.ClipboardWorkbecnAdapter;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardElement;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardElement;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.model.IWorkbenchAdapter;

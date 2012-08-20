@@ -92,7 +92,7 @@
             <and>
                <iterate>
                   <instanceof
-                        value="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry">
+                        value="net.jeeeyul.pdetools.model.pdetools.ClipboardEntry">
                   </instanceof>
                </iterate>
             </and>
@@ -237,7 +237,7 @@
             name="Clipboard Entry">
          <enabledWhen>
             <instanceof
-                  value="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry">
+                  value="net.jeeeyul.pdetools.model.pdetools.ClipboardEntry">
             </instanceof>
          </enabledWhen>
       </page>
@@ -472,7 +472,7 @@
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
-            adaptableType="net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardElement"
+            adaptableType="net.jeeeyul.pdetools.model.pdetools.ClipboardElement"
             class="net.jeeeyul.pdetools.clipboard.internal.ClipboardWorkbenchAdapterFactory">
          <adapter
                type="org.eclipse.ui.model.IWorkbenchAdapter">

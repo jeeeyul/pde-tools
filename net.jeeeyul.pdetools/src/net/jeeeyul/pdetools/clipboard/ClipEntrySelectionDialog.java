@@ -4,7 +4,7 @@ import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardView;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
-import net.jeeeyul.pdetools.clipboard.model.clipboard.ClipboardEntry;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.KRectangle;
 
 import org.eclipse.core.runtime.IProgressMonitor;
