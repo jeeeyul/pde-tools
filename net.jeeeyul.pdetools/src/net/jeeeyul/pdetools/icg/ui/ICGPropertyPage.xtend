@@ -222,7 +222,7 @@ class ICGPropertyPage extends PropertyPage {
 	def private void  browseSrcFolder() {
 		var srcFolders = javaProject.allPackageFragmentRoots.filter[
 			try{
-				it.kind == IPackageFragmentRoot::K_SOURCE
+				it.kind == IPackageFragmentRoot::K_SOURCE && it.resource.project == project
 			}catch(Exception e){
 				false;
 			}
