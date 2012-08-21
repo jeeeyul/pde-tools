@@ -40,6 +40,11 @@ class RenamePaletteEntry extends RenameParticipant {
 		pm.beginTask("Update Shared Image References", workAmount)
 		result = newArrayList()
 		var palette = loadPreviousPaletteModel()
+		if(palette == null){
+			println("이전 팔레트를 찾지 못해 리팩토링을 취소함")
+			return null
+		}
+		
 		var newPalette = createNewPaletteModel()
 		var deltaGenerator = new PaletteModelDeltaGenerator();
 		var diffs = deltaGenerator.compare(palette, newPalette)
