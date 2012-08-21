@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
+import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
 import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -26,6 +28,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 
 public class SnapshotView extends ViewPart {
 	public static final String ID = "net.jeeeyul.pdetools.snapshot.SnapshotView";
@@ -42,6 +46,35 @@ public class SnapshotView extends ViewPart {
 	private List<SnapshotAction> snapshotActions = new ArrayList<SnapshotAction>();
 
 	private DeferredViewerUpdate<GalleryTreeViewer> update;
+
+	private void configureDragSource() {
+		DragSource dragSource = new DragSource(viewer.getControl(), DND.DROP_COPY);
+		dragSource.setTransfer(new Transfer[] { FileTransfer.getInstance() });
+		dragSource.addDragListener(new DragSourceListener() {
+			@Override
+			public void dragFinished(DragSourceEvent event) {
+
+			}
+
+			@Override
+			public void dragSetData(DragSourceEvent event) {
+				List<SnapshotEntry> selection = getSelection();
+				List<String> result = new ArrayList<String>();
+				for (SnapshotEntry each : selection) {
+					result.add(each.getAbsoulteVisibleFilePath());
+				}
+				event.data = result.toArray(new String[result.size()]);
+			}
+
+			@Override
+			public void dragStart(DragSourceEvent event) {
+				event.doit = !getSelection().isEmpty();
+				if (event.doit) {
+					event.detail = DND.DROP_COPY;
+				}
+			}
+		});
+	}
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -85,6 +118,12 @@ public class SnapshotView extends ViewPart {
 		updateActions();
 	}
 
+	@Override
+	public void dispose() {
+		SnapshotCore.getRepository().eAdapters().remove(refresher);
+		super.dispose();
+	}
+
 	protected void doOpen(SnapshotEntry snapshotEntry) {
 		try {
 			getViewSite().getPage().openEditor(new SnapshotEditorInput(snapshotEntry), SnapshotEditor.ID);
@@ -93,45 +132,10 @@ public class SnapshotView extends ViewPart {
 		}
 	}
 
-	private void configureDragSource() {
-		DragSource dragSource = new DragSource(viewer.getControl(), DND.DROP_COPY);
-		dragSource.setTransfer(new Transfer[] { FileTransfer.getInstance() });
-		dragSource.addDragListener(new DragSourceListener() {
-			@Override
-			public void dragStart(DragSourceEvent event) {
-				event.doit = !getSelection().isEmpty();
-				if (event.doit) {
-					event.detail = DND.DROP_COPY;
-				}
-			}
-
-			@Override
-			public void dragSetData(DragSourceEvent event) {
-				List<SnapshotEntry> selection = getSelection();
-				List<String> result = new ArrayList<String>();
-				for (SnapshotEntry each : selection) {
-					result.add(each.getAbsoulteVisibleFilePath());
-				}
-				event.data = result.toArray(new String[result.size()]);
-			}
-
-			@Override
-			public void dragFinished(DragSourceEvent event) {
-
-			}
-		});
-	}
-
 	@SuppressWarnings("unchecked")
 	private List<SnapshotEntry> getSelection() {
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		return new ArrayList<SnapshotEntry>(selection.toList());
-	}
-
-	@Override
-	public void dispose() {
-		SnapshotCore.getRepository().eAdapters().remove(refresher);
-		super.dispose();
 	}
 
 	public DeferredViewerUpdate<GalleryTreeViewer> getUpdate() {
@@ -146,19 +150,29 @@ public class SnapshotView extends ViewPart {
 		return update;
 	}
 
-	@Override
-	public void setFocus() {
-		viewer.getControl().setFocus();
-	}
-
 	private void handleModelChange() {
 		getUpdate().schedule();
 		updateActions();
+	}
+
+	@Override
+	public void setFocus() {
+		viewer.getControl().setFocus();
 	}
 
 	private void updateActions() {
 		for (SnapshotAction eachAction : snapshotActions) {
 			eachAction.update();
 		}
+	}
+
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+		if (adapter == IPropertySheetPage.class) {
+			PropertySheetPage page = new PropertySheetPage();
+			page.setPropertySourceProvider(new AdapterFactoryContentProvider(new PdetoolsItemProviderAdapterFactory()));
+			return page;
+		}
+		return super.getAdapter(adapter);
 	}
 }

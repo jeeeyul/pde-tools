@@ -5,23 +5,20 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.clipboard.internal.BinaryResourceFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository;
+import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 
 public class SnapshotCore {
 	private static SnapshotRepository repository;
-
-	private static SnapshotRepository doLoad() throws IOException {
-		URI url = getPersistanceURI();
-		BinaryResourceImpl resource = new BinaryResourceImpl(url);
-		resource.load(new HashMap<Object, Object>());
-		return (SnapshotRepository) resource.getContents().get(0);
-	}
 
 	private static URI getPersistanceURI() {
 		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot");
@@ -34,27 +31,56 @@ public class SnapshotCore {
 		return url;
 	}
 
+	private static AdapterFactoryEditingDomain editingDomain;
+
+	private static AdapterFactoryEditingDomain getEditingDomain() {
+		if (editingDomain == null) {
+			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
+					new BasicCommandStack());
+			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap()
+					.put("data", new BinaryResourceFactory());
+		}
+		return editingDomain;
+	}
+
+	private static ResourceSet getResourceSet() {
+		return getEditingDomain().getResourceSet();
+	}
+
+	private static Resource getResource() {
+		Resource resource = null;
+		try {
+			resource = getResourceSet().getResource(getPersistanceURI(), true);
+		} catch (Exception e) {
+			resource = getResourceSet().createResource(getPersistanceURI());
+			System.out.println("신규 리소스 작성");
+		}
+		return resource;
+	}
+
 	public static SnapshotRepository getRepository() {
 		if (repository == null) {
-			if (new File(getPersistanceURI().toFileString()).exists()) {
-				try {
-					repository = doLoad();
-				} catch (Exception e) {
-					repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
-				}
-			} else {
+			Resource resource = getResource();
+			try {
+				resource.load(new HashMap<Object, Object>());
+				repository = (SnapshotRepository) resource.getContents().get(0);
+				System.out.println("스냅샷 리포지터리 로드 됨");
+			} catch (Exception e) {
+				e.printStackTrace();
 				repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
+				resource.getContents().clear();
+				resource.getContents().add(repository);
+				System.out.println("스냅샷 리포지터리 새로 생성");
+
 			}
-			repository.setRepositoryLocation(getPersistanceURI().toFileString());
 		}
 		return repository;
 	}
 
 	public static void doSave() {
-		BinaryResourceImpl resource = new BinaryResourceImpl(getPersistanceURI());
-		resource.getContents().add(EcoreUtil.copy(getRepository()));
 		try {
-			resource.save(new HashMap<Object, Object>());
+			getResource().save(new HashMap<Object, Object>());
+			System.out.println("스냅샷 리포지터리 저장됨");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

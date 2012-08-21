@@ -14,6 +14,7 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.runtime.Path
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
+import org.eclipse.core.runtime.IPath
 
 type IFile wraps IFile create
 {
@@ -146,7 +147,6 @@ class ImageFile extends FieldNameOwner
 // snapshot
 class SnapshotRepository
 {
-	String repositoryLocation
 	contains SnapshotGroup [] groups opposite parent
 }
 
@@ -168,12 +168,13 @@ class SnapshotEntry
 	contains ShellInfo shellInfo
 	
 	derived String absoulteVisibleFilePath get{
-		var base = new Path(parent.parent.repositoryLocation).removeLastSegments(1).setDevice(null)
+		var base = new Path(eResource.URI.toFileString).removeLastSegments(1).setDevice(null)
+		var IPath filePath = null
 		
-		var filePath = if(renderedFile != null){
-			base.append(renderedFile)
+		if(this.renderedFile != null && this.renderedFile.trim.empty == false){
+			filePath = base.append(renderedFile)
 		} else{
-			base.append(getOriginalFile)	
+			filePath = base.append(getOriginalFile)	
 		}
 		
 		return filePath.toFile.absolutePath

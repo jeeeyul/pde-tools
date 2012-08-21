@@ -124,7 +124,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 			if(!file.isSynchronized(IResource.DEPTH_ONE)){
 				file.refreshLocal(IResource.DEPTH_ONE, null);
 			}
-			if (file.getContentDescription() != null) {
+			if (file.exists() && file.getContentDescription() != null) {
 				IContentType contentType = file.getContentDescription().getContentType();
 				return PlatformUI.getWorkbench().getEditorRegistry().getImageDescriptor(file.getName(), contentType);
 			} else {

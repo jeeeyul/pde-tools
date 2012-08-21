@@ -89,7 +89,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 	private AdapterFactoryEditingDomain editingDomain;
 
-	public ClipboardServiceImpl() {
+	private ClipboardServiceImpl() {
 		detector = new CopyActionDetector();
 		detector.setCopyHandler(new Procedure1<ExecutionEvent>() {
 			@Override
@@ -128,10 +128,12 @@ public class ClipboardServiceImpl implements IClipboardService {
 		}
 	}
 
-	public AdapterFactoryEditingDomain getEditingDomain() {
+	private AdapterFactoryEditingDomain getEditingDomain() {
 		if (editingDomain == null) {
 			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
 					new BasicCommandStack());
+			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap()
+					.put("data", new BinaryResourceFactory());
 		}
 		return editingDomain;
 	}
@@ -181,11 +183,11 @@ public class ClipboardServiceImpl implements IClipboardService {
 		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
 	}
 
-	public ResourceSet getResourceSet() {
+	private ResourceSet getResourceSet() {
 		return getEditingDomain().getResourceSet();
 	}
 
-	public Resource getResource() {
+	private Resource getResource() {
 		Resource resource = null;
 		try {
 			resource = getResourceSet().getResource(getPersistanceURI(), true);
@@ -197,15 +199,15 @@ public class ClipboardServiceImpl implements IClipboardService {
 		return resource;
 	}
 
-	protected RTFTransfer getRTFTransfer() {
+	private RTFTransfer getRTFTransfer() {
 		return RTFTransfer.getInstance();
 	}
 
-	protected TextTransfer getTextTransfer() {
+	private TextTransfer getTextTransfer() {
 		return TextTransfer.getInstance();
 	}
 
-	protected void handleCopy(ExecutionEvent event) {
+	private void handleCopy(ExecutionEvent event) {
 		boolean hasTextContents = hasDataFor(getTextTransfer());
 		if (!hasTextContents) {
 			return;

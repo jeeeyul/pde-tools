@@ -92,7 +92,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
 		try {
-			String location = SnapshotCore.getRepository().getRepositoryLocation();
+			String location = SnapshotCore.getRepository().eResource().getURI().toFileString();
 			IPath path = new Path(location);
 			String newFileName = generateNewFileName();
 

@@ -106,7 +106,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 	protected void handleRemovedItem(Object oldValue) {
 		List<SnapshotEntry> entries = resoveEntries(oldValue);
 
-		IPath path = new Path(SnapshotCore.getRepository().getRepositoryLocation()).removeLastSegments(1).setDevice(
+		IPath path = new Path(SnapshotCore.getRepository().eResource().getURI().toFileString()).removeLastSegments(1).setDevice(
 				null);
 
 		for (SnapshotEntry each : entries) {
