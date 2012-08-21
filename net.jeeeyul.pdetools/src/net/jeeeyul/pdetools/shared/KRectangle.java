@@ -110,6 +110,10 @@ public class KRectangle {
 		return new KPoint(x + width, y + height / 2);
 	}
 
+	public KPoint getCenter() {
+		return new KPoint(x + width / 2, y + height / 2);
+	}
+
 	public boolean contains(int x, int y) {
 		return this.x <= x && this.y <= y && x <= this.x + this.width && y <= this.y + this.height;
 	}
