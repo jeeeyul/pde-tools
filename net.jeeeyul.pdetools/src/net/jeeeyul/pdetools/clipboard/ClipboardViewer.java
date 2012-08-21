@@ -9,6 +9,7 @@ import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
 import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.UpdateJob;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -35,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
 public class ClipboardViewer {
 	private SharedColor sharedColor;
@@ -56,6 +58,15 @@ public class ClipboardViewer {
 	};
 	private int style;
 	private ClipEntryLabelProvider labelProvider;
+	private UpdateJob updateJob = new UpdateJob(new Procedure0() {
+		@Override
+		public void apply() {
+			if (viewer == null || viewer.getControl().isDisposed()) {
+				return;
+			}
+			viewer.refresh();
+		}
+	});
 
 	public ClipboardViewer(Composite parent, int style) {
 		this.style = style;
@@ -68,20 +79,6 @@ public class ClipboardViewer {
 		});
 
 		getPreferenceStore().addPropertyChangeListener(preferenceListener);
-	}
-
-	private IPreferenceStore getPreferenceStore() {
-		return PDEToolsCore.getDefault().getPreferenceStore();
-	}
-
-	protected void handlePreferenceChange(PropertyChangeEvent event) {
-		updateLabelProvider();
-		viewer.refresh();
-	}
-
-	private void updateLabelProvider() {
-		labelProvider.setColorizeTextOnSelection(getPreferenceStore().getBoolean(
-				ClipboardPreferenceConstants.CLIPBOARD_COLORLIZE_IN_SELECTION));
 	}
 
 	private void create(Composite parent) {
@@ -190,14 +187,28 @@ public class ClipboardViewer {
 		getPreferenceStore().removePropertyChangeListener(preferenceListener);
 	}
 
+	private IPreferenceStore getPreferenceStore() {
+		return PDEToolsCore.getDefault().getPreferenceStore();
+	}
+
 	public TableViewer getTableViewer() {
 		return viewer;
 	}
 
 	protected void handleNotification(Notification notification) {
-		viewer.refresh();
+		updateJob.schedule();
+	}
+
+	protected void handlePreferenceChange(PropertyChangeEvent event) {
+		updateLabelProvider();
+		updateJob.schedule();
 	}
 
 	public void setFocus() {
+	}
+
+	private void updateLabelProvider() {
+		labelProvider.setColorizeTextOnSelection(getPreferenceStore().getBoolean(
+				ClipboardPreferenceConstants.CLIPBOARD_COLORLIZE_IN_SELECTION));
 	}
 }

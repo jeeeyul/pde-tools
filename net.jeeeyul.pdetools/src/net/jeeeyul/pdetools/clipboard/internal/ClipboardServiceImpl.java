@@ -3,6 +3,7 @@ package net.jeeeyul.pdetools.clipboard.internal;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
@@ -10,6 +11,7 @@ import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.model.pdetools.JavaInfo;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
 import net.jeeeyul.pdetools.model.pdetools.TextRange;
 import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 
@@ -20,9 +22,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
@@ -285,16 +290,23 @@ public class ClipboardServiceImpl implements IClipboardService {
 		}
 
 		entry.setTakenTime(new Date());
-		getHistory().getEntries().add(0, entry);
+
+		CompoundCommand command = new CompoundCommand();
+		command.append(new AddCommand(getEditingDomain(), getHistory(), PdetoolsPackage.eINSTANCE
+				.getClipHistory_Entries(), entry, 0));
 
 		int maxSize = PDEToolsCore.getDefault().getPreferenceStore()
 				.getInt(ClipboardPreferenceConstants.CLIPBOARD_MAXIMUM_HISTORY_SIZE);
 
-		if (maxSize > 0) {
-			while (getHistory().getEntries().size() > maxSize) {
-				getHistory().getEntries().remove(getHistory().getEntries().size() - 1);
-			}
+		int currentSize = getHistory().getEntries().size();
+		if (maxSize > 0 && currentSize + 1 > maxSize) {
+			List<ClipboardEntry> remove = getHistory().getEntries().subList(maxSize - 1, currentSize);
+			command.append(new RemoveCommand(getEditingDomain(), getHistory(), PdetoolsPackage.eINSTANCE
+					.getClipHistory_Entries(), remove));
 		}
+
+		command.setLabel("Capture new content");
+		editingDomain.getCommandStack().execute(command);
 	}
 
 	private boolean hasDataFor(Transfer transfer) {

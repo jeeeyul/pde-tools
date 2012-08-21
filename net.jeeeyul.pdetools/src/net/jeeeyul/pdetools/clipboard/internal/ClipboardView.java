@@ -6,6 +6,7 @@ import java.util.List;
 import net.jeeeyul.pdetools.clipboard.ClipboardViewer;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
+import net.jeeeyul.pdetools.shared.UpdateJob;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -18,9 +19,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
 public class ClipboardView extends ViewPart {
 	public static final String ID = "net.jeeeyul.pdetools.clipboard.ClipboardView";
@@ -31,18 +34,35 @@ public class ClipboardView extends ViewPart {
 			if (notification.isTouch()) {
 				return;
 			}
-			updateActions();
+			updateJob.schedule();
 		};
 	};
 
-	public ClipboardViewer getViewer() {
-		return viewer;
-	}
-
-	protected void updateActions() {
-		for (ClipboardHistoryAction eachAction : actions) {
-			eachAction.update();
+	private UpdateJob updateJob = new UpdateJob(new Procedure0() {
+		@Override
+		public void apply() {
+			updateActions();
 		}
+	});
+
+	private void configureActions() {
+		MenuManager menuManager = new MenuManager();
+		Menu menu = menuManager.createContextMenu(viewer.getTableViewer().getTable());
+		viewer.getTableViewer().getTable().setMenu(menu);
+		getViewSite().registerContextMenu(menuManager, viewer.getTableViewer());
+
+		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+		RemoveAllAction removeAllAction = new RemoveAllAction(getClipboardService().getHistory());
+		actions.add(removeAllAction);
+		toolBarManager.add(removeAllAction);
+
+		UndoAction undoAction = new UndoAction(getClipboardService().getHistory());
+		actions.add(undoAction);
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
+
+		RedoAction redoAction = new RedoAction(getClipboardService().getHistory());
+		actions.add(redoAction);
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
 	}
 
 	@Override
@@ -59,37 +79,16 @@ public class ClipboardView extends ViewPart {
 		TableViewer tableViewer = viewer.getTableViewer();
 		getViewSite().setSelectionProvider(tableViewer);
 
-		configureActions(tableViewer);
+		configureActions();
 
 		getClipboardService().getHistory().eAdapters().add(listener);
 		updateActions();
-	}
-
-	private void configureActions(TableViewer tableViewer) {
-		MenuManager menuManager = new MenuManager();
-		Menu menu = menuManager.createContextMenu(tableViewer.getTable());
-		tableViewer.getTable().setMenu(menu);
-		getViewSite().registerContextMenu(menuManager, tableViewer);
-
-		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
-		RemoveAllAction removeAllAction = new RemoveAllAction(ClipboardServiceImpl.getInstance().getHistory());
-		actions.add(removeAllAction);
-		toolBarManager.add(removeAllAction);
 	}
 
 	@Override
 	public void dispose() {
 		getClipboardService().getHistory().eAdapters().remove(listener);
 		super.dispose();
-	}
-
-	private IClipboardService getClipboardService() {
-		return (IClipboardService) getSite().getService(IClipboardService.class);
-	}
-
-	@Override
-	public void setFocus() {
-		viewer.getTableViewer().getTable().setFocus();
 	}
 
 	@Override
@@ -101,5 +100,24 @@ public class ClipboardView extends ViewPart {
 		}
 
 		return super.getAdapter(adapter);
+	}
+
+	private IClipboardService getClipboardService() {
+		return (IClipboardService) getSite().getService(IClipboardService.class);
+	}
+
+	public ClipboardViewer getViewer() {
+		return viewer;
+	}
+
+	@Override
+	public void setFocus() {
+		viewer.getTableViewer().getTable().setFocus();
+	}
+
+	protected void updateActions() {
+		for (ClipboardHistoryAction eachAction : actions) {
+			eachAction.update();
+		}
 	}
 }
