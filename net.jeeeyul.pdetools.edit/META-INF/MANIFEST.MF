@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: net.jeeeyul.pdetools.model.edit;singleton:=true
+Bundle-SymbolicName: net.jeeeyul.pdetools.edit;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsEditPlugin$Implementation
@@ -13,5 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  net.jeeeyul.pdetools.model;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.emf.edit.ui
 Bundle-ActivationPolicy: lazy

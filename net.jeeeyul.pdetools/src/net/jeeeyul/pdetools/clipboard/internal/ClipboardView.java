@@ -5,9 +5,11 @@ import java.util.List;
 
 import net.jeeeyul.pdetools.clipboard.ClipboardViewer;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
+import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.TableViewer;
@@ -17,6 +19,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 public class ClipboardView extends ViewPart {
 	public static final String ID = "net.jeeeyul.pdetools.clipboard.ClipboardView";
@@ -88,4 +92,14 @@ public class ClipboardView extends ViewPart {
 		viewer.getTableViewer().getTable().setFocus();
 	}
 
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+		if (adapter == IPropertySheetPage.class) {
+			PropertySheetPage page = new PropertySheetPage();
+			page.setPropertySourceProvider(new AdapterFactoryContentProvider(new PdetoolsItemProviderAdapterFactory()));
+			return page;
+		}
+
+		return super.getAdapter(adapter);
+	}
 }

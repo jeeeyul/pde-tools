@@ -17,10 +17,16 @@ import net.jeeeyul.pdetools.shared.ImageDataSerializer
 
 type IFile wraps IFile create
 {
+	if(it == null || it.trim.empty){
+		return null
+	}
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
 convert
 {
+	if(it == null){
+		return ""
+	}
 	it.fullPath.toPortableString
 }
 
@@ -55,13 +61,21 @@ class ClipHistory extends ClipboardElement{
 class ClipboardEntry extends ClipboardElement{
 	int usingCount
 	Date lastUsedTime
+ 	
+ 	@GenModel(propertyMultiLine="true", propertyCategory="Content")
 	String textContent
+	
+	@GenModel(propertyMultiLine="true", propertyCategory="Content")
 	String rtfContent
 	Date takenTime
+	
+	@GenModel(property="None")
 	String partId
 	IFile releatedFile
 	
+ 	@GenModel(property="None")
 	container ClipHistory parent opposite entries 
+ 	
 	contains TextRange textRange
 	contains JavaInfo javaInfo
 	

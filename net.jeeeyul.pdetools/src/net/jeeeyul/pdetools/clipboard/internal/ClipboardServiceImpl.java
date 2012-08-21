@@ -12,6 +12,7 @@ import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.model.pdetools.JavaInfo;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.TextRange;
+import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.IFile;
@@ -19,9 +20,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
@@ -53,17 +58,6 @@ public class ClipboardServiceImpl implements IClipboardService {
 	private static IClipboardService INSTANCE;
 	private static ILock lock = Job.getJobManager().newLock();
 
-	public static void initailze() {
-		lock.acquire();
-		try {
-			if (INSTANCE == null) {
-				INSTANCE = new ClipboardServiceImpl();
-			}
-		} finally {
-			lock.release();
-		}
-	}
-
 	public static IClipboardService getInstance() {
 		lock.acquire();
 		try {
@@ -76,6 +70,17 @@ public class ClipboardServiceImpl implements IClipboardService {
 		return INSTANCE;
 	}
 
+	public static void initailze() {
+		lock.acquire();
+		try {
+			if (INSTANCE == null) {
+				INSTANCE = new ClipboardServiceImpl();
+			}
+		} finally {
+			lock.release();
+		}
+	}
+
 	private ClipHistory history;
 	private CopyActionDetector detector;
 	private Clipboard nativeClipboard;
@@ -85,42 +90,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 		};
 	};
 
-	@Override
-	public Clipboard getNativeClipboard() {
-		if (nativeClipboard == null) {
-			nativeClipboard = new Clipboard(Display.getDefault());
-		}
-		return nativeClipboard;
-	}
-
-	@Override
-	public ClipHistory getHistory() {
-		if (history == null) {
-			try {
-				URI uri = getPersistanceURI();
-				if (new File(uri.toFileString()).exists()) {
-					BinaryResourceImpl resourceImpl = new BinaryResourceImpl(uri);
-					resourceImpl.load(new HashMap<Object, Object>());
-					history = (ClipHistory) resourceImpl.getContents().get(0);
-				} else {
-					history = PdetoolsFactory.eINSTANCE.createClipHistory();
-				}
-			}
-
-			catch (Exception e) {
-				e.printStackTrace();
-				history = PdetoolsFactory.eINSTANCE.createClipHistory();
-			}
-		}
-		return history;
-	}
-
-	private URI getPersistanceURI() {
-		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
-		IPath clipboardURI = stateLocation.append("clipboard.data");
-		URI uri = URI.createFileURI(clipboardURI.toPortableString());
-		return uri;
-	}
+	private AdapterFactoryEditingDomain editingDomain;
 
 	public ClipboardServiceImpl() {
 		detector = new CopyActionDetector();
@@ -132,6 +102,110 @@ public class ClipboardServiceImpl implements IClipboardService {
 		});
 
 		PlatformUI.getWorkbench().addWindowListener(windowHook);
+	}
+
+	public ClipboardEntry createClipEntry() {
+		ClipboardEntry entry = PdetoolsFactory.eINSTANCE.createClipboardEntry();
+		entry.setTextContent((String) getNativeClipboard().getContents(getTextTransfer()));
+
+		if (hasDataFor(getRTFTransfer())) {
+			entry.setRtfContent((String) getNativeClipboard().getContents(getRTFTransfer()));
+		}
+
+		return entry;
+	}
+
+	public void dispose() {
+		PlatformUI.getWorkbench().removeWindowListener(windowHook);
+		nativeClipboard.dispose();
+		detector.dispose();
+	}
+
+	@Override
+	public void doSave() {
+		try {
+			getResource().save(new HashMap<Object, Object>());
+			System.out.println("클립보드 저장됨");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public AdapterFactoryEditingDomain getEditingDomain() {
+		if (editingDomain == null) {
+			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
+					new BasicCommandStack());
+		}
+		return editingDomain;
+	}
+
+	@Override
+	public ClipHistory getHistory() {
+		if (history == null) {
+			Resource resource = getResource();
+			try {
+				resource.load(new HashMap<Object, Object>());
+				history = (ClipHistory) resource.getContents().get(0);
+				System.out.println("클립보드 로드됨");
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				history = PdetoolsFactory.eINSTANCE.createClipHistory();
+				resource.getContents().clear();
+				resource.getContents().add(history);
+				System.out.println("클립보드 신규 생성됨");
+			}
+		}
+		return history;
+	}
+
+	@Override
+	public Clipboard getNativeClipboard() {
+		if (nativeClipboard == null) {
+			nativeClipboard = new Clipboard(Display.getDefault());
+		}
+		return nativeClipboard;
+	}
+
+	private URI getPersistanceURI() {
+		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
+		IPath clipboardURI = stateLocation.append("clipboard.data");
+		URI uri = URI.createFileURI(clipboardURI.toPortableString());
+		return uri;
+	}
+
+	private String getQualifiedName(IJavaElement element) {
+		long LABEL_FLAGS = new Long(JavaElementLabels.F_FULLY_QUALIFIED | JavaElementLabels.M_FULLY_QUALIFIED
+				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
+				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
+				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
+				.longValue();
+		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
+	}
+
+	public ResourceSet getResourceSet() {
+		return getEditingDomain().getResourceSet();
+	}
+
+	public Resource getResource() {
+		Resource resource = null;
+		try {
+			resource = getResourceSet().getResource(getPersistanceURI(), true);
+			System.out.println("기존 리소스 얻음");
+		} catch (Exception e) {
+			resource = getResourceSet().createResource(getPersistanceURI());
+			System.out.println("신규 리소스 작성");
+		}
+		return resource;
+	}
+
+	protected RTFTransfer getRTFTransfer() {
+		return RTFTransfer.getInstance();
+	}
+
+	protected TextTransfer getTextTransfer() {
+		return TextTransfer.getInstance();
 	}
 
 	protected void handleCopy(ExecutionEvent event) {
@@ -224,31 +298,6 @@ public class ClipboardServiceImpl implements IClipboardService {
 		}
 	}
 
-	protected TextTransfer getTextTransfer() {
-		return TextTransfer.getInstance();
-	}
-
-	protected RTFTransfer getRTFTransfer() {
-		return RTFTransfer.getInstance();
-	}
-
-	public void dispose() {
-		PlatformUI.getWorkbench().removeWindowListener(windowHook);
-		nativeClipboard.dispose();
-		detector.dispose();
-	}
-
-	public ClipboardEntry createClipEntry() {
-		ClipboardEntry entry = PdetoolsFactory.eINSTANCE.createClipboardEntry();
-		entry.setTextContent((String) getNativeClipboard().getContents(getTextTransfer()));
-
-		if (hasDataFor(getRTFTransfer())) {
-			entry.setRtfContent((String) getNativeClipboard().getContents(getRTFTransfer()));
-		}
-
-		return entry;
-	}
-
 	private boolean hasDataFor(Transfer transfer) {
 		TransferData[] availableTypes = getNativeClipboard().getAvailableTypes();
 		for (TransferData eachData : availableTypes) {
@@ -257,25 +306,5 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public void doSave() {
-		BinaryResourceImpl resource = new BinaryResourceImpl(getPersistanceURI());
-		resource.getContents().add(EcoreUtil.copy(getHistory()));
-		try {
-			resource.save(new HashMap<Object, Object>());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private String getQualifiedName(IJavaElement element) {
-		long LABEL_FLAGS = new Long(JavaElementLabels.F_FULLY_QUALIFIED | JavaElementLabels.M_FULLY_QUALIFIED
-				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
-				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
-				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
-				.longValue();
-		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
 	}
 }
