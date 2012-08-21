@@ -53,7 +53,7 @@ public class SnapshotCore {
 			resource = getResourceSet().getResource(getPersistanceURI(), true);
 		} catch (Exception e) {
 			resource = getResourceSet().createResource(getPersistanceURI());
-			System.out.println("신규 리소스 작성");
+			System.out.println("New resource for snapshot repository was created.");
 		}
 		return resource;
 	}
@@ -64,13 +64,13 @@ public class SnapshotCore {
 			try {
 				resource.load(new HashMap<Object, Object>());
 				repository = (SnapshotRepository) resource.getContents().get(0);
-				System.out.println("스냅샷 리포지터리 로드 됨");
+				System.out.println("Snapshot repository was loaded.");
 			} catch (Exception e) {
 				e.printStackTrace();
 				repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
 				resource.getContents().clear();
 				resource.getContents().add(repository);
-				System.out.println("스냅샷 리포지터리 새로 생성");
+				System.out.println("Snapshot repository was created.");
 
 			}
 		}
@@ -80,7 +80,7 @@ public class SnapshotCore {
 	public static void doSave() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
-			System.out.println("스냅샷 리포지터리 저장됨");
+			System.out.println("Snapshot repository was saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

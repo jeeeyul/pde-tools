@@ -127,7 +127,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 	public void doSave() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
-			System.out.println("클립보드 저장됨");
+			System.out.println("Clipboard was saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -150,7 +150,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 			try {
 				resource.load(new HashMap<Object, Object>());
 				history = (ClipHistory) resource.getContents().get(0);
-				System.out.println("클립보드 로드됨");
+				System.out.println("Clipboard was loaded.");
 			}
 
 			catch (Exception e) {
@@ -158,7 +158,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 				history = PdetoolsFactory.eINSTANCE.createClipHistory();
 				resource.getContents().clear();
 				resource.getContents().add(history);
-				System.out.println("클립보드 신규 생성됨");
+				System.out.println("Clipboard was created.");
 			}
 		}
 		return history;
@@ -196,10 +196,9 @@ public class ClipboardServiceImpl implements IClipboardService {
 		Resource resource = null;
 		try {
 			resource = getResourceSet().getResource(getPersistanceURI(), true);
-			System.out.println("기존 리소스 얻음");
 		} catch (Exception e) {
 			resource = getResourceSet().createResource(getPersistanceURI());
-			System.out.println("신규 리소스 작성");
+			System.out.println("New resource for Clipboard History was created.");
 		}
 		return resource;
 	}
