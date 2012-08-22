@@ -102,6 +102,7 @@ public class ClipboardView extends ViewPart {
 		IStructuredSelection selection = (IStructuredSelection) getViewer().getTableViewer().getSelection();
 		ClipboardEntry entry = (ClipboardEntry) selection.getFirstElement();
 		if (entry != null) {
+			entry.getParent().setActiveEntry(entry);
 			Clipboard clipboard = new Clipboard(Display.getDefault());
 			entry.transferTo(clipboard);
 			clipboard.dispose();

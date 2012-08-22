@@ -55,8 +55,13 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
 
 		String text = elapsedTimeLabelProvider.getText(entry.getTakenTime());
+		if(entry.isActive()){
+			text += " (Active)";
+		}
+		
 		int r = 5;
 
+		getSharedLayout().setFont(getViewer().getControl().getDisplay().getSystemFont());
 		getSharedLayout().setText(text);
 		KRectangle textBounds = new KRectangle(getSharedLayout().getBounds()).expand(r, 0);
 		if (iconDescriptor != null) {
