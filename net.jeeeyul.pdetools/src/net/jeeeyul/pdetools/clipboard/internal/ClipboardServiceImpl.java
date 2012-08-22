@@ -219,11 +219,12 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 		String textContents = (String) getNativeClipboard().getContents(getTextTransfer());
 
-		if (!getHistory().getEntries().isEmpty()) {
-			if (getHistory().getEntries().get(0).getTextContent().equals(textContents)) {
+		for (ClipboardEntry each : getHistory().getEntries()) {
+			if (textContents.equals(each.getTextContent())) {
 				return;
 			}
 		}
+
 		ClipboardEntry entry = createClipEntry();
 
 		// clip entry from outside of elcipse.
