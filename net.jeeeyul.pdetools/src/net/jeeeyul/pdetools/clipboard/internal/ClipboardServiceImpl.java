@@ -24,10 +24,12 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
@@ -291,9 +293,13 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 		entry.setTakenTime(new Date());
 
+		EReference entriesFeature = PdetoolsPackage.eINSTANCE.getClipHistory_Entries();
+		EReference activeEntryFeature = PdetoolsPackage.eINSTANCE.getClipHistory_ActiveEntry();
+
 		CompoundCommand command = new CompoundCommand();
-		command.append(new AddCommand(getEditingDomain(), getHistory(), PdetoolsPackage.eINSTANCE
-				.getClipHistory_Entries(), entry, 0));
+		AddCommand addEntry = new AddCommand(getEditingDomain(), getHistory(), entriesFeature, entry, 0);
+		command.append(addEntry);
+		command.append(new SetCommand(getEditingDomain(), getHistory(), activeEntryFeature, entry));
 
 		int maxSize = PDEToolsCore.getDefault().getPreferenceStore()
 				.getInt(ClipboardPreferenceConstants.CLIPBOARD_MAXIMUM_HISTORY_SIZE);
@@ -301,8 +307,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 		int currentSize = getHistory().getEntries().size();
 		if (maxSize > 0 && currentSize + 1 > maxSize) {
 			List<ClipboardEntry> remove = getHistory().getEntries().subList(maxSize - 1, currentSize);
-			command.append(new RemoveCommand(getEditingDomain(), getHistory(), PdetoolsPackage.eINSTANCE
-					.getClipHistory_Entries(), remove));
+			command.append(new RemoveCommand(getEditingDomain(), getHistory(), entriesFeature, remove));
 		}
 
 		command.setLabel("Capture new content");
