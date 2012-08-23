@@ -55,10 +55,10 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
 
 		String text = elapsedTimeLabelProvider.getText(entry.getTakenTime());
-		if(entry.isActive()){
+		if (entry.isActive()) {
 			text += " (Active)";
 		}
-		
+
 		int r = 5;
 
 		getSharedLayout().setFont(getViewer().getControl().getDisplay().getSystemFont());
@@ -126,7 +126,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		}
 
 		try {
-			if(!file.isSynchronized(IResource.DEPTH_ONE)){
+			if (!file.isSynchronized(IResource.DEPTH_ONE)) {
 				file.refreshLocal(IResource.DEPTH_ONE, null);
 			}
 			if (file.exists() && file.getContentDescription() != null) {
@@ -220,14 +220,14 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 				&& (colorizeTextOnSelection || (event.detail & SWT.SELECTED) == 0);
 
 		if (hasToStyle) {
-			StyleAndText data = factory.createFromRTFString(entry.getRtfContent());
-			getSharedLayout().setText(data.getText());
-			for (StyleRange each : data.getStyleRanges()) {
-				getSharedLayout().setStyle(each, each.start, each.start + each.length);
-			}
-		} else {
-			if ((event.detail & SWT.SELECTED) != 0) {
-				getViewer().getControl().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
+			try {
+				StyleAndText data = factory.createFromRTFString(entry.getRtfContent());
+				getSharedLayout().setText(data.getText());
+				for (StyleRange each : data.getStyleRanges()) {
+					getSharedLayout().setStyle(each, each.start, each.start + each.length);
+				}
+			} catch (Exception ie) {
+				
 			}
 		}
 		getSharedLayout().draw(event.gc, bounds.x, bounds.y);
