@@ -5,12 +5,16 @@ import java.util.List;
 
 import net.jeeeyul.pdetools.clipboard.ClipboardViewer;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 import net.jeeeyul.pdetools.shared.UpdateJob;
 
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -19,11 +23,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
@@ -102,10 +104,11 @@ public class ClipboardView extends ViewPart {
 		IStructuredSelection selection = (IStructuredSelection) getViewer().getTableViewer().getSelection();
 		ClipboardEntry entry = (ClipboardEntry) selection.getFirstElement();
 		if (entry != null) {
-			entry.getParent().setActiveEntry(entry);
-			Clipboard clipboard = new Clipboard(Display.getDefault());
-			entry.transferTo(clipboard);
-			clipboard.dispose();
+			ClipHistory history = entry.getParent();
+
+			EditingDomain editDomain = AdapterFactoryEditingDomain.getEditingDomainFor(history);
+			CommandStack stack = editDomain.getCommandStack();
+			stack.execute(new SetActiveEntryConmand(entry));
 		}
 	}
 
