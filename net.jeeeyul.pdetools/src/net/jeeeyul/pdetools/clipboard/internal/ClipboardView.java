@@ -8,6 +8,7 @@ import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
+import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.shared.UpdateJob;
 
 import org.eclipse.emf.common.command.CommandStack;
@@ -16,11 +17,14 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.IOpenListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -35,6 +39,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
 public class ClipboardView extends ViewPart {
 	public static final String ID = "net.jeeeyul.pdetools.clipboard.ClipboardView";
+	private ClipboardEntryStatusMessgeGenerator statusMessgeGenerator = new ClipboardEntryStatusMessgeGenerator();
 	private ClipboardViewer viewer;
 	private List<ClipboardHistoryAction> actions = new ArrayList<ClipboardHistoryAction>();
 	private EContentAdapter listener = new EContentAdapter() {
@@ -98,11 +103,28 @@ public class ClipboardView extends ViewPart {
 				handleOpen();
 			}
 		});
+
+		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				handleSelection();
+			}
+		});
+	}
+
+	protected void handleSelection() {
+		ClipboardEntry entry = getPrimarySelectedEntry();
+		IStatusLineManager manager = getViewSite().getActionBars().getStatusLineManager();
+
+		if (entry != null) {
+			manager.setMessage(SharedImages.getImage(SharedImages.CLIPBOARD), statusMessgeGenerator.generate(entry));
+		} else {
+			manager.setMessage("");
+		}
 	}
 
 	protected void handleOpen() {
-		IStructuredSelection selection = (IStructuredSelection) getViewer().getTableViewer().getSelection();
-		ClipboardEntry entry = (ClipboardEntry) selection.getFirstElement();
+		ClipboardEntry entry = getPrimarySelectedEntry();
 		if (entry != null) {
 			ClipHistory history = entry.getParent();
 
@@ -110,6 +132,12 @@ public class ClipboardView extends ViewPart {
 			CommandStack stack = editDomain.getCommandStack();
 			stack.execute(new SetActiveEntryConmand(entry));
 		}
+	}
+
+	private ClipboardEntry getPrimarySelectedEntry() {
+		IStructuredSelection selection = (IStructuredSelection) getViewer().getTableViewer().getSelection();
+		ClipboardEntry entry = (ClipboardEntry) selection.getFirstElement();
+		return entry;
 	}
 
 	@Override
