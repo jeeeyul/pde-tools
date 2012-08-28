@@ -211,6 +211,13 @@
             </parameter>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.trim.status">
+         <control
+               class="net.jeeeyul.pdetools.WorkbenchWindowControlContribution1">
+         </control>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
