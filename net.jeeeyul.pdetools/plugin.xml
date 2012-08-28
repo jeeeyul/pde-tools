@@ -170,7 +170,8 @@
                label="PDE-Tools">
             <command
                   commandId="net.jeeeyul.pdetools.snapshot.screenshot"
-                  style="push">
+                  id="net.jeeeyul.pdetools.snapshot.screenshot"
+                  style="pulldown">
             </command>
          </toolbar>
       </menuContribution>
@@ -208,6 +209,24 @@
             <parameter
                   name="preferencePageId"
                   value="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage">
+            </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:net.jeeeyul.pdetools.snapshot.screenshot">
+         <command
+               commandId="net.jeeeyul.pdetools.snapshot.screenshot"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.views.showView"
+               icon="icons/film.gif"
+               label="Show Camera Roll"
+               style="push">
+            <parameter
+                  name="org.eclipse.ui.views.showView.viewId"
+                  value="net.jeeeyul.pdetools.snapshot.SnapshotView">
             </parameter>
          </command>
       </menuContribution>
@@ -385,7 +404,7 @@
       <view
             category="org.eclipse.ui"
             class="net.jeeeyul.pdetools.snapshot.SnapshotView"
-            icon="icons/camera.gif"
+            icon="icons/film.gif"
             id="net.jeeeyul.pdetools.snapshot.SnapshotView"
             name="Snapshot"
             restorable="true">
