@@ -100,8 +100,10 @@ public class SnapshotHook {
 			shellInfo.setShellTitle(shell.getText());
 			job.setShellInfo(shellInfo);
 			job.setControlType(shell.getClass().getCanonicalName());
+			new Flash(shell).start();
 		} else {
 			job.setControlType(controlUnderMouse.getClass().getCanonicalName());
+			new Flash(controlUnderMouse).start();
 		}
 		job.schedule();
 
@@ -208,6 +210,10 @@ public class SnapshotHook {
 
 			default:
 				break;
+		}
+
+		if (event.character == ' ') {
+			capture();
 		}
 
 	}

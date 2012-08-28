@@ -62,29 +62,6 @@ public class CaptureBoundsIndicator {
 
 	}
 
-	protected void doFlashing() {
-		while (!shell.isDisposed()) {
-			shell.getDisplay().syncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (shell.isDisposed()) {
-						return;
-					}
-					long time = System.currentTimeMillis() % 1000L;
-					double theta = (time / 1000d) * Math.PI * 2d;
-					int addition = (int) ((Math.sin(theta) + 1d) * 96);
-					shell.setAlpha(64 + addition);
-				}
-			});
-
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public CaptureBoundsIndicator(Display display) {
 		this.display = display;
 		create(display);
@@ -95,7 +72,7 @@ public class CaptureBoundsIndicator {
 		shell.setBackground(display.getSystemColor(SWT.COLOR_RED));
 		shell.setSize(0, 0);
 		shell.setVisible(false);
-		
+
 		region = new Region(display);
 
 		GC gc = new GC(shell);
