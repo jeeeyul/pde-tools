@@ -221,7 +221,7 @@
          </command>
          <command
                commandId="org.eclipse.ui.views.showView"
-               icon="icons/film.gif"
+               icon="icons/pictures.gif"
                label="Show Camera Roll"
                style="push">
             <parameter
@@ -404,7 +404,7 @@
       <view
             category="org.eclipse.ui"
             class="net.jeeeyul.pdetools.snapshot.SnapshotView"
-            icon="icons/film.gif"
+            icon="icons/pictures.gif"
             id="net.jeeeyul.pdetools.snapshot.SnapshotView"
             name="Snapshot"
             restorable="true">
