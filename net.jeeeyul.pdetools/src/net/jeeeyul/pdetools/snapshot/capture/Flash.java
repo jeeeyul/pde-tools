@@ -76,6 +76,7 @@ public class Flash {
 		shell.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 		shell.setSize(0, 0);
 		shell.setVisible(false);
+		shell.update();
 	}
 
 	public void start() {

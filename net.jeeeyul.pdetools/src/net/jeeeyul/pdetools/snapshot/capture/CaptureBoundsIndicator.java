@@ -72,6 +72,7 @@ public class CaptureBoundsIndicator {
 		shell.setBackground(display.getSystemColor(SWT.COLOR_RED));
 		shell.setSize(0, 0);
 		shell.setVisible(false);
+		shell.update();
 
 		region = new Region(display);
 
