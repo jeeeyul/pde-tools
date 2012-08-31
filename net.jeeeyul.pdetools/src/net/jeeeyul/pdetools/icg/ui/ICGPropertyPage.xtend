@@ -39,6 +39,9 @@ class ICGPropertyPage extends PropertyPage {
 	Button markDerivedField
 	Button generatePreviewField
 	
+	Button standardButton
+	Button graphitiButton
+	
 	UIJob validateJob = newUIJob[|
 		if(control == null || control.isDisposed()){
 			return;
@@ -128,6 +131,30 @@ class ICGPropertyPage extends PropertyPage {
 				text = "Generation"
 				layout = GridLayout[ numColumns = 3 ]
 				layoutData = FILL_HORIZONTAL
+				
+				Label[
+					text = "Type:"
+				]
+				
+				Composite[
+					layoutData = FILL_HORIZONTAL[
+						horizontalSpan = 2
+					]
+					layout = GridLayout[
+						marginHeight = 0
+						marginWidth = 0
+						numColumns = 2
+					]
+					
+					standardButton = RadioButton[
+						text = "Standard"
+					]
+					
+					graphitiButton = RadioButton[
+						text = "Graphiti"
+					]
+				]
+				
 				Label[ text="Source Folder:" ]
 				generateSrcFolderField = TextField[
 					layoutData = FILL_HORIZONTAL
@@ -198,6 +225,9 @@ class ICGPropertyPage extends PropertyPage {
 		} else {
 			imageFileExtensionsField.text = ""
 		}
+		
+		standardButton.selection = config.generateType == ICGConfiguration::GENERATE_TYPE_STANDARD
+		graphitiButton.selection = config.generateType == ICGConfiguration::GENERATE_TYPE_GRAPHITI
 	}
 
 	def private void browsePackage() {
@@ -293,6 +323,13 @@ class ICGPropertyPage extends PropertyPage {
 		config.generatePackageName = generateSrcPackageField.text.trim
 		config.markDerived = markDerivedField.selection
 		config.generateImagePreview = generatePreviewField.selection
+		
+		if(standardButton.selection){
+			config.generateType = ICGConfiguration::GENERATE_TYPE_STANDARD
+		}else{
+			config.generateType = ICGConfiguration::GENERATE_TYPE_GRAPHITI
+		}
+		
 		config.save()
 		super.performOk()
 	}

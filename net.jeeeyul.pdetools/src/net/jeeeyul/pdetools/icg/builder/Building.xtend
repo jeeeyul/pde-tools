@@ -6,7 +6,7 @@ import java.util.HashMap
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
 import net.jeeeyul.pdetools.icg.builder.parts.ErrorPart
-import net.jeeeyul.pdetools.icg.builder.parts.ImageCosntantGenerator
+import net.jeeeyul.pdetools.icg.builder.parts.IConstantGenerator
 import net.jeeeyul.pdetools.icg.builder.parts.JavaProjectPart
 import net.jeeeyul.pdetools.icg.builder.parts.ResourceDeltaPart
 import net.jeeeyul.pdetools.shared.ResourceExtensions
@@ -30,7 +30,7 @@ class Building {
 	extension ResourceDeltaPart
 	
 	@Inject
-	extension ImageCosntantGenerator
+	extension IConstantGenerator
 	
 	@Inject
 	ICGConfiguration config

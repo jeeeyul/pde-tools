@@ -2,6 +2,9 @@ package net.jeeeyul.pdetools.icg.builder;
 
 import net.jeeeyul.pdetools.icg.builder.model.BuildContext;
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration;
+import net.jeeeyul.pdetools.icg.builder.parts.GraphitiImageCosntantGenerator;
+import net.jeeeyul.pdetools.icg.builder.parts.IConstantGenerator;
+import net.jeeeyul.pdetools.icg.builder.parts.StandardImageCosntantGenerator;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -42,6 +45,20 @@ public class BuildModule extends AbstractModule {
 	}
 
 	@Provides
+	public IConstantGenerator provideGenerator() {
+		ICGConfiguration config = provideConfiguration();
+		String generateType = config.getGenerateType();
+		IConstantGenerator result = null;
+		if (generateType.equals(ICGConfiguration.GENERATE_TYPE_STANDARD)) {
+			result = new StandardImageCosntantGenerator();
+		} else {
+			result = new GraphitiImageCosntantGenerator();
+		}
+		result.setConfig(config);
+		return result;
+	}
+
+	@Provides
 	@Singleton
 	public BuildContext provideBuildContenxt() {
 		BuildContext buildContext = new BuildContext();
@@ -49,10 +66,10 @@ public class BuildModule extends AbstractModule {
 		buildContext.setBuildKind(buildKind);
 		return buildContext;
 	}
-	
+
 	@Provides
 	@Singleton
-	public IJavaProject provideJavaProject(){
+	public IJavaProject provideJavaProject() {
 		return JavaCore.create(builder.getProject());
 	}
 

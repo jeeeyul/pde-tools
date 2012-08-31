@@ -5,10 +5,10 @@ import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ProjectScope
 import org.eclipse.core.runtime.Assert
+import org.eclipse.core.runtime.Path
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.pde.core.plugin.PluginRegistry
 import org.eclipse.ui.preferences.ScopedPreferenceStore
-import org.eclipse.core.runtime.Path
 
 import static net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration.*
 
@@ -18,8 +18,13 @@ class ICGConfiguration {
 	private static val GENERATE_PACKAGE = "generate-package" ;
 	private static val GENERATE_CLASS = "generate-class" ;
 	private static val MARK_DEREIVED = "mark-derived" ;
-	private static val IMAGE_FILE_EXTENSIONS = "image-file-extensions" ;
-	private static val GENERATE_IMAGE_PREVIEW = "generate-image-preview" ;
+	private static val IMAGE_FILE_EXTENSIONS = "image-file-extensions";
+	private static val GENERATE_IMAGE_PREVIEW = "generate-image-preview";
+	private static val GENERATE_TYPE="generate-type"
+	
+	public static val GENERATE_TYPE_STANDARD = "generate-type-standard"
+	public static val GENERATE_TYPE_GRAPHITI="generate-type-graphiti"
+	
 	IProject project ;
 	ScopedPreferenceStore _store ;
 
@@ -85,7 +90,9 @@ class ICGConfiguration {
 
 	def private store() {
 		if(_store == null) {
-			_store = new ScopedPreferenceStore(new ProjectScope(project), '''«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».icg''');
+			var projectScope = new ProjectScope(project)
+			_store = new ScopedPreferenceStore(projectScope, '''«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».icg''');
+			_store.setDefault(GENERATE_TYPE, GENERATE_TYPE_STANDARD)
 		}
 		return _store;
 	}
@@ -134,5 +141,13 @@ class ICGConfiguration {
 	
 	def getSaveFile(){
 		project.getFile(new Path('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault().bundle.symbolicName».icg.prefs'''))
+	}
+	
+	def getGenerateType(){
+		store.getString(GENERATE_TYPE)
+	}
+	
+	def setGenerateType(String type){
+		store.setValue(GENERATE_TYPE, type)
 	}
 }

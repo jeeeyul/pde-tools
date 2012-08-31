@@ -1,17 +1,17 @@
 package net.jeeeyul.pdetools.icg.builder.parts
 
-import com.google.inject.Inject
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
-import net.jeeeyul.pdetools.model.pdetools.Palette
 import net.jeeeyul.pdetools.model.pdetools.ImageFile
+import net.jeeeyul.pdetools.model.pdetools.Palette
+import org.eclipse.xtend.lib.Property
 
-class ImageCosntantGenerator {
-	@Inject
+class StandardImageCosntantGenerator implements IConstantGenerator {
+	@Property
 	ICGConfiguration config ;
 	
 	val ImagePreviewGenerator previewGenerator = new ImagePreviewGenerator()
 
-	def generateJavaSource(Palette rootPalette) '''
+	override String generateJavaSource(Palette rootPalette) '''
 		// Copyright 2012 Jeeeyul Lee, Seoul, Korea
 		// https://github.com/jeeeyul/pde-tools
 		//
@@ -27,7 +27,7 @@ class ImageCosntantGenerator {
 		//
 		// Please contact the author if you need another license.
 		// This module is provided "as is", without warranties of any kind.
-		package « config.generatePackageName »;
+		package «config.generatePackageName»;
 		
 		import java.io.File;
 		import java.net.URL;
