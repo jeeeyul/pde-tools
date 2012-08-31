@@ -53,3 +53,5 @@ PDE Tools generates Java constants for monitored folder. It also support structu
 1. Select a plugin project and press right mouse button.
 2. Select "Configure > Enable Shared Image Generator"
 3. That's all.
+
+![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/sig-config.png)
