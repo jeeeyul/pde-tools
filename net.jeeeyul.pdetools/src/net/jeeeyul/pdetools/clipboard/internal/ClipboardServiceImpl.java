@@ -220,6 +220,9 @@ public class ClipboardServiceImpl implements IClipboardService {
 		}
 
 		String textContents = (String) getNativeClipboard().getContents(getTextTransfer());
+		if (textContents == null || textContents.isEmpty()) {
+			return;
+		}
 
 		for (ClipboardEntry each : getHistory().getEntries()) {
 			if (textContents.equals(each.getTextContent())) {
