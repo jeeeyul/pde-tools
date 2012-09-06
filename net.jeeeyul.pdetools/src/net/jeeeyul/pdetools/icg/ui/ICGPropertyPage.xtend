@@ -139,6 +139,7 @@ class ICGPropertyPage extends PropertyPage {
 				Composite[
 					layoutData = FILL_HORIZONTAL[
 						horizontalSpan = 2
+						horizontalIndent = 16
 					]
 					layout = GridLayout[
 						marginHeight = 0
