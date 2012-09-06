@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -35,14 +37,10 @@ public class DragImageSupport implements DragSourceListener {
 	@Override
 	public void dragFinished(DragSourceEvent event) {
 		for (File each : files) {
-			each.delete();
+			each.deleteOnExit();
 		}
 		files.clear();
-
-		if (tempFolder != null && tempFolder.exists()) {
-			tempFolder.delete();
-			tempFolder = null;
-		}
+		tempFolder = null;
 	}
 
 	@Override
@@ -79,11 +77,11 @@ public class DragImageSupport implements DragSourceListener {
 			String fileExtension = path.getFileExtension();
 			String fileName = path.removeFileExtension().lastSegment();
 
-			File file = new File(fileName + "." + fileExtension);
+			File file = new File(getTempFolder(), fileName + "." + fileExtension);
 
 			int index = 2;
 			while (file.exists()) {
-				file = new File(fileName + " " + index + "." + fileExtension);
+				file = new File(getTempFolder(), fileName + " " + index + "." + fileExtension);
 				index++;
 			}
 			file.deleteOnExit();
@@ -113,12 +111,16 @@ public class DragImageSupport implements DragSourceListener {
 
 	public File getTempFolder() {
 		if (tempFolder == null) {
-			try {
-				tempFolder = File.createTempFile("temp-folder", "");
-				tempFolder.mkdir();
-			} catch (IOException e) {
-				e.printStackTrace();
+			File stateFolder = new File(PDEToolsCore.getDefault().getStateLocation().toOSString());
+			tempFolder = new File(stateFolder, "image-crawl-temp");
+			if (tempFolder.exists()) {
+				for (File file : tempFolder.listFiles()) {
+					file.delete();
+				}
+				tempFolder.delete();
 			}
+			tempFolder.mkdir();
+			System.out.println(tempFolder + " was created.");
 		}
 		return tempFolder;
 	}
