@@ -18,11 +18,11 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
 
-public class ICLabelProvider extends LabelProvider {
+public class ImageCrawlLabelProvider extends LabelProvider {
 	private ImageLoadingQueue<URL> queue;
 	private ImageRegistry registry;
 
-	public ICLabelProvider() {
+	public ImageCrawlLabelProvider() {
 		queue = new ImageLoadingQueue<URL>();
 		queue.setImageLoader(new Function1<URL, ImageData>() {
 			@Override
@@ -53,7 +53,7 @@ public class ICLabelProvider extends LabelProvider {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				fireLabelProviderChanged(new LabelProviderChangedEvent(ICLabelProvider.this));
+				fireLabelProviderChanged(new LabelProviderChangedEvent(ImageCrawlLabelProvider.this));
 			}
 		});
 

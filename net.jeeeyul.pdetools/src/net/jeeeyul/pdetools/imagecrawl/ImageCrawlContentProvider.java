@@ -6,11 +6,13 @@ import java.util.Enumeration;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.osgi.framework.Bundle;
 
-public class ICProvider implements ITreeContentProvider {
+public class ImageCrawlContentProvider implements ITreeContentProvider {
 
 	@Override
 	public void dispose() {
@@ -36,12 +38,36 @@ public class ICProvider implements ITreeContentProvider {
 			while (iter != null && iter.hasMoreElements()) {
 				result.add(iter.nextElement());
 			}
+			
+			iter = bundle.findEntries("/", "*.png", true);
+			while (iter != null && iter.hasMoreElements()) {
+				result.add(iter.nextElement());
+			}
+			
+			iter = bundle.findEntries("/", "*.bmp", true);
+			while (iter != null && iter.hasMoreElements()) {
+				result.add(iter.nextElement());
+			}
+			
+			iter = bundle.findEntries("/", "*.jpg", true);
+			while (iter != null && iter.hasMoreElements()) {
+				result.add(iter.nextElement());
+			}
 		}
 		return result.toArray();
 	}
 
 	@Override
 	public Object getParent(Object element) {
+		if(element instanceof URL){
+			URL url = (URL) element;
+
+			// bundleentry://423.fwk1652180105/icons/obj16/int_obj.gif
+			IPath path = new Path(url.toExternalForm());
+			long bundleId = Long.parseLong(path.segment(0).split("\\.")[0]);
+			
+			return PDEToolsCore.getDefault().getBundle().getBundleContext().getBundle(bundleId);
+		}
 		return null;
 	}
 

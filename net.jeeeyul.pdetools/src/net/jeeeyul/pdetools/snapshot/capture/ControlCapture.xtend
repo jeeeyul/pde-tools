@@ -6,9 +6,11 @@ import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell
-import static extension net.jeeeyul.pdetools.shared.SWTExtensions.*
+import net.jeeeyul.pdetools.shared.SWTExtensions
 
 class ControlCapture {
+	extension SWTExtensions = new SWTExtensions
+	
 	def dispatch Image capture(Control control){
 		control.redraw();
 		control.update();
