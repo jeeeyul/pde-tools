@@ -409,6 +409,13 @@
             name="Snapshot"
             restorable="true">
       </view>
+      <view
+            category="org.eclipse.pde.ui"
+            class="net.jeeeyul.pdetools.imagecrawl.ImageCrawlView"
+            id="net.jeeeyul.pdetools.imagecrawl.ImageCrawlView"
+            name="Image Crawling"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
