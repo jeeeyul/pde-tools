@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.biv;
 
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.Constants;
 
 public class BundleImageLabelProvider extends LabelProvider {
 	private ImageLoadingQueue<URL> queue;
@@ -49,9 +51,9 @@ public class BundleImageLabelProvider extends LabelProvider {
 	protected void handleLoad(List<ImageLoadingEntry<URL>> p) {
 		for (ImageLoadingEntry<URL> each : p) {
 			try {
-				if(each.image != null){
+				if (each.image != null) {
 					registry.put(each.key.toString(), ImageDescriptor.createFromImageData(each.image));
-				}else{
+				} else {
 					invalidURLs.add(each.key);
 				}
 			} catch (Exception e) {
@@ -80,11 +82,11 @@ public class BundleImageLabelProvider extends LabelProvider {
 	public Image getImage(Object element) {
 		if (element instanceof URL) {
 			URL url = (URL) element;
-			
-			if(invalidURLs.contains(url)){
+
+			if (invalidURLs.contains(url)) {
 				return SharedImages.getImage(SharedImages.INVAILD);
 			}
-			
+
 			Image result = registry.get(url.toString());
 			if (result == null) {
 				queue.add(url);
@@ -100,7 +102,9 @@ public class BundleImageLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if (element instanceof Bundle) {
-			return ((Bundle) element).getSymbolicName();
+			Bundle bundle = (Bundle) element;
+			return MessageFormat.format("{0} - {1}", bundle.getHeaders().get(Constants.BUNDLE_NAME),
+					bundle.getSymbolicName());
 		} else if (element instanceof URL) {
 			URL url = (URL) element;
 			String fileName = new Path(url.toString()).lastSegment();
