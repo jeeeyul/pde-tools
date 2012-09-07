@@ -23,6 +23,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Generates Shared Image Constants for Plugin Developments](#shared-image-generator)
 * [Icon Previewing Decorator](#icon-preview)
 * [Enhanced Clipboard (History feature)](#clipboard-history)
+* [Bundle Image Resource Navigator](#bundle-image-navigator)
 * Screen shot tool
 
 ## Install
@@ -55,3 +56,10 @@ PDE Tools generates Java constants for monitored folder. It also support structu
 3. That's all.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/sig-config.png)
+
+
+## Bundle Image Navigator
+
+![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/bundle-image-navigator.png)
+
+You can easily browse image files on plugins, and just drag and drop into your project to reuse icons.
