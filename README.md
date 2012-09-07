@@ -55,3 +55,8 @@ PDE Tools generates Java constants for monitored folder. It also support structu
 3. That's all.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/sig-config.png)
+
+
+## Bundle Image Navigator
+
+![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/bundle-image-navigator.png)
