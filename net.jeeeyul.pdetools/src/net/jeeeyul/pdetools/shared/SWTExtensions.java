@@ -74,6 +74,13 @@ public class SWTExtensions {
 		initializer.apply(comp);
 		return comp;
 	}
+	
+	public Composite Composite(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
+		Composite _composite = new Composite(parent, style);
+		Composite comp = _composite;
+		initializer.apply(comp);
+		return comp;
+	}
 
 	public Display display() {
 		Display _default = Display.getDefault();

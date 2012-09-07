@@ -402,7 +402,7 @@
             restorable="true">
       </view>
       <view
-            category="org.eclipse.ui"
+            category="org.eclipse.pde.ui"
             class="net.jeeeyul.pdetools.snapshot.SnapshotView"
             icon="icons/pictures.gif"
             id="net.jeeeyul.pdetools.snapshot.SnapshotView"
@@ -494,6 +494,9 @@
          point="org.eclipse.core.runtime.preferences">
       <initializer
             class="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceInitializer">
+      </initializer>
+      <initializer
+            class="net.jeeeyul.pdetools.biv.BIVPreferernceInitializer">
       </initializer>
    </extension>
    <extension

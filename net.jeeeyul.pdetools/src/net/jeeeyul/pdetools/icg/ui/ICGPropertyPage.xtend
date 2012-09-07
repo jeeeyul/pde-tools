@@ -147,11 +147,11 @@ class ICGPropertyPage extends PropertyPage {
 						numColumns = 2
 					]
 					
-					standardButton = RadioButton[
+					standardButton = it.RadioButton[
 						text = "Standard"
 					]
 					
-					graphitiButton = RadioButton[
+					graphitiButton = it.RadioButton[
 						text = "Graphiti"
 					]
 				]
