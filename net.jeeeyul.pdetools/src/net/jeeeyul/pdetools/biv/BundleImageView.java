@@ -3,7 +3,6 @@ package net.jeeeyul.pdetools.biv;
 import java.util.ArrayList;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
-import net.jeeeyul.pdetools.shared.SimpleGalleryGroupRenderer;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.shared.StringUtil;
 import net.jeeeyul.pdetools.shared.UpdateJob;
@@ -24,6 +23,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.Constants;
 
 public class BundleImageView extends ViewPart {
 	private GalleryTreeViewer viewer;
@@ -93,7 +93,7 @@ public class BundleImageView extends ViewPart {
 		viewer.getGallery().setLayoutData(new GridData(GridData.FILL_BOTH));
 		viewer.getGallery().setItemRenderer(new SimpleGalleryItemRenderer());
 
-		SimpleGalleryGroupRenderer groupRenderer = new SimpleGalleryGroupRenderer();
+		BIVGroupRenderer groupRenderer = new BIVGroupRenderer();
 		groupRenderer.setItemSize(48, 48);
 		viewer.getGallery().setGroupRenderer(groupRenderer);
 
@@ -128,7 +128,8 @@ public class BundleImageView extends ViewPart {
 		if (filterPattern == null) {
 			return true;
 		}
-		return element.getSymbolicName().matches(filterPattern);
+		String test = element.getSymbolicName() + element.getHeaders().get(Constants.BUNDLE_NAME).toLowerCase();
+		return test.matches(filterPattern);
 	}
 
 	public String getFilterLiteral() {
@@ -145,6 +146,8 @@ public class BundleImageView extends ViewPart {
 	}
 
 	private void setFilterLiteral(String wildCard, boolean updateUI) {
+		wildCard = wildCard.toLowerCase();
+
 		if (updateUI) {
 			filter.getTextField().setText(wildCard);
 			filter.getTextField().update();

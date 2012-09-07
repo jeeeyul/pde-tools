@@ -1,7 +1,6 @@
 package net.jeeeyul.pdetools.biv;
 
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 
@@ -103,8 +102,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 	public String getText(Object element) {
 		if (element instanceof Bundle) {
 			Bundle bundle = (Bundle) element;
-			return MessageFormat.format("{0} - {1}", bundle.getHeaders().get(Constants.BUNDLE_NAME),
-					bundle.getSymbolicName());
+			return bundle.getHeaders().get(Constants.BUNDLE_NAME);
 		} else if (element instanceof URL) {
 			URL url = (URL) element;
 			String fileName = new Path(url.toString()).lastSegment();
