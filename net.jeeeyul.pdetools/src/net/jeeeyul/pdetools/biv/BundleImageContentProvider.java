@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.imagecrawl;
+package net.jeeeyul.pdetools.biv;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.osgi.framework.Bundle;
 
-public class ImageCrawlContentProvider implements ITreeContentProvider {
+public class BundleImageContentProvider implements ITreeContentProvider {
 
 	@Override
 	public void dispose() {

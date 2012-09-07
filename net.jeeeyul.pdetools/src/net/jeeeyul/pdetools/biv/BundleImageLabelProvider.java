@@ -1,10 +1,12 @@
-package net.jeeeyul.pdetools.imagecrawl;
+package net.jeeeyul.pdetools.biv;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.List;
 
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
+import net.jeeeyul.pdetools.shared.SharedImages;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -18,11 +20,14 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
 
-public class ImageCrawlLabelProvider extends LabelProvider {
+public class BundleImageLabelProvider extends LabelProvider {
 	private ImageLoadingQueue<URL> queue;
 	private ImageRegistry registry;
+	private HashSet<URL> invalidURLs;
 
-	public ImageCrawlLabelProvider() {
+	public BundleImageLabelProvider() {
+		invalidURLs = new HashSet<URL>();
+
 		queue = new ImageLoadingQueue<URL>();
 		queue.setImageLoader(new Function1<URL, ImageData>() {
 			@Override
@@ -44,7 +49,11 @@ public class ImageCrawlLabelProvider extends LabelProvider {
 	protected void handleLoad(List<ImageLoadingEntry<URL>> p) {
 		for (ImageLoadingEntry<URL> each : p) {
 			try {
-				registry.put(each.key.toString(), ImageDescriptor.createFromImageData(each.image));
+				if(each.image != null){
+					registry.put(each.key.toString(), ImageDescriptor.createFromImageData(each.image));
+				}else{
+					invalidURLs.add(each.key);
+				}
 			} catch (Exception e) {
 
 			}
@@ -53,7 +62,7 @@ public class ImageCrawlLabelProvider extends LabelProvider {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				fireLabelProviderChanged(new LabelProviderChangedEvent(ImageCrawlLabelProvider.this));
+				fireLabelProviderChanged(new LabelProviderChangedEvent(BundleImageLabelProvider.this));
 			}
 		});
 
@@ -62,6 +71,7 @@ public class ImageCrawlLabelProvider extends LabelProvider {
 	@Override
 	public void dispose() {
 		queue.cancel();
+		invalidURLs.clear();
 		registry.dispose();
 		super.dispose();
 	}
@@ -70,10 +80,15 @@ public class ImageCrawlLabelProvider extends LabelProvider {
 	public Image getImage(Object element) {
 		if (element instanceof URL) {
 			URL url = (URL) element;
+			
+			if(invalidURLs.contains(url)){
+				return SharedImages.getImage(SharedImages.INVAILD);
+			}
+			
 			Image result = registry.get(url.toString());
 			if (result == null) {
 				queue.add(url);
-				return null;
+				return SharedImages.getImage(SharedImages.REFRESH);
 			} else {
 				return result;
 			}
@@ -88,7 +103,8 @@ public class ImageCrawlLabelProvider extends LabelProvider {
 			return ((Bundle) element).getSymbolicName();
 		} else if (element instanceof URL) {
 			URL url = (URL) element;
-			return new Path(url.toString()).lastSegment();
+			String fileName = new Path(url.toString()).lastSegment();
+			return fileName;
 		} else {
 			return "Unkown";
 		}

@@ -397,7 +397,7 @@ public class SWTExtensions {
 		return gc;
 	}
 
-	public void setOnClick(final Button button, final Procedure1<Button> function) {
+	public void setOnClick(final Control button, final Procedure1<Control> function) {
 		button.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -485,7 +485,7 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-
+	
 	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
 		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
 		initializer.apply(toolBar);

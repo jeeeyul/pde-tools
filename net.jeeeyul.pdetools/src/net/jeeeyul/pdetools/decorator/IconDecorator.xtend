@@ -16,10 +16,13 @@ import org.eclipse.swt.widgets.Display
 import java.util.ArrayList
 import org.eclipse.jface.viewers.DecorationContext
 import static net.jeeeyul.pdetools.decorator.IconDecorator.*
+import java.util.HashSet
+import net.jeeeyul.pdetools.shared.SharedImages
 
 class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecorator, IResourceChangeListener {
 	static val IMAGE_FILES = newArrayList("jpg", "gif", "png", "bmp")
 	HashMap<IFile, ImageData> decoratedFiles = new HashMap()
+	HashSet<IFile> invalidFiles = new HashSet()
 	ImageLoadingQueue queue
 
 	new(){
@@ -38,11 +41,17 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 	}
 
 	def doDecorateImageFile(IFile file, IDecoration decoration) {
-		if(decoratedFiles.containsKey(file)) {
+		if(invalidFiles.contains(file)){
+			decoration.replaceImage(SharedImages::getImageDescriptor(SharedImages::INVAILD_SMALL));
+		}
+
+		else if(decoratedFiles.containsKey(file)) {
 			var data = decoratedFiles.get(file)
 			if(data != null)
 				decoration.replaceImage(ImageDescriptor::createFromImageData(data))
-		} else {
+		} 
+		
+		else {
 			queue.add(file)
 		}
 	}
@@ -77,8 +86,10 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 				switch(eachDelta.kind) {
 					case IResourceDelta::REMOVED: {
 						decoratedFiles.remove(eachFile)
+						invalidFiles.remove(eachDelta)
 					}
 				default:{
+						invalidFiles.remove(eachDelta)
 						queue.add(eachFile)
 					}
 				}
@@ -87,13 +98,20 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 	}
 
 	override dispose() {
+		invalidFiles.clear()
 		decoratedFiles.clear()
 		ResourcesPlugin::workspace.removeResourceChangeListener(this)
 		super.dispose()
 	}
 
 	def void loaded(ImageDataEntry[] datas) {
-		datas.forEach[ decoratedFiles.put(file, imageData) ]
+		for(each : datas){
+			if(each.imageData != null){
+				decoratedFiles.put(each.file, each.imageData)
+			}else{
+				invalidFiles.add(each.file)
+			}
+		}
 		val me = this
 		Display::getDefault().asyncExec([|
 			fireLabelProviderChanged(new LabelProviderChangedEvent(me))

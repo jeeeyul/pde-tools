@@ -1,15 +1,16 @@
-package net.jeeeyul.pdetools.imagecrawl
+package net.jeeeyul.pdetools.shared
 
+import net.jeeeyul.pdetools.shared.SWTExtensions
 import org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer
 import org.eclipse.nebula.widgets.gallery.GalleryItem
-import org.eclipse.swt.graphics.GC
-import org.eclipse.swt.graphics.Rectangle
-import net.jeeeyul.pdetools.shared.SWTExtensions
-import org.eclipse.swt.graphics.Point
 import org.eclipse.nebula.widgets.gallery.RendererHelper
 import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.xtend.lib.Property
 
-class ItemRenderer extends AbstractGalleryItemRenderer {
+class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	extension SWTExtensions = SWTExtensions::INSTANCE
 
 	@Property int margin = 4;
@@ -49,6 +50,5 @@ class ItemRenderer extends AbstractGalleryItemRenderer {
 		}
 		RendererHelper::getBestSize(imageSize.x, imageSize.y, maxSize.x, maxSize.y)		
 	}
-	
 	
 }

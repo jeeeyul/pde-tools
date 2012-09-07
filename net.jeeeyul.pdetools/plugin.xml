@@ -411,9 +411,10 @@
       </view>
       <view
             category="org.eclipse.pde.ui"
-            class="net.jeeeyul.pdetools.imagecrawl.ImageCrawlView"
-            id="net.jeeeyul.pdetools.imagecrawl.ImageCrawlView"
-            name="Image Crawling"
+            class="net.jeeeyul.pdetools.biv.BundleImageView"
+            icon="icons/bundle-image.gif"
+            id="net.jeeeyul.pdetools.biv.BundleImageView"
+            name="Bundle Images"
             restorable="true">
       </view>
    </extension>

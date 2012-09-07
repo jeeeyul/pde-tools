@@ -64,8 +64,8 @@ public class ImageLoadingQueue extends Job {
 				ImageData imageData = new ImageData(contents);
 				contents.close();
 
-				if (imageData.width * imageData.height > 4096) {
-					result.add(new ImageDataEntry(each, null));
+				if (imageData.width >16 || imageData.height > 16) {
+					result.add(new ImageDataEntry(each, imageData.scaledTo(16, 16)));
 				} else {
 					result.add(new ImageDataEntry(each, imageData));
 				}

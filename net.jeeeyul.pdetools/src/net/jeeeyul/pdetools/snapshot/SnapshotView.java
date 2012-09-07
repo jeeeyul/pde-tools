@@ -6,6 +6,7 @@ import java.util.List;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
 import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterFactory;
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
+import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -86,9 +87,7 @@ public class SnapshotView extends ViewPart {
 		DefaultGalleryGroupRenderer rederer = (DefaultGalleryGroupRenderer) viewer.getGallery().getGroupRenderer();
 		rederer.setAutoMargin(true);
 
-		SafeItemRenderer itemRenderer = new SafeItemRenderer();
-		itemRenderer.setDropShadows(true);
-		itemRenderer.setDropShadowsSize(5);
+		SimpleGalleryItemRenderer itemRenderer = new SimpleGalleryItemRenderer();
 		viewer.getGallery().setItemRenderer(itemRenderer);
 
 		SnapshotCore.getRepository().eAdapters().add(refresher);
