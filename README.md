@@ -22,7 +22,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 ## Features
 * Generates Shared Image Constants for Plugin Developments
 * Icon Previewing Decorator
-* Enhanced Clipboard (History feature)
+* [Enhanced Clipboard (History feature)](#clipboard-history)
 * Screen shot tool
 
 ## Install
