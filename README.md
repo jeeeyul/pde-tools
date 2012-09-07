@@ -20,8 +20,8 @@ It was originated for me and my team. And it works great for me. I hope it helps
 </table>
 
 ## Features
-* Generates Shared Image Constants for Plugin Developments
-* Icon Previewing Decorator
+* [Generates Shared Image Constants for Plugin Developments](#shared-image-generator)
+* [Icon Previewing Decorator](#icon-preview)
 * [Enhanced Clipboard (History feature)](#clipboard-history)
 * Screen shot tool
 
