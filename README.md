@@ -61,3 +61,5 @@ PDE Tools generates Java constants for monitored folder. It also support structu
 ## Bundle Image Navigator
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/bundle-image-navigator.png)
+
+You can easily browse image files on plugins, and just drag and drop into your project to reuse icons.
