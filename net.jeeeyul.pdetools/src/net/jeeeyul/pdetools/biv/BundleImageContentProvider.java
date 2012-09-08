@@ -6,8 +6,6 @@ import java.util.Enumeration;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.osgi.framework.Bundle;
@@ -59,15 +57,6 @@ public class BundleImageContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object getParent(Object element) {
-		if(element instanceof URL){
-			URL url = (URL) element;
-
-			// bundleentry://423.fwk1652180105/icons/obj16/int_obj.gif
-			IPath path = new Path(url.toExternalForm());
-			long bundleId = Long.parseLong(path.segment(0).split("\\.")[0]);
-			
-			return PDEToolsCore.getDefault().getBundle().getBundleContext().getBundle(bundleId);
-		}
 		return null;
 	}
 
