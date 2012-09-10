@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
+import net.jeeeyul.pdetools.shared.SWTExtensions;
 import net.jeeeyul.pdetools.shared.SharedImages;
 
 import org.eclipse.core.runtime.Path;
@@ -13,8 +14,10 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.LabelProviderChangedEvent;
+import org.eclipse.nebula.widgets.gallery.RendererHelper;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -33,7 +36,15 @@ public class BundleImageLabelProvider extends LabelProvider {
 		queue.setImageLoader(new Function1<URL, ImageData>() {
 			@Override
 			public ImageData apply(URL p) {
-				return ImageDescriptor.createFromURL(p).getImageData();
+				ImageData imageData = ImageDescriptor.createFromURL(p).getImageData();
+				Point imageSize = SWTExtensions.INSTANCE.getSize(imageData);
+				Point maxSize = new Point(128, 128);
+				if (!SWTExtensions.INSTANCE.contains(maxSize, imageSize)) {
+					Point bestSize = getBestSize(imageSize, maxSize);
+					return imageData.scaledTo(bestSize.x, bestSize.y);
+				} else {
+					return imageData;
+				}
 			}
 		});
 
@@ -45,6 +56,13 @@ public class BundleImageLabelProvider extends LabelProvider {
 		});
 
 		registry = new ImageRegistry();
+	}
+
+	private Point getBestSize(Point imageSize, Point maxSize) {
+		if (imageSize.x <= maxSize.x && imageSize.y <= maxSize.y) {
+			return imageSize;
+		}
+		return RendererHelper.getBestSize(imageSize.x, imageSize.y, maxSize.x, maxSize.y);
 	}
 
 	protected void handleLoad(List<ImageLoadingEntry<URL>> p) {

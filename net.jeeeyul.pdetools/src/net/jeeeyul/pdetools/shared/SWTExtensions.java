@@ -11,6 +11,7 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -74,7 +75,7 @@ public class SWTExtensions {
 		initializer.apply(comp);
 		return comp;
 	}
-	
+
 	public Composite Composite(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
 		Composite _composite = new Composite(parent, style);
 		Composite comp = _composite;
@@ -97,30 +98,30 @@ public class SWTExtensions {
 		rectangle.height += height;
 		return rectangle;
 	}
-	
-	public Rectangle expand(Rectangle rectangle, Point delta){
+
+	public Rectangle expand(Rectangle rectangle, Point delta) {
 		return expand(rectangle, delta.x, delta.y);
 	}
-	
-	public Rectangle getExpanded(Rectangle rect, int dx, int dy){
+
+	public Rectangle getExpanded(Rectangle rect, int dx, int dy) {
 		return expand(getCopy(rect), dx, dy);
 	}
-	
-	public Point getDiference(Point a, Point b){
+
+	public Point getDiference(Point a, Point b) {
 		return new Point(b.x - a.x, b.y - a.y);
 	}
-	
-	public Point getScaled(Point p, double scale){
+
+	public Point getScaled(Point p, double scale) {
 		return scale(getCopy(p), scale);
 	}
-	
-	public Point scale(Point p, double scale){
+
+	public Point scale(Point p, double scale) {
 		p.x *= scale;
 		p.y *= scale;
 		return p;
 	}
-	
-	public Rectangle getExpanded(Rectangle rectangle, Point delta){
+
+	public Rectangle getExpanded(Rectangle rectangle, Point delta) {
 		return getExpanded(rectangle, delta.x, delta.y);
 	}
 
@@ -188,8 +189,8 @@ public class SWTExtensions {
 	public Point getTranslated(Point point, Point delta) {
 		return getTranslated(point, delta.x, delta.y);
 	}
-	
-	public GC drawImage(GC gc, Image image, Point location){
+
+	public GC drawImage(GC gc, Image image, Point location) {
 		gc.drawImage(image, location.x, location.y);
 		return gc;
 	}
@@ -392,14 +393,14 @@ public class SWTExtensions {
 		rectangle.y = location.y;
 		return rectangle;
 	}
-	
-	public Rectangle setSize(Rectangle rectangle, Point size){
+
+	public Rectangle setSize(Rectangle rectangle, Point size) {
 		rectangle.width = size.x;
 		rectangle.height = size.y;
 		return rectangle;
 	}
-	
-	public GC fillRoundRectangle(GC gc, Rectangle rectangle, int radius){
+
+	public GC fillRoundRectangle(GC gc, Rectangle rectangle, int radius) {
 		gc.fillRoundRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height, radius, radius);
 		return gc;
 	}
@@ -492,7 +493,7 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-	
+
 	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
 		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
 		initializer.apply(toolBar);
@@ -526,5 +527,13 @@ public class SWTExtensions {
 		Label label = _label;
 		initializer.apply(label);
 		return label;
+	}
+
+	public Point getSize(ImageData imageData) {
+		return new Point(imageData.width, imageData.height);
+	}
+	
+	public boolean contains(Point size, Point targetSize){
+		return size.x >= targetSize.x && size.y >= targetSize.y;
 	}
 }

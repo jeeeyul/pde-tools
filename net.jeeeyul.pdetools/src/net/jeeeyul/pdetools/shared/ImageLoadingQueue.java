@@ -66,7 +66,6 @@ public class ImageLoadingQueue<KeyType> extends Job {
 				ImageData imageData = imageLoader.apply(each);
 				result.add(new ImageLoadingEntry<KeyType>(each, imageData));
 			} catch (Exception e) {
-				e.printStackTrace();
 				result.add(new ImageLoadingEntry<KeyType>(each, null));
 			}
 		}
