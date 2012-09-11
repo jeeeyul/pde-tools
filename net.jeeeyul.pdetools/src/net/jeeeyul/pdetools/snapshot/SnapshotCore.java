@@ -71,13 +71,12 @@ public class SnapshotCore {
 				resource.getContents().clear();
 				resource.getContents().add(repository);
 				System.out.println("Snapshot repository was created.");
-
 			}
 		}
 		return repository;
 	}
 
-	public static void doSave() {
+	public static void doSaveAndClearUnusedFile() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
 			System.out.println("Snapshot repository was saved.");

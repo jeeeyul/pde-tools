@@ -101,6 +101,21 @@
                class="net.jeeeyul.pdetools.clipboard.internal.RemoveClipboardEntryHandler">
          </class>
       </handler>
+      <handler
+            commandId="org.eclipse.ui.edit.delete">
+         <activeWhen>
+            <and>
+               <iterate>
+                  <instanceof
+                        value="net.jeeeyul.pdetools.model.pdetools.SnapshotEntry">
+                  </instanceof>
+               </iterate>
+            </and>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.snapshot.RemoveSnapShotHandler">
+         </class>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -187,6 +202,22 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:net.jeeeyul.pdetools.clipboard.ClipboardView">
+         <command
+               commandId="org.eclipse.ui.edit.delete"
+               style="push">
+         </command>
+         <separator
+               name="additions"
+               visible="true">
+         </separator>
+         <command
+               commandId="org.eclipse.ui.file.properties"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:net.jeeeyul.pdetools.snapshot.SnapshotView">
          <command
                commandId="org.eclipse.ui.edit.delete"
                style="push">

@@ -1,6 +1,6 @@
 package net.jeeeyul.pdetools;
 
-import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
+import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.shared.DebugStream;
 import net.jeeeyul.pdetools.snapshot.SnapshotCore;
 
@@ -48,8 +48,10 @@ public class PDEToolsCore extends AbstractUIPlugin {
 	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
-		ClipboardServiceImpl.getInstance().doSave();
-		SnapshotCore.doSave();
+		IClipboardService clipboardService = (IClipboardService) getWorkbench().getService(IClipboardService.class);
+		clipboardService.doSave();
+		
+		SnapshotCore.doSaveAndClearUnusedFile();
 
 		plugin = null;
 		super.stop(context);

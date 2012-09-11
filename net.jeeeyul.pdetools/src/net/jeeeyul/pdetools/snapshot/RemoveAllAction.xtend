@@ -34,7 +34,7 @@ class RemoveAllAction extends SnapshotAction {
 			each.parent = null
 		}
 		repository.groups.clear();
-		SnapshotCore::doSave();
+		SnapshotCore::doSaveAndClearUnusedFile();
 	}
 
 	override update() {
