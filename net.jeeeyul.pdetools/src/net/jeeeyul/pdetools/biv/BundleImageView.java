@@ -1,15 +1,23 @@
 package net.jeeeyul.pdetools.biv;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.shared.StringUtil;
 import net.jeeeyul.pdetools.shared.UpdateJob;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
@@ -113,9 +121,28 @@ public class BundleImageView extends ViewPart {
 
 		new DragImageSupport(viewer);
 
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				handleSelectionChanged();
+			}
+		});
 		refreshFilter();
-
 		configMenu();
+	}
+
+	private void handleSelectionChanged() {
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		IStatusLineManager statusLineManager = getViewSite().getActionBars().getStatusLineManager();
+		statusLineManager.setMessage(null);
+		
+		if(selection.size() > 1){
+			statusLineManager.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), selection.size() + " images");
+		}else if(selection.size() == 1){
+			URL url = (URL) selection.getFirstElement();
+			IPath path = new Path(url.toExternalForm());
+			statusLineManager.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), path.lastSegment());
+		}
 	}
 
 	@Override

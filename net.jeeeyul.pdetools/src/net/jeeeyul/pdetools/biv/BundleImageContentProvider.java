@@ -2,6 +2,8 @@ package net.jeeeyul.pdetools.biv;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
@@ -29,29 +31,35 @@ public class BundleImageContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		ArrayList<Object> result = new ArrayList<Object>();
+		ArrayList<URL> result = new ArrayList<URL>();
 		if (parentElement instanceof Bundle) {
 			Bundle bundle = (Bundle) parentElement;
 			Enumeration<URL> iter = bundle.findEntries("/", "*.gif", true);
 			while (iter != null && iter.hasMoreElements()) {
 				result.add(iter.nextElement());
 			}
-			
+
 			iter = bundle.findEntries("/", "*.png", true);
 			while (iter != null && iter.hasMoreElements()) {
 				result.add(iter.nextElement());
 			}
-			
+
 			iter = bundle.findEntries("/", "*.bmp", true);
 			while (iter != null && iter.hasMoreElements()) {
 				result.add(iter.nextElement());
 			}
-			
+
 			iter = bundle.findEntries("/", "*.jpg", true);
 			while (iter != null && iter.hasMoreElements()) {
 				result.add(iter.nextElement());
 			}
 		}
+		Collections.sort(result, new Comparator<URL>() {
+			@Override
+			public int compare(URL o1, URL o2) {
+				return o1.toExternalForm().compareTo(o2.toExternalForm());
+			}
+		});
 		return result.toArray();
 	}
 
