@@ -23,7 +23,6 @@ class RemoveGroupIfEmptyCommand extends AbstractCommand {
 			deleteCommand = DeleteCommand::create(SnapshotCore::editingDomain, group)
 			deleteCommand.execute()
 		}
-
 	}
 	
 	override redo() {
@@ -33,7 +32,6 @@ class RemoveGroupIfEmptyCommand extends AbstractCommand {
 	override undo() {
 		if(deleteCommand != null){
 			deleteCommand.undo
-			println("µ¨Ä¿ ¾ðµÎ!")
 		}
 	}
 }
