@@ -71,7 +71,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 
 		EditingDomain domain = SnapshotCore.getEditingDomain();
 		Command addGroupCommand = AddCommand.create(domain, SnapshotCore.getRepository(),
-				PdetoolsPackage.eINSTANCE.getSnapshotRepository_Groups(), result);
+				PdetoolsPackage.eINSTANCE.getSnapshotRepository_Groups(), result, 0);
 
 		command.append(addGroupCommand);
 
