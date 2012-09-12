@@ -113,7 +113,7 @@
             </and>
          </activeWhen>
          <class
-               class="net.jeeeyul.pdetools.snapshot.RemoveSnapShotHandler">
+               class="net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapShotHandler">
          </class>
       </handler>
    </extension>

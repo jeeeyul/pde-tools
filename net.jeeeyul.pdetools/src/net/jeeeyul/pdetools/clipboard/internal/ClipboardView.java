@@ -158,7 +158,7 @@ public class ClipboardView extends ViewPart {
 	}
 
 	private IClipboardService getClipboardService() {
-		return (IClipboardService) getSite().getService(IClipboardService.class);
+		return IClipboardService.INSTANCE;
 	}
 
 	public ClipboardViewer getViewer() {

@@ -48,10 +48,10 @@ public class PDEToolsCore extends AbstractUIPlugin {
 	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
-		IClipboardService clipboardService = (IClipboardService) getWorkbench().getService(IClipboardService.class);
-		clipboardService.doSave();
-		
-		SnapshotCore.doSaveAndClearUnusedFile();
+		IClipboardService.INSTANCE.doSave();
+
+		SnapshotCore.save();
+		SnapshotCore.clean();
 
 		plugin = null;
 		super.stop(context);

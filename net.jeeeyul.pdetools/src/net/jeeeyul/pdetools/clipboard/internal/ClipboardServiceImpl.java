@@ -250,7 +250,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 				entry.setReleatedFile(file);
 			}
 
-			if (part != null) {
+			if (part != null && part.getSite().getSelectionProvider() != null) {
 				ISelectionProvider selectionProvider = part.getSite().getSelectionProvider();
 				ISelection selection = selectionProvider.getSelection();
 

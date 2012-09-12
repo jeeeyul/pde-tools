@@ -8,6 +8,7 @@ import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterF
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
+import net.jeeeyul.pdetools.snapshot.handlers.RemoveAllAction;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;

@@ -76,12 +76,15 @@ public class SnapshotCore {
 		return repository;
 	}
 
-	public static void doSaveAndClearUnusedFile() {
+	public static void save() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
-			System.out.println("Snapshot repository was saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void clean() {
+		new CleanRepository().run();
 	}
 }

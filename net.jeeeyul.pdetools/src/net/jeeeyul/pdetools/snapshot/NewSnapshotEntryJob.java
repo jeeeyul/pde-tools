@@ -126,7 +126,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			Job[] family = Job.getJobManager().find(SnapshotCore.getRepository());
 
 			if (family.length == 1) {
-				SnapshotCore.doSaveAndClearUnusedFile();
+				SnapshotCore.save();
 			}
 
 		} catch (Exception e) {

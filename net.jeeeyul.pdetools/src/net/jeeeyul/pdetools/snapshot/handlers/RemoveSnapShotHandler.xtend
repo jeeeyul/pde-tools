@@ -1,4 +1,4 @@
-package net.jeeeyul.pdetools.snapshot
+package net.jeeeyul.pdetools.snapshot.handlers
 
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry
 import org.eclipse.core.commands.AbstractHandler
