@@ -8,7 +8,9 @@ import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterF
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
+import net.jeeeyul.pdetools.snapshot.handlers.RedoAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RemoveAllAction;
+import net.jeeeyul.pdetools.snapshot.handlers.UndoAction;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -29,6 +31,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
@@ -93,16 +96,7 @@ public class SnapshotView extends ViewPart {
 
 		SnapshotCore.getRepository().eAdapters().add(refresher);
 
-		MenuManager menuManager = new MenuManager();
-		Menu menu = menuManager.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuManager, viewer);
-
-		getSite().setSelectionProvider(viewer);
-
-		RemoveAllAction removeAllAction = new RemoveAllAction(SnapshotCore.getRepository());
-		snapshotActions.add(removeAllAction);
-		getViewSite().getActionBars().getToolBarManager().add(removeAllAction);
+		configureActions();
 
 		viewer.addOpenListener(new IOpenListener() {
 			@Override
@@ -116,6 +110,27 @@ public class SnapshotView extends ViewPart {
 
 		configureDragSource();
 		updateActions();
+	}
+
+	private void configureActions() {
+		MenuManager menuManager = new MenuManager();
+		Menu menu = menuManager.createContextMenu(viewer.getControl());
+		viewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(menuManager, viewer);
+
+		getSite().setSelectionProvider(viewer);
+
+		RemoveAllAction removeAllAction = new RemoveAllAction(SnapshotCore.getRepository());
+		snapshotActions.add(removeAllAction);
+		getViewSite().getActionBars().getToolBarManager().add(removeAllAction);
+
+		UndoAction undoAction = new UndoAction(SnapshotCore.getRepository());
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
+		snapshotActions.add(undoAction);
+
+		RedoAction redoAction = new RedoAction(SnapshotCore.getRepository());
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+		snapshotActions.add(redoAction);
 	}
 
 	@Override
@@ -144,6 +159,7 @@ public class SnapshotView extends ViewPart {
 				@Override
 				protected void update(GalleryTreeViewer viewer) {
 					viewer.refresh();
+					updateActions();
 				}
 			};
 		}
@@ -152,7 +168,6 @@ public class SnapshotView extends ViewPart {
 
 	private void handleModelChange() {
 		getUpdate().schedule();
-		updateActions();
 	}
 
 	@Override

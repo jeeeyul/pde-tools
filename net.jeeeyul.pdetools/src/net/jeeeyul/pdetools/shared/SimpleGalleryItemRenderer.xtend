@@ -1,6 +1,5 @@
 package net.jeeeyul.pdetools.shared
 
-import net.jeeeyul.pdetools.shared.SWTExtensions
 import org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer
 import org.eclipse.nebula.widgets.gallery.GalleryItem
 import org.eclipse.nebula.widgets.gallery.RendererHelper
@@ -20,28 +19,32 @@ class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	}
 	
 	override draw(GC gc, GalleryItem item, int index, int x, int y, int width, int height) {
-		if(item.image == null){
+		if(item.image == null || gc.disposed){
 			return;
 		}
 		
-		val clientArea = new Rectangle(x, y, width, height);
-		
-		if(isSelected){
-			gc.background = item.display.getSystemColor(SWT::COLOR_LIST_SELECTION)
-			var selectionBounds = clientArea.copy.translate(selectionMargin, selectionMargin).expand(-selectionMargin * 2, -selectionMargin * 2)
-			gc.fillRoundRectangle(selectionBounds, 14)
+		try{
+			val clientArea = new Rectangle(x, y, width, height);
+			
+			if(isSelected){
+				gc.background = item.display.getSystemColor(SWT::COLOR_LIST_SELECTION)
+				var selectionBounds = clientArea.copy.translate(selectionMargin, selectionMargin).expand(-selectionMargin * 2, -selectionMargin * 2)
+				gc.fillRoundRectangle(selectionBounds, 14)
+			}
+			
+			val bounds = clientArea.getTranslated(margin, margin).expand(-margin*2, -margin*2)
+			val size = getBestSize(item.image.bounds.size, bounds.size)
+			val sizeDelta = size.getDiference(bounds.size).getScaled(0.5)
+			
+			var targetArea = new Rectangle(0, 0, 0, 0) => [
+				it.location = bounds.location.getTranslated(sizeDelta)
+				it.size = size
+			]
+			gc.drawImage(item.image, item.image.bounds, targetArea)
+			
+		}catch(Exception e){
+			e.printStackTrace()
 		}
-		
-		val bounds = clientArea.getTranslated(margin, margin).expand(-margin*2, -margin*2)
-		val size = getBestSize(item.image.bounds.size, bounds.size)
-		val sizeDelta = size.getDiference(bounds.size).getScaled(0.5)
-		
-		var targetArea = new Rectangle(0, 0, 0, 0) => [
-			it.location = bounds.location.getTranslated(sizeDelta)
-			it.size = size
-		]
-		
-		gc.drawImage(item.image, item.image.bounds, targetArea)			
 	}
 	
 	def Point getBestSize(Point imageSize, Point maxSize){

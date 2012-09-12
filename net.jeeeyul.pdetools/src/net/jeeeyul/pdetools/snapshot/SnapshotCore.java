@@ -20,20 +20,13 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 public class SnapshotCore {
 	private static SnapshotRepository repository;
 
-	private static URI getPersistanceURI() {
-		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot");
-		File folder = path.setDevice(null).toFile();
-		if (!folder.exists()) {
-			folder.mkdirs();
-		}
-
-		URI url = URI.createFileURI(path.append("snapshot.data").toPortableString());
-		return url;
-	}
-
 	private static AdapterFactoryEditingDomain editingDomain;
 
-	private static AdapterFactoryEditingDomain getEditingDomain() {
+	public static void clean() {
+		new CleanRepository().run();
+	}
+
+	public static synchronized AdapterFactoryEditingDomain getEditingDomain() {
 		if (editingDomain == null) {
 			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
 					new BasicCommandStack());
@@ -43,19 +36,15 @@ public class SnapshotCore {
 		return editingDomain;
 	}
 
-	private static ResourceSet getResourceSet() {
-		return getEditingDomain().getResourceSet();
-	}
-
-	private static Resource getResource() {
-		Resource resource = null;
-		try {
-			resource = getResourceSet().getResource(getPersistanceURI(), true);
-		} catch (Exception e) {
-			resource = getResourceSet().createResource(getPersistanceURI());
-			System.out.println("New resource for snapshot repository was created.");
+	private static URI getPersistanceURI() {
+		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot");
+		File folder = path.setDevice(null).toFile();
+		if (!folder.exists()) {
+			folder.mkdirs();
 		}
-		return resource;
+
+		URI url = URI.createFileURI(path.append("snapshot.data").toPortableString());
+		return url;
 	}
 
 	public static SnapshotRepository getRepository() {
@@ -76,15 +65,26 @@ public class SnapshotCore {
 		return repository;
 	}
 
+	private static Resource getResource() {
+		Resource resource = null;
+		try {
+			resource = getResourceSet().getResource(getPersistanceURI(), true);
+		} catch (Exception e) {
+			resource = getResourceSet().createResource(getPersistanceURI());
+			System.out.println("New resource for snapshot repository was created.");
+		}
+		return resource;
+	}
+
+	private static ResourceSet getResourceSet() {
+		return getEditingDomain().getResourceSet();
+	}
+
 	public static void save() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void clean() {
-		new CleanRepository().run();
 	}
 }

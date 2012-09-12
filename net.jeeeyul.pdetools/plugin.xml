@@ -97,6 +97,18 @@
                </iterate>
             </and>
          </activeWhen>
+         <enabledWhen>
+            <and>
+               <iterate>
+                  <instanceof
+                        value="net.jeeeyul.pdetools.model.pdetools.ClipboardEntry">
+                  </instanceof>
+               </iterate>
+               <count
+                     value="+">
+               </count>
+            </and>
+         </enabledWhen>
          <class
                class="net.jeeeyul.pdetools.clipboard.internal.RemoveClipboardEntryHandler">
          </class>
@@ -112,6 +124,17 @@
                </iterate>
             </and>
          </activeWhen>
+         <enabledWhen>
+            <and>
+               <iterate>
+                  <instanceof
+                        value="net.jeeeyul.pdetools.model.pdetools.SnapshotEntry">
+                  </instanceof>
+               </iterate>
+               <count
+                     value="+">
+               </count>
+            </and></enabledWhen>
          <class
                class="net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapShotHandler">
          </class>

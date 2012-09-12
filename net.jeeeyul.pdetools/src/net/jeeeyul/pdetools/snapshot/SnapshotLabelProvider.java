@@ -90,6 +90,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 	public void handleLoad(final List<ImageLoadingEntry<SnapshotEntry>> result) {
 		final List<SnapshotEntry> changedElements = new ArrayList<SnapshotEntry>();
 		for (ImageLoadingEntry<SnapshotEntry> each : result) {
+			registry.remove(each.key.getAbsoulteVisibleFilePath());
 			registry.put(each.key.getAbsoulteVisibleFilePath(), ImageDescriptor.createFromImageData(each.image));
 			changedElements.add(each.key);
 		}
@@ -106,8 +107,8 @@ public class SnapshotLabelProvider extends LabelProvider {
 	protected void handleRemovedItem(Object oldValue) {
 		List<SnapshotEntry> entries = resoveEntries(oldValue);
 
-		IPath path = new Path(SnapshotCore.getRepository().eResource().getURI().toFileString()).removeLastSegments(1).setDevice(
-				null);
+		IPath path = new Path(SnapshotCore.getRepository().eResource().getURI().toFileString()).removeLastSegments(1)
+				.setDevice(null);
 
 		for (SnapshotEntry each : entries) {
 			IPath filePath = path.append(each.getOriginalFile());

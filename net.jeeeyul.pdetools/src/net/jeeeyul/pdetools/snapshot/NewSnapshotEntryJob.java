@@ -7,6 +7,7 @@ import java.util.Date;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
+import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
 import net.jeeeyul.pdetools.model.pdetools.ShellInfo;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup;
@@ -20,6 +21,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -43,7 +48,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 		return family == SnapshotCore.getRepository();
 	}
 
-	private SnapshotGroup computeTargetGroup() {
+	private SnapshotGroup computeTargetGroup(CompoundCommand command) {
 		SnapshotGroup result = null;
 
 		SnapshotRepository repository = SnapshotCore.getRepository();
@@ -63,7 +68,12 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 
 		result = PdetoolsFactory.eINSTANCE.createSnapshotGroup();
 		result.setDate(new Date(now - (now % lengthOfDay) - startTimeOffset));
-		SnapshotCore.getRepository().getGroups().add(0, result);
+
+		EditingDomain domain = SnapshotCore.getEditingDomain();
+		Command addGroupCommand = AddCommand.create(domain, SnapshotCore.getRepository(),
+				PdetoolsPackage.eINSTANCE.getSnapshotRepository_Groups(), result);
+
+		command.append(addGroupCommand);
 
 		return result;
 	}
@@ -121,7 +131,13 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			entry.setControlType(controlType);
 			System.out.println(file.getName());
 
-			computeTargetGroup().getEntries().add(0, entry);
+			CompoundCommand command = new CompoundCommand("New Snapshot");
+			SnapshotGroup targetGroup = computeTargetGroup(command);
+
+			EditingDomain domain = SnapshotCore.getEditingDomain();
+			command.append(AddCommand.create(domain, targetGroup, PdetoolsPackage.eINSTANCE.getSnapshotGroup_Entries(),
+					entry));
+			domain.getCommandStack().execute(command);
 
 			Job[] family = Job.getJobManager().find(SnapshotCore.getRepository());
 

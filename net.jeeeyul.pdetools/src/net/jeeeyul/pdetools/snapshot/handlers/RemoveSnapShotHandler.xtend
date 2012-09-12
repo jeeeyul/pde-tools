@@ -29,6 +29,11 @@ class RemoveSnapShotHandler extends AbstractHandler {
 			command.append(DeleteCommand::create(editDomain, eachSnapshot))
 		}
 		
+		var groupSet = selection.toArray.map[(it as SnapshotEntry).parent].toSet
+		for(g : groupSet){
+			command.append(new RemoveGroupIfEmptyCommand(g))
+		}
+		
 		editDomain.commandStack.execute(command)
 		return null
 	}
