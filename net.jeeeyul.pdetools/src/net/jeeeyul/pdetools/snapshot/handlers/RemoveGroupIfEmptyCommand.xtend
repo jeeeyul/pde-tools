@@ -1,12 +1,14 @@
 package net.jeeeyul.pdetools.snapshot.handlers
 
-import org.eclipse.emf.common.command.AbstractCommand
 import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup
-import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository
+import net.jeeeyul.pdetools.snapshot.SnapshotCore
+import org.eclipse.emf.common.command.AbstractCommand
+import org.eclipse.emf.common.command.Command
+import org.eclipse.emf.edit.command.DeleteCommand
 
 class RemoveGroupIfEmptyCommand extends AbstractCommand {
 	SnapshotGroup group
-	SnapshotRepository repository
+	Command deleteCommand
 	
 	new(SnapshotGroup group){
 		this.group = group 
@@ -18,8 +20,8 @@ class RemoveGroupIfEmptyCommand extends AbstractCommand {
 	
 	override execute() {
 		if(group.entries.size() == 0){
-			repository = group.parent
-			group.parent = null
+			deleteCommand = DeleteCommand::create(SnapshotCore::editingDomain, group)
+			deleteCommand.execute()
 		}
 
 	}
@@ -29,8 +31,9 @@ class RemoveGroupIfEmptyCommand extends AbstractCommand {
 	}
 	
 	override undo() {
-		if(repository != null){
-			group.parent = repository
+		if(deleteCommand != null){
+			deleteCommand.undo
+			println("µ¨Ä¿ ¾ðµÎ!")
 		}
 	}
 }
