@@ -1,6 +1,5 @@
 eclipse.preferences.version=1
 generate-class=SharedImages
-generate-image-preview=true
 generate-package=net.jeeeyul.pdetools.shared
 generate-src-folder=src-gen
 image-file-extensions=gif, jpg, png

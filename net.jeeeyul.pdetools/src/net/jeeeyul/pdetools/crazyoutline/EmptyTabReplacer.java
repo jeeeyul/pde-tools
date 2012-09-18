@@ -9,8 +9,9 @@ public class EmptyTabReplacer {
 
 		String phase = content;
 		Matcher matcher = pattern.matcher(phase);
+
 		while (matcher.find()) {
-			phase = matcher.replaceFirst(blank(matcher.group(2).length()) + matcher.group(3));
+			phase = matcher.replaceFirst(matcher.group(1) + blank(matcher.group(2).length()) + matcher.group(3));
 			matcher = pattern.matcher(phase);
 		}
 
