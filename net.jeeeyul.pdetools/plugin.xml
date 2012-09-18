@@ -471,6 +471,13 @@
             name="Bundle Images"
             restorable="true">
       </view>
+      <view
+            category="org.eclipse.pde.ui"
+            class="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
+            id="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
+            name="Crazy Outline"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">

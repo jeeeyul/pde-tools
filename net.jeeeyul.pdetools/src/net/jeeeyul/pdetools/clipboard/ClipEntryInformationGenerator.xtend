@@ -23,7 +23,7 @@ class ClipEntryInformationGenerator {
 		</head>
 		<style>
 			html, body{
-				background-color: «Display::^default.getSystemColor(SWT::COLOR_INFO_BACKGROUND).RGB.toHtmlColor»;
+				background-color: «Display::getDefault().getSystemColor(SWT::COLOR_INFO_BACKGROUND).RGB.toHtmlColor»;
 				margin: 0px;
 				padding: 5px;
 			}

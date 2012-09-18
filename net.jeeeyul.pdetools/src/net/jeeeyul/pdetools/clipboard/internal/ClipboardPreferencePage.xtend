@@ -23,7 +23,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	Text maxItemCountField
 
 	new(){
-		preferenceStore = PDEToolsCore::^default.preferenceStore
+		preferenceStore = PDEToolsCore::getDefault().preferenceStore
 	}
 
 	override protected createContents(Composite parent) {

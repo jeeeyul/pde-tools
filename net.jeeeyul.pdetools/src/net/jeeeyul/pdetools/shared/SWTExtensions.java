@@ -107,7 +107,7 @@ public class SWTExtensions {
 		return expand(getCopy(rect), dx, dy);
 	}
 
-	public Point getDiference(Point a, Point b) {
+	public Point getDifference(Point a, Point b) {
 		return new Point(b.x - a.x, b.y - a.y);
 	}
 

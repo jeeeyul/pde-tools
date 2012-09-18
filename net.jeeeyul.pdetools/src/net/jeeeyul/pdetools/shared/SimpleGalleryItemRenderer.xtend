@@ -34,7 +34,7 @@ class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 			
 			val bounds = clientArea.getTranslated(margin, margin).expand(-margin*2, -margin*2)
 			val size = getBestSize(item.image.bounds.size, bounds.size)
-			val sizeDelta = size.getDiference(bounds.size).getScaled(0.5)
+			val sizeDelta = size.getDifference(bounds.size).getScaled(0.5)
 			
 			var targetArea = new Rectangle(0, 0, 0, 0) => [
 				it.location = bounds.location.getTranslated(sizeDelta)

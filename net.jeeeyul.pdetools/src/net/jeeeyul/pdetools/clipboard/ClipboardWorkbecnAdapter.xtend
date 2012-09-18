@@ -40,7 +40,7 @@ class ClipboardWorkbecnAdapter implements IWorkbenchAdapter {
 			
 			default:
 				if(o != null){
-					o.^class.name
+					o.getClass().name
 				}else{
 					null
 				}
