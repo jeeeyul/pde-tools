@@ -100,7 +100,7 @@ public class COPage extends Page {
 
 	private void onPaint(Event event) {
 		HSB hsb = new HSB(styledText.getBackground().getRGB());
-		hsb = hsb.ampBrightness(0.9f);
+		hsb = hsb.ampBrightness(0.95f);
 
 		Color background = new Color(getControl().getDisplay(), hsb.toRGB());
 		event.gc.setBackground(background);
@@ -157,6 +157,7 @@ public class COPage extends Page {
 		event.gc.fillRectangle(cursor);
 		event.gc.drawRectangle(cursor);
 
+		event.gc.setForeground(styledText.getForeground());
 		layout.draw(event.gc, 0, 0, -1, -1, null, null, SWT.DELIMITER_SELECTION);
 	}
 
