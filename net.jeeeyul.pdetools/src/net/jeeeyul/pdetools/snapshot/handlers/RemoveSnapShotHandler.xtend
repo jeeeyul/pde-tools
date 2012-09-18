@@ -37,7 +37,4 @@ class RemoveSnapShotHandler extends AbstractHandler {
 		editDomain.commandStack.execute(command)
 		return null
 	}
-
-
-	
 }
