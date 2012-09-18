@@ -474,6 +474,7 @@
       <view
             category="org.eclipse.pde.ui"
             class="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
+            icon="icons/crazy-outline.gif"
             id="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
             name="Crazy Outline"
             restorable="true">
