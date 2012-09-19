@@ -39,12 +39,28 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 	private ProjectionAnnotationModel pam;
 	private UIJob invalidateJob;
 
+	public UIJob getInvalidateJob() {
+		if (invalidateJob == null) {
+			invalidateJob = new UIJob("invalidate crazy canvas") {
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					doInvalidate();
+					return Status.OK_STATUS;
+				}
+			};
+			invalidateJob.setDisplay(getDisplay());
+			invalidateJob.setSystem(true);
+		}
+		return invalidateJob;
+	}
+
 	public CrazyCanvas(Composite parent, StyledText textWidget, IDocument document) {
 		this(parent, textWidget, document, null);
 	}
 
 	public CrazyCanvas(Composite parent, StyledText textWidget, IDocument document, ProjectionAnnotationModel pam) {
 		super(parent, SWT.DOUBLE_BUFFERED);
+
 		this.textWidget = textWidget;
 		this.document = document;
 		this.pam = pam;
@@ -60,15 +76,6 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 
 		new CrazyDragger(this);
 
-		invalidateJob = new UIJob("invalidate crazy canvas") {
-			@Override
-			public IStatus runInUIThread(IProgressMonitor monitor) {
-				doInvalidate();
-				return Status.OK_STATUS;
-			}
-		};
-		invalidateJob.setDisplay(getDisplay());
-		invalidateJob.setSystem(true);
 	}
 
 	private float computeScale(Rectangle viewBounds, Rectangle textBounds) {
@@ -236,7 +243,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 	}
 
 	public void invalidate() {
-		invalidateJob.schedule(200);
+		getInvalidateJob().schedule(200);
 	}
 
 	public void doInvalidate() {
