@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
 import net.jeeeyul.pdetools.shared.SharedImages;
 
@@ -45,6 +46,13 @@ public class CrazyDragger {
 				onMouseMove(event);
 			}
 		});
+
+		canvas.addListener(SWT.Gesture, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				onGesture(event);
+			}
+		});
 	}
 
 	public Cursor getGrabCursor() {
@@ -71,6 +79,31 @@ public class CrazyDragger {
 			});
 		}
 		return handCursor;
+	}
+
+	private void onGesture(Event event) {
+		if (event.detail == SWT.GESTURE_PAN) {
+			Rectangle selection = canvas.getSelection();
+			if (selection == null) {
+				return;
+			}
+			float revertScale = 1f / canvas.getScale();
+
+			int dx = event.xDirection;
+			int dy = event.yDirection;
+
+			boolean invert = PDEToolsCore.getDefault().getPreferenceStore()
+					.getBoolean(CrazyOutlineConstants.INVERT_SWIPE_GESTURE);
+			
+			if (invert) {
+				dx *= -1;
+				dy *= -1;
+			}
+
+			Rectangle newSelection = swt.getTranslated(selection, (int) (revertScale * dx), (int) (revertScale * dy));
+
+			canvas.setSelection(newSelection, true);
+		}
 	}
 
 	private void onMouseDown(Event event) {

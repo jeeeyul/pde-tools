@@ -558,6 +558,9 @@
       <initializer
             class="net.jeeeyul.pdetools.biv.BIVPreferernceInitializer">
       </initializer>
+      <initializer
+            class="net.jeeeyul.pdetools.crazyoutline.CrazyPreferenceInitializer">
+      </initializer>
    </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">

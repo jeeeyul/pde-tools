@@ -304,6 +304,9 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		transform.scale(scale, scale);
 
 		GC gc = new GC(buffer);
+		gc.setBackground(textWidget.getBackground());
+		gc.fillRectangle(bounds);
+		
 		gc.setTransform(transform);
 
 		TextLayout layout = getSharedTextLayout();
