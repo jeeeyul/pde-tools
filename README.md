@@ -63,3 +63,16 @@ PDE Tools generates Java constants for monitored folder. It also support structu
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/bundle-image-navigator.png)
 
 You can easily browse image files on plugins, and just drag and drop into your project to reuse icons.
+
+## Crazy Outline
+![Crazy Outline](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/crazy-outline.png)
+
+**Crazy Outline View** provides awesome way to navigate your source code.
+
+It supports not only text based editor also support multi-paged editors.
+
+<pre>
+Window >> Show View >> Others... >> Plug-in Development >> Crazy Outline
+</pre>
+or
+Just press Ctrl(or Command) + 3 and type crazy.
