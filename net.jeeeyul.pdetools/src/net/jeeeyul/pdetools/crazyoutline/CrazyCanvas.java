@@ -2,9 +2,15 @@ package net.jeeeyul.pdetools.crazyoutline;
 
 import net.jeeeyul.pdetools.shared.SWTExtensions;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.jface.text.source.IAnnotationModelListener;
+import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -18,24 +24,30 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.progress.UIJob;
 
-public class CrazyCanvas extends Canvas implements IDocumentListener {
+public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotationModelListener {
 	private SWTExtensions swt = SWTExtensions.INSTANCE;
 
 	private StyledText textWidget;
 	private Image buffer;
-
 	private TextLayout textLayout;
 	private Transform transform;
 	private float scale = 1f;
 	private Rectangle selection = new Rectangle(0, 0, 0, 0);
-
 	private IDocument document;
+	private ProjectionAnnotationModel pam;
+	private UIJob invalidateJob;
 
 	public CrazyCanvas(Composite parent, StyledText textWidget, IDocument document) {
+		this(parent, textWidget, document, null);
+	}
+
+	public CrazyCanvas(Composite parent, StyledText textWidget, IDocument document, ProjectionAnnotationModel pam) {
 		super(parent, SWT.DOUBLE_BUFFERED);
 		this.textWidget = textWidget;
 		this.document = document;
+		this.pam = pam;
 
 		hook();
 
@@ -47,6 +59,16 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 		});
 
 		new CrazyDragger(this);
+
+		invalidateJob = new UIJob("invalidate crazy canvas") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				doInvalidate();
+				return Status.OK_STATUS;
+			}
+		};
+		invalidateJob.setDisplay(getDisplay());
+		invalidateJob.setSystem(true);
 	}
 
 	private float computeScale(Rectangle viewBounds, Rectangle textBounds) {
@@ -172,6 +194,9 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 
 	private void handleDispose() {
 		document.removeDocumentListener(this);
+		if (pam != null) {
+			pam.removeAnnotationModelListener(this);
+		}
 	}
 
 	private void hook() {
@@ -204,9 +229,17 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 				invalidateSelection();
 			}
 		});
+
+		if (pam != null)
+			pam.addAnnotationModelListener(this);
+
 	}
 
 	public void invalidate() {
+		invalidateJob.schedule(200);
+	}
+
+	public void doInvalidate() {
 		swt.safeDispose(buffer);
 		invalidateSelection();
 		redraw();
@@ -301,4 +334,8 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 		redraw();
 	}
 
+	@Override
+	public void modelChanged(IAnnotationModel model) {
+		invalidate();
+	}
 }

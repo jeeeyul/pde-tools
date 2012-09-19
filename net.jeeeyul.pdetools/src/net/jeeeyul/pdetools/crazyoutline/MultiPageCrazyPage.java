@@ -5,9 +5,7 @@ import java.util.Map;
 
 import org.eclipse.jface.dialogs.IPageChangedListener;
 import org.eclipse.jface.dialogs.PageChangedEvent;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -42,7 +40,7 @@ public class MultiPageCrazyPage extends Page implements IPageChangedListener {
 
 	@Override
 	public void setFocus() {
-
+		pageBook.setFocus();
 	}
 
 	@Override
@@ -57,9 +55,9 @@ public class MultiPageCrazyPage extends Page implements IPageChangedListener {
 
 		if (page instanceof AbstractTextEditor) {
 			AbstractTextEditor textEditor = (AbstractTextEditor) page;
-			IDocument document = textEditor.getDocumentProvider().getDocument(textEditor.getEditorInput());
-			StyledText textWidget = (StyledText) textEditor.getAdapter(Control.class);
-			CrazyCanvas canvas = new CrazyCanvas(pageBook, textWidget, document);
+			CrazyPage crazyPage = new CrazyPage(textEditor);
+			crazyPage.createControl(pageBook);
+			Control canvas = crazyPage.getControl();
 			canvasMap.put(page, canvas);
 			pageBook.showPage(canvas);
 		} else {
@@ -70,7 +68,6 @@ public class MultiPageCrazyPage extends Page implements IPageChangedListener {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		super.dispose();
 	}
 

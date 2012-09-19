@@ -1,5 +1,8 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
+import org.eclipse.jface.text.ITextOperationTarget;
+import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -21,9 +24,22 @@ public class CrazyPage extends Page {
 
 	@Override
 	public void createControl(Composite parent) {
+		ProjectionAnnotationModel am = computePAM();
+
 		IDocumentProvider documentProvider = textEditor.getDocumentProvider();
 		IEditorInput editorInput = textEditor.getEditorInput();
-		crazyView = new CrazyCanvas(parent, widget, documentProvider.getDocument(editorInput));
+		crazyView = new CrazyCanvas(parent, widget, documentProvider.getDocument(editorInput), am);
+
+	}
+
+	protected ProjectionAnnotationModel computePAM() {
+		ProjectionAnnotationModel am = null;
+
+		Object target = textEditor.getAdapter(ITextOperationTarget.class);
+		if (target instanceof ProjectionViewer) {
+			am = ((ProjectionViewer) target).getProjectionAnnotationModel();
+		}
+		return am;
 	}
 
 	@Override
