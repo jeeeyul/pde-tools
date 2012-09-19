@@ -16,8 +16,8 @@ import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.graphics.Transform;
 import org.eclipse.swt.widgets.Canvas;
@@ -139,16 +139,19 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 			box.height = clientArea.height - box.y - 1;
 		}
 
-		Path path = new Path(getDisplay());
-		path.addRectangle(clientArea.x, clientArea.y, clientArea.width, clientArea.height);
-		path.addRectangle(box.x, box.y, box.width, box.height);
-		gc.setClipping(path);
+		Region region = new Region(getDisplay());
+		region.add(clientArea);
+		region.subtract(box);
+
+		gc.setClipping(region);
 		gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		gc.setAlpha(10);
 		gc.fillRectangle(clientArea.x, clientArea.y, clientArea.width, clientArea.height);
-		path.dispose();
-		gc.setAlpha(255);
 
+		gc.setClipping(clientArea);
+		region.dispose();
+
+		gc.setAlpha(255);
 		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
 		gc.drawRectangle(box);
 	}

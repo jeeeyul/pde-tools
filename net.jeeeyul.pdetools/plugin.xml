@@ -518,24 +518,22 @@
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="org.eclipse.pde.ui.PDEPerspective">
-         <view
-               id="net.jeeeyul.pdetools.snapshot.SnapshotView"
-               minimized="false"
-               relationship="stack"
-               relative="org.eclipse.ui.views.ContentOutline">
-         </view>
-         <view
-               id="net.jeeeyul.pdetools.clipboard.ClipboardView"
-               minimized="false"
-               relationship="bottom"
-               relative="org.eclipse.jdt.ui.PackageExplorer">
-         </view>
          <viewShortcut
                id="net.jeeeyul.pdetools.snapshot.SnapshotView">
          </viewShortcut>
          <viewShortcut
                id="net.jeeeyul.pdetools.clipboard.ClipboardView">
          </viewShortcut>
+         <viewShortcut
+               id="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView">
+         </viewShortcut>
+         <view
+               id="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ContentOutline"
+               visible="false">
+         </view>
       </perspectiveExtension>
    </extension>
    <extension
