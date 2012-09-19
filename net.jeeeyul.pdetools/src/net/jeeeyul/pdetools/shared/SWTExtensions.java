@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -119,6 +120,18 @@ public class SWTExtensions {
 		p.x *= scale;
 		p.y *= scale;
 		return p;
+	}
+
+	public Rectangle scale(Rectangle p, double scale) {
+		p.x *= scale;
+		p.y *= scale;
+		p.width *= scale;
+		p.height *= scale;
+		return p;
+	}
+
+	public Rectangle getScaled(Rectangle r, double scale) {
+		return scale(getCopy(r), scale);
 	}
 
 	public Rectangle getExpanded(Rectangle rectangle, Point delta) {
@@ -532,8 +545,14 @@ public class SWTExtensions {
 	public Point getSize(ImageData imageData) {
 		return new Point(imageData.width, imageData.height);
 	}
-	
-	public boolean contains(Point size, Point targetSize){
+
+	public boolean contains(Point size, Point targetSize) {
 		return size.x >= targetSize.x && size.y >= targetSize.y;
+	}
+
+	public void safeDispose(Resource resource) {
+		if (resource != null && !resource.isDisposed()) {
+			resource.dispose();
+		}
 	}
 }

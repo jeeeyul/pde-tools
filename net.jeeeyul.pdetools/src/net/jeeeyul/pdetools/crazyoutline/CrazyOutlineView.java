@@ -1,14 +1,15 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IPage;
 import org.eclipse.ui.part.MessagePage;
+import org.eclipse.ui.part.MultiPageEditorPart;
+import org.eclipse.ui.part.Page;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.PageBookView;
 import org.eclipse.ui.part.PageSite;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 public class CrazyOutlineView extends PageBookView {
 	public static final String ID = "net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView";
@@ -23,8 +24,16 @@ public class CrazyOutlineView extends PageBookView {
 
 	@Override
 	protected PageRec doCreatePage(IWorkbenchPart part) {
-		StyledText client = (StyledText) part.getAdapter(Control.class);
-		COPage page = new COPage(client);
+		Page page = null;
+
+		if (part instanceof MultiPageEditorPart) {
+			page = new MultiPageCrazyPage((MultiPageEditorPart) part);
+		} else if (part instanceof AbstractTextEditor) {
+			page = new CrazyPage((AbstractTextEditor) part);
+		} else {
+			return null;
+		}
+
 		PageSite site = new PageSite(getViewSite());
 		page.init(site);
 		page.createControl(getPageBook());
@@ -44,7 +53,11 @@ public class CrazyOutlineView extends PageBookView {
 
 	@Override
 	protected boolean isImportant(IWorkbenchPart part) {
-		return part instanceof IEditorPart && part.getAdapter(Control.class) instanceof StyledText;
+		if (!(part instanceof IEditorPart)) {
+			return false;
+		}
+		IEditorPart editor = (IEditorPart) part;
+		return editor instanceof AbstractTextEditor || editor instanceof MultiPageEditorPart;
 	}
 
 }
