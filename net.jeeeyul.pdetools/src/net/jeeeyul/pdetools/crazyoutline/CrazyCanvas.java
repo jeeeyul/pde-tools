@@ -169,7 +169,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		return selection;
 	}
 
-	public TextLayout getSharedTextLayout() {
+	private TextLayout getSharedTextLayout() {
 		if (textLayout == null) {
 			textLayout = new TextLayout(getDisplay());
 			addListener(SWT.Dispose, new Listener() {
@@ -246,7 +246,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		getInvalidateJob().schedule(200);
 	}
 
-	public void doInvalidate() {
+	private void doInvalidate() {
 		swt.safeDispose(buffer);
 		invalidateSelection();
 		redraw();
