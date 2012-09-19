@@ -68,4 +68,10 @@ public class MultiPageCrazyPage extends Page implements IPageChangedListener {
 		}
 	}
 
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		super.dispose();
+	}
+
 }
