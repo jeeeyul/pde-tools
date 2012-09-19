@@ -15,6 +15,8 @@ public class ElapsedTimeLabelProvider {
 		long today = (System.currentTimeMillis() - (9 * HOUR)) / DAY;
 		long thatDay = (time.getTime() - (9 * HOUR)) / DAY;
 		long dayElapsed = today - thatDay;
+		
+		System.out.println(dayElapsed);
 
 		long timeElapsed = System.currentTimeMillis() - time.getTime();
 
@@ -24,11 +26,11 @@ public class ElapsedTimeLabelProvider {
 			return Messages.ElapsedTimeLabelProvider_HALF_YEARS_AGO;
 		} else if (dayElapsed >= MONTH) {
 			return MessageFormat.format(Messages.ElapsedTimeLabelProvider_MONTHS_AGO, timeElapsed / MONTH);
-		} else if (dayElapsed >= DAY * 14) {
+		} else if (dayElapsed >= 14) {
 			return MessageFormat.format(Messages.ElapsedTimeLabelProvider_WEEKS_AGO, timeElapsed / (DAY * 7));
-		} else if (dayElapsed >= DAY * 7) {
+		} else if (dayElapsed >= 7) {
 			return Messages.ElapsedTimeLabelProvider_LAST_WEEK;
-		} else if (dayElapsed >= DAY * 2) {
+		} else if (dayElapsed >= 2) {
 			return MessageFormat.format(Messages.ElapsedTimeLabelProvider_DAYS_AGO, timeElapsed / DAY);
 		} else if (dayElapsed >= 1) {
 			return Messages.ElapsedTimeLabelProvider_YESTERDAY;
