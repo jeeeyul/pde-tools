@@ -243,16 +243,28 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 	}
 
 	public void invalidate() {
+		if (textWidget.isDisposed() || isDisposed()) {
+			return;
+		}
+
 		getInvalidateJob().schedule(200);
 	}
 
 	private void doInvalidate() {
+		if (textWidget.isDisposed() || isDisposed()) {
+			return;
+		}
+
 		swt.safeDispose(buffer);
 		invalidateSelection();
 		redraw();
 	}
 
 	private void invalidateSelection() {
+		if (textWidget.isDisposed() || isDisposed()) {
+			return;
+		}
+
 		selection = null;
 		redraw();
 	}
