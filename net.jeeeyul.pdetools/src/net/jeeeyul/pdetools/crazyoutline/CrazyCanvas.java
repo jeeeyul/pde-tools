@@ -24,10 +24,12 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 
 	private StyledText textWidget;
 	private Image buffer;
+
 	private TextLayout textLayout;
 	private Transform transform;
-	private float scale;
-	private Rectangle selection;
+	private float scale = 1f;
+	private Rectangle selection = new Rectangle(0, 0, 0, 0);
+
 	private IDocument document;
 
 	public CrazyCanvas(Composite parent, StyledText textWidget, IDocument document) {
@@ -43,10 +45,8 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 				handleDispose();
 			}
 		});
-	}
 
-	private void handleDispose() {
-		document.removeDocumentListener(this);
+		new CrazyDragger(this);
 	}
 
 	private float computeScale(Rectangle viewBounds, Rectangle textBounds) {
@@ -63,9 +63,35 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 		return scale;
 	}
 
-	private void invalidateSelection() {
-		selection = null;
-		redraw();
+	private void computeSelection(boolean updateTextWidget) {
+		Rectangle newSelection = new Rectangle(0, 0, 0, 0);
+		newSelection.x = textWidget.getHorizontalPixel();
+		newSelection.y = textWidget.getTopPixel();
+
+		int hThumb = textWidget.getHorizontalBar().getThumb();
+		if (hThumb == 1) {
+			newSelection.width = textWidget.getClientArea().width;
+		} else {
+			newSelection.width = hThumb;
+		}
+
+		int vThumb = textWidget.getVerticalBar().getThumb();
+		if (vThumb == 1) {
+			newSelection.height = textWidget.getClientArea().height;
+		} else {
+			newSelection.height = vThumb;
+		}
+
+		setSelection(newSelection, updateTextWidget);
+	}
+
+	@Override
+	public void documentAboutToBeChanged(DocumentEvent event) {
+	}
+
+	@Override
+	public void documentChanged(DocumentEvent event) {
+		invalidate();
 	}
 
 	private void drawSelection(GC gc) {
@@ -106,6 +132,14 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 		gc.drawImage(buffer, 0, 0);
 	}
 
+	public float getScale() {
+		return scale;
+	}
+
+	public Rectangle getSelection() {
+		return selection;
+	}
+
 	public TextLayout getSharedTextLayout() {
 		if (textLayout == null) {
 			textLayout = new TextLayout(getDisplay());
@@ -130,6 +164,14 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 			});
 		}
 		return transform;
+	}
+
+	public StyledText getTextWidget() {
+		return textWidget;
+	}
+
+	private void handleDispose() {
+		document.removeDocumentListener(this);
 	}
 
 	private void hook() {
@@ -167,6 +209,11 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 	public void invalidate() {
 		swt.safeDispose(buffer);
 		invalidateSelection();
+		redraw();
+	}
+
+	private void invalidateSelection() {
+		selection = null;
 		redraw();
 	}
 
@@ -238,50 +285,20 @@ public class CrazyCanvas extends Canvas implements IDocumentListener {
 		gc.dispose();
 	}
 
-	private void computeSelection(boolean updateTextWidget) {
-		Rectangle newSelection = new Rectangle(0, 0, 0, 0);
-		newSelection.x = textWidget.getHorizontalPixel();
-		newSelection.y = textWidget.getTopPixel();
-
-		int hThumb = textWidget.getHorizontalBar().getThumb();
-		if (hThumb == 1) {
-			newSelection.width = textWidget.getClientArea().width;
-		} else {
-			newSelection.width = hThumb;
-		}
-
-		int vThumb = textWidget.getVerticalBar().getThumb();
-		if (vThumb == 1) {
-			newSelection.height = textWidget.getClientArea().height;
-		} else {
-			newSelection.height = vThumb;
-		}
-
-		setSelection(newSelection, updateTextWidget);
-	}
-
 	public void setSelection(Rectangle rectangle, boolean updateTextWidget) {
-		this.selection = rectangle;
-
 		if (updateTextWidget) {
-			textWidget.setTopPixel(selection.y);
-			textWidget.setHorizontalPixel(selection.x);
+			textWidget.setTopPixel(rectangle.y);
+			textWidget.setHorizontalPixel(rectangle.x);
+			invalidateSelection();
+			return;
 		}
+
+		this.selection = rectangle;
 
 		Event event = new Event();
 		event.display = getDisplay();
 		event.widget = this;
-		notifyListeners(SWT.Selection, event);
 		redraw();
-	}
-
-	@Override
-	public void documentAboutToBeChanged(DocumentEvent event) {
-	}
-
-	@Override
-	public void documentChanged(DocumentEvent event) {
-		invalidate();
 	}
 
 }

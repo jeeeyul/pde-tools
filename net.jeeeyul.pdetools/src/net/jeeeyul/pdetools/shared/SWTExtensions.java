@@ -550,6 +550,11 @@ public class SWTExtensions {
 		return size.x >= targetSize.x && size.y >= targetSize.y;
 	}
 
+	public boolean contains(Rectangle rect, Point point) {
+		return rect.x <= point.x && rect.y <= point.y && point.x <= rect.x + rect.width
+				&& point.y <= rect.y + rect.height;
+	}
+
 	public void safeDispose(Resource resource) {
 		if (resource != null && !resource.isDisposed()) {
 			resource.dispose();
