@@ -146,7 +146,6 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		gc.setAlpha(10);
 		gc.fillRectangle(clientArea.x, clientArea.y, clientArea.width, clientArea.height);
-		gc.setClipping((Path) null);
 		path.dispose();
 		gc.setAlpha(255);
 
