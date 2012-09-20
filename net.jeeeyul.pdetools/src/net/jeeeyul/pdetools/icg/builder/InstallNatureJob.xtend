@@ -50,7 +50,7 @@ class InstallNatureJob extends WorkbenchJob {
 			markDerived = true
 		]
 		config.save();
-		monitor	.done();
+		monitor.done();
 		new OpenICGPropertyJob(project).schedule();
 		return Status::OK_STATUS
 	}

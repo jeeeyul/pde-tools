@@ -1,19 +1,25 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.shared.HSB;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IAnnotationModelListener;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
@@ -26,7 +32,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
-public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotationModelListener {
+public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotationModelListener, IPropertyChangeListener {
 	private SWTExtensions swt = SWTExtensions.INSTANCE;
 
 	private StyledText textWidget;
@@ -144,9 +150,15 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		region.subtract(box);
 
 		gc.setClipping(region);
-		gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		gc.setAlpha(10);
+
+		IPreferenceStore store = PDEToolsCore.getDefault().getPreferenceStore();
+		HSB fogHSB = HSB.createFromString(store.getString(CrazyOutlineConstants.FOG_COLOR));
+		Color fogColor = new Color(getDisplay(), fogHSB.toRGB());
+		gc.setBackground(fogColor);
+
+		gc.setAlpha(store.getInt(CrazyOutlineConstants.FOG_TRANSPARENCY));
 		gc.fillRectangle(clientArea.x, clientArea.y, clientArea.width, clientArea.height);
+		fogColor.dispose();
 
 		gc.setClipping(clientArea);
 		region.dispose();
@@ -206,6 +218,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		if (pam != null) {
 			pam.removeAnnotationModelListener(this);
 		}
+		PDEToolsCore.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 	}
 
 	private void hook() {
@@ -242,6 +255,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		if (pam != null)
 			pam.addAnnotationModelListener(this);
 
+		PDEToolsCore.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	public void invalidate() {
@@ -249,7 +263,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 			return;
 		}
 
-		getInvalidateJob().schedule(200);
+		getInvalidateJob().schedule(1000);
 	}
 
 	private void doInvalidate() {
@@ -306,7 +320,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		GC gc = new GC(buffer);
 		gc.setBackground(textWidget.getBackground());
 		gc.fillRectangle(bounds);
-		
+
 		gc.setTransform(transform);
 
 		TextLayout layout = getSharedTextLayout();
@@ -351,15 +365,22 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		}
 
 		this.selection = rectangle;
-
-		Event event = new Event();
-		event.display = getDisplay();
-		event.widget = this;
 		redraw();
 	}
 
 	@Override
 	public void modelChanged(IAnnotationModel model) {
 		invalidate();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getProperty() == null) {
+			return;
+		}
+
+		if (event.getProperty().startsWith("crazy-")) {
+			invalidate();
+		}
 	}
 }

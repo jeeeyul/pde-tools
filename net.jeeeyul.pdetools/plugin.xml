@@ -67,7 +67,7 @@
       </image>
       <image
             commandId="net.jeeeyul.pdetools.icg.enableNature"
-            icon="icons/add.gif">
+            icon="icons/image-folder.gif">
       </image>
       <image
             commandId="net.jeeeyul.pdetools.snapshot.screenshot"
@@ -147,6 +147,7 @@
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="net.jeeeyul.pdetools.icg.enableNature"
+               icon="icons/image-folder.gif"
                label="Enable Shared Image Generator"
                style="push">
             <visibleWhen
@@ -175,6 +176,7 @@
          </command>
          <command
                commandId="net.jeeeyul.pdetools.icg.disableNature"
+               icon="icons/image-folder.gif"
                label="Disable Shared Image Generator"
                style="push">
             <visibleWhen
@@ -548,6 +550,12 @@
             class="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage"
             id="net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage"
             name="Clipboard">
+      </page>
+      <page
+            category="net.jeeeyul.pdetools.internal.PDEToolsPreferncePage"
+            class="net.jeeeyul.pdetools.crazyoutline.CrazyPreferencePage"
+            id="net.jeeeyul.pdetools.crazyoutline.CrazyPreferencePage"
+            name="Crazy Outline">
       </page>
    </extension>
    <extension

@@ -10,7 +10,7 @@ class OpenICGPropertyJob extends WorkbenchJob {
 	IProject project
 	new(IProject project){
 		super("Open ICG Property")
-		system = true
+		user = true
 		this.project = project
 	}
 

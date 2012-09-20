@@ -26,9 +26,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
@@ -55,6 +57,30 @@ public class SWTExtensions {
 
 	public Point getCopy(Point point) {
 		return new Point(point.x, point.y);
+	}
+	
+	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
+		Scale scale = new Scale(parent, SWT.NORMAL);
+		initializer.apply(scale);
+		return scale;
+	}
+
+	
+	public ColorWell ColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
+		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
+		initializer.apply(colorWell);
+		return colorWell;
+	}
+
+	public Label Separator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		initializer.apply(separator);
+		Layout layout = parent.getLayout();
+		if (layout instanceof GridLayout) {
+			GridLayout gridLayout = (GridLayout) layout;
+			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
+		}
+		return separator;
 	}
 
 	public CLabel CLabel(final Composite parent, final Procedure1<? super CLabel> initializer) {
