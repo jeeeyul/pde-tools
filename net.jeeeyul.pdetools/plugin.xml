@@ -580,5 +580,16 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+         id="pde-tools"
+         name="PDE Tools"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="false"
+            categoryId="net.jeeeyul.pdetools.pde-tools"
+            class="net.jeeeyul.pdetools.jdt.TestProposalComputer"
+            needsSortingAfterFiltering="false">
+      </javaCompletionProposalComputer>
+   </extension>
 
 </plugin>
