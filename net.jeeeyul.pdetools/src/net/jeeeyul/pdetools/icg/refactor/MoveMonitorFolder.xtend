@@ -30,20 +30,24 @@ class MoveMonitorFolder extends MoveParticipant {
 	}
 	
 	override createChange(IProgressMonitor pm) throws CoreException, OperationCanceledException {
-		var TextFileChange change = null
-		var editorInput = new FileEditorInput(config.saveFile)
-		var documentProvider = DocumentProviderRegistry::getDefault().getDocumentProvider(editorInput)
 		try{
-			documentProvider.connect(editorInput)
-			var doc = documentProvider.getDocument(editorInput)
-			var finder = new FindReplaceDocumentAdapter(doc)
-			var region = finder.find(0, '''monitoring-folder=«before.toPortableString.asISO_8859_1»''', true, true, false, false )
-			change = new TextFileChange("Update Image Constant Generator settings", config.saveFile)
-			change.edit = new ReplaceEdit(region.offset, region.length, '''monitoring-folder=«after.toPortableString.asISO_8859_1»''');
-		}finally{
-			documentProvider.disconnect(editorInput)
+			var TextFileChange change = null
+			var editorInput = new FileEditorInput(config.saveFile)
+			var documentProvider = DocumentProviderRegistry::getDefault().getDocumentProvider(editorInput)
+			try{
+				documentProvider.connect(editorInput)
+				var doc = documentProvider.getDocument(editorInput)
+				var finder = new FindReplaceDocumentAdapter(doc)
+				var region = finder.find(0, '''monitoring-folder=«before.toPortableString.asISO_8859_1»''', true, true, false, false )
+				change = new TextFileChange("Update Image Constant Generator settings", config.saveFile)
+				change.edit = new ReplaceEdit(region.offset, region.length, '''monitoring-folder=«after.toPortableString.asISO_8859_1»''');
+			}finally{
+				documentProvider.disconnect(editorInput)
+			}
+			return new CompositeChange("Update Shared Image Generator settings", newArrayList(change))
+		}catch(Exception e){
+			return null
 		}
-		return new CompositeChange("Update Shared Image Generator settings", newArrayList(change))
 	}
 	
 	override getName() {
@@ -51,23 +55,27 @@ class MoveMonitorFolder extends MoveParticipant {
 	}
 	
 	override protected initialize(Object element) {
-		var movingResource = element.getAdapter(typeof(IResource))
-		if(!(movingResource instanceof IFolder)) {
-			return false
+		try{
+			var movingResource = element.getAdapter(typeof(IResource))
+			if(!(movingResource instanceof IFolder)) {
+				return false
+			}
+			config = new ICGConfiguration(movingResource.project)
+			
+			// 이동 될 폴더가 모니터링 폴더를 포함하는 지 검사
+			if(!movingResource.fullPath.isPrefixOf(config.monitoringFolder.fullPath)) {
+				return false
+			}
+			
+			// 이전 설정값
+			before = config.monitoringFolder.projectRelativePath
+			
+			// 변경될 설정값 계산
+			var relPath = config.monitoringFolder.fullPath.makeRelativeTo(movingResource.fullPath)
+			after = new Path(arguments.destination.toString).append(movingResource.name).append(relPath).removeFirstSegments(2)
+		}catch(Exception e){
+			return false;
 		}
-		config = new ICGConfiguration(movingResource.project)
-		
-		// 이동 될 폴더가 모니터링 폴더를 포함하는 지 검사
-		if(!movingResource.fullPath.isPrefixOf(config.monitoringFolder.fullPath)) {
-			return false
-		}
-		
-		// 이전 설정값
-		before = config.monitoringFolder.projectRelativePath
-		
-		// 변경될 설정값 계산
-		var relPath = config.monitoringFolder.fullPath.makeRelativeTo(movingResource.fullPath)
-		after = new Path(arguments.destination.toString).append(movingResource.name).append(relPath).removeFirstSegments(2)
 		return true
 	}
 	
