@@ -10,12 +10,9 @@ import org.eclipse.ui.IPersistableElement;
 public class SnapshotEditorInput implements IEditorInput {
 	private SnapshotEntry snapshot;
 
-
 	public SnapshotEntry getSnapshot() {
 		return snapshot;
 	}
-
-
 
 	public SnapshotEditorInput(SnapshotEntry snapshotEntry) {
 		snapshot = snapshotEntry;
@@ -48,7 +45,13 @@ public class SnapshotEditorInput implements IEditorInput {
 
 	@Override
 	public String getToolTipText() {
-		return null;
+		/*
+		 * eclipse 4.2 allows no tooltip text but 3.7.
+		 * 
+		 * 3: Can't open snapshot in eclipse 3.7
+		 * https://github.com/jeeeyul/pde-tools/issues/issue/3
+		 */
+		return getName();
 	}
 
 	@Override

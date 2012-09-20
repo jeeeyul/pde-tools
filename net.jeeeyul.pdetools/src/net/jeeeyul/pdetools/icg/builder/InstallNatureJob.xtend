@@ -27,9 +27,12 @@ class InstallNatureJob extends WorkbenchJob {
 		project.refreshLocal(IResource::DEPTH_INFINITE, new SubProgressMonitor(monitor, 50));
 		var description = project.description;
 		var List<ICommand> buildCommands = newArrayList(description.buildSpec);
-		buildCommands += description.newCommand() => [
+		var icgBuilderCommand = description.newCommand() => [
 			builderName = ICGConstants::BUILDER_ID
 		];
+		
+		buildCommands.add(0, icgBuilderCommand)
+		
 		description.buildSpec = buildCommands;
 		project.setDescription(description, new NullProgressMonitor());
 		var config = new ICGConfiguration(project) =>[
