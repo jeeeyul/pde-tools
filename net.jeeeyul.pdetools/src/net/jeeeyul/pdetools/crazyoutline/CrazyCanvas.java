@@ -263,7 +263,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 			return;
 		}
 
-		getInvalidateJob().schedule(1000);
+		getInvalidateJob().schedule(2000);
 	}
 
 	private void doInvalidate() {
@@ -359,6 +359,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 	public void setSelection(Rectangle rectangle, boolean updateTextWidget) {
 		if (updateTextWidget) {
 			textWidget.setTopPixel(rectangle.y);
+
 			textWidget.setHorizontalPixel(rectangle.x);
 			invalidateSelection();
 			return;
