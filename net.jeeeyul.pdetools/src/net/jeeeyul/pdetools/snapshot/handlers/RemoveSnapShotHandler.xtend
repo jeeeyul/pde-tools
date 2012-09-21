@@ -17,7 +17,7 @@ class RemoveSnapShotHandler extends AbstractHandler {
 		var selection = event.currentSelection as IStructuredSelection
 
 		if(selection.size == 0){
-			return null;
+			return null
 		}
 		
 		var repo = (selection.firstElement as SnapshotEntry).parent.parent
