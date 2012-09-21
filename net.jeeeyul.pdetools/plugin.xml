@@ -585,10 +585,10 @@
          name="PDE Tools"
          point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
       <javaCompletionProposalComputer
-            activate="false"
-            categoryId="net.jeeeyul.pdetools.pde-tools"
-            class="net.jeeeyul.pdetools.jdt.TestProposalComputer"
-            needsSortingAfterFiltering="false">
+            activate="true"
+            categoryId="org.eclipse.jdt.ui.defaultProposalCategory"
+            class="net.jeeeyul.pdetools.jdt.DefaultProposalProvider"
+            needsSortingAfterFiltering="true">
       </javaCompletionProposalComputer>
    </extension>
 
