@@ -10,6 +10,8 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
 import org.eclipse.jface.viewers.IStructuredSelection
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.*
+import java.util.Set
+import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup
 
 class RemoveSnapShotHandler extends AbstractHandler {
 
@@ -29,7 +31,7 @@ class RemoveSnapShotHandler extends AbstractHandler {
 			command.append(DeleteCommand::create(editDomain, eachSnapshot))
 		}
 		
-		var groupSet = selection.toArray.map[(it as SnapshotEntry).parent].toSet
+		var groupSet = selection.toArray.map[(it as SnapshotEntry).parent].toSet as Set<SnapshotGroup>
 		for(g : groupSet){
 			command.append(new RemoveGroupIfEmptyCommand(g))
 		}
