@@ -20,6 +20,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 </table>
 
 ## Features
+* [Clipboard History](#clipboard-history)
 * [Crazy Outline View](#crazy-outline)
 * [Generates Shared Image Constants for Plugin Developments](#shared-image-generator)
 * [Icon Previewing Decorator](#icon-preview)
