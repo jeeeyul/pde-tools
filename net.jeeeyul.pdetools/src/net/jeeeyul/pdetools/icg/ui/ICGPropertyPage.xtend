@@ -100,26 +100,26 @@ class ICGPropertyPage extends PropertyPage {
 
 	override protected createContents(Composite parent) {
 		schedule[refresh()]
-		var container = parent.Composite[
-			layout = GridLayout
-			Group[
+		var container = parent.newComposite[
+			layout = newGridLayout
+			newGroup[
 				text = "Monitoring"
-				layout = GridLayout[ numColumns = 3 ]
+				layout = newGridLayout[ numColumns = 3 ]
 				layoutData = FILL_HORIZONTAL
-				Label[ text="Monitoring Folder:" ]
-				monitoringFolderField = TextField[
+				newLabel[ text="Monitoring Folder:" ]
+				monitoringFolderField = newTextField[
 					layoutData = FILL_HORIZONTAL
 				]
-				PushButton[
+				newPushButton[
 					text = "Browse"
 					onClick = [browserMonitoringFolder()]
 				]
-				Label[ text = "Image File Extensions:" ]
-				imageFileExtensionsField = TextField[
+				newLabel[ text = "Image File Extensions:" ]
+				imageFileExtensionsField = newTextField[
 					layoutData = FILL_HORIZONTAL[ horizontalSpan = 2 ]
 				]
 				
-				Label[
+				newLabel[
 					layoutData = FILL_HORIZONTAL[
 						horizontalSpan = 3
 						horizontalAlignment = SWT::RIGHT	
@@ -127,63 +127,63 @@ class ICGPropertyPage extends PropertyPage {
 					text = "comma(,) separated file extensions"
 				]
 			]
-			Group[
+			newGroup[
 				text = "Generation"
-				layout = GridLayout[ numColumns = 3 ]
+				layout = newGridLayout[ numColumns = 3 ]
 				layoutData = FILL_HORIZONTAL
 				
-				Label[
+				newLabel[
 					text = "Type:"
 				]
 				
-				Composite[
+				newComposite[
 					layoutData = FILL_HORIZONTAL[
 						horizontalSpan = 2
 						horizontalIndent = 16
 					]
-					layout = GridLayout[
+					layout = newGridLayout[
 						marginHeight = 0
 						marginWidth = 0
 						numColumns = 2
 					]
 					
-					standardButton = it.RadioButton[
+					standardButton = it.newRadioButton[
 						text = "Standard"
 					]
 					
-					graphitiButton = it.RadioButton[
+					graphitiButton = it.newRadioButton[
 						text = "Graphiti"
 					]
 				]
 				
-				Label[ text="Source Folder:" ]
-				generateSrcFolderField = TextField[
+				newLabel[ text="Source Folder:" ]
+				generateSrcFolderField = newTextField[
 					layoutData = FILL_HORIZONTAL
 				]
-				PushButton[
+				newPushButton[
 					text = "Browse"
 					onClick = [browseSrcFolder()]
 				]
-				Label[ text="Package:" ]
-				generateSrcPackageField = TextField[
+				newLabel[ text="Package:" ]
+				generateSrcPackageField = newTextField[
 					layoutData = FILL_HORIZONTAL
 				]
-				PushButton[
+				newPushButton[
 					text = "Browse"
 					onClick = [browsePackage()]
 				]
-				Label[ text="Class Name:" ]
-				generateClassNameField = TextField[
+				newLabel[ text="Class Name:" ]
+				generateClassNameField = newTextField[
 					layoutData = FILL_HORIZONTAL[
 						horizontalSpan = 2
 					]
 				]
-				generatePreviewField = Checkbox[
-					layoutData = GridData[ horizontalSpan = 3 ]
+				generatePreviewField = newCheckbox[
+					layoutData = newGridData[ horizontalSpan = 3 ]
 					text = "Generate Image Preview in Javadoc"
 				]
-				markDerivedField = Checkbox[
-					layoutData = GridData[ horizontalSpan = 3 ]
+				markDerivedField = newCheckbox[
+					layoutData = newGridData[ horizontalSpan = 3 ]
 					text = "Mark derived"
 				]
 			]

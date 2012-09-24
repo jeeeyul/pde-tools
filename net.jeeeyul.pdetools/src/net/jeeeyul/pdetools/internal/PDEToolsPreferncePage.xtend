@@ -16,7 +16,7 @@ class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferen
 
 	override protected createContents(Composite parent) {
 		var result = new Composite(parent, SWT::NORMAL) => [
-			layout = GridLayout
+			layout = newGridLayout
 		]
 		update()
 		return result

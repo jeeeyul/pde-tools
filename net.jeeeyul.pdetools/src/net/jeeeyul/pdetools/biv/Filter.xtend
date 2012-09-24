@@ -15,26 +15,26 @@ class Filter {
 	ToolBar toolbar
 	
 	new(Composite parent){
-		container = parent.Composite[
-			layout = GridLayout[
+		container = parent.newComposite[
+			layout = newGridLayout[
 				numColumns = 2
 				marginWidth = 0
 				marginHeight = 2
 			]
 			
-			Label[
+			newLabel[
 				text = "Bundle Filter:"
 			]
 			
-			Composite(SWT::BORDER)[
+			newCompositeWithStyle(SWT::BORDER)[
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 2
 					marginWidth = 0
 					marginHeight = 0
 				]
 			
-				textField = TextField(SWT::NONE)[
+				textField = newTextField(SWT::NONE)[
 					message = "type bundle filter text"
 					layoutData = FILL_HORIZONTAL
 					onModified = [
@@ -42,8 +42,8 @@ class Filter {
 					]
 				]
 				
-				toolbar = ToolBar[
-					ToolItem[
+				toolbar = newToolBar[
+					newToolItem[
 						image = SharedImages::getImage(SharedImages::ERASER)
 						onSelection = [
 							textField.text = ""

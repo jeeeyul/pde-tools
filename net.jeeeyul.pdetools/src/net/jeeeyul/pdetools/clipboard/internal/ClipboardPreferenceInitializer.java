@@ -17,6 +17,7 @@ public class ClipboardPreferenceInitializer extends AbstractPreferenceInitialize
 		store.setDefault(CLIPBOARD_COLORLIZE_IN_SELECTION, false);
 		store.setDefault(CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES, false);
 		store.setDefault(CLIPBOARD_MAXIMUM_HISTORY_SIZE, 50);
+		store.setDefault(ClipboardPreferenceConstants.CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM, 5);
 	}
 
 }

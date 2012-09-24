@@ -10,8 +10,9 @@ import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.swt.widgets.Scale
 import net.jeeeyul.pdetools.PDEToolsCore
-import static net.jeeeyul.pdetools.crazyoutline.CrazyOutlineConstants.*
 import net.jeeeyul.pdetools.shared.HSB
+
+import static net.jeeeyul.pdetools.crazyoutline.CrazyOutlineConstants.*
 
 class CrazyPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = "net.jeeeyul.pdetools.crazyoutline.CrazyPreferencePage"
@@ -26,31 +27,31 @@ class CrazyPreferencePage extends PreferencePage implements IWorkbenchPreference
 	}
 
 	override protected createContents(Composite parent) {
-		return parent.Composite[
-			layout = GridLayout[
+		return parent.newComposite[
+			layout = newGridLayout[
 				numColumns = 3
 			]
 			
-			Label[
+			newLabel[
 				text = "Fog Color:"
 			]
 			
-			fogColorWell = ColorWell[
+			fogColorWell = newColorWell[
 				selection = HSB::createFromString(store.getString(FOG_COLOR))
 			]
 			
-			PushButton[
+			newPushButton[
 				text = "change"
 				onClick = [
 					fogColorWell.showColorPicker()
 				]
 			]
 			
-			Label[
+			newLabel[
 				text = "Fog Transparency"
 			]
 			
-			fogTransparencyScale = Scale[
+			fogTransparencyScale = newScale[
 				minimum = 0
 				maximum = 255
 				selection = 0

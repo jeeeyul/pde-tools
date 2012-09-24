@@ -200,6 +200,9 @@ public class ClipboardViewer {
 	}
 
 	protected void handlePreferenceChange(PropertyChangeEvent event) {
+		if (!event.getProperty().startsWith("clipboard-")) {
+			return;
+		}
 		updateLabelProvider();
 		updateJob.schedule();
 	}
@@ -210,5 +213,7 @@ public class ClipboardViewer {
 	private void updateLabelProvider() {
 		labelProvider.setColorizeTextOnSelection(getPreferenceStore().getBoolean(
 				ClipboardPreferenceConstants.CLIPBOARD_COLORLIZE_IN_SELECTION));
+		labelProvider.setNumberOfLineForRow(getPreferenceStore().getInt(
+				ClipboardPreferenceConstants.CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM));
 	}
 }

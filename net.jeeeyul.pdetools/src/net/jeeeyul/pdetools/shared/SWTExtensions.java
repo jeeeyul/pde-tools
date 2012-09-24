@@ -48,71 +48,24 @@ public class SWTExtensions {
 	private static Integer MENU_BAR_HEIGHT = null;
 	public static final SWTExtensions INSTANCE = new SWTExtensions();
 
-	public Button Checkbox(final Composite parent, final Procedure1<? super Button> initializer) {
-		Button _button = new Button(parent, SWT.CHECK);
-		Button label = _button;
-		initializer.apply(label);
-		return label;
+	public boolean contains(Point size, Point targetSize) {
+		return size.x >= targetSize.x && size.y >= targetSize.y;
 	}
 
-	public Point getCopy(Point point) {
-		return new Point(point.x, point.y);
+	public boolean contains(Rectangle rect, Point point) {
+		return rect.x <= point.x && rect.y <= point.y && point.x <= rect.x + rect.width
+				&& point.y <= rect.y + rect.height;
 	}
 	
-	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
-		Scale scale = new Scale(parent, SWT.NORMAL);
-		initializer.apply(scale);
-		return scale;
-	}
-
-	
-	public ColorWell ColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
-		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
-		initializer.apply(colorWell);
-		return colorWell;
-	}
-
-	public Label Separator(final Composite parent, final Procedure1<? super Label> initializer) {
-		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		initializer.apply(separator);
-		Layout layout = parent.getLayout();
-		if (layout instanceof GridLayout) {
-			GridLayout gridLayout = (GridLayout) layout;
-			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
-		}
-		return separator;
-	}
-
-	public CLabel CLabel(final Composite parent, final Procedure1<? super CLabel> initializer) {
-		CLabel _label = new CLabel(parent, SWT.NORMAL);
-		CLabel label = _label;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Combo Combo(final Composite parent, int style, final Procedure1<? super Combo> initializer) {
-		Combo combo = new Combo(parent, style);
-		initializer.apply(combo);
-		return combo;
-	}
-
-	public Composite Composite(final Composite parent, final Procedure1<? super Composite> initializer) {
-		Composite _composite = new Composite(parent, SWT.NORMAL);
-		Composite comp = _composite;
-		initializer.apply(comp);
-		return comp;
-	}
-
-	public Composite Composite(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
-		Composite _composite = new Composite(parent, style);
-		Composite comp = _composite;
-		initializer.apply(comp);
-		return comp;
-	}
-
 	public Display display() {
 		Display _default = Display.getDefault();
 		return _default;
+	}
+
+	
+	public GC drawImage(GC gc, Image image, Point location) {
+		gc.drawImage(image, location.x, location.y);
+		return gc;
 	}
 
 	public void drawImage(GC gc, Image image, Rectangle sourceArea, Rectangle targetArea) {
@@ -128,40 +81,6 @@ public class SWTExtensions {
 
 	public Rectangle expand(Rectangle rectangle, Point delta) {
 		return expand(rectangle, delta.x, delta.y);
-	}
-
-	public Rectangle getExpanded(Rectangle rect, int dx, int dy) {
-		return expand(getCopy(rect), dx, dy);
-	}
-
-	public Point getDifference(Point a, Point b) {
-		return new Point(b.x - a.x, b.y - a.y);
-	}
-
-	public Point getScaled(Point p, double scale) {
-		return scale(getCopy(p), scale);
-	}
-
-	public Point scale(Point p, double scale) {
-		p.x *= scale;
-		p.y *= scale;
-		return p;
-	}
-
-	public Rectangle scale(Rectangle p, double scale) {
-		p.x *= scale;
-		p.y *= scale;
-		p.width *= scale;
-		p.height *= scale;
-		return p;
-	}
-
-	public Rectangle getScaled(Rectangle r, double scale) {
-		return scale(getCopy(r), scale);
-	}
-
-	public Rectangle getExpanded(Rectangle rectangle, Point delta) {
-		return getExpanded(rectangle, delta.x, delta.y);
 	}
 
 	public GridData FILL_BOTH() {
@@ -190,12 +109,33 @@ public class SWTExtensions {
 		return gd;
 	}
 
+	public GC fillRoundRectangle(GC gc, Rectangle rectangle, int radius) {
+		gc.fillRoundRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height, radius, radius);
+		return gc;
+	}
+
 	public Iterator<? extends Widget> getAllContents(Composite root) {
 		return new WidgetIterator(root);
 	}
 
+	public Point getCopy(Point point) {
+		return new Point(point.x, point.y);
+	}
+
 	public Rectangle getCopy(Rectangle rectangle) {
 		return new Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+	}
+
+	public Point getDifference(Point a, Point b) {
+		return new Point(b.x - a.x, b.y - a.y);
+	}
+
+	public Rectangle getExpanded(Rectangle rect, int dx, int dy) {
+		return expand(getCopy(rect), dx, dy);
+	}
+
+	public Rectangle getExpanded(Rectangle rectangle, Point delta) {
+		return getExpanded(rectangle, delta.x, delta.y);
 	}
 
 	public ImageRegistry getImageRegistry() {
@@ -209,29 +149,6 @@ public class SWTExtensions {
 
 	public Point getLocation(Rectangle rectangle) {
 		return new Point(rectangle.x, rectangle.y);
-	}
-
-	public Point translate(Point point, int dx, int dy) {
-		point.x += dx;
-		point.y += dy;
-		return point;
-	}
-
-	public Point translate(Point point, Point delta) {
-		return translate(point, delta.x, delta.y);
-	}
-
-	public Point getTranslated(Point point, int dx, int dy) {
-		return translate(getCopy(point), dx, dy);
-	}
-
-	public Point getTranslated(Point point, Point delta) {
-		return getTranslated(point, delta.x, delta.y);
-	}
-
-	public GC drawImage(GC gc, Image image, Point location) {
-		gc.drawImage(image, location.x, location.y);
-		return gc;
 	}
 
 	public int getMenubarHeight() {
@@ -258,8 +175,28 @@ public class SWTExtensions {
 		return MENU_BAR_HEIGHT;
 	}
 
+	public Point getScaled(Point p, double scale) {
+		return scale(getCopy(p), scale);
+	}
+
+	public Rectangle getScaled(Rectangle r, double scale) {
+		return scale(getCopy(r), scale);
+	}
+
+	public Point getSize(ImageData imageData) {
+		return new Point(imageData.width, imageData.height);
+	}
+
 	public Point getSize(Rectangle rect) {
 		return new Point(rect.width, rect.height);
+	}
+
+	public Point getTranslated(Point point, int dx, int dy) {
+		return translate(getCopy(point), dx, dy);
+	}
+
+	public Point getTranslated(Point point, Point delta) {
+		return getTranslated(point, delta.x, delta.y);
 	}
 
 	public Rectangle getTranslated(Rectangle source, int dx, int dy) {
@@ -268,37 +205,6 @@ public class SWTExtensions {
 
 	public Rectangle getTranslated(Rectangle source, Point delta) {
 		return translate(getCopy(source), delta);
-	}
-
-	public GridData GridData(final Procedure1<? super GridData> initializer) {
-		GridData _gridData = new GridData();
-		GridData gd = _gridData;
-		initializer.apply(gd);
-		return gd;
-	}
-
-	public GridLayout GridLayout() {
-		return new GridLayout();
-	}
-
-	public GridLayout GridLayout(Procedure1<GridLayout> initializer) {
-		GridLayout gridLayout = new GridLayout();
-		initializer.apply(gridLayout);
-		return gridLayout;
-	}
-
-	public Group Group(final Composite parent, final Procedure1<? super Group> initializer) {
-		Group _group = new Group(parent, SWT.NORMAL);
-		Group comp = _group;
-		initializer.apply(comp);
-		return comp;
-	}
-
-	public Label HorizontalSeperator(final Composite parent, final Procedure1<? super Label> initializer) {
-		Label _label = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		Label label = _label;
-		initializer.apply(label);
-		return label;
 	}
 
 	public String htmlCode(RGB rgb) {
@@ -310,17 +216,30 @@ public class SWTExtensions {
 		return widget;
 	}
 
-	public Label Label(final Composite parent, final Procedure1<? super Label> initializer) {
-		Label _label = new Label(parent, SWT.NORMAL);
-		Label label = _label;
+	public Button newCheckbox(final Composite parent, final Procedure1<? super Button> initializer) {
+		Button _button = new Button(parent, SWT.CHECK);
+		Button label = _button;
 		initializer.apply(label);
 		return label;
 	}
 
-	public Link Link(final Composite parent, final Procedure1<? super Link> initializer) {
-		Link _link = new Link(parent, SWT.CHECK);
-		initializer.apply(_link);
-		return _link;
+	public CLabel newCLabel(final Composite parent, final Procedure1<? super CLabel> initializer) {
+		CLabel _label = new CLabel(parent, SWT.NORMAL);
+		CLabel label = _label;
+		initializer.apply(label);
+		return label;
+	}
+
+	public ColorWell newColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
+		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
+		initializer.apply(colorWell);
+		return colorWell;
+	}
+
+	public Combo newCombo(final Composite parent, int style, final Procedure1<? super Combo> initializer) {
+		Combo combo = new Combo(parent, style);
+		initializer.apply(combo);
+		return combo;
 	}
 
 	public Composite newComposite(final Composite parent, final Procedure1<? super Composite> initializer) {
@@ -328,6 +247,161 @@ public class SWTExtensions {
 		Composite comp = _composite;
 		initializer.apply(comp);
 		return comp;
+	}
+
+	public Composite newCompositeWithStyle(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
+		Composite _composite = new Composite(parent, style);
+		Composite comp = _composite;
+		initializer.apply(comp);
+		return comp;
+	}
+
+	public GridData newGridData(final Procedure1<? super GridData> initializer) {
+		GridData _gridData = new GridData();
+		GridData gd = _gridData;
+		initializer.apply(gd);
+		return gd;
+	}
+
+	public GridLayout newGridLayout() {
+		return new GridLayout();
+	}
+
+	public GridLayout newGridLayout(Procedure1<GridLayout> initializer) {
+		GridLayout gridLayout = new GridLayout();
+		initializer.apply(gridLayout);
+		return gridLayout;
+	}
+
+	public Group newGroup(final Composite parent, final Procedure1<? super Group> initializer) {
+		Group _group = new Group(parent, SWT.NORMAL);
+		Group comp = _group;
+		initializer.apply(comp);
+		return comp;
+	}
+
+	public Label newHorizontalSeperator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label _label = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		Label label = _label;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Label newLabel(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label _label = new Label(parent, SWT.NORMAL);
+		Label label = _label;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Link newLink(final Composite parent, final Procedure1<? super Link> initializer) {
+		Link _link = new Link(parent, SWT.CHECK);
+		initializer.apply(_link);
+		return _link;
+	}
+
+	public Text newPasswordField(final Composite parent, final Procedure1<? super Text> initializer) {
+		Text _text = new Text(parent, SWT.BORDER | SWT.PASSWORD);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Button newPushButton(final Composite parent, final Procedure1<? super Button> initializer) {
+		Button _button = new Button(parent, SWT.PUSH);
+		Button label = _button;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Button newRadioButton(final Composite parent, final Procedure1<? super Button> initializer) {
+		Button _button = new Button(parent, SWT.RADIO);
+		Button label = _button;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Text newReadOnlyTextField(final Composite parent, final Procedure1<? super Text> initializer) {
+		Text _text = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public TreeItem newRootItem(Tree tree, final Procedure1<TreeItem> initializer) {
+		TreeItem item = new TreeItem(tree, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
+
+	public Scale newScale(final Composite parent, final Procedure1<? super Scale> initializer) {
+		Scale scale = new Scale(parent, SWT.NORMAL);
+		initializer.apply(scale);
+		return scale;
+	}
+
+	public Text newSearchField(final Composite parent, final Procedure1<? super Text> initializer) {
+		Text _text = new Text(parent, SWT.BORDER | SWT.SEARCH);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Label newSeparator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		initializer.apply(separator);
+		Layout layout = parent.getLayout();
+		if (layout instanceof GridLayout) {
+			GridLayout gridLayout = (GridLayout) layout;
+			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
+		}
+		return separator;
+	}
+
+	public TreeItem newSubItem(TreeItem parent, final Procedure1<TreeItem> initializer) {
+		TreeItem item = new TreeItem(parent, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
+
+	public Text newTextArea(final Composite parent, final Procedure1<? super Text> initializer) {
+		int _bitwiseOr = IntegerExtensions.bitwiseOr(SWT.MULTI, SWT.BORDER);
+		Text _text = new Text(parent, _bitwiseOr);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Text newTextField(final Composite parent, int style, final Procedure1<? super Text> initializer) {
+		Text _text = new Text(parent, style);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public Text newTextField(final Composite parent, final Procedure1<? super Text> initializer) {
+		Text _text = new Text(parent, SWT.BORDER);
+		Text label = _text;
+		initializer.apply(label);
+		return label;
+	}
+
+	public ToolBar newToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
+		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
+		initializer.apply(toolBar);
+		return toolBar;
+	}
+
+	public ToolItem newToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
+		ToolItem item = new ToolItem(parent, SWT.FLAT);
+		initializer.apply(item);
+		return item;
+	}
+
+	public Tree newTree(Composite parent, final Procedure1<Tree> initializer) {
+		Tree tree = new Tree(parent, SWT.BORDER);
+		initializer.apply(tree);
+		return tree;
 	}
 
 	public UIJob newUIJob(final Procedure0 work) {
@@ -343,46 +417,19 @@ public class SWTExtensions {
 		return uiJob;
 	}
 
+	public Label newVerticalSeperator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label _label = new Label(parent, SWT.SEPARATOR | SWT.VERTICAL);
+		Label label = _label;
+		initializer.apply(label);
+		return label;
+	}
+
 	public int operator_and(int e1, int e2) {
 		return e1 & e2;
 	}
 
 	public int operator_or(int e1, int e2) {
 		return e1 | e2;
-	}
-
-	public Text PasswordField(final Composite parent, final Procedure1<? super Text> initializer) {
-		Text _text = new Text(parent, SWT.BORDER | SWT.PASSWORD);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Button PushButton(final Composite parent, final Procedure1<? super Button> initializer) {
-		Button _button = new Button(parent, SWT.PUSH);
-		Button label = _button;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Button RadioButton(final Composite parent, final Procedure1<? super Button> initializer) {
-		Button _button = new Button(parent, SWT.RADIO);
-		Button label = _button;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Text ReadOnlyTextField(final Composite parent, final Procedure1<? super Text> initializer) {
-		Text _text = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
-	public TreeItem RootItem(Tree tree, final Procedure1<TreeItem> initializer) {
-		TreeItem item = new TreeItem(tree, SWT.NORMAL);
-		initializer.apply(item);
-		return item;
 	}
 
 	/**
@@ -411,6 +458,26 @@ public class SWTExtensions {
 		}
 	}
 
+	public void safeDispose(Resource resource) {
+		if (resource != null && !resource.isDisposed()) {
+			resource.dispose();
+		}
+	}
+
+	public Point scale(Point p, double scale) {
+		p.x *= scale;
+		p.y *= scale;
+		return p;
+	}
+
+	public Rectangle scale(Rectangle p, double scale) {
+		p.x *= scale;
+		p.y *= scale;
+		p.width *= scale;
+		p.height *= scale;
+		return p;
+	}
+
 	public void schedule(final Procedure1<Display> p) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
@@ -420,28 +487,10 @@ public class SWTExtensions {
 		});
 	}
 
-	public Text SearchField(final Composite parent, final Procedure1<? super Text> initializer) {
-		Text _text = new Text(parent, SWT.BORDER | SWT.SEARCH);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
 	public Rectangle setLocation(Rectangle rectangle, Point location) {
 		rectangle.x = location.x;
 		rectangle.y = location.y;
 		return rectangle;
-	}
-
-	public Rectangle setSize(Rectangle rectangle, Point size) {
-		rectangle.width = size.x;
-		rectangle.height = size.y;
-		return rectangle;
-	}
-
-	public GC fillRoundRectangle(GC gc, Rectangle rectangle, int radius) {
-		gc.fillRoundRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height, radius, radius);
-		return gc;
 	}
 
 	public void setOnClick(final Control button, final Procedure1<Control> function) {
@@ -498,6 +547,12 @@ public class SWTExtensions {
 		});
 	}
 
+	public Rectangle setSize(Rectangle rectangle, Point size) {
+		rectangle.width = size.x;
+		rectangle.height = size.y;
+		return rectangle;
+	}
+
 	public Shell Shell(final Procedure1<? super Shell> initializer) {
 		Shell _shell = new Shell();
 		Shell s = _shell;
@@ -505,44 +560,14 @@ public class SWTExtensions {
 		return s;
 	}
 
-	public TreeItem SubItem(TreeItem parent, final Procedure1<TreeItem> initializer) {
-		TreeItem item = new TreeItem(parent, SWT.NORMAL);
-		initializer.apply(item);
-		return item;
+	public Point translate(Point point, int dx, int dy) {
+		point.x += dx;
+		point.y += dy;
+		return point;
 	}
 
-	public Text TextArea(final Composite parent, final Procedure1<? super Text> initializer) {
-		int _bitwiseOr = IntegerExtensions.bitwiseOr(SWT.MULTI, SWT.BORDER);
-		Text _text = new Text(parent, _bitwiseOr);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Text TextField(final Composite parent, int style, final Procedure1<? super Text> initializer) {
-		Text _text = new Text(parent, style);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Text TextField(final Composite parent, final Procedure1<? super Text> initializer) {
-		Text _text = new Text(parent, SWT.BORDER);
-		Text label = _text;
-		initializer.apply(label);
-		return label;
-	}
-
-	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
-		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
-		initializer.apply(toolBar);
-		return toolBar;
-	}
-
-	public ToolItem ToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
-		ToolItem item = new ToolItem(parent, SWT.FLAT);
-		initializer.apply(item);
-		return item;
+	public Point translate(Point point, Point delta) {
+		return translate(point, delta.x, delta.y);
 	}
 
 	public Rectangle translate(Rectangle rectangle, int dx, int dy) {
@@ -553,37 +578,5 @@ public class SWTExtensions {
 
 	public Rectangle translate(Rectangle rectangle, Point delta) {
 		return translate(rectangle, delta.x, delta.y);
-	}
-
-	public Tree Tree(Composite parent, final Procedure1<Tree> initializer) {
-		Tree tree = new Tree(parent, SWT.BORDER);
-		initializer.apply(tree);
-		return tree;
-	}
-
-	public Label VerticalSeperator(final Composite parent, final Procedure1<? super Label> initializer) {
-		Label _label = new Label(parent, SWT.SEPARATOR | SWT.VERTICAL);
-		Label label = _label;
-		initializer.apply(label);
-		return label;
-	}
-
-	public Point getSize(ImageData imageData) {
-		return new Point(imageData.width, imageData.height);
-	}
-
-	public boolean contains(Point size, Point targetSize) {
-		return size.x >= targetSize.x && size.y >= targetSize.y;
-	}
-
-	public boolean contains(Rectangle rect, Point point) {
-		return rect.x <= point.x && rect.y <= point.y && point.x <= rect.x + rect.width
-				&& point.y <= rect.y + rect.height;
-	}
-
-	public void safeDispose(Resource resource) {
-		if (resource != null && !resource.isDisposed()) {
-			resource.dispose();
-		}
 	}
 }
