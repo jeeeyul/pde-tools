@@ -19,7 +19,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
   </tbody>
 </table>
 
-* [Release Note](Release Note)
+* [Release Note](https://github.com/jeeeyul/pde-tools/wiki/Release-Note)
 
 ## Features
 * [Clipboard History](#clipboard-history)
