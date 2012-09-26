@@ -9,6 +9,7 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -578,5 +579,13 @@ public class SWTExtensions {
 
 	public Rectangle translate(Rectangle rectangle, Point delta) {
 		return translate(rectangle, delta.x, delta.y);
+	}
+	
+	public Color grayColor(){
+		return display().getSystemColor(SWT.COLOR_GRAY);
+	}
+	
+	public Color darkGrayColor(){
+		return display().getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 }

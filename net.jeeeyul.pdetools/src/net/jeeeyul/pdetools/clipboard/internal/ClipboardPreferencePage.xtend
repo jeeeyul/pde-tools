@@ -6,12 +6,11 @@ import org.eclipse.jface.preference.PreferencePage
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 
 import static net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants.*
-import org.eclipse.swt.widgets.Text
-import net.jeeeyul.pdetools.shared.SharedImages
 
 class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	def static getId(){
@@ -36,11 +35,11 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				text = "Rendering"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 2
+					numColumns = 3
 				]
 					
 				colorizeSelectionButton = newCheckbox[
-					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
+					layoutData = FILL_HORIZONTAL[horizontalSpan = 3]
 					text = "Colorize text on selection."
 				]
 				
@@ -56,6 +55,20 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				]
 				
 				newLabel[
+					text = "0(no limit) to 100"
+					foreground = darkGrayColor
+				]
+				
+				newLabel[
+					text = "Setting takes effect at next copy operation."
+					foreground = darkGrayColor
+					layoutData = newGridData[
+						horizontalIndent = 16
+						horizontalSpan = 3
+					]
+				]
+				
+				newLabel[
 					text = "Number of lines per item:"
 				]
 				
@@ -66,19 +79,30 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 					]
 				]
 				
-				newCLabel[
-					text = "Clipboard view should have to be re-opened to apply this settings."
-					image = SharedImages::getImage(SharedImages::WARN)
+				newLabel[
+					text = "1 to 10"
+					foreground = darkGrayColor
+				]
+				
+				newLabel[
+					text = "Clipboard view needs to be reopened for setting to take effect."
+					foreground = darkGrayColor
 					layoutData = newGridData[
 						horizontalIndent = 16
-						horizontalSpan = 2
+						horizontalSpan = 3
 					]
 				]
 			]
 			
-			dontAskRemoveAllButton = newCheckbox[
-				layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
-				text = "Do not ask when remove all clip board entries."
+			newGroup[
+				text = "Dialogs"
+				layout = newGridLayout
+				layoutData = FILL_HORIZONTAL
+				
+				dontAskRemoveAllButton = newCheckbox[
+					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
+					text = "Do not ask when remove all clip board entries."
+				]
 			]
 		]
 		
@@ -106,8 +130,8 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	override performOk() {
 		preferenceStore.setValue(CLIPBOARD_DONT_ASK_WHEN_REMOVE_ALL_CLIPBOARD_ENTRIES, dontAskRemoveAllButton.selection)
 		preferenceStore.setValue(CLIPBOARD_COLORLIZE_IN_SELECTION, colorizeSelectionButton.selection)
-		preferenceStore.setValue(CLIPBOARD_MAXIMUM_HISTORY_SIZE, Integer::parseInt(maxItemCountField.text))
-		preferenceStore.setValue(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM, Integer::parseInt(numberLineField.text))
+		preferenceStore.setValue(CLIPBOARD_MAXIMUM_HISTORY_SIZE, Integer::parseInt(maxItemCountField.text).limit(0, 100))
+		preferenceStore.setValue(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM, Integer::parseInt(numberLineField.text).limit(1, 10))
 		return true
 	}
 	
@@ -116,6 +140,10 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 		colorizeSelectionButton.selection = preferenceStore.getDefaultBoolean(CLIPBOARD_COLORLIZE_IN_SELECTION)
 		maxItemCountField.text = Integer::toString(preferenceStore.getDefaultInt(CLIPBOARD_MAXIMUM_HISTORY_SIZE))
 		numberLineField.text = Integer::toString(preferenceStore.getDefaultInt(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM))
+	}
+
+	def int limit(int original, int min, int max){
+		return Math::max(Math::min(original, max), min)
 	}
 
 	override init(IWorkbench workbench) {
