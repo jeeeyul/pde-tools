@@ -7,8 +7,10 @@ import java.io.IOException;
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
+import net.jeeeyul.pdetools.clipboard.internal.ComparatorFactory;
 import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.ChaindComparator;
 import net.jeeeyul.pdetools.shared.UpdateJob;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -21,6 +23,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
@@ -39,6 +42,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
 public class ClipboardViewer {
+	private ComparatorFactory comparatorFactory;
 	private SharedColor sharedColor;
 	private TableViewer viewer;
 	private TableViewerColumn column;
@@ -70,6 +74,8 @@ public class ClipboardViewer {
 
 	public ClipboardViewer(Composite parent, int style) {
 		this.style = style;
+		comparatorFactory = new ComparatorFactory();
+		
 		create(parent);
 		parent.addDisposeListener(new DisposeListener() {
 			@Override
@@ -137,6 +143,8 @@ public class ClipboardViewer {
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 		});
+		
+		updateViewerSorter();
 
 		viewer.setInput(ClipboardServiceImpl.getInstance().getHistory());
 		ClipboardServiceImpl.getInstance().getHistory().eAdapters().add(historyListener);
@@ -203,8 +211,25 @@ public class ClipboardViewer {
 		if (!event.getProperty().startsWith("clipboard-")) {
 			return;
 		}
+		updateViewerSorter();
 		updateLabelProvider();
 		updateJob.schedule();
+	}
+
+	private void updateViewerSorter() {
+		final ChaindComparator<ClipboardEntry> comparator = new ChaindComparator<ClipboardEntry>();
+		String configString = getPreferenceStore().getString(ClipboardPreferenceConstants.CLIPBOARD_SORT_ORDER);
+		for(String each : configString.split(",")){
+			comparator.add(comparatorFactory.getByLiteral(each));
+		}
+		viewer.setSorter(new ViewerSorter(){
+			@Override
+			public int compare(Viewer viewer, Object e1, Object e2) {
+				ClipboardEntry c1 = (ClipboardEntry) e1;
+				ClipboardEntry c2 = (ClipboardEntry) e2;
+				return comparator.compare(c1, c2);
+			}
+		});
 	}
 
 	public void setFocus() {

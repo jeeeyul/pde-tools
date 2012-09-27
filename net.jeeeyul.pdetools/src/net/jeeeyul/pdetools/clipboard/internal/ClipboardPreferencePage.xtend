@@ -22,6 +22,8 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 	Button colorizeSelectionButton
 	Text maxItemCountField
 	Text numberLineField
+	SortOptionEditor sortOptionEditor
+	Button setActiveButton
 
 	new(){
 		preferenceStore = PDEToolsCore::getDefault().preferenceStore
@@ -95,6 +97,28 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 			]
 			
 			newGroup[
+				text = "Sort Priority"
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 2
+				]
+				
+				sortOptionEditor = new SortOptionEditor(it) => [
+					control.layoutData = FILL_HORIZONTAL
+				]
+			]
+			
+			newGroup[
+				text = "Acceptance Style"
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[]
+				
+				setActiveButton = newCheckbox[
+					text = "Set accepted clip as active clipbaord contents."
+				]
+			]
+			
+			newGroup[
 				text = "Dialogs"
 				layout = newGridLayout
 				layoutData = FILL_HORIZONTAL
@@ -105,7 +129,6 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				]
 			]
 		]
-		
 		
 		update()
 		return result
@@ -125,6 +148,8 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 		colorizeSelectionButton.selection = preferenceStore.getBoolean(CLIPBOARD_COLORLIZE_IN_SELECTION)
 		maxItemCountField.text = Integer::toString(preferenceStore.getInt(CLIPBOARD_MAXIMUM_HISTORY_SIZE))
 		numberLineField.text = Integer::toString(preferenceStore.getInt(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM))
+		sortOptionEditor.input = preferenceStore.getString(CLIPBOARD_SORT_ORDER)
+		setActiveButton.selection = preferenceStore.getBoolean(CLIPBOARD_SET_ACCEPTED_ITEM_ACITVE);
 	}
 	
 	override performOk() {
@@ -132,6 +157,8 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 		preferenceStore.setValue(CLIPBOARD_COLORLIZE_IN_SELECTION, colorizeSelectionButton.selection)
 		preferenceStore.setValue(CLIPBOARD_MAXIMUM_HISTORY_SIZE, Integer::parseInt(maxItemCountField.text).limit(0, 100))
 		preferenceStore.setValue(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM, Integer::parseInt(numberLineField.text).limit(1, 10))
+		preferenceStore.setValue(CLIPBOARD_SORT_ORDER, sortOptionEditor.input)
+		preferenceStore.setValue(CLIPBOARD_SET_ACCEPTED_ITEM_ACITVE, setActiveButton.selection);
 		return true
 	}
 	
@@ -140,6 +167,8 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 		colorizeSelectionButton.selection = preferenceStore.getDefaultBoolean(CLIPBOARD_COLORLIZE_IN_SELECTION)
 		maxItemCountField.text = Integer::toString(preferenceStore.getDefaultInt(CLIPBOARD_MAXIMUM_HISTORY_SIZE))
 		numberLineField.text = Integer::toString(preferenceStore.getDefaultInt(CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM))
+		sortOptionEditor.input = preferenceStore.getDefaultString(CLIPBOARD_SORT_ORDER)
+		setActiveButton.selection = preferenceStore.getDefaultBoolean(CLIPBOARD_SET_ACCEPTED_ITEM_ACITVE);
 	}
 
 	def int limit(int original, int min, int max){

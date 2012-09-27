@@ -1,6 +1,7 @@
 package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferencePage;
 import net.jeeeyul.pdetools.clipboard.internal.ClipboardView;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
@@ -11,6 +12,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -31,6 +33,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.progress.UIJob;
 
 public class ClipEntrySelectionDialog {
@@ -157,13 +160,18 @@ public class ClipEntrySelectionDialog {
 
 		clipboardViewer = new ClipboardViewer(shell, SWT.NORMAL);
 		Link link = new Link(shell, SWT.NORMAL);
-		link.setText("<a href=\"open-view\">Show in View</a>");
+		link.setText("<a href=\"open-view\">Show in View</a> / <a href=\"preference\">Open Pereference Page</a>");
 		link.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
 		link.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				showView();
+				if (event.text.equals("open-view")) {
+					showView();
+				} else if (event.text.equals("preference")) {
+					showPreferernce();
+				}
 			}
+
 		});
 
 		table = clipboardViewer.getTableViewer().getTable();
@@ -451,6 +459,25 @@ public class ClipEntrySelectionDialog {
 
 	public void setCaretHint(CaretHint caretHint) {
 		this.caretHint = caretHint;
+	}
+
+	private void showPreferernce() {
+		result = null;
+		close();
+
+		UIJob job = new UIJob("Open Preference") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				String id = ClipboardPreferencePage.class.getName();
+				PreferenceDialog dialog = PreferencesUtil.createPreferenceDialogOn(null,
+						id, new String[]{id}, null);
+				dialog.open();
+				return Status.OK_STATUS;
+			}
+		};
+
+		job.setSystem(true);
+		job.schedule();
 	}
 
 	protected void showView() {

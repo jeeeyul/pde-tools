@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.CaretHint;
 import net.jeeeyul.pdetools.clipboard.ClipEntrySelectionDialog;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
@@ -9,6 +10,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -55,6 +57,15 @@ public class PasteFromClipboardHistoryHandler extends AbstractHandler {
 			}
 			backup.transferTo(ClipboardServiceImpl.getInstance().getNativeClipboard());
 			result.increaseUsing();
+
+			boolean makeActive = PDEToolsCore.getDefault().getPreferenceStore()
+					.getBoolean(ClipboardPreferenceConstants.CLIPBOARD_SET_ACCEPTED_ITEM_ACITVE);
+			if (makeActive) {
+				result.getParent().setActiveEntry(result);
+				Clipboard clipboard = new Clipboard(Display.getDefault());
+				result.transferTo(clipboard);
+				clipboard.dispose();
+			}
 		}
 
 		return null;

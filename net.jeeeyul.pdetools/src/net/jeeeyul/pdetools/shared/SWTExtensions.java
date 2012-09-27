@@ -33,6 +33,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -403,6 +405,18 @@ public class SWTExtensions {
 		Tree tree = new Tree(parent, SWT.BORDER);
 		initializer.apply(tree);
 		return tree;
+	}
+	
+	public Table newTable(Composite parent, final Procedure1<Table> initializer){
+		Table table = new Table(parent, SWT.BORDER);
+		initializer.apply(table);
+		return table;
+	}
+	
+	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer){
+		TableItem tableItem = new TableItem(parent, SWT.NORMAL);
+		initializer.apply(tableItem);
+		return tableItem;
 	}
 
 	public UIJob newUIJob(final Procedure0 work) {
