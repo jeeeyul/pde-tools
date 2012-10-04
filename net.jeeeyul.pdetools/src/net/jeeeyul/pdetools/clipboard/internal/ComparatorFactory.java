@@ -61,6 +61,20 @@ public class ComparatorFactory {
 					}
 				};
 
+			case ACTIVE:
+				return new Comparator<ClipboardEntry>() {
+					@Override
+					public int compare(ClipboardEntry o1, ClipboardEntry o2) {
+						if (o1.isActive()) {
+							return -1;
+						} else if (o2.isActive()) {
+							return 1;
+						} else {
+							return 0;
+						}
+					}
+				};
+
 			default:
 				return null;
 		}

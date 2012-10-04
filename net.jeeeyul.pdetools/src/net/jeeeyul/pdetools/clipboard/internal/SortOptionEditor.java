@@ -222,6 +222,9 @@ public class SortOptionEditor {
 			case USING_COUNT:
 				return "Most Used";
 
+			case ACTIVE:
+				return "Active (System clipboard contents)";
+
 			default:
 				return "(INVALID)";
 		}

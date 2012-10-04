@@ -55,6 +55,7 @@ enum ClipItemSortOption{
 	CAPTURED_ORDER as "captured-order" = 0
 	LAST_USE as "last-use" = 1
 	USING_COUNT as "using-count" = 2	
+	ACTIVE as "active" = 3
 }
 
 class ClipboardElement{

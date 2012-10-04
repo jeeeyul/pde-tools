@@ -25,8 +25,8 @@ public class ClipboardPreferenceInitializer extends AbstractPreferenceInitialize
 		store.setDefault(ClipboardPreferenceConstants.CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM, 5);
 		store.setDefault(
 				ClipboardPreferenceConstants.CLIPBOARD_SORT_ORDER,
-				MessageFormat.format("{0},{1},{2}", LAST_USE.getLiteral(), USING_COUNT.getLiteral(),
-						CAPTURED_ORDER.getLiteral()));
+				MessageFormat.format("{0},{1},{2},{3}", ACTIVE.getLiteral(), LAST_USE.getLiteral(),
+						USING_COUNT.getLiteral(), CAPTURED_ORDER.getLiteral()));
 
 		store.setDefault(ClipboardPreferenceConstants.CLIPBOARD_SET_ACCEPTED_ITEM_ACITVE, true);
 	}
