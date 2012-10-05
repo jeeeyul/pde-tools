@@ -55,7 +55,6 @@ public class SnapshotCore {
 				repository = (SnapshotRepository) resource.getContents().get(0);
 				System.out.println("Snapshot repository was loaded.");
 			} catch (Exception e) {
-				e.printStackTrace();
 				repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
 				resource.getContents().clear();
 				resource.getContents().add(repository);
