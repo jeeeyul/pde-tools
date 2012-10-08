@@ -156,7 +156,6 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 
 			catch (Exception e) {
-				e.printStackTrace();
 				history = PdetoolsFactory.eINSTANCE.createClipHistory();
 				resource.getContents().clear();
 				resource.getContents().add(history);

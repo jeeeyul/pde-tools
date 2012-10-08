@@ -37,7 +37,7 @@ class CrazyPreferencePage extends PreferencePage implements IWorkbenchPreference
 			]
 			
 			fogColorWell = newColorWell[
-				selection = HSB::createFromString(store.getString(FOG_COLOR))
+				selection = HSB::deserialize(store.getString(FOG_COLOR))
 			]
 			
 			newPushButton[
@@ -95,7 +95,7 @@ class CrazyPreferencePage extends PreferencePage implements IWorkbenchPreference
 	}
 	
 	override protected performDefaults() {
-		fogColorWell.selection = HSB::createFromString(store.getDefaultString(FOG_COLOR))
+		fogColorWell.selection = HSB::deserialize(store.getDefaultString(FOG_COLOR))
 		fogTransparencyScale.selection = store.getDefaultInt(FOG_TRANSPARENCY)
 		super.performDefaults()
 	}

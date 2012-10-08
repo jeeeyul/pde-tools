@@ -152,7 +152,7 @@ public class CrazyCanvas extends Canvas implements IDocumentListener, IAnnotatio
 		gc.setClipping(region);
 
 		IPreferenceStore store = PDEToolsCore.getDefault().getPreferenceStore();
-		HSB fogHSB = HSB.createFromString(store.getString(CrazyOutlineConstants.FOG_COLOR));
+		HSB fogHSB = HSB.deserialize(store.getString(CrazyOutlineConstants.FOG_COLOR));
 		Color fogColor = new Color(getDisplay(), fogHSB.toRGB());
 		gc.setBackground(fogColor);
 
