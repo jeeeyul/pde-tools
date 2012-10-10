@@ -315,10 +315,6 @@
                class="net.jeeeyul.pdetools.wslauncher.LaunchWorkspaceMenu"
                id="net.jeeeyul.pdetools.wslauncher.LaunchWorkspaceMenu">
          </dynamic>
-         <separator
-               name="others"
-               visible="true">
-         </separator>
          <command
                commandId="net.jeeeyul.pdetools.wslauncher.launchworkspace"
                style="push">

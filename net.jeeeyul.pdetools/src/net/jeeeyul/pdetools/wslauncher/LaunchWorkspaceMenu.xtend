@@ -10,6 +10,7 @@ import org.eclipse.ui.PlatformUI
 import org.eclipse.swt.SWT
 import java.util.HashMap
 import org.eclipse.ui.menus.CommandContributionItem
+import org.eclipse.jface.action.Separator
 
 class LaunchWorkspaceMenu extends CompoundContributionItem {
 	new(){
@@ -30,6 +31,9 @@ class LaunchWorkspaceMenu extends CompoundContributionItem {
 			}
 		}
 		
+		if(!result.empty){
+			result += new Separator()
+		}
 		
 		return result
 	}
