@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.wslauncher;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -35,11 +36,17 @@ public class LaunchWorkspaceHandler extends AbstractHandler implements IHandler,
 		}
 
 		LaunchCommandFactory factory = new LaunchCommandFactory();
+		String dirStr = Platform.getInstallLocation().getURL().toExternalForm();
+		if(dirStr.startsWith("file:/")){
+			dirStr = dirStr.substring(6);
+		}
+		File dir = new File(dirStr);
+		
 		try {
 			String[] command = factory.createCommand(workspace);
-			Runtime.getRuntime().exec(command);
+			Runtime.getRuntime().exec(command, null, dir);
 		} catch (UnsupportedOperationException uoe) {
-
+			uoe.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
