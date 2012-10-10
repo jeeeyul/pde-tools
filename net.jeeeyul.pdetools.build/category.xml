@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <site>
-   <feature id="net.jeeeyul.pdetools.feature" url="features/net.jeeeyul.pdetools.feature_1.0.0.qualifier.jar" version="1.0.2.qualifier">
+   <feature id="net.jeeeyul.pdetools.feature" url="features/net.jeeeyul.pdetools.feature_1.0.0.qualifier.jar" version="1.1.0.qualifier">
       <category name="pde-tools"/>
    </feature>
    <category-def label="PDE-Tools" name="pde-tools"/>
