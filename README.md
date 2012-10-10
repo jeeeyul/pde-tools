@@ -29,6 +29,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Enhanced Clipboard (History feature)](#clipboard-history)
 * [Bundle Image Resource Navigator](#bundle-image-navigator)
 * Screen shot tool
+* [Workspace Launcher](#workspace-launcher)
 
 ## Install
 * Update Site(Eclipse 3.7 ~ 4.2): https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite
@@ -80,3 +81,8 @@ Window >> Show View >> Others... >> Plug-in Development >> Crazy Outline
 </pre>
 or
 Just press Ctrl(or Command) + 3 and type crazy.
+
+## Workspace Launcher
+![launcher](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/release-note/1.1/workspace-launcher.png)
+
+Now you can launch other workspace rather than switch. It is more useful for MacOSX users.
