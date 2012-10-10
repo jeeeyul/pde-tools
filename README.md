@@ -29,7 +29,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Enhanced Clipboard (History feature)](#clipboard-history)
 * [Bundle Image Resource Navigator](#bundle-image-navigator)
 * Screen shot tool
-* [Workspace Launcher](#workspace-launcher)
+* [Workspace Launcher](#workspace-launcher) **NEW!**
 
 ## Install
 * Update Site(Eclipse 3.7 ~ 4.2): https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite
