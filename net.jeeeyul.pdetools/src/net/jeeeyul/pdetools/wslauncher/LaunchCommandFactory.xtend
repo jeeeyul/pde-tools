@@ -9,7 +9,12 @@ class LaunchCommandFactory {
 		
 		switch(Platform::OS){
 			case Platform::OS_WIN32:{
+				var command = Platform::installLocation.URL.toExternalForm + "eclipse.exe"
+				if(command.startsWith("file:/")){
+					command = command.substring(6)
+				}
 				
+				result += command
 			}
 			
 			
