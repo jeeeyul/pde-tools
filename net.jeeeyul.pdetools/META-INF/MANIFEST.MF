@@ -18,9 +18,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.ltk.core.refactoring,
  org.eclipse.jdt.core.manipulation,
- net.jeeeyul.pdetools.model;bundle-version=1.0.2,
+ net.jeeeyul.pdetools.model;bundle-version="1.0.2",
  org.eclipse.emf.edit.ui,
- net.jeeeyul.pdetools.edit;bundle-version=1.0.2
+ net.jeeeyul.pdetools.edit;bundle-version="1.0.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .

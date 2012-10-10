@@ -58,6 +58,16 @@
             id="net.jeeeyul.pdetools.snapshot.screenshot"
             name="Take a Screen Shot">
       </command>
+      <command
+            defaultHandler="net.jeeeyul.pdetools.wslauncher.LaunchWorkspaceHandler"
+            id="net.jeeeyul.pdetools.wslauncher.launchworkspace"
+            name="Launch Workspace">
+         <commandParameter
+               id="workspace"
+               name="workspace"
+               optional="true">
+         </commandParameter>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -288,6 +298,30 @@
                   name="org.eclipse.ui.views.showView.viewId"
                   value="net.jeeeyul.pdetools.snapshot.SnapshotView">
             </parameter>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:file?before=org.eclipse.ui.file.restartWorkbench">
+         <menu
+               id="net.jeeeyul.pdetools.wslauncher.launchworkspace"
+               label="Launch Workspace">
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:net.jeeeyul.pdetools.wslauncher.launchworkspace">
+         <dynamic
+               class="net.jeeeyul.pdetools.wslauncher.LaunchWorkspaceMenu"
+               id="net.jeeeyul.pdetools.wslauncher.LaunchWorkspaceMenu">
+         </dynamic>
+         <separator
+               name="others"
+               visible="true">
+         </separator>
+         <command
+               commandId="net.jeeeyul.pdetools.wslauncher.launchworkspace"
+               style="push">
          </command>
       </menuContribution>
    </extension>
