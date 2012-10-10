@@ -90,7 +90,9 @@
             commandId="org.eclipse.ui.edit.delete">
          <activeWhen>
             <and>
-               <iterate>
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
                   <instanceof
                         value="net.jeeeyul.pdetools.model.pdetools.ClipboardEntry">
                   </instanceof>
@@ -117,7 +119,9 @@
             commandId="org.eclipse.ui.edit.delete">
          <activeWhen>
             <and>
-               <iterate>
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
                   <instanceof
                         value="net.jeeeyul.pdetools.model.pdetools.SnapshotEntry">
                   </instanceof>

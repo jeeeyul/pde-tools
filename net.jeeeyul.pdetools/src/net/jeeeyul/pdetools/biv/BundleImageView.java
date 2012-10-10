@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -32,12 +33,16 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
+import org.eclipse.swt.widgets.Display;
 
 public class BundleImageView extends ViewPart {
 	private GalleryTreeViewer viewer;
 	private String filterPattern;
 	private boolean ignoreFilterEvent = false;
 	private ArrayList<PresetFilterAction> presetActions = new ArrayList<PresetFilterAction>();
+	
+	private Color gradinntColor1 = new Color(Display.getDefault(), 238, 238, 238);
+	private Color gradientColor2 = new Color(Display.getDefault(), 216, 216, 216);
 
 	private UpdateJob refreshFilter = new UpdateJob(new Procedure0() {
 		@Override
@@ -103,6 +108,7 @@ public class BundleImageView extends ViewPart {
 
 		BIVGroupRenderer groupRenderer = new BIVGroupRenderer();
 		groupRenderer.setItemSize(48, 48);
+		groupRenderer.setTitleBackgroundGradient(gradientColor2, gradinntColor1);
 		viewer.getGallery().setGroupRenderer(groupRenderer);
 
 		viewer.setContentProvider(new BundleImageContentProvider());
@@ -147,6 +153,8 @@ public class BundleImageView extends ViewPart {
 
 	@Override
 	public void dispose() {
+		gradinntColor1.dispose();
+		gradientColor2.dispose();
 		PDEToolsCore.getDefault().getPreferenceStore().putValue(BIVConfigConstants.BUNDLE_FILTER, filterLiteral);
 		super.dispose();
 	}
