@@ -20,7 +20,7 @@ class LaunchCommandFactory {
 			}
 			
 			case Platform::OS_LINUX:{
-				result +="./eclipse"
+				result +="sudo eclipse"
 			}
 			
 			default:
