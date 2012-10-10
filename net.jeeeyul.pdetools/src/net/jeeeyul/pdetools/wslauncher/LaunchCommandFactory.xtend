@@ -10,6 +10,8 @@ class LaunchCommandFactory {
 		switch(Platform::OS){
 			case Platform::OS_WIN32:{
 				result += "eclipse.exe"
+				result += "-data"
+				result += workspace
 			}
 			
 			case Platform::OS_MACOSX:{
@@ -17,18 +19,21 @@ class LaunchCommandFactory {
 				result += "-n"
 				result += "Eclipse.app"
 				result += "--args"
+				result += "-data"
+				result += workspace
 			}
 			
 			case Platform::OS_LINUX:{
-				result +="sudo eclipse"
+				result +="/bin/bash"
+				result +="-c"
+				result += '''./eclipse -data «workspace»'''.toString
 			}
-			
+
 			default:
 				throw new UnsupportedOperationException()
 		}
 		
-		result += "-data"
-		result += workspace
+		
 		
 		println(result.join(" "))
 				

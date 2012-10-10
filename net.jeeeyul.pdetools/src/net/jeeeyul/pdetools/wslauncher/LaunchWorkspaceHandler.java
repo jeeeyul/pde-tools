@@ -39,8 +39,12 @@ public class LaunchWorkspaceHandler extends AbstractHandler implements IHandler,
 		String dirStr = Platform.getInstallLocation().getURL().toExternalForm();
 		if(dirStr.startsWith("file:/")){
 			dirStr = dirStr.substring(6);
+			if(Platform.getOS().equals(Platform.OS_LINUX)){
+				dirStr = "/" + dirStr;
+			}
 		}
 		File dir = new File(dirStr);
+		System.out.println(dir.exists());
 		
 		try {
 			String[] command = factory.createCommand(workspace);
