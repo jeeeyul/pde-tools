@@ -1,41 +1,51 @@
 package net.jeeeyul.pdetools.wslauncher
 
-import java.util.ArrayList
-import org.eclipse.core.runtime.Platform
+import static org.eclipse.core.runtime.Platform.*
+import java.io.File
 
 class LaunchCommandFactory {
-	def String[] createCommand(String workspace){
-		var result = new ArrayList<String>
-		
-		switch(Platform::OS){
-			case Platform::OS_WIN32:{
-				result += "eclipse.exe"
-				result += "-data"
-				result += workspace
-			}
+	def LaunchCommand createCommand(String workspace) throws UnsupportedOperationException{
+		var result = new LaunchCommand() =>[
+			var dirStr = installLocation.URL.toExternalForm
 			
-			case Platform::OS_MACOSX:{
-				result += "open"
-				result += "-n"
-				result += "Eclipse.app"
-				result += "--args"
-				result += "-data"
-				result += workspace
-			}
-			
-			case Platform::OS_LINUX:{
-				result +="/bin/bash"
-				result +="-c"
-				result += '''./eclipse -data «workspace»'''.toString
+			if(dirStr.startsWith("file:/")){
+				dirStr = dirStr.substring(6);
 			}
 
-			default:
-				throw new UnsupportedOperationException()
-		}
-		
-		
-		
-		println(result.join(" "))
+			switch(OS){
+				case OS_WIN32:{
+					commands += "eclipse.exe"
+					commands += "-data"
+					commands += workspace
+				}
+				
+				case OS_MACOSX:{
+					dirStr = "/" + dirStr
+					
+					commands += "open"
+					commands += "-n"
+					commands += "Eclipse.app"
+					commands += "--args"
+					commands += "-data"
+					commands += workspace
+				}
+				
+				case OS_LINUX:{
+					dirStr = "/" + dirStr
+					
+					commands +="/bin/bash"
+					commands +="-c"
+					commands += '''./eclipse -data «workspace»'''.toString
+				}
+	
+				default:
+					throw new UnsupportedOperationException()
+			}
+			
+			launchDir = new File(dirStr)	
+		]
+
+		println(result)
 				
 		return result
 	}

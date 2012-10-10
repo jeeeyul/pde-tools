@@ -1,14 +1,19 @@
 package net.jeeeyul.pdetools.wslauncher;
 
 import java.io.File;
-import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Map;
+
+import net.jeeeyul.pdetools.PDEToolsCore;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.commands.IElementUpdater;
@@ -37,22 +42,26 @@ public class LaunchWorkspaceHandler extends AbstractHandler implements IHandler,
 
 		LaunchCommandFactory factory = new LaunchCommandFactory();
 		String dirStr = Platform.getInstallLocation().getURL().toExternalForm();
-		if(dirStr.startsWith("file:/")){
+		if (dirStr.startsWith("file:/")) {
 			dirStr = dirStr.substring(6);
-			if(Platform.getOS().equals(Platform.OS_LINUX)){
+			if (Platform.getOS().equals(Platform.OS_LINUX)) {
 				dirStr = "/" + dirStr;
 			}
 		}
 		File dir = new File(dirStr);
 		System.out.println(dir.exists());
-		
+
 		try {
-			String[] command = factory.createCommand(workspace);
-			Runtime.getRuntime().exec(command, null, dir);
+			LaunchCommand command = factory.createCommand(workspace);
+			try {
+				command.execute();
+			} catch (Exception e) {
+				IStatus error =  new Status(IStatus.ERROR, PDEToolsCore.PLUGIN_ID, e.getLocalizedMessage() , e);
+				ErrorDialog.openError(Display.getDefault().getActiveShell(), "Error", MessageFormat.format("Could not execute \"{0}\"", command), error);
+			}
 		} catch (UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			IStatus error =  new Status(IStatus.ERROR, PDEToolsCore.PLUGIN_ID, uoe.getLocalizedMessage() , uoe);
+			ErrorDialog.openError(Display.getDefault().getActiveShell(), "Error", MessageFormat.format("{0} is not supported.", Platform.getOS()), error);
 		}
 
 		return null;
