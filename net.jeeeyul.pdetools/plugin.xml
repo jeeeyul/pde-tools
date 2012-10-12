@@ -305,7 +305,7 @@
             locationURI="menu:file?before=org.eclipse.ui.file.restartWorkbench">
          <menu
                id="net.jeeeyul.pdetools.wslauncher.launchworkspace"
-               label="Launch Workspace">
+               label="Launch New Workspace">
          </menu>
       </menuContribution>
       <menuContribution
