@@ -6,12 +6,8 @@ import java.io.File
 class LaunchCommandFactory {
 	def LaunchCommand createCommand(String workspace) throws UnsupportedOperationException{
 		var result = new LaunchCommand() =>[
-			var dirStr = installLocation.URL.toExternalForm
-			
-			if(dirStr.startsWith("file:/")){
-				dirStr = dirStr.substring(6);
-			}
-
+			launchDir = new File(installLocation.URL.file)
+						
 			switch(OS){
 				case OS_WIN32:{
 					commands += "eclipse.exe"
@@ -20,8 +16,6 @@ class LaunchCommandFactory {
 				}
 				
 				case OS_MACOSX:{
-					dirStr = "/" + dirStr
-					
 					commands += "open"
 					commands += "-n"
 					commands += "Eclipse.app"
@@ -31,8 +25,6 @@ class LaunchCommandFactory {
 				}
 				
 				case OS_LINUX:{
-					dirStr = "/" + dirStr
-					
 					commands +="/bin/bash"
 					commands +="-c"
 					commands += '''./eclipse -data «workspace»'''.toString
@@ -41,8 +33,6 @@ class LaunchCommandFactory {
 				default:
 					throw new UnsupportedOperationException()
 			}
-			
-			launchDir = new File(dirStr)	
 		]
 
 		println(result)

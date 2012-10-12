@@ -1,6 +1,5 @@
 package net.jeeeyul.pdetools.wslauncher;
 
-import java.io.File;
 import java.text.MessageFormat;
 import java.util.Map;
 
@@ -41,15 +40,6 @@ public class LaunchWorkspaceHandler extends AbstractHandler implements IHandler,
 		}
 
 		LaunchCommandFactory factory = new LaunchCommandFactory();
-		String dirStr = Platform.getInstallLocation().getURL().toExternalForm();
-		if (dirStr.startsWith("file:/")) {
-			dirStr = dirStr.substring(6);
-			if (Platform.getOS().equals(Platform.OS_LINUX)) {
-				dirStr = "/" + dirStr;
-			}
-		}
-		File dir = new File(dirStr);
-		System.out.println(dir.exists());
 
 		try {
 			LaunchCommand command = factory.createCommand(workspace);
