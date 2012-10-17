@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.activities">
+      <activity
+            id="net.jeeeyul.pdetools.capability.activity"
+            name="PDE-Tools">
+      </activity>
+      <activityPatternBinding
+            activityId="net.jeeeyul.pdetools.capability.activity"
+            pattern="net\.jeeeyul\.pdetools/.*">
+      </activityPatternBinding>
+      <activityPatternBinding
+            activityId="net.jeeeyul.pdetools.capability.activity"
+            pattern="net\.jeeeyul\.pdetools\.model/.*">
+      </activityPatternBinding>
+      <activityPatternBinding
+            activityId="net.jeeeyul.pdetools.capability.activity"
+            pattern="net\.jeeeyul\.pdetools\.edit/.*">
+      </activityPatternBinding>
+      <category
+            id="net.jeeeyul.pdetools.capability.category"
+            name="PDE-Tools">
+      </category>
+      <categoryActivityBinding
+            activityId="net.jeeeyul.pdetools.capability.activity"
+            categoryId="net.jeeeyul.pdetools.capability.category">
+      </categoryActivityBinding>
+      <defaultEnablement
+            id="net.jeeeyul.pdetools.capability.activity">
+      </defaultEnablement>
+   </extension>
+
+</plugin>
