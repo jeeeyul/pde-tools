@@ -112,6 +112,7 @@ public class BundleImageView extends ViewPart {
 		BIVGroupRenderer groupRenderer = new BIVGroupRenderer();
 		groupRenderer.setItemSize(48, 48);
 		groupRenderer.setTitleBackgroundGradient(gradientColor2, gradinntColor1);
+		groupRenderer.setTitleForeground(viewer.getGallery().getForeground());
 		viewer.getGallery().setGroupRenderer(groupRenderer);
 
 		contentProvider = new BIContentProvider();
