@@ -1,9 +1,9 @@
 package net.jeeeyul.pdetools.biv
 
+import net.jeeeyul.pdetools.biv.lazy.BundleEntry
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer
 import org.eclipse.nebula.widgets.gallery.GalleryItem
 import org.eclipse.swt.graphics.GC
-import org.osgi.framework.Bundle
 
 class BIVGroupRenderer extends DefaultGalleryGroupRenderer {
 	override protected getGroupTitle(GalleryItem group) {
@@ -12,9 +12,9 @@ class BIVGroupRenderer extends DefaultGalleryGroupRenderer {
 
 	override layout(GC gc, GalleryItem group) {
 		super.layout(gc, group)
-		var Bundle bundle = group.data as Bundle
+		var BundleEntry bundle = group.data as BundleEntry
 		if(bundle != null){
-			group.setText(1, bundle.symbolicName)
+			group.setText(1, bundle.bundle.symbolicName)
 		}
 	}
 		

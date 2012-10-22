@@ -1,16 +1,17 @@
 package net.jeeeyul.pdetools.biv;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.biv.lazy.BIContentProvider;
+import net.jeeeyul.pdetools.biv.lazy.BundleEntry;
+import net.jeeeyul.pdetools.biv.lazy.BundleImageLabelProvider;
+import net.jeeeyul.pdetools.biv.lazy.URLImageEntry;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.shared.StringUtil;
 import net.jeeeyul.pdetools.shared.UpdateJob;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -26,6 +27,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -33,14 +35,13 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
-import org.eclipse.swt.widgets.Display;
 
 public class BundleImageView extends ViewPart {
 	private GalleryTreeViewer viewer;
 	private String filterPattern;
 	private boolean ignoreFilterEvent = false;
 	private ArrayList<PresetFilterAction> presetActions = new ArrayList<PresetFilterAction>();
-	
+
 	private Color gradinntColor1 = new Color(Display.getDefault(), 238, 238, 238);
 	private Color gradientColor2 = new Color(Display.getDefault(), 216, 216, 216);
 
@@ -55,6 +56,8 @@ public class BundleImageView extends ViewPart {
 
 	private Filter filter;
 	private String filterLiteral;
+	private BundleImageLabelProvider labelProvider;
+	private BIContentProvider contentProvider;
 
 	private void addPresetMenu(PresetFilterAction action) {
 		final IMenuManager menu = getViewSite().getActionBars().getMenuManager();
@@ -111,15 +114,17 @@ public class BundleImageView extends ViewPart {
 		groupRenderer.setTitleBackgroundGradient(gradientColor2, gradinntColor1);
 		viewer.getGallery().setGroupRenderer(groupRenderer);
 
-		viewer.setContentProvider(new BundleImageContentProvider());
-		viewer.setLabelProvider(new BundleImageLabelProvider());
+		contentProvider = new BIContentProvider();
+		viewer.setContentProvider(contentProvider);
+		labelProvider = new BundleImageLabelProvider();
+		viewer.setLabelProvider(labelProvider);
 		viewer.setInput(Object.class);
 
 		viewer.addFilter(new ViewerFilter() {
 			@Override
 			public boolean select(Viewer viewer, Object parentElement, Object element) {
-				if (element instanceof Bundle) {
-					return doFilter((Bundle) element);
+				if (element instanceof BundleEntry) {
+					return doFilter(((BundleEntry) element).getBundle());
 				} else
 					return true;
 			}
@@ -135,20 +140,6 @@ public class BundleImageView extends ViewPart {
 		});
 		refreshFilter();
 		configMenu();
-	}
-
-	private void handleSelectionChanged() {
-		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-		IStatusLineManager statusLineManager = getViewSite().getActionBars().getStatusLineManager();
-		statusLineManager.setMessage(null);
-		
-		if(selection.size() > 1){
-			statusLineManager.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), selection.size() + " images");
-		}else if(selection.size() == 1){
-			URL url = (URL) selection.getFirstElement();
-			IPath path = new Path(url.toExternalForm());
-			statusLineManager.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), path.lastSegment());
-		}
 	}
 
 	@Override
@@ -169,6 +160,20 @@ public class BundleImageView extends ViewPart {
 
 	public String getFilterLiteral() {
 		return filterLiteral;
+	}
+
+	private void handleSelectionChanged() {
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		IStatusLineManager statusLineManager = getViewSite().getActionBars().getStatusLineManager();
+		statusLineManager.setMessage(null);
+
+		if (selection.size() > 1) {
+			statusLineManager
+					.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), selection.size() + " images");
+		} else if (selection.size() == 1) {
+			URLImageEntry item = (URLImageEntry) selection.getFirstElement();
+			statusLineManager.setMessage(SharedImages.getImage(SharedImages.BUNDLE_IMAGE), labelProvider.getText(item));
+		}
 	}
 
 	private void refreshFilter() {

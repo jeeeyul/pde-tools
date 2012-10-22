@@ -1,6 +1,6 @@
-package net.jeeeyul.pdetools.biv;
+package net.jeeeyul.pdetools.biv.lazy;
 
-import java.net.URL;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,24 +21,23 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
 
 public class BundleImageLabelProvider extends LabelProvider {
-	private ImageLoadingQueue<URL> queue;
+	private ImageLoadingQueue<URLImageEntry> queue;
 	private ImageRegistry registry;
-	private HashSet<URL> invalidURLs;
+	private HashSet<URLImageEntry> invalidURLs;
 
 	public BundleImageLabelProvider() {
-		invalidURLs = new HashSet<URL>();
+		invalidURLs = new HashSet<URLImageEntry>();
 
-		queue = new ImageLoadingQueue<URL>();
-		queue.setImageLoader(new Function1<URL, ImageData>() {
+		queue = new ImageLoadingQueue<URLImageEntry>();
+		queue.setImageLoader(new Function1<URLImageEntry, ImageData>() {
 			@Override
-			public ImageData apply(URL p) {
-				ImageData imageData = ImageDescriptor.createFromURL(p).getImageData();
+			public ImageData apply(URLImageEntry p) {
+				ImageData imageData = ImageDescriptor.createFromURL(p.getUrl()).getImageData();
 				Point imageSize = SWTExtensions.INSTANCE.getSize(imageData);
-				Point maxSize = new Point(128, 128);
+				Point maxSize = new Point(32, 32);
 				if (!SWTExtensions.INSTANCE.contains(maxSize, imageSize)) {
 					Point bestSize = getBestSize(imageSize, maxSize);
 					return imageData.scaledTo(bestSize.x, bestSize.y);
@@ -48,9 +47,9 @@ public class BundleImageLabelProvider extends LabelProvider {
 			}
 		});
 
-		queue.setLoadHandler(new Procedure1<List<ImageLoadingEntry<URL>>>() {
+		queue.setLoadHandler(new Procedure1<List<ImageLoadingEntry<URLImageEntry>>>() {
 			@Override
-			public void apply(List<ImageLoadingEntry<URL>> p) {
+			public void apply(List<ImageLoadingEntry<URLImageEntry>> p) {
 				handleLoad(p);
 			}
 		});
@@ -65,11 +64,13 @@ public class BundleImageLabelProvider extends LabelProvider {
 		return RendererHelper.getBestSize(imageSize.x, imageSize.y, maxSize.x, maxSize.y);
 	}
 
-	protected void handleLoad(List<ImageLoadingEntry<URL>> p) {
-		for (ImageLoadingEntry<URL> each : p) {
+	protected void handleLoad(List<ImageLoadingEntry<URLImageEntry>> p) {
+		for (ImageLoadingEntry<URLImageEntry> each : p) {
 			try {
 				if (each.image != null) {
 					registry.put(each.key.toString(), ImageDescriptor.createFromImageData(each.image));
+					each.key.setWidth(each.image.width);
+					each.key.setHeight(each.image.height);
 				} else {
 					invalidURLs.add(each.key);
 				}
@@ -97,16 +98,16 @@ public class BundleImageLabelProvider extends LabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof URL) {
-			URL url = (URL) element;
+		if (element instanceof URLImageEntry) {
+			URLImageEntry imageURLEntry = (URLImageEntry) element;
 
-			if (invalidURLs.contains(url)) {
+			if (invalidURLs.contains(imageURLEntry)) {
 				return SharedImages.getImage(SharedImages.INVAILD);
 			}
 
-			Image result = registry.get(url.toString());
+			Image result = registry.get(imageURLEntry.toString());
 			if (result == null) {
-				queue.add(url);
+				queue.add(imageURLEntry);
 				return SharedImages.getImage(SharedImages.REFRESH);
 			} else {
 				return result;
@@ -118,15 +119,27 @@ public class BundleImageLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		if (element instanceof Bundle) {
-			Bundle bundle = (Bundle) element;
-			return bundle.getHeaders().get(Constants.BUNDLE_NAME);
-		} else if (element instanceof URL) {
-			URL url = (URL) element;
-			String fileName = new Path(url.toString()).lastSegment();
-			return fileName;
-		} else {
-			return "Unkown";
+		if (element instanceof BundleEntry) {
+			BundleEntry be = (BundleEntry) element;
+			String label = be.getBundle().getHeaders().get(Constants.BUNDLE_NAME);
+			if (be.getState() == BundleEntry.RESOLVING) {
+				label += " (Expanding)";
+			}
+			return label;
+		}
+
+		else if (element instanceof URLImageEntry) {
+			URLImageEntry urlImageEntry = (URLImageEntry) element;
+			String result = new Path(urlImageEntry.getUrl().toString()).lastSegment();
+
+			if (urlImageEntry.getWidth() >= 0 && urlImageEntry.getHeight() >= 0) {
+				result += MessageFormat.format("({0}x{1})", urlImageEntry.getWidth(), urlImageEntry.getHeight());
+			}
+			return result;
+		}
+
+		else {
+			return "Unknown";
 		}
 	}
 

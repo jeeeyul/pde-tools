@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.biv.lazy.URLImageEntry;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -45,10 +46,10 @@ public class DragImageSupport implements DragSourceListener {
 
 	@Override
 	public void dragSetData(DragSourceEvent event) {
-		List<URL> selection = getSelection();
+		List<URLImageEntry> selection = getSelection();
 		List<String> result = new ArrayList<String>();
-		for (URL each : selection) {
-			File file = prepareFile(each);
+		for (URLImageEntry each : selection) {
+			File file = prepareFile(each.getUrl());
 			if (file != null) {
 				files.add(file);
 				result.add(file.getAbsolutePath());
@@ -66,9 +67,9 @@ public class DragImageSupport implements DragSourceListener {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<URL> getSelection() {
+	private List<URLImageEntry> getSelection() {
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-		return new ArrayList<URL>(selection.toList());
+		return new ArrayList<URLImageEntry>(selection.toList());
 	}
 
 	private File prepareFile(URL url) {
