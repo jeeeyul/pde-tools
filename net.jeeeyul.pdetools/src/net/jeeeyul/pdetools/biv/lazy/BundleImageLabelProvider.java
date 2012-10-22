@@ -133,7 +133,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 			String result = new Path(urlImageEntry.getUrl().toString()).lastSegment();
 
 			if (urlImageEntry.getWidth() >= 0 && urlImageEntry.getHeight() >= 0) {
-				result += MessageFormat.format("({0}x{1})", urlImageEntry.getWidth(), urlImageEntry.getHeight());
+				result += MessageFormat.format(" - {0}x{1}", urlImageEntry.getWidth(), urlImageEntry.getHeight());
 			}
 			return result;
 		}
