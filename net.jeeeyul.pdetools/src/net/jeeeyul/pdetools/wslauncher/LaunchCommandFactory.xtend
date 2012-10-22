@@ -10,7 +10,7 @@ class LaunchCommandFactory {
 						
 			switch(OS){
 				case OS_WIN32:{
-					commands += "eclipse.exe"
+					commands += launcher.name
 					commands += "-data"
 					commands += workspace
 				}
@@ -18,7 +18,7 @@ class LaunchCommandFactory {
 				case OS_MACOSX:{
 					commands += "open"
 					commands += "-n"
-					commands += "Eclipse.app"
+					commands += launcher.name
 					commands += "--args"
 					commands += "-data"
 					commands += workspace
@@ -27,7 +27,7 @@ class LaunchCommandFactory {
 				case OS_LINUX:{
 					commands +="/bin/bash"
 					commands +="-c"
-					commands += '''./eclipse -data «workspace»'''.toString
+					commands += '''./«launcher.name» -data «workspace»'''.toString
 				}
 	
 				default:
@@ -36,7 +36,14 @@ class LaunchCommandFactory {
 		]
 
 		println(result)
-				
+		return result
+	}
+	
+	def File getLauncher(){
+		var result = new File(System::getProperty("eclipse.launcher"))
+		if(OS == OS_MACOSX){
+			result = result.parentFile.parentFile.parentFile
+		}
 		return result
 	}
 	
