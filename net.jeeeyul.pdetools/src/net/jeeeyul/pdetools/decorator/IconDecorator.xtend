@@ -27,7 +27,7 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 
 	new(){
 		queue = new ImageLoadingQueue()
-		queue.loadHandler = [loaded]
+		queue.loadHandler = [it|loaded(it)]
 		ResourcesPlugin::workspace.addResourceChangeListener(this)
 	}
 

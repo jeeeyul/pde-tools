@@ -17,10 +17,9 @@ class BIContentProvider implements ITreeContentProvider {
 	private BundleResolver resolver = new BundleResolver()
 	
 	new(){
-		resolver.resolvingHandler = [
-			val bi = it
+		resolver.resolvingHandler = [BundleEntry bundleEntry|
 			schedule[
-				viewer?.refresh(bi)
+				viewer?.refresh(bundleEntry)
 			]
 		]
 	}
