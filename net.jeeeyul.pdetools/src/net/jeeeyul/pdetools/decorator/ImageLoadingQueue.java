@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.jeeeyul.pdetools.shared.BilinearInterpolation;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -14,9 +16,10 @@ import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+
 /**
  * @author Jeeeyul
- *
+ * 
  */
 public class ImageLoadingQueue extends Job {
 	private List<IFile> queue = new LinkedList<IFile>();
@@ -64,15 +67,28 @@ public class ImageLoadingQueue extends Job {
 				ImageData imageData = new ImageData(contents);
 				contents.close();
 
-				if (imageData.width >16 || imageData.height > 16) {
-					result.add(new ImageDataEntry(each, imageData.scaledTo(16, 16)));
+				if (imageData.width > 16 || imageData.height > 16) {
+					double ratio = 1d;
+					if (imageData.width > imageData.height) {
+						ratio = 16d / (double) imageData.width;
+					} else {
+						ratio = 16d / (double) imageData.height;
+					}
+					
+					int bestWidth = Math.min(16, (int) (imageData.width * ratio));
+					int bestHeight = Math.min(16, (int) (imageData.height * ratio));
+					
+					BilinearInterpolation resize = new BilinearInterpolation(imageData, bestWidth, bestHeight);
+					ImageData scaled = ImageDataExtensions.embedInCanvas(resize.run(), 16, 16);
+					
+					result.add(new ImageDataEntry(each, scaled));
 				} else {
 					result.add(new ImageDataEntry(each, imageData));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				result.add(new ImageDataEntry(each, null));
-			}finally{
+			} finally {
 				Job.getJobManager().endRule(each);
 			}
 		}
