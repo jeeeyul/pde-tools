@@ -4,11 +4,11 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 
-import net.jeeeyul.pdetools.shared.BilinearInterpolation;
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
 import net.jeeeyul.pdetools.shared.SharedImages;
+import net.jeeeyul.pdetools.shared.ThumbnailGenerator;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -28,6 +28,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 	private ImageLoadingQueue<URLImageEntry> queue;
 	private ImageRegistry registry;
 	private HashSet<URLImageEntry> invalidURLs;
+	private ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
 
 	public BundleImageLabelProvider() {
 		invalidURLs = new HashSet<URLImageEntry>();
@@ -44,7 +45,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 				Point maxSize = new Point(32, 32);
 				if (!SWTExtensions.INSTANCE.contains(maxSize, imageSize)) {
 					Point bestSize = getBestSize(imageSize, maxSize);
-					return new BilinearInterpolation(imageData, bestSize.x, bestSize.y).run();
+					return thumbnailGenerator.generate(imageData, bestSize.x, bestSize.y);
 				} else {
 					return imageData;
 				}

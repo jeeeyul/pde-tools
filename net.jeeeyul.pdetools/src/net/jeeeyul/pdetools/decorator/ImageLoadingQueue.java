@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.jeeeyul.pdetools.shared.BilinearInterpolation;
+import net.jeeeyul.pdetools.shared.ThumbnailGenerator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,6 +25,7 @@ public class ImageLoadingQueue extends Job {
 	private List<IFile> queue = new LinkedList<IFile>();
 	private ILock lock = Job.getJobManager().newLock();
 	private Procedure1<List<ImageDataEntry>> loadHandler;
+	private ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
 
 	public ImageLoadingQueue() {
 		super("Icon Previewing");
@@ -78,8 +79,8 @@ public class ImageLoadingQueue extends Job {
 					int bestWidth = Math.min(16, (int) (imageData.width * ratio));
 					int bestHeight = Math.min(16, (int) (imageData.height * ratio));
 					
-					BilinearInterpolation resize = new BilinearInterpolation(imageData, bestWidth, bestHeight);
-					ImageData scaled = ImageDataExtensions.embedInCanvas(resize.run(), 16, 16);
+					ImageData thumbnail = thumbnailGenerator.generate(imageData, bestWidth, bestHeight);
+					ImageData scaled = ImageDataExtensions.embedInCanvas(thumbnail, 16, 16);
 					
 					result.add(new ImageDataEntry(each, scaled));
 				} else {
