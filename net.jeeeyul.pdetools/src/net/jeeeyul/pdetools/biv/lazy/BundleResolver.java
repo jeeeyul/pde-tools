@@ -101,4 +101,8 @@ public class BundleResolver {
 	public void setResolvingHandler(Procedure1<BundleEntry> resolvingHandler) {
 		this.resolvingHandler = resolvingHandler;
 	}
+	
+	public void cancel(){
+		resolvingJob.cancel();
+	}
 }

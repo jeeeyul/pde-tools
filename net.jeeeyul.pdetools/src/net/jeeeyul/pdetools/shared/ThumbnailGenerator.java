@@ -24,11 +24,11 @@ public class ThumbnailGenerator {
 				greenComputer.reset();
 				blueComputer.reset();
 				alphaComputer.reset();
-				
+
 				double d = 0.2d;
 
 				for (int dx = (int) ((x - d) * xRatio); dx <= (int) ((x + d) * xRatio); dx += 1.0d) {
-					for (int dy = (int) ((y -d) * yRatio); dy <= (int) ((y + d) * yRatio); dy += 1.0d) {
+					for (int dy = (int) ((y - d) * yRatio); dy <= (int) ((y + d) * yRatio); dy += 1.0d) {
 						int ax = Math.min(Math.max(0, dx), original.width - 1);
 						int ay = Math.min(Math.max(0, dy), original.height - 1);
 
@@ -40,7 +40,7 @@ public class ThumbnailGenerator {
 						blueComputer.push(rgb.blue);
 
 						int alpha = 255;
-						
+
 						switch (original.getTransparencyType()) {
 							case SWT.TRANSPARENCY_ALPHA: {
 								alpha = original.getAlpha(ax, ay);
@@ -57,14 +57,14 @@ public class ThumbnailGenerator {
 								break;
 							}
 						}
-						
+
 						alphaComputer.push(alpha);
 					}
 				}
 
 				RGB rgb = new RGB((int) redComputer.getAverage(), (int) greenComputer.getAverage(),
 						(int) blueComputer.getAverage());
-				
+
 				int alpha = (int) alphaComputer.getAverage();
 				result.setPixel(x, y, result.palette.getPixel(rgb));
 				result.setAlpha(x, y, alpha);

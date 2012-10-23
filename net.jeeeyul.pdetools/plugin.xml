@@ -68,6 +68,12 @@
                optional="true">
          </commandParameter>
       </command>
+      <command
+            categoryId="net.jeeeyul.pdetools.category"
+            defaultHandler="net.jeeeyul.pdetools.shell.ShowInShellHandler"
+            id="net.jeeeyul.pdetools.command.showInShell"
+            name="Show in Shell">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -318,6 +324,33 @@
          <command
                commandId="net.jeeeyul.pdetools.wslauncher.launchworkspace"
                style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="net.jeeeyul.pdetools.command.showInShell"
+               icon="icons/fldr_obj.gif"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <instanceof
+                              value="org.eclipse.core.resources.IResource">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </and>
+            </visibleWhen>
          </command>
       </menuContribution>
    </extension>

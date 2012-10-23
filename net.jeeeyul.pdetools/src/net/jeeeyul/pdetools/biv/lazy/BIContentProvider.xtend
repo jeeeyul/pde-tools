@@ -18,6 +18,10 @@ class BIContentProvider implements ITreeContentProvider {
 	
 	new(){
 		resolver.resolvingHandler = [BundleEntry bundleEntry|
+			if(viewer == null || viewer.control.disposed){
+				return
+			}
+			
 			schedule[
 				viewer?.refresh(bundleEntry)
 			]	
@@ -36,6 +40,9 @@ class BIContentProvider implements ITreeContentProvider {
 						parentElement.state = BundleEntry::RESOLVING
 						resolver.add(parentElement)
 						schedule[
+							if(viewer == null || viewer.control.disposed){
+								return
+							}
 							viewer?.update(parentElement, null)
 						]
 						return emptyList.toArray()
@@ -99,6 +106,7 @@ class BIContentProvider implements ITreeContentProvider {
 		this.viewer = null
 		model.clear()
 		model = null
+		resolver.cancel()
 	}
 	
 	override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
