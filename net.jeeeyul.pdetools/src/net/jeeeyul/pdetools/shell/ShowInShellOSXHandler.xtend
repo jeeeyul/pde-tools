@@ -3,8 +3,7 @@ package net.jeeeyul.pdetools.shell
 import java.io.File
 import java.util.List
 import org.eclipse.ui.commands.IElementUpdater
-import java.util.Map
-import org.eclipse.ui.menus.UIElement
+import net.jeeeyul.pdetools.shared.SharedImages
 
 class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IElementUpdater {
 	override protected fillCommand(List<String> command, File file) {
@@ -14,8 +13,11 @@ class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IEleme
 		
 	}
 
-	override updateElement(UIElement element, Map parameters) {
-		element.setText("Reveal in Finder")
+	override protected getLabel() {
+		"Reveal in Finder"
 	}
 	
+	override protected getImageDescriptor() {
+		SharedImages::getImageDescriptor(SharedImages::FINDER)
+	}
 }

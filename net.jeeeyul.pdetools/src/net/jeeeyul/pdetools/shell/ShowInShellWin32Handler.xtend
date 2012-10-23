@@ -9,5 +9,8 @@ class ShowInShellWin32Handler extends AbstractShowInShellHandler{
 		command += "/select"
 		command += file.absolutePath
 	}
-	
+
+	override protected getLabel() {
+		"Show in Explorer"
+	}
 }
