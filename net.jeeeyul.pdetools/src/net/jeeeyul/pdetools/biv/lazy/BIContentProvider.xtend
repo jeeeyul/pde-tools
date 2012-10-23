@@ -19,8 +19,9 @@ class BIContentProvider implements ITreeContentProvider {
 	new(){
 		resolver.resolvingHandler = [BundleEntry bundleEntry|
 			schedule[
+				viewer?.setExpandedState(bundleEntry, true)
 				viewer?.refresh(bundleEntry)
-			]
+			]	
 		]
 	}
 	
@@ -35,7 +36,10 @@ class BIContentProvider implements ITreeContentProvider {
 					case BundleEntry::UNRESOLVED:{
 						parentElement.state = BundleEntry::RESOLVING
 						resolver.add(parentElement)
-						schedule[viewer?.update(parentElement, null)]
+						schedule[
+							viewer?.setExpandedState(parentElement, false)
+							viewer?.update(parentElement, null)
+						]
 						return emptyList.toArray()
 					}
 					

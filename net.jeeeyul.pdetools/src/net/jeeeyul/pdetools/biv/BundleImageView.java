@@ -110,6 +110,8 @@ public class BundleImageView extends ViewPart {
 		viewer.getGallery().setItemRenderer(new SimpleGalleryItemRenderer());
 
 		BIVGroupRenderer groupRenderer = new BIVGroupRenderer();
+		groupRenderer.setAnimation(true);
+		groupRenderer.setAnimationLength(100);
 		groupRenderer.setItemSize(48, 48);
 		groupRenderer.setTitleBackgroundGradient(gradientColor2, gradinntColor1);
 		groupRenderer.setTitleForeground(viewer.getGallery().getForeground());
