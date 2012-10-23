@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
 
+import net.jeeeyul.pdetools.shared.BilinearInterpolation;
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
 import net.jeeeyul.pdetools.shared.SWTExtensions;
@@ -36,11 +37,14 @@ public class BundleImageLabelProvider extends LabelProvider {
 			@Override
 			public ImageData apply(URLImageEntry p) {
 				ImageData imageData = ImageDescriptor.createFromURL(p.getUrl()).getImageData();
+				p.setWidth(imageData.width);
+				p.setHeight(imageData.height);
+				
 				Point imageSize = SWTExtensions.INSTANCE.getSize(imageData);
 				Point maxSize = new Point(32, 32);
 				if (!SWTExtensions.INSTANCE.contains(maxSize, imageSize)) {
 					Point bestSize = getBestSize(imageSize, maxSize);
-					return imageData.scaledTo(bestSize.x, bestSize.y);
+					return new BilinearInterpolation(imageData, bestSize.x, bestSize.y).run();
 				} else {
 					return imageData;
 				}
@@ -69,8 +73,6 @@ public class BundleImageLabelProvider extends LabelProvider {
 			try {
 				if (each.image != null) {
 					registry.put(each.key.toString(), ImageDescriptor.createFromImageData(each.image));
-					each.key.setWidth(each.image.width);
-					each.key.setHeight(each.image.height);
 				} else {
 					invalidURLs.add(each.key);
 				}

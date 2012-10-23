@@ -16,8 +16,10 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -141,6 +143,14 @@ public class BundleImageView extends ViewPart {
 				handleSelectionChanged();
 			}
 		});
+		
+		labelProvider.addListener(new ILabelProviderListener() {
+			@Override
+			public void labelProviderChanged(LabelProviderChangedEvent event) {
+				handleSelectionChanged();
+			}
+		});
+		
 		refreshFilter();
 		configMenu();
 	}
