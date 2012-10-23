@@ -70,7 +70,7 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
-            defaultHandler="net.jeeeyul.pdetools.shell.ShowInShellHandler"
+            defaultHandler="net.jeeeyul.pdetools.shell.ShowInShellOSXHandler"
             id="net.jeeeyul.pdetools.command.showInShell"
             name="Show in Shell">
       </command>
@@ -157,6 +157,36 @@
             </and></enabledWhen>
          <class
                class="net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapShotHandler">
+         </class>
+      </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.command.showInShell">
+         <activeWhen>
+            <with
+                  variable="platform">
+               <test
+                     property="org.eclipse.core.runtime.Platform.OS"
+                     value="macosx">
+               </test>
+            </with>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.shell.ShowInShellOSXHandler">
+         </class>
+      </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.command.showInShell">
+         <activeWhen>
+            <with
+                  variable="platform">
+               <test
+                     property="org.eclipse.core.runtime.Platform.OS"
+                     value="win32">
+               </test>
+            </with>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.shell.ShowInShellWin32Handler">
          </class>
       </handler>
    </extension>
@@ -334,7 +364,7 @@
                icon="icons/fldr_obj.gif"
                style="push">
             <visibleWhen
-                  checkEnabled="false">
+                  checkEnabled="true">
                <and>
                   <count
                         value="1">
