@@ -361,7 +361,6 @@
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
                commandId="net.jeeeyul.pdetools.command.showInShell"
-               icon="icons/fldr_obj.gif"
                style="push">
             <visibleWhen
                   checkEnabled="true">
