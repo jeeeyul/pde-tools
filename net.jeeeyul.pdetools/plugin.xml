@@ -69,7 +69,6 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
-            defaultHandler="net.jeeeyul.pdetools.shell.ShowInShellOSXHandler"
             id="net.jeeeyul.pdetools.command.showInShell"
             name="Show in Shell">
       </command>
@@ -162,9 +161,9 @@
             commandId="net.jeeeyul.pdetools.command.showInShell">
          <activeWhen>
             <with
-                  variable="platform">
+                  variable="net.jeeeyul.pdetools.platform">
                <test
-                     property="org.eclipse.core.runtime.Platform.OS"
+                     property="net.jeeeyul.pdetools.os"
                      value="macosx">
                </test>
             </with>
@@ -177,9 +176,9 @@
             commandId="net.jeeeyul.pdetools.command.showInShell">
          <activeWhen>
             <with
-                  variable="platform">
+                  variable="net.jeeeyul.pdetools.platform">
                <test
-                     property="org.eclipse.core.runtime.Platform.OS"
+                     property="net.jeeeyul.pdetools.os"
                      value="win32">
                </test>
             </with>
@@ -743,9 +742,13 @@
    <extension
          point="org.eclipse.ui.services">
       <sourceProvider
-            provider="net.jeeeyul.pdetools.internal.WorkbenchProvider">
+            provider="net.jeeeyul.pdetools.internal.CoreExpressionSourceProvider">
          <variable
                name="net.jeeeyul.pdetools.workbench"
+               priorityLevel="workbench">
+         </variable>
+         <variable
+               name="net.jeeeyul.pdetools.platform"
                priorityLevel="workbench">
          </variable>
       </sourceProvider>
@@ -758,6 +761,13 @@
             namespace="net.jeeeyul.pdetools"
             properties="isActivityEnabled, isCategoryEnabled"
             type="org.eclipse.ui.IWorkbench">
+      </propertyTester>
+      <propertyTester
+            class="net.jeeeyul.pdetools.internal.PlatformPropertyTester"
+            id="net.jeeeyul.pdetools.platformTester"
+            namespace="net.jeeeyul.pdetools"
+            properties="os"
+            type="org.eclipse.core.runtime.Platform">
       </propertyTester>
    </extension>
 

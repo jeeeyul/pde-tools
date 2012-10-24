@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.menus.UIElement;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 public abstract class AbstractShowInShellHandler extends AbstractHandler implements IElementUpdater {
 
@@ -40,6 +41,8 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 
 			fillCommand(command, file);
 
+			String script = IterableExtensions.join(command, " ");
+			System.out.println(script);
 			Runtime.getRuntime().exec(command.toArray(new String[command.size()]));
 
 		} catch (CoreException e) {

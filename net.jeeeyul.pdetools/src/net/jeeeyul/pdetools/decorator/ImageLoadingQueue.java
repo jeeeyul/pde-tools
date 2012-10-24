@@ -75,13 +75,13 @@ public class ImageLoadingQueue extends Job {
 					} else {
 						ratio = 16d / (double) imageData.height;
 					}
-					
-					int bestWidth = Math.min(16, (int) (imageData.width * ratio));
-					int bestHeight = Math.min(16, (int) (imageData.height * ratio));
-					
+
+					int bestWidth = Math.max(Math.min(16, (int) (imageData.width * ratio)), 1);
+					int bestHeight = Math.max(Math.min(16, (int) (imageData.height * ratio)), 1);
+
 					ImageData thumbnail = thumbnailGenerator.generate(imageData, bestWidth, bestHeight);
 					ImageData scaled = ImageDataExtensions.embedInCanvas(thumbnail, 16, 16);
-					
+
 					result.add(new ImageDataEntry(each, scaled));
 				} else {
 					result.add(new ImageDataEntry(each, imageData));
