@@ -12,7 +12,6 @@ class ShowInShellWin32Handler extends AbstractShowInShellHandler{
 	override protected getImageDescriptor() {
 		SharedImages::getImageDescriptor(SharedImages::EXPLORER)
 	}
-	
 
 	override protected createLaunchCommand(File targetFile) {
 		new LaunchCommand() => [

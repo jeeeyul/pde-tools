@@ -32,7 +32,7 @@ class LaunchCommandFactory {
 				case OS_LINUX:{
 					commands += "/bin/bash"
 					commands += "-c"
-					commands += '''./«launcher.name» -data «workspace»'''.toString
+					commands += '''./«launcher.name» -data "«workspace»"'''.toString
 				}
 	
 				default:
