@@ -3,9 +3,9 @@ package net.jeeeyul.pdetools.shell;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
+import net.jeeeyul.pdetools.shared.LaunchCommand;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -20,7 +20,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.menus.UIElement;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 public abstract class AbstractShowInShellHandler extends AbstractHandler implements IElementUpdater {
 
@@ -37,14 +36,9 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 
 		try {
 			File file = EFS.getStore(uri).toLocalFile(0, new NullProgressMonitor());
-			List<String> command = new ArrayList<String>();
-
-			fillCommand(command, file);
-
-			String script = IterableExtensions.join(command, " ");
-			System.out.println(script);
-			Runtime.getRuntime().exec(command.toArray(new String[command.size()]));
-
+			LaunchCommand command = createLaunchCommand(file);
+			System.out.println(command);
+			command.execute();
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -54,7 +48,7 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 		return null;
 	}
 
-	protected abstract void fillCommand(List<String> command, File file);
+	protected abstract LaunchCommand createLaunchCommand(File targetFile);
 
 	@Override
 	public final void updateElement(UIElement element, @SuppressWarnings("rawtypes") Map parameters) {

@@ -1,18 +1,23 @@
 package net.jeeeyul.pdetools.wslauncher
 
-import static org.eclipse.core.runtime.Platform.*
 import java.io.File
+
+import static org.eclipse.core.runtime.Platform.*
+import net.jeeeyul.pdetools.shared.LaunchCommand
 
 class LaunchCommandFactory {
 	def LaunchCommand createCommand(String workspace) throws UnsupportedOperationException{
 		var result = new LaunchCommand() =>[
 			launchDir = new File(installLocation.URL.file)
-						
+			envMap.putAll(System::getenv())
 			switch(OS){
 				case OS_WIN32:{
+					envMap.put("PDE_TOOLS_WORKSPACE", '''"«workspace»"''')
+					commands += "cmd"
+					commands += "/c"
 					commands += launcher.name
 					commands += "-data"
-					commands += workspace
+					commands += "%PDE_TOOLS_WORKSPACE%"
 				}
 				
 				case OS_MACOSX:{
@@ -25,8 +30,8 @@ class LaunchCommandFactory {
 				}
 				
 				case OS_LINUX:{
-					commands +="/bin/bash"
-					commands +="-c"
+					commands += "/bin/bash"
+					commands += "-c"
 					commands += '''./«launcher.name» -data «workspace»'''.toString
 				}
 	

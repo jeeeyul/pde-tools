@@ -1,18 +1,11 @@
 package net.jeeeyul.pdetools.shell
 
 import java.io.File
-import java.util.List
-import org.eclipse.ui.commands.IElementUpdater
+import net.jeeeyul.pdetools.shared.LaunchCommand
 import net.jeeeyul.pdetools.shared.SharedImages
+import org.eclipse.ui.commands.IElementUpdater
 
 class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IElementUpdater {
-	override protected fillCommand(List<String> command, File file) {
-		command += "osascript"
-		command += "-e"
-		command += '''tell app "Finder" to activate reveal Posix file "«file.absolutePath»"'''.toString
-		
-	}
-
 	override protected getLabel() {
 		"Reveal in Finder"
 	}
@@ -20,4 +13,13 @@ class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IEleme
 	override protected getImageDescriptor() {
 		SharedImages::getImageDescriptor(SharedImages::FINDER)
 	}
+
+	override protected createLaunchCommand(File targetFile) {
+		new LaunchCommand() => [
+			commands += "osascript"
+			commands += "-e"
+			commands += '''tell app "Finder" to activate reveal Posix file "«targetFile.absolutePath»"'''.toString
+		]
+	}
+	
 }

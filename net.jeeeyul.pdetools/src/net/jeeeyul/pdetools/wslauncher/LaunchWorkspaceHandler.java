@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.shared.LaunchCommand;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
