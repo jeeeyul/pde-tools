@@ -20,6 +20,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 </table>
 
 * [Release Note](https://github.com/jeeeyul/pde-tools/wiki/Release-Note)
+* [Trouble Shoot](https://github.com/jeeeyul/pde-tools/wiki/Trouble-Shoot)
 
 ## Features
 * [Clipboard History](#clipboard-history)
