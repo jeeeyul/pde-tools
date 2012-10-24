@@ -194,6 +194,19 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="net.jeeeyul.pdetools.snapshot.toolbar"
+               label="PDE-Tools">
+            <command
+                  commandId="net.jeeeyul.pdetools.snapshot.screenshot"
+                  id="net.jeeeyul.pdetools.snapshot.toolbar.screenshot"
+                  style="pulldown">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="net.jeeeyul.pdetools.icg.enableNature"
@@ -251,19 +264,6 @@
                </iterate>
             </visibleWhen>
          </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="toolbar:org.eclipse.ui.main.toolbar">
-         <toolbar
-               id="net.jeeeyul.pdetools.toolbar"
-               label="PDE-Tools">
-            <command
-                  commandId="net.jeeeyul.pdetools.snapshot.screenshot"
-                  id="net.jeeeyul.pdetools.snapshot.screenshot"
-                  style="pulldown">
-            </command>
-         </toolbar>
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -353,6 +353,7 @@
          </dynamic>
          <command
                commandId="net.jeeeyul.pdetools.wslauncher.launchworkspace"
+               id="net.jeeeyul.pdetools.wslauncher.launchworkspace.each"
                style="push">
          </command>
       </menuContribution>
@@ -361,6 +362,7 @@
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
                commandId="net.jeeeyul.pdetools.command.showInShell"
+               id="net.jeeeyul.pdetools.shell.menu.showInShell"
                style="push">
             <visibleWhen
                   checkEnabled="true">
@@ -675,17 +677,6 @@
                type="org.eclipse.ui.model.IWorkbenchAdapter">
          </adapter>
       </factory>
-   </extension>
-   <extension
-         id="pde-tools"
-         name="PDE Tools"
-         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
-      <javaCompletionProposalComputer
-            activate="true"
-            categoryId="org.eclipse.jdt.ui.defaultProposalCategory"
-            class="net.jeeeyul.pdetools.jdt.DefaultProposalProvider"
-            needsSortingAfterFiltering="true">
-      </javaCompletionProposalComputer>
    </extension>
 
 </plugin>

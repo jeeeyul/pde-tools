@@ -3,33 +3,70 @@
 <plugin>
    <extension
          point="org.eclipse.ui.activities">
-      <activity
-            id="net.jeeeyul.pdetools.capability.activity"
-            name="PDE-Tools">
-      </activity>
-      <activityPatternBinding
-            activityId="net.jeeeyul.pdetools.capability.activity"
-            pattern="net\.jeeeyul\.pdetools/.*">
-      </activityPatternBinding>
-      <activityPatternBinding
-            activityId="net.jeeeyul.pdetools.capability.activity"
-            pattern="net\.jeeeyul\.pdetools\.model/.*">
-      </activityPatternBinding>
-      <activityPatternBinding
-            activityId="net.jeeeyul.pdetools.capability.activity"
-            pattern="net\.jeeeyul\.pdetools\.edit/.*">
-      </activityPatternBinding>
       <category
             id="net.jeeeyul.pdetools.capability.category"
             name="PDE-Tools">
       </category>
+
+   </extension>
+   <extension
+         point="org.eclipse.ui.activities">
+               <activity
+            id="net.jeeeyul.pdetools.capability.activity.shell"
+            name="Shell Integration">
+      </activity>
+      <activityPatternBinding
+            activityId="net.jeeeyul.pdetools.capability.activity.shell"
+            isEqualityPattern="false"
+            pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.shell.*">
+      </activityPatternBinding>
       <categoryActivityBinding
-            activityId="net.jeeeyul.pdetools.capability.activity"
+            activityId="net.jeeeyul.pdetools.capability.activity.shell"
             categoryId="net.jeeeyul.pdetools.capability.category">
       </categoryActivityBinding>
       <defaultEnablement
-            id="net.jeeeyul.pdetools.capability.activity">
+            id="net.jeeeyul.pdetools.capability.activity.shell">
       </defaultEnablement>
    </extension>
+   
+      <extension
+         point="org.eclipse.ui.activities">
+               <activity
+            id="net.jeeeyul.pdetools.capability.activity.snapshot"
+            name="Snapshot Tool">
+      </activity>
+      <activityPatternBinding
+            activityId="net.jeeeyul.pdetools.capability.activity.snapshot"
+            isEqualityPattern="false"
+            pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.snapshot.*">
+      </activityPatternBinding>
+      <categoryActivityBinding
+            activityId="net.jeeeyul.pdetools.capability.activity.snapshot"
+            categoryId="net.jeeeyul.pdetools.capability.category">
+      </categoryActivityBinding>
+      <defaultEnablement
+            id="net.jeeeyul.pdetools.capability.activity.snapshot">
+      </defaultEnablement>
+   </extension>
+      <extension
+            point="org.eclipse.ui.activities">
+         <activity
+               id="net.jeeeyul.pdetools.capability.wslauncher"
+               name="Workspace Launcher">
+         </activity>
+         <activityPatternBinding
+               activityId="net.jeeeyul.pdetools.capability.wslauncher"
+               isEqualityPattern="false"
+               pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.wslauncher.*">
+         </activityPatternBinding>
+         <categoryActivityBinding
+               activityId="net.jeeeyul.pdetools.capability.wslauncher"
+               categoryId="net.jeeeyul.pdetools.capability.category">
+         </categoryActivityBinding>
+         <defaultEnablement
+               id="net.jeeeyul.pdetools.capability.wslauncher">
+         </defaultEnablement>
+      </extension>
+   
 
 </plugin>
