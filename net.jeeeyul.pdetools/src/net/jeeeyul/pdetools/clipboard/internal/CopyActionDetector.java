@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.activities.IActivity;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -23,7 +24,8 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
  */
 public class CopyActionDetector {
 	private static final String[] COPY_COMMANDS = new String[] {
-			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy" , "org.eclipse.ui.edit.cut"};
+			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy",
+			"org.eclipse.ui.edit.cut" };
 	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);
 	private ExecutionEvent event;
 
@@ -81,9 +83,20 @@ public class CopyActionDetector {
 	}
 
 	public void handleCopyPerformed() {
+		IActivity activity = getClipboardActivity();
+		if (activity == null || !activity.isEnabled()) {
+			System.out.println("Copy action was ignored due to activity disablement.");
+			return;
+		}
 		if (copyHandler != null) {
 			copyHandler.apply(event);
 		}
+	}
+
+	private IActivity getClipboardActivity() {
+		IActivity activity = PlatformUI.getWorkbench().getActivitySupport().getActivityManager()
+				.getActivity("net.jeeeyul.pdetools.capability.clipboard");
+		return activity;
 	}
 
 	private void hook() {

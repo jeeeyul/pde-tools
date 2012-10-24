@@ -5,7 +5,11 @@ import net.jeeeyul.pdetools.shared.DebugStream;
 import net.jeeeyul.pdetools.snapshot.SnapshotCore;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.activities.ActivityManagerEvent;
+import org.eclipse.ui.activities.IActivityManagerListener;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.services.IEvaluationService;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -38,6 +42,26 @@ public class PDEToolsCore extends AbstractUIPlugin {
 		if (Platform.inDebugMode() || Platform.inDevelopmentMode()) {
 			DebugStream.activate();
 		}
+
+		hookActivity();
+	}
+
+	private void hookActivity() {
+		PlatformUI.getWorkbench().getActivitySupport().getActivityManager()
+				.addActivityManagerListener(new IActivityManagerListener() {
+					@Override
+					public void activityManagerChanged(ActivityManagerEvent activityManagerEvent) {
+						handleActivityChanged();
+					}
+				});
+	}
+
+	private void handleActivityChanged() {
+		IEvaluationService evalService = (IEvaluationService) PlatformUI.getWorkbench().getService(
+				IEvaluationService.class);
+		evalService.requestEvaluation("net.jeeeyul.pdetools.isActivityEnabled");
+		evalService.requestEvaluation("net.jeeeyul.pdetools.isCategoryEnabled");
+		System.out.println("request evaluation for activity property");
 	}
 
 	/*

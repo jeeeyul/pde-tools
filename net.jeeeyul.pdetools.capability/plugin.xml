@@ -67,6 +67,63 @@
                id="net.jeeeyul.pdetools.capability.wslauncher">
          </defaultEnablement>
       </extension>
+      <extension
+            point="org.eclipse.ui.activities">
+         <activity
+               id="net.jeeeyul.pdetools.capability.clipboard"
+               name="Clipboard">
+         </activity>
+         <activityPatternBinding
+               activityId="net.jeeeyul.pdetools.capability.clipboard"
+               isEqualityPattern="false"
+               pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.clipboard.*">
+         </activityPatternBinding>
+         <categoryActivityBinding
+               activityId="net.jeeeyul.pdetools.capability.clipboard"
+               categoryId="net.jeeeyul.pdetools.capability.category">
+         </categoryActivityBinding>
+         <defaultEnablement
+               id="net.jeeeyul.pdetools.capability.clipboard">
+         </defaultEnablement>
+      </extension>
+      <extension
+            point="org.eclipse.ui.activities">
+         <activity
+               id="net.jeeeyul.pdetools.capability.biv"
+               name="Bundle Images View">
+         </activity>
+         <activityPatternBinding
+               activityId="net.jeeeyul.pdetools.capability.biv"
+               isEqualityPattern="false"
+               pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.biv.*">
+         </activityPatternBinding>
+         <categoryActivityBinding
+               activityId="net.jeeeyul.pdetools.capability.biv"
+               categoryId="net.jeeeyul.pdetools.capability.category">
+         </categoryActivityBinding>
+         <defaultEnablement
+               id="net.jeeeyul.pdetools.capability.biv">
+         </defaultEnablement>
+      </extension>
+      <extension
+            point="org.eclipse.ui.activities">
+         <activity
+               id="net.jeeeyul.pdetools.capability.crazyoutline"
+               name="Crazy Outline view">
+         </activity>
+         <activityPatternBinding
+               activityId="net.jeeeyul.pdetools.capability.crazyoutline"
+               isEqualityPattern="false"
+               pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.crazyoutline.*">
+         </activityPatternBinding>
+         <categoryActivityBinding
+               activityId="net.jeeeyul.pdetools.capability.crazyoutline"
+               categoryId="net.jeeeyul.pdetools.capability.category">
+         </categoryActivityBinding>
+         <defaultEnablement
+               id="net.jeeeyul.pdetools.capability.crazyoutline">
+         </defaultEnablement>
+      </extension>
    
 
 </plugin>

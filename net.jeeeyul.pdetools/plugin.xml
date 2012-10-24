@@ -48,8 +48,7 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
-            defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
-            id="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            id="net.jeeeyul.pdetools.clipboard.pasteHistory"
             name="Paste from Clipboard History">
       </command>
       <command
@@ -78,7 +77,7 @@
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory"
             icon="icons/clipboard.gif">
       </image>
       <image
@@ -189,6 +188,21 @@
                class="net.jeeeyul.pdetools.shell.ShowInShellWin32Handler">
          </class>
       </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
+         <class
+               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
+         </class>
+         <activeWhen>
+            <with
+                  variable="net.jeeeyul.pdetools.workbench">
+               <test
+                     args="net.jeeeyul.pdetools.capability.clipboard"
+                     property="net.jeeeyul.pdetools.isActivityEnabled">
+               </test>
+            </with>
+         </activeWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -269,8 +283,9 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any?after=paste">
          <command
-               commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+               commandId="net.jeeeyul.pdetools.clipboard.pasteHistory"
                icon="icons/clipboard.gif"
+               id="net.jeeeyul.pdetools.clipboard.menu.pasteHistory"
                style="push">
          </command>
       </menuContribution>
@@ -583,7 +598,7 @@
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="net.jeeeyul.pdetools.clipbaord.pasteHistory"
+            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
@@ -677,6 +692,26 @@
                type="org.eclipse.ui.model.IWorkbenchAdapter">
          </adapter>
       </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.services">
+      <sourceProvider
+            provider="net.jeeeyul.pdetools.internal.WorkbenchProvider">
+         <variable
+               name="net.jeeeyul.pdetools.workbench"
+               priorityLevel="workbench">
+         </variable>
+      </sourceProvider>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="net.jeeeyul.pdetools.internal.ActivityPropertyTester"
+            id="net.jeeeyul.pdetools.activityTester"
+            namespace="net.jeeeyul.pdetools"
+            properties="isActivityEnabled, isCategoryEnabled"
+            type="org.eclipse.ui.IWorkbench">
+      </propertyTester>
    </extension>
 
 </plugin>
