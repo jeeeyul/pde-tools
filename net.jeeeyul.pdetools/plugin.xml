@@ -48,6 +48,7 @@
       </command>
       <command
             categoryId="net.jeeeyul.pdetools.category"
+            defaultHandler="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler"
             id="net.jeeeyul.pdetools.clipboard.pasteHistory"
             name="Paste from Clipboard History">
       </command>
@@ -187,21 +188,6 @@
          <class
                class="net.jeeeyul.pdetools.shell.ShowInShellWin32Handler">
          </class>
-      </handler>
-      <handler
-            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
-         <class
-               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
-         </class>
-         <activeWhen>
-            <with
-                  variable="net.jeeeyul.pdetools.workbench">
-               <test
-                     args="net.jeeeyul.pdetools.capability.clipboard"
-                     property="net.jeeeyul.pdetools.isActivityEnabled">
-               </test>
-            </with>
-         </activeWhen>
       </handler>
    </extension>
    <extension
