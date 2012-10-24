@@ -33,6 +33,10 @@ It was originated for me and my team. And it works great for me. I hope it helps
 
 ## Install
 * Update Site(Eclipse 3.7 ~ 4.2): https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite
+If you updating **PDE-Tools**, Please restart your eclipse with -clearPersistedState Options.
+<pre>
+eclipse -clearPersistedState
+</pre>
 
 ## Clipboard History
 Just press Control + Shift + V instead of Control + V, then you can paste contents from history of Clipboard.
