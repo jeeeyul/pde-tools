@@ -12,40 +12,40 @@
    <extension
          point="org.eclipse.ui.activities">
                <activity
-            id="net.jeeeyul.pdetools.capability.activity.shell"
+            id="net.jeeeyul.pdetools.capability.shell"
             name="Shell Integration">
       </activity>
       <activityPatternBinding
-            activityId="net.jeeeyul.pdetools.capability.activity.shell"
+            activityId="net.jeeeyul.pdetools.capability.shell"
             isEqualityPattern="false"
             pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.shell.*">
       </activityPatternBinding>
       <categoryActivityBinding
-            activityId="net.jeeeyul.pdetools.capability.activity.shell"
+            activityId="net.jeeeyul.pdetools.capability.shell"
             categoryId="net.jeeeyul.pdetools.capability.category">
       </categoryActivityBinding>
       <defaultEnablement
-            id="net.jeeeyul.pdetools.capability.activity.shell">
+            id="net.jeeeyul.pdetools.capability.shell">
       </defaultEnablement>
    </extension>
    
       <extension
          point="org.eclipse.ui.activities">
                <activity
-            id="net.jeeeyul.pdetools.capability.activity.snapshot"
+            id="net.jeeeyul.pdetools.capability.snapshot"
             name="Snapshot Tool">
       </activity>
       <activityPatternBinding
-            activityId="net.jeeeyul.pdetools.capability.activity.snapshot"
+            activityId="net.jeeeyul.pdetools.capability.snapshot"
             isEqualityPattern="false"
             pattern="net\.jeeeyul\.pdetools/net\.jeeeyul\.pdetools\.snapshot.*">
       </activityPatternBinding>
       <categoryActivityBinding
-            activityId="net.jeeeyul.pdetools.capability.activity.snapshot"
+            activityId="net.jeeeyul.pdetools.capability.snapshot"
             categoryId="net.jeeeyul.pdetools.capability.category">
       </categoryActivityBinding>
       <defaultEnablement
-            id="net.jeeeyul.pdetools.capability.activity.snapshot">
+            id="net.jeeeyul.pdetools.capability.snapshot">
       </defaultEnablement>
    </extension>
       <extension

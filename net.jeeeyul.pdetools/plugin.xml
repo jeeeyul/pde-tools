@@ -211,13 +211,51 @@
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
                id="net.jeeeyul.pdetools.snapshot.toolbar"
-               label="PDE-Tools">
+               label="Snapshot Toolbar">
             <command
                   commandId="net.jeeeyul.pdetools.snapshot.screenshot"
                   id="net.jeeeyul.pdetools.snapshot.toolbar.screenshot"
                   style="pulldown">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="net.jeeeyul.pdetools.workbench">
+                     <test
+                           args="net.jeeeyul.pdetools.capability.snapshot"
+                           property="net.jeeeyul.pdetools.isActivityEnabled">
+                     </test>
+                  </with>
+               </visibleWhen>
             </command>
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="net.jeeeyul.pdetools.workbench">
+                  <test
+                        args="net.jeeeyul.pdetools.capability.snapshot"
+                        property="net.jeeeyul.pdetools.isActivityEnabled">
+                  </test>
+               </with>
+            </visibleWhen>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:net.jeeeyul.pdetools.snapshot.toolbar.screenshot">
+         <command
+               commandId="net.jeeeyul.pdetools.snapshot.screenshot"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.views.showView"
+               icon="icons/pictures.gif"
+               label="Show Camera Roll"
+               style="push">
+            <parameter
+                  name="org.eclipse.ui.views.showView.viewId"
+                  value="net.jeeeyul.pdetools.snapshot.SnapshotView">
+            </parameter>
+         </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -287,6 +325,16 @@
                icon="icons/clipboard.gif"
                id="net.jeeeyul.pdetools.clipboard.menu.pasteHistory"
                style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="net.jeeeyul.pdetools.workbench">
+                  <test
+                        args="net.jeeeyul.pdetools.capability.clipboard"
+                        property="net.jeeeyul.pdetools.isActivityEnabled">
+                  </test>
+               </with>
+            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution
@@ -335,28 +383,20 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="menu:net.jeeeyul.pdetools.snapshot.screenshot">
-         <command
-               commandId="net.jeeeyul.pdetools.snapshot.screenshot"
-               style="push">
-         </command>
-         <command
-               commandId="org.eclipse.ui.views.showView"
-               icon="icons/pictures.gif"
-               label="Show Camera Roll"
-               style="push">
-            <parameter
-                  name="org.eclipse.ui.views.showView.viewId"
-                  value="net.jeeeyul.pdetools.snapshot.SnapshotView">
-            </parameter>
-         </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
             locationURI="menu:file?before=org.eclipse.ui.file.restartWorkbench">
          <menu
                id="net.jeeeyul.pdetools.wslauncher.launchworkspace"
                label="Launch New Workspace">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="net.jeeeyul.pdetools.workbench">
+                  <test
+                        args="net.jeeeyul.pdetools.capability.wslauncher"
+                        property="net.jeeeyul.pdetools.isActivityEnabled">
+                  </test>
+               </with>
+            </visibleWhen>
          </menu>
       </menuContribution>
       <menuContribution
@@ -368,7 +408,7 @@
          </dynamic>
          <command
                commandId="net.jeeeyul.pdetools.wslauncher.launchworkspace"
-               id="net.jeeeyul.pdetools.wslauncher.launchworkspace.each"
+               id="net.jeeeyul.pdetools.wslauncher.launchworkspace.other"
                style="push">
          </command>
       </menuContribution>
@@ -382,6 +422,13 @@
             <visibleWhen
                   checkEnabled="true">
                <and>
+                  <with
+                        variable="net.jeeeyul.pdetools.workbench">
+                     <test
+                           args="net.jeeeyul.pdetools.capability.shell"
+                           property="net.jeeeyul.pdetools.isActivityEnabled">
+                     </test>
+                  </with>
                   <count
                         value="1">
                   </count>
