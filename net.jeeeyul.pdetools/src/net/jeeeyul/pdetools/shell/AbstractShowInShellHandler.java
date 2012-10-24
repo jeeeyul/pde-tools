@@ -48,7 +48,7 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 		return null;
 	}
 
-	protected abstract LaunchCommand createLaunchCommand(File targetFile);
+	public abstract LaunchCommand createLaunchCommand(File targetFile);
 
 	@Override
 	public final void updateElement(UIElement element, @SuppressWarnings("rawtypes") Map parameters) {

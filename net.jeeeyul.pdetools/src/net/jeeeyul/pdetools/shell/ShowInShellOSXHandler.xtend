@@ -14,7 +14,7 @@ class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IEleme
 		SharedImages::getImageDescriptor(SharedImages::FINDER)
 	}
 
-	override protected createLaunchCommand(File targetFile) {
+	override public createLaunchCommand(File targetFile) {
 		new LaunchCommand() => [
 			commands += "osascript"
 			commands += "-e"

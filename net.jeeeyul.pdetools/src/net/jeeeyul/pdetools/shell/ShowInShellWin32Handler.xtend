@@ -13,7 +13,7 @@ class ShowInShellWin32Handler extends AbstractShowInShellHandler{
 		SharedImages::getImageDescriptor(SharedImages::EXPLORER)
 	}
 
-	override protected createLaunchCommand(File targetFile) {
+	override public createLaunchCommand(File targetFile) {
 		new LaunchCommand() => [
 			envMap.put("pde_tools_target_file", '''/select,"«targetFile.absolutePath»"'''.toString)
 			
