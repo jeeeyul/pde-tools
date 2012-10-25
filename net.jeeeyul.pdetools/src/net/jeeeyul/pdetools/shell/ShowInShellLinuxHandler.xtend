@@ -12,12 +12,14 @@ class ShowInShellLinuxHandler extends AbstractShowInShellHandler {
 				folder = targetFile.parentFile
 			}
 			
-			commands += "xdg-open"
-			commands += '''"«folder.absolutePath»"'''.toString
+			commands += "/bin/bash"
+			commands += "-c"
+			commands += '''xdg-open "«folder.absolutePath»"'''.toString
 		]
 	}
 	
 	override protected getLabel() {
+		
 	}
 	
 }
