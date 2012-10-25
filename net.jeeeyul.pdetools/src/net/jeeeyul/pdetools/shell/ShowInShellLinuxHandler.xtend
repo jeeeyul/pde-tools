@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.shell
 
 import java.io.File
 import net.jeeeyul.pdetools.shared.LaunchCommand
+import net.jeeeyul.pdetools.shared.SharedImages
 
 class ShowInShellLinuxHandler extends AbstractShowInShellHandler {
 
@@ -20,6 +21,10 @@ class ShowInShellLinuxHandler extends AbstractShowInShellHandler {
 	
 	override protected getLabel() {
 		
+	}
+	
+	override protected getImageDescriptor() {
+		SharedImages::getImageDescriptor(SharedImages::NAUTILUS)
 	}
 	
 }
