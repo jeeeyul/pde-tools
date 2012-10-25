@@ -188,6 +188,21 @@
          </class>
       </handler>
       <handler
+            commandId="net.jeeeyul.pdetools.command.showInShell">
+         <activeWhen>
+            <with
+                  variable="net.jeeeyul.pdetools.platform">
+               <test
+                     property="net.jeeeyul.pdetools.os"
+                     value="linux">
+               </test>
+            </with>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.shell.ShowInShellLinuxHandler">
+         </class>
+      </handler>
+      <handler
             commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
          <activeWhen>
             <with
