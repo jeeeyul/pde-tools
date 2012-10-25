@@ -143,14 +143,14 @@ public class BundleImageView extends ViewPart {
 				handleSelectionChanged();
 			}
 		});
-		
+
 		labelProvider.addListener(new ILabelProviderListener() {
 			@Override
 			public void labelProviderChanged(LabelProviderChangedEvent event) {
 				handleSelectionChanged();
 			}
 		});
-		
+
 		refreshFilter();
 		configMenu();
 	}
@@ -247,7 +247,7 @@ public class BundleImageView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-
+		viewer.getControl().setFocus();
 	}
 
 }
