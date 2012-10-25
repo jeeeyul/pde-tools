@@ -20,7 +20,7 @@ class ShowInShellLinuxHandler extends AbstractShowInShellHandler {
 	}
 	
 	override protected getLabel() {
-		
+		null
 	}
 	
 	override protected getImageDescriptor() {

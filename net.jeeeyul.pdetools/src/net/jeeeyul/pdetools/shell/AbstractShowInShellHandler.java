@@ -52,7 +52,11 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 
 	@Override
 	public final void updateElement(UIElement element, @SuppressWarnings("rawtypes") Map parameters) {
-		element.setText(getLabel());
+		String label = getLabel();
+		if (label != null) {
+			element.setText(label);
+		}
+
 		ImageDescriptor iconDescriptor = getImageDescriptor();
 		if (iconDescriptor != null) {
 			element.setIcon(iconDescriptor);
