@@ -22,7 +22,7 @@ class LaunchWorkspaceMenu extends CompoundContributionItem {
 		var data = new ChooseWorkspaceData(Platform::instanceLocation.URL);
 		
 		for(each : data.recentWorkspaces){
-			if(each != null){
+			if(each != null && each != data.selection){
 				var param = new CommandContributionItemParameter(PlatformUI::workbench, each, LaunchWorkspaceHandler::COMMNAD_ID, SWT::PUSH)
 				param.parameters = new HashMap<String, String> => [
 					put(LaunchWorkspaceHandler::PARAM_WORKSPACE, each)
