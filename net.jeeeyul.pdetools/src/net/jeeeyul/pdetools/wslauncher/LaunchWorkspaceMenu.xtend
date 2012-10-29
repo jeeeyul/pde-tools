@@ -11,6 +11,9 @@ import org.eclipse.swt.SWT
 import java.util.HashMap
 import org.eclipse.ui.menus.CommandContributionItem
 import org.eclipse.jface.action.Separator
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.filesystem.EFS
+import org.eclipse.core.runtime.NullProgressMonitor
 
 class LaunchWorkspaceMenu extends CompoundContributionItem {
 	new(){
@@ -20,9 +23,13 @@ class LaunchWorkspaceMenu extends CompoundContributionItem {
 		var result = new ArrayList<IContributionItem>
 		
 		var data = new ChooseWorkspaceData(Platform::instanceLocation.URL);
+
+		var root = ResourcesPlugin::workspace.root
+		var file = EFS::getStore(root.locationURI).toLocalFile(0, new NullProgressMonitor());
+		var currentWorkspace = file.absolutePath
 		
 		for(each : data.recentWorkspaces){
-			if(each != null && each != data.selection){
+			if(each != null && each != currentWorkspace){
 				var param = new CommandContributionItemParameter(PlatformUI::workbench, each, LaunchWorkspaceHandler::COMMNAD_ID, SWT::PUSH)
 				param.parameters = new HashMap<String, String> => [
 					put(LaunchWorkspaceHandler::PARAM_WORKSPACE, each)
