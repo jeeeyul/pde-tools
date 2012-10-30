@@ -22,13 +22,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
  * @author Jeeeyul
  * 
  */
-public class CopyActionDetector {
-	private static final String[] COPY_COMMANDS = new String[] {
-			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy",
-			"org.eclipse.ui.edit.cut" };
-	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);
-	private ExecutionEvent event;
-
+public class CopyAndPasteActionDetector {
 	private class CommandHook implements IExecutionListener {
 
 		@Override
@@ -45,26 +39,50 @@ public class CopyActionDetector {
 		public void postExecuteSuccess(String commandId, Object returnValue) {
 			if (COPY_COMMAND_LIST.contains(commandId)) {
 				handleCopyPerformed();
+			} else if (commandId.equals(PASTE_COMMAND)) {
+				handlePastePerformed();
 			}
 			event = null;
 		}
 
 		@Override
 		public void preExecute(String commandId, ExecutionEvent event) {
-			CopyActionDetector.this.event = event;
+			CopyAndPasteActionDetector.this.event = event;
 		}
 	}
 
+	private static final String[] COPY_COMMANDS = new String[] {
+			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy",
+			"org.eclipse.ui.edit.cut" };
+	private static final String PASTE_COMMAND = "org.eclipse.ui.edit.paste";
+
+	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);
+
+	private ExecutionEvent event;
+
 	private CommandHook commandHook;
 	private Procedure1<ExecutionEvent> copyHandler;
+	private Procedure1<ExecutionEvent> pasteHandler;
 
-	public CopyActionDetector() {
+	public CopyAndPasteActionDetector() {
 		hook();
+	}
+
+	private void handlePastePerformed() {
+		if (pasteHandler != null) {
+			pasteHandler.apply(event);
+		}
 	}
 
 	public void dispose() {
 		unhook();
 		copyHandler = null;
+	}
+
+	private IActivity getClipboardActivity() {
+		IActivity activity = PlatformUI.getWorkbench().getActivitySupport().getActivityManager()
+				.getActivity("net.jeeeyul.pdetools.capability.clipboard");
+		return activity;
 	}
 
 	private CommandHook getCommandHook() {
@@ -82,6 +100,10 @@ public class CopyActionDetector {
 		return copyHandler;
 	}
 
+	public Procedure1<ExecutionEvent> getPasteHandler() {
+		return pasteHandler;
+	}
+
 	public void handleCopyPerformed() {
 		IActivity activity = getClipboardActivity();
 		if (activity == null || !activity.isEnabled()) {
@@ -91,12 +113,6 @@ public class CopyActionDetector {
 		if (copyHandler != null) {
 			copyHandler.apply(event);
 		}
-	}
-
-	private IActivity getClipboardActivity() {
-		IActivity activity = PlatformUI.getWorkbench().getActivitySupport().getActivityManager()
-				.getActivity("net.jeeeyul.pdetools.capability.clipboard");
-		return activity;
 	}
 
 	private void hook() {
@@ -112,6 +128,10 @@ public class CopyActionDetector {
 
 	public void setCopyHandler(Procedure1<ExecutionEvent> copyHandler) {
 		this.copyHandler = copyHandler;
+	}
+
+	public void setPasteHandler(Procedure1<ExecutionEvent> pasteHandler) {
+		this.pasteHandler = pasteHandler;
 	}
 
 	private void unhook() {

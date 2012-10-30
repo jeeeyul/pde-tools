@@ -72,6 +72,11 @@
             id="net.jeeeyul.pdetools.command.showInShell"
             name="Show in Shell">
       </command>
+      <command
+            defaultHandler="net.jeeeyul.pdetools.commandspy.ToggleGlobalCommandSpyHandler"
+            id="net.jeeeyul.pdetools.command.toggleGlobalCommandSpy"
+            name="Toggle Global Command Spy">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -86,6 +91,10 @@
       <image
             commandId="net.jeeeyul.pdetools.snapshot.screenshot"
             icon="icons/camera.gif">
+      </image>
+      <image
+            commandId="net.jeeeyul.pdetools.command.toggleGlobalCommandSpy"
+            icon="icons/spy.png">
       </image>
    </extension>
    <extension
@@ -460,6 +469,14 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:net.jeeeyul.pdetools.commandspy.GlobalCommandSpyView">
+         <command
+               commandId="net.jeeeyul.pdetools.command.toggleGlobalCommandSpy"
+               style="toggle">
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
@@ -653,6 +670,14 @@
             icon="icons/crazy-outline.gif"
             id="net.jeeeyul.pdetools.crazyoutline.CrazyOutlineView"
             name="Crazy Outline"
+            restorable="true">
+      </view>
+      <view
+            category="org.eclipse.pde.ui"
+            class="net.jeeeyul.pdetools.commandspy.GlobalCommandSpyView"
+            icon="icons/spy.png"
+            id="net.jeeeyul.pdetools.commandspy.GlobalCommandSpyView"
+            name="Global Command Spy"
             restorable="true">
       </view>
    </extension>

@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IFolder
 import org.eclipse.core.runtime.Path
 import net.jeeeyul.pdetools.shared.ImageDataSerializer
 import org.eclipse.core.runtime.IPath
+import org.eclipse.jface.resource.ImageDescriptor
 
 type IFile wraps IFile create
 {
@@ -49,7 +50,8 @@ convert{
 }
 
 type Clipboard wraps Clipboard
-
+type Exception wraps Exception
+type ImageDescriptor wraps ImageDescriptor
 
 enum ClipItemSortOption{
 	CAPTURED_ORDER as "captured-order" = 0
@@ -206,4 +208,25 @@ class ShellInfo{
 	ImageData icon
 	int shellStyle
 	String shellTitle
+}
+
+
+// Command Spy
+class CommandHistory{
+	contains CommandEvent[] events
+}
+
+class CommandEvent{
+	String commandId
+	String name
+	ImageDescriptor imageDescriptor
+	long time
+	CommandExecutionType ^type
+	Exception exception
+}
+
+enum CommandExecutionType{
+	SUCCEED
+	FAILED
+	NOT_HANDLED
 }

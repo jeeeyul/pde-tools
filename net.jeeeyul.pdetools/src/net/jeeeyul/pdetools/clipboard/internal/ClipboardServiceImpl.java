@@ -86,7 +86,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 	}
 
 	private ClipHistory history;
-	private CopyActionDetector detector;
+	private CopyAndPasteActionDetector detector;
 	private Clipboard nativeClipboard;
 	private IWindowListener windowHook = new WindowAdaptor() {
 		public void windowActivated(IWorkbenchWindow window) {
@@ -97,7 +97,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 	private AdapterFactoryEditingDomain editingDomain;
 
 	private ClipboardServiceImpl() {
-		detector = new CopyActionDetector();
+		detector = new CopyAndPasteActionDetector();
 		detector.setCopyHandler(new Procedure1<ExecutionEvent>() {
 			@Override
 			public void apply(ExecutionEvent event) {
@@ -105,7 +105,18 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 		});
 
+		detector.setPasteHandler(new Procedure1<ExecutionEvent>() {
+			@Override
+			public void apply(ExecutionEvent event) {
+				handlePaste(event);
+			}
+		});
+
 		PlatformUI.getWorkbench().addWindowListener(windowHook);
+	}
+
+	private void handlePaste(ExecutionEvent event) {
+		getHistory().getActiveEntry().increaseUsing();
 	}
 
 	public ClipboardEntry createClipEntry() {
