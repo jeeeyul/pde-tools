@@ -603,13 +603,13 @@
             <with
                   variable="element">
                <and>
+                  <instanceof
+                        value="org.eclipse.core.resources.IFolder">
+                  </instanceof>
                   <test
                         property="org.eclipse.core.resources.projectNature"
                         value="net.jeeeyul.pdetools.icg.nature">
                   </test>
-                  <instanceof
-                        value="org.eclipse.core.resources.IFolder">
-                  </instanceof>
                </and>
             </with>
          </enablement>
