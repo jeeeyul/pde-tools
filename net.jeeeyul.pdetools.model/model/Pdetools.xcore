@@ -217,6 +217,7 @@ class CommandHistory{
 }
 
 class CommandEvent{
+	contains CommandEvent[] children
 	String commandId
 	String name
 	ImageDescriptor imageDescriptor
@@ -226,6 +227,7 @@ class CommandEvent{
 }
 
 enum CommandExecutionType{
+	EXECUTING
 	SUCCEED
 	FAILED
 	NOT_HANDLED

@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.commandspy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import net.jeeeyul.pdetools.model.pdetools.CommandEvent;
 import net.jeeeyul.pdetools.model.pdetools.CommandExecutionType;
@@ -32,6 +33,7 @@ public class GlobalCommandSpy {
 
 	private boolean isSpying;
 	private CommandHistory commandHistory = PdetoolsFactory.eINSTANCE.createCommandHistory();
+	private Stack<CommandEvent> stack = new Stack<CommandEvent>();
 
 	private List<Procedure1<CommandEvent>> listeners = new ArrayList<Procedure1<CommandEvent>>();
 
@@ -53,7 +55,7 @@ public class GlobalCommandSpy {
 
 		@Override
 		public void preExecute(String commandId, ExecutionEvent event) {
-
+			handleStart(commandId);
 		}
 	};
 
@@ -64,26 +66,10 @@ public class GlobalCommandSpy {
 		return listeners.add(e);
 	}
 
-	public CommandHistory getCommandHistory() {
-		return commandHistory;
-	}
-
-	private <T> T getService(Class<T> serviceType) {
-		@SuppressWarnings("unchecked")
-		T service = (T) PlatformUI.getWorkbench().getService(serviceType);
-		return service;
-	}
-
-	private void handleFailed(String commandId, ExecutionException exception) {
-		CommandEvent event = createEvent(commandId);
-		event.setType(CommandExecutionType.FAILED);
-		event.setException(exception);
-		pushEvent(event);
-	}
-
 	private CommandEvent createEvent(String commandId) {
 		Command command = getService(ICommandService.class).getCommand(commandId);
 		CommandEvent event = PdetoolsFactory.eINSTANCE.createCommandEvent();
+		event.setType(CommandExecutionType.EXECUTING);
 		event.setTime(System.currentTimeMillis());
 		event.setCommandId(commandId);
 		if (command.isDefined()) {
@@ -100,18 +86,56 @@ public class GlobalCommandSpy {
 		return event;
 	}
 
+	public CommandHistory getCommandHistory() {
+		return commandHistory;
+	}
+
+	private <T> T getService(Class<T> serviceType) {
+		@SuppressWarnings("unchecked")
+		T service = (T) PlatformUI.getWorkbench().getService(serviceType);
+		return service;
+	}
+
+	private void handleFailed(String commandId, ExecutionException exception) {
+		if (stack.empty() || !stack.peek().getCommandId().equals(commandId)) {
+			return;
+		}
+		CommandEvent event = stack.pop();
+		event.setType(CommandExecutionType.FAILED);
+		event.setException(exception);
+	}
+
 	private void handleNotHandled(String commandId, NotHandledException exception) {
-		CommandEvent event = createEvent(commandId);
+		if (stack.empty() || !stack.peek().getCommandId().equals(commandId)) {
+			return;
+		}
+		CommandEvent event = stack.pop();
 		event.setType(CommandExecutionType.NOT_HANDLED);
 		event.setException(exception);
+	}
+
+	private void handleStart(String commandId) {
+		Command command = getService(ICommandService.class).getCommand(commandId);
+		if (command.getHandler() != null && !command.getHandler().isEnabled()) {
+			return;
+		}
+		CommandEvent event = createEvent(commandId);
+
+		if (stack.size() > 0) {
+			stack.peek().getChildren().add(event);
+		} else {
+			commandHistory.getEvents().add(0, event);
+		}
+		stack.push(event);
 		pushEvent(event);
 	}
 
 	private void handleSuccess(String commandId, Object returnValue) {
-		CommandEvent event = createEvent(commandId);
+		if (stack.empty() || !stack.peek().getCommandId().equals(commandId)) {
+			return;
+		}
+		CommandEvent event = stack.pop();
 		event.setType(CommandExecutionType.SUCCEED);
-
-		pushEvent(event);
 	}
 
 	public boolean isSpying() {
@@ -119,8 +143,6 @@ public class GlobalCommandSpy {
 	}
 
 	private void pushEvent(CommandEvent ce) {
-		commandHistory.getEvents().add(0, ce);
-
 		List<Procedure1<CommandEvent>> copy = new ArrayList<Procedure1<CommandEvent>>();
 		copy.addAll(listeners);
 
@@ -144,6 +166,7 @@ public class GlobalCommandSpy {
 		getService(ICommandService.class).addExecutionListener(executionListener);
 		isSpying = true;
 		System.out.println("Spy on");
+		stack.clear();
 	}
 
 	public synchronized void stop() {
@@ -154,5 +177,6 @@ public class GlobalCommandSpy {
 		getService(ICommandService.class).removeExecutionListener(executionListener);
 		isSpying = false;
 		System.out.println("Spy off");
+		stack.clear();
 	}
 }
