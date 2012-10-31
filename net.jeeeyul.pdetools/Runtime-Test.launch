@@ -5,7 +5,7 @@
 <booleanAttribute key="automaticAdd" value="true"/>
 <booleanAttribute key="automaticValidate" value="false"/>
 <stringAttribute key="bootstrap" value=""/>
-<stringAttribute key="checked" value="org.eclipse.ui"/>
+<stringAttribute key="checked" value="[NONE]"/>
 <booleanAttribute key="clearConfig" value="false"/>
 <booleanAttribute key="clearws" value="true"/>
 <booleanAttribute key="clearwslog" value="false"/>
@@ -13,15 +13,16 @@
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <stringAttribute key="location" value="${workspace_loc}/../runtime-New_configuration"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -clearPersistedState"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.5 -Dhelp.lucene.tokenizer=standard -Xms40m -Xmx512m&#13;&#10;-XX:MaxPermSize=512m&#13;&#10;-XX:+UseParNewGC&#13;&#10;-XX:+UseConcMarkSweepGC&#10;-Dorg.eclipse.swt.internal.carbon.smallFonts"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.7 -Dhelp.lucene.tokenizer=standard -Xms40m -Xmx512m&#13;&#10;-XX:MaxPermSize=512m&#13;&#10;-XX:+UseParNewGC&#13;&#10;-XX:+UseConcMarkSweepGC&#10;-Dorg.eclipse.swt.internal.carbon.smallFonts"/>
 <stringAttribute key="pde.version" value="3.3"/>
-<stringAttribute key="product" value="org.eclipse.platform.ide"/>
+<stringAttribute key="product" value="org.eclipse.epp.package.modeling.product"/>
 <booleanAttribute key="show_selected_only" value="false"/>
 <stringAttribute key="templateConfig" value="${target_home}\configuration\config.ini"/>
 <stringAttribute key="timestamp" value="1344218115477"/>
-<booleanAttribute key="tracing" value="true"/>
+<booleanAttribute key="tracing" value="false"/>
 <mapAttribute key="tracingOptions">
 <mapEntry key="org.eclipse.core.contenttype/debug" value="false"/>
 <mapEntry key="org.eclipse.core.expressions/debug/TypeExtensionManager" value="false"/>
