@@ -1,10 +1,8 @@
 package net.jeeeyul.pdetools;
 
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
-import net.jeeeyul.pdetools.shared.DebugStream;
 import net.jeeeyul.pdetools.snapshot.SnapshotCore;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.activities.ActivityManagerEvent;
 import org.eclipse.ui.activities.IActivityManagerListener;
@@ -39,9 +37,6 @@ public class PDEToolsCore extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		if (Platform.inDebugMode() || Platform.inDevelopmentMode()) {
-			DebugStream.activate();
-		}
 
 		hookActivity();
 	}

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.shared.LaunchCommand;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -37,7 +38,7 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 		try {
 			File file = EFS.getStore(uri).toLocalFile(0, new NullProgressMonitor());
 			LaunchCommand command = createLaunchCommand(file);
-			System.out.println(command);
+			Debug.println(command);
 			command.execute();
 		} catch (CoreException e) {
 			e.printStackTrace();

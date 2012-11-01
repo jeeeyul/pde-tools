@@ -4,6 +4,7 @@ import java.io.File
 
 import static org.eclipse.core.runtime.Platform.*
 import net.jeeeyul.pdetools.shared.LaunchCommand
+import net.jeeeyul.pdetools.Debug
 
 class LaunchCommandFactory {
 	def LaunchCommand createCommand(String workspace) throws UnsupportedOperationException{
@@ -40,7 +41,7 @@ class LaunchCommandFactory {
 			}
 		]
 
-		println(result)
+		Debug::println(result)
 		return result
 	}
 	

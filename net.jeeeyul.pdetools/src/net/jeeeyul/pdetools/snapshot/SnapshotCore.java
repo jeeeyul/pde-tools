@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.internal.BinaryResourceFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
@@ -53,12 +54,12 @@ public class SnapshotCore {
 			try {
 				resource.load(new HashMap<Object, Object>());
 				repository = (SnapshotRepository) resource.getContents().get(0);
-				System.out.println("Snapshot repository was loaded.");
+				Debug.println("Snapshot repository was loaded.");
 			} catch (Exception e) {
 				repository = PdetoolsFactory.eINSTANCE.createSnapshotRepository();
 				resource.getContents().clear();
 				resource.getContents().add(repository);
-				System.out.println("Snapshot repository was created.");
+				Debug.println("Snapshot repository was created.");
 			}
 		}
 		return repository;
@@ -70,7 +71,7 @@ public class SnapshotCore {
 			resource = getResourceSet().getResource(getPersistanceURI(), true);
 		} catch (Exception e) {
 			resource = getResourceSet().createResource(getPersistanceURI());
-			System.out.println("New resource for snapshot repository was created.");
+			Debug.println("New resource for snapshot repository was created.");
 		}
 		return resource;
 	}

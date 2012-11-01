@@ -10,34 +10,11 @@ public class DebugStream extends PrintStream {
 	private static final Set<String> FILTER;
 	static {
 		String[] array = new String[] { "org.eclipse.xtext.xbase.lib.InputOutput",
-				"net.jeeeyul.pdetools.shared.DebugStream", "java.lang.Thread" };
+				"net.jeeeyul.pdetools.shared.DebugStream", "java.lang.Thread", "net.jeeeyul.pdetools.Debug" };
 		FILTER = new HashSet<String>(Arrays.asList(array));
 	}
 
-	private static final DebugStream INSTANCE = new DebugStream();
-
-	private static boolean isActivated = false;
-	private static PrintStream orignal;
-
-	public static void activate() {
-		if (isActivated) {
-			return;
-		}
-		orignal = System.out;
-		System.setOut(INSTANCE);
-		System.out.println("Debug Stream Activated");
-		isActivated = true;
-	}
-
-	public static void deactivate() {
-		if (!isActivated) {
-			return;
-		}
-		System.setOut(orignal);
-		isActivated = false;
-	}
-
-	private DebugStream() {
+	public DebugStream() {
 		super(System.out);
 	}
 

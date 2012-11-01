@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
@@ -109,7 +110,6 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			path = path.removeLastSegments(1).append(newFileName);
 			path = path.setDevice(null);
 			File file = path.toFile();
-			System.out.println(file);
 
 			if (shellInfo != null) {
 				Rectangle area = new Rectangle(21, 42, 395, 389);
@@ -129,7 +129,7 @@ public class NewSnapshotEntryJob extends Job implements ISchedulingRule {
 			entry.setTakenTime(new Date());
 			entry.setOriginalFile(file.getName());
 			entry.setControlType(controlType);
-			System.out.println(file.getName());
+			Debug.println(file.getName());
 
 			CompoundCommand command = new CompoundCommand("New Snapshot");
 			SnapshotGroup targetGroup = computeTargetGroup(command);

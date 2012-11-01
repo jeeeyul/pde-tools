@@ -57,6 +57,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import static net.jeeeyul.pdetools.Debug.*;
 
 public class ClipboardServiceImpl implements IClipboardService {
 	private static IClipboardService INSTANCE;
@@ -140,7 +141,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 	public void doSave() {
 		try {
 			getResource().save(new HashMap<Object, Object>());
-			System.out.println("Clipboard was saved.");
+			println("Clipboard was saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -163,14 +164,14 @@ public class ClipboardServiceImpl implements IClipboardService {
 			try {
 				resource.load(new HashMap<Object, Object>());
 				history = (ClipHistory) resource.getContents().get(0);
-				System.out.println("Clipboard was loaded.");
+				println("Clipboard was loaded.");
 			}
 
 			catch (Exception e) {
 				history = PdetoolsFactory.eINSTANCE.createClipHistory();
 				resource.getContents().clear();
 				resource.getContents().add(history);
-				System.out.println("Clipboard was created.");
+				println("Clipboard was created.");
 			}
 		}
 		return history;
