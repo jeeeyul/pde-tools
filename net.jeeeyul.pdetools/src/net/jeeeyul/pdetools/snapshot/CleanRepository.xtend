@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.Path
 import java.util.ArrayList
 import java.io.File
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry
+import net.jeeeyul.pdetools.Debug
 
 class CleanRepository {
 	def void run(){
@@ -38,6 +39,6 @@ class CleanRepository {
 			}
 		}
 		
-		println(filesToDelete.size + " files were cleaned from snapshot repository.")
+		Debug::println(filesToDelete.size + " files were cleaned from snapshot repository.")
 	}
 }

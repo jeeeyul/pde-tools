@@ -56,7 +56,7 @@ public class PDEToolsCore extends AbstractUIPlugin {
 				IEvaluationService.class);
 		evalService.requestEvaluation("net.jeeeyul.pdetools.isActivityEnabled");
 		evalService.requestEvaluation("net.jeeeyul.pdetools.isCategoryEnabled");
-		System.out.println("request evaluation for activity property");
+		Debug.println("request evaluation for activity property");
 	}
 
 	/*
