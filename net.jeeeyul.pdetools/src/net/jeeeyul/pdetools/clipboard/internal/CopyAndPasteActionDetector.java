@@ -3,6 +3,8 @@ package net.jeeeyul.pdetools.clipboard.internal;
 import java.util.Arrays;
 import java.util.List;
 
+import net.jeeeyul.pdetools.Debug;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IExecutionListener;
@@ -107,7 +109,7 @@ public class CopyAndPasteActionDetector {
 	public void handleCopyPerformed() {
 		IActivity activity = getClipboardActivity();
 		if (activity == null || !activity.isEnabled()) {
-			System.out.println("Copy action was ignored due to activity disablement.");
+			Debug.println("Copy action was ignored due to activity disablement.");
 			return;
 		}
 		if (copyHandler != null) {

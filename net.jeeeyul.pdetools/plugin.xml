@@ -810,16 +810,5 @@
             type="org.eclipse.core.runtime.Platform">
       </propertyTester>
    </extension>
-   <extension
-         point="org.eclipse.ui.trace.traceComponents">
-      <component
-            id="net.jeeeyul.pdetools.debug"
-            label="PDE-Tools">
-         <bundle
-               consumed="true"
-               name="net.jeeeyul.pdetools">
-         </bundle>
-      </component>
-   </extension>
 
 </plugin>

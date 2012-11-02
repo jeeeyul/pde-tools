@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.biv.lazy.URLImageEntry;
 
@@ -121,7 +122,7 @@ public class DragImageSupport implements DragSourceListener {
 				tempFolder.delete();
 			}
 			tempFolder.mkdir();
-			System.out.println(tempFolder + " was created.");
+			Debug.println(tempFolder + " was created.");
 		}
 		return tempFolder;
 	}

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.clipboard.IClipboardService;
 import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
@@ -211,7 +212,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 			resource = getResourceSet().getResource(getPersistanceURI(), true);
 		} catch (Exception e) {
 			resource = getResourceSet().createResource(getPersistanceURI());
-			System.out.println("New resource for Clipboard History was created.");
+			Debug.println("New resource for Clipboard History was created.");
 		}
 		return resource;
 	}

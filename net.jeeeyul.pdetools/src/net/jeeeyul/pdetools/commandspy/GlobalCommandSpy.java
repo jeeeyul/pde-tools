@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.model.pdetools.CommandEvent;
 import net.jeeeyul.pdetools.model.pdetools.CommandExecutionType;
 import net.jeeeyul.pdetools.model.pdetools.CommandHistory;
@@ -165,7 +166,7 @@ public class GlobalCommandSpy {
 		}
 		getService(ICommandService.class).addExecutionListener(executionListener);
 		isSpying = true;
-		System.out.println("Spy on");
+		Debug.println("Global Command Spy on");
 		stack.clear();
 	}
 
@@ -176,7 +177,7 @@ public class GlobalCommandSpy {
 
 		getService(ICommandService.class).removeExecutionListener(executionListener);
 		isSpying = false;
-		System.out.println("Spy off");
+		Debug.println("Global Command Spy off");
 		stack.clear();
 	}
 }

@@ -1,9 +1,11 @@
 package net.jeeeyul.pdetools.snapshot;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.jeeeyul.pdetools.Debug;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup;
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
@@ -115,7 +117,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 			registry.remove(filePath.toFile().getAbsolutePath());
 		}
 
-		System.out.println(entries.size() + "개의 이미지가 정리 됨");
+		Debug.println(MessageFormat.format("{0} images are cleaned.", entries.size()));
 	}
 
 	private List<SnapshotEntry> resoveEntries(Object obj) {
