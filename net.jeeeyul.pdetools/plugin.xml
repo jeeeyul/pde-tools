@@ -490,6 +490,7 @@
          </command>
          <command
                commandId="net.jeeeyul.pdetools.command.openConsole"
+               icon="icons/terminal.png"
                id="net.jeeeyul.pdetools.shell.menu.openConsole"
                style="push">
             <visibleWhen
