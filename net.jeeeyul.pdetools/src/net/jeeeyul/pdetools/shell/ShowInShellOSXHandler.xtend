@@ -5,7 +5,7 @@ import net.jeeeyul.pdetools.shared.LaunchCommand
 import net.jeeeyul.pdetools.shared.SharedImages
 import org.eclipse.ui.commands.IElementUpdater
 
-class ShowInShellOSXHandler extends AbstractShowInShellHandler implements IElementUpdater {
+class ShowInShellOSXHandler extends AbstractFileBasedExecHandler implements IElementUpdater {
 	override protected getLabel() {
 		"Reveal in Finder"
 	}

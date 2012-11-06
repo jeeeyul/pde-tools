@@ -4,7 +4,7 @@ import java.io.File
 import net.jeeeyul.pdetools.shared.LaunchCommand
 import net.jeeeyul.pdetools.shared.SharedImages
 
-class ShowInShellLinuxHandler extends AbstractShowInShellHandler {
+class ShowInShellLinuxHandler extends AbstractFileBasedExecHandler {
 
 	override createLaunchCommand(File targetFile) {
 		new LaunchCommand() => [

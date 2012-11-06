@@ -73,6 +73,11 @@
             name="Show in Shell">
       </command>
       <command
+            categoryId="net.jeeeyul.pdetools.category"
+            id="net.jeeeyul.pdetools.command.openConsole"
+            name="Open Console Here">
+      </command>
+      <command
             defaultHandler="net.jeeeyul.pdetools.commandspy.ToggleGlobalCommandSpyHandler"
             id="net.jeeeyul.pdetools.command.toggleGlobalCommandSpy"
             name="Toggle Global Command Spy">
@@ -167,6 +172,21 @@
          </class>
       </handler>
       <handler
+            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
+         <activeWhen>
+            <with
+                  variable="net.jeeeyul.pdetools.workbench">
+               <test
+                     args="net.jeeeyul.pdetools.capability.clipboard"
+                     property="net.jeeeyul.pdetools.isActivityEnabled">
+               </test>
+            </with>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
+         </class>
+      </handler>
+      <handler
             commandId="net.jeeeyul.pdetools.command.showInShell">
          <activeWhen>
             <with
@@ -212,18 +232,18 @@
          </class>
       </handler>
       <handler
-            commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
+            commandId="net.jeeeyul.pdetools.command.openConsole">
          <activeWhen>
             <with
-                  variable="net.jeeeyul.pdetools.workbench">
+                  variable="net.jeeeyul.pdetools.platform">
                <test
-                     args="net.jeeeyul.pdetools.capability.clipboard"
-                     property="net.jeeeyul.pdetools.isActivityEnabled">
+                     property="net.jeeeyul.pdetools.os"
+                     value="macosx">
                </test>
             </with>
          </activeWhen>
          <class
-               class="net.jeeeyul.pdetools.clipboard.internal.PasteFromClipboardHistoryHandler">
+               class="net.jeeeyul.pdetools.shell.OpenConsoleOSXHandler">
          </class>
       </handler>
    </extension>
@@ -441,6 +461,36 @@
          <command
                commandId="net.jeeeyul.pdetools.command.showInShell"
                id="net.jeeeyul.pdetools.shell.menu.showInShell"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <and>
+                  <with
+                        variable="net.jeeeyul.pdetools.workbench">
+                     <test
+                           args="net.jeeeyul.pdetools.capability.shell"
+                           property="net.jeeeyul.pdetools.isActivityEnabled">
+                     </test>
+                  </with>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <instanceof
+                              value="org.eclipse.core.resources.IResource">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </and>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="net.jeeeyul.pdetools.command.openConsole"
+               id="net.jeeeyul.pdetools.shell.menu.openConsole"
                style="push">
             <visibleWhen
                   checkEnabled="true">

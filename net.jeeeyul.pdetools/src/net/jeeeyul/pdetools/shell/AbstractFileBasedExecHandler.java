@@ -22,7 +22,7 @@ import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.menus.UIElement;
 
-public abstract class AbstractShowInShellHandler extends AbstractHandler implements IElementUpdater {
+public abstract class AbstractFileBasedExecHandler extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public final Object execute(ExecutionEvent event) throws ExecutionException {
@@ -63,7 +63,14 @@ public abstract class AbstractShowInShellHandler extends AbstractHandler impleme
 			element.setIcon(iconDescriptor);
 		}
 	}
-
+	protected File ensureDirectory(File file){
+		if(file.isDirectory()){
+			return file;
+		}else{
+			return file.getParentFile();
+		}
+	}
+	
 	protected abstract String getLabel();
 
 	protected ImageDescriptor getImageDescriptor() {

@@ -4,7 +4,7 @@ import java.io.File
 import net.jeeeyul.pdetools.shared.LaunchCommand
 import net.jeeeyul.pdetools.shared.SharedImages
 
-class ShowInShellWin32Handler extends AbstractShowInShellHandler{
+class ShowInShellWin32Handler extends AbstractFileBasedExecHandler{
 	override protected getLabel() {
 		"Show in Explorer"
 	}
