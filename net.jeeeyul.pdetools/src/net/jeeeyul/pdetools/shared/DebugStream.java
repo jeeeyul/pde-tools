@@ -2,25 +2,30 @@ package net.jeeeyul.pdetools.shared;
 
 import java.io.PrintStream;
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
+
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 
 public class DebugStream extends PrintStream {
-	private static final Set<String> FILTER;
-	static {
-		String[] array = new String[] { "org.eclipse.xtext.xbase.lib.InputOutput",
-				"net.jeeeyul.pdetools.shared.DebugStream", "java.lang.Thread", "net.jeeeyul.pdetools.Debug" };
-		FILTER = new HashSet<String>(Arrays.asList(array));
-	}
+
+	private HashSet<String> filters = new HashSet<String>();
 
 	public DebugStream() {
 		super(System.out);
+		addFilter(getClass());
+		addFilter(InputOutput.class);
+		addFilter(Thread.class);
+	}
+
+	public void addFilter(Class<?> type) {
+		Assert.isNotNull(type);
+		filters.add(type.getCanonicalName());
 	}
 
 	private StackTraceElement findUserFrame() {
 		for (StackTraceElement each : Thread.currentThread().getStackTrace()) {
-			if (!FILTER.contains(each.getClassName())) {
+			if (!filters.contains(each.getClassName())) {
 				return each;
 			}
 		}
