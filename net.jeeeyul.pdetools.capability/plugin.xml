@@ -4,6 +4,7 @@
    <extension
          point="org.eclipse.ui.activities">
       <category
+            description="Enable/Disable Features of PDE-Tools, Use &quot;Advanced&quot; Button to detail."
             id="net.jeeeyul.pdetools.capability.category"
             name="PDE-Tools">
       </category>
