@@ -14,6 +14,7 @@ encoding//src/net/jeeeyul/pdetools/icg/refactor/RenameMonitorFolder.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/icg/refactor/RenamePaletteEntry.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/jdt/ColorProposal.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/shell/OpenConsoleOSXHandler.xtend=UTF-8
+encoding//src/net/jeeeyul/pdetools/shell/OpenConsoleWin32Handler.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/shell/ShowInShellLinuxHandler.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/shell/ShowInShellOSXHandler.xtend=UTF-8
 encoding//src/net/jeeeyul/pdetools/shell/ShowInShellWin32Handler.xtend=UTF-8
