@@ -12,8 +12,9 @@
    <extension
          point="org.eclipse.ui.activities">
                <activity
-            id="net.jeeeyul.pdetools.capability.shell"
-            name="Shell Integration">
+                     description="Show In Shell, Open Console Here Menu"
+                     id="net.jeeeyul.pdetools.capability.shell"
+                     name="Shell Integration">
       </activity>
       <activityPatternBinding
             activityId="net.jeeeyul.pdetools.capability.shell"
@@ -32,8 +33,9 @@
       <extension
          point="org.eclipse.ui.activities">
                <activity
-            id="net.jeeeyul.pdetools.capability.snapshot"
-            name="Snapshot Tool">
+                     description="Snapshot Tool and Snapshot View"
+                     id="net.jeeeyul.pdetools.capability.snapshot"
+                     name="Snapshot Tool">
       </activity>
       <activityPatternBinding
             activityId="net.jeeeyul.pdetools.capability.snapshot"
@@ -51,6 +53,7 @@
       <extension
             point="org.eclipse.ui.activities">
          <activity
+               description="Launch New Workspace Menu"
                id="net.jeeeyul.pdetools.capability.wslauncher"
                name="Workspace Launcher">
          </activity>
@@ -70,6 +73,7 @@
       <extension
             point="org.eclipse.ui.activities">
          <activity
+               description="Clipboard History Feature"
                id="net.jeeeyul.pdetools.capability.clipboard"
                name="Clipboard">
          </activity>
@@ -89,6 +93,7 @@
       <extension
             point="org.eclipse.ui.activities">
          <activity
+               description="Bundle Images View"
                id="net.jeeeyul.pdetools.capability.biv"
                name="Bundle Images View">
          </activity>
@@ -108,6 +113,7 @@
       <extension
             point="org.eclipse.ui.activities">
          <activity
+               description="Crazy Outline View"
                id="net.jeeeyul.pdetools.capability.crazyoutline"
                name="Crazy Outline view">
          </activity>
