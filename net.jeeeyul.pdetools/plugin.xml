@@ -261,6 +261,21 @@
                class="net.jeeeyul.pdetools.shell.OpenConsoleWin32Handler">
          </class>
       </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.command.openConsole">
+         <activeWhen>
+            <with
+                  variable="net.jeeeyul.pdetools.platform">
+               <test
+                     property="net.jeeeyul.pdetools.os"
+                     value="linux">
+               </test>
+            </with>
+         </activeWhen>
+         <class
+               class="net.jeeeyul.pdetools.shell.OpenConsoleLinuxHandler">
+         </class>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
