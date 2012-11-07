@@ -243,7 +243,7 @@
             </with>
          </activeWhen>
          <class
-               class="net.jeeeyul.pdetools.shell.OpenConsoleOSXHandler">
+               class="net.jeeeyul.pdetools.shell.OpenConsoleLinuxHandler">
          </class>
       </handler>
       <handler
