@@ -837,6 +837,12 @@
             id="net.jeeeyul.pdetools.crazyoutline.CrazyPreferencePage"
             name="Crazy Outline">
       </page>
+      <page
+            category="net.jeeeyul.pdetools.internal.PDEToolsPreferncePage"
+            class="net.jeeeyul.pdetools.wslauncher.WSLauncherPreferencePage"
+            id="net.jeeeyul.pdetools.wslauncher.WSLauncherPreferencePage"
+            name="Workspace Launcher">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -848,6 +854,9 @@
       </initializer>
       <initializer
             class="net.jeeeyul.pdetools.crazyoutline.CrazyPreferenceInitializer">
+      </initializer>
+      <initializer
+            class="net.jeeeyul.pdetools.wslauncher.WSLauncherPreferernceInitializer">
       </initializer>
    </extension>
    <extension
