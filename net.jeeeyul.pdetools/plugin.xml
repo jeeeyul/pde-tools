@@ -484,6 +484,15 @@
                id="net.jeeeyul.pdetools.wslauncher.launchworkspace.other"
                style="push">
          </command>
+         <command
+               commandId="org.eclipse.ui.window.preferences"
+               label="Launch Options"
+               style="push">
+            <parameter
+                  name="preferencePageId"
+                  value="net.jeeeyul.pdetools.wslauncher.WSLauncherPreferencePage">
+            </parameter>
+         </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
