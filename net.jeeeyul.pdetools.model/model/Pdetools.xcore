@@ -1,4 +1,4 @@
-@GenModel(editDirectory="/net.jeeeyul.pdetools.edit/src-gen", codeFormatting="true")
+@GenModel(editDirectory="/net.jeeeyul.pdetools.edit/src-gen", codeFormatting="true", basePackage="net.jeeeyul.pdetools.model")
 @Ecore(nsURI="http://jeeeyul.net/pde-tools", nsPrefix="p")
 package net.jeeeyul.pdetools.model.pdetools
 
@@ -21,7 +21,7 @@ type IFile wraps IFile create
 {
 	if(it == null || it.trim.empty){
 		return null
-	}
+	} 
 	ResourcesPlugin::workspace.root.getFile(new Path(it) )
 }
 convert
