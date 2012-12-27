@@ -1,6 +1,6 @@
-@GenModel(basePackage="net.jeeeyul.pdetools.model", editDirectory="/net.jeeeyul.pdetools.edit/src-gen", codeFormatting="true")
+@GenModel(editDirectory="/net.jeeeyul.pdetools.edit/src-gen", codeFormatting="true")
 @Ecore(nsURI="http://jeeeyul.net/pde-tools", nsPrefix="p")
-package pdetools
+package net.jeeeyul.pdetools.model.pdetools
 
 import java.util.Date
 import org.eclipse.swt.dnd.Clipboard
