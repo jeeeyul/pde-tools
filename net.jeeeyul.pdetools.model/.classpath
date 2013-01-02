@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.ecore.xcore.lib_1.0.0.v20121226-2030.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/aopalliance.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/com.google.guava_10.0.1.v201203051515.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guice-3.0.jar"/>
