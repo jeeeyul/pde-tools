@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/net.jeeeyul.pdetools.model/src" editDirectory="/net.jeeeyul.pdetools.edit/src-gen"
+    modelPluginID="net.jeeeyul.pdetools.model" runtimeJar="true" modelName="Pdetools"
+    updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" testsDirectory="" booleanFlagsField="eFlags" booleanFlagsReservedBits="8"
+    importerID="org.eclipse.emf.ecore.xcore.importer" containmentProxies="true" complianceLevel="6.0"
+    language="en" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true" decoration="Live">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.xsd.ecore.exporter">
+    <genAnnotations source="selectedPackages">
+      <details key="http://www.eclipse.org/emf/2002/Ecore" value="Ecore.xsd"/>
+    </genAnnotations>
+    <details key="directoryURI" value="."/>
+  </genAnnotations>
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.xsd.ecore.exporter.xmi">
+    <genAnnotations source="selectedPackages">
+      <details key="http://www.eclipse.org/emf/2002/Ecore" value="EcoreXMI.xsd"/>
+    </genAnnotations>
+    <details key="directoryURI" value="."/>
+  </genAnnotations>
+  <foreignModel>Pdetools.xcore</foreignModel>
+  <modelPluginVariables>org.eclipse.xtext.xbase.lib</modelPluginVariables>
+  <modelPluginVariables>org.eclipse.emf.ecore.xcore.lib</modelPluginVariables>
+  <genPackages prefix="Pdetools" basePackage="net.jeeeyul.pdetools.model" disposableProviderFactory="true"
+      ecorePackage="pdetools.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pdetools.ecore#//ClipItemSortOption">
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//ClipItemSortOption/CAPTURED_ORDER"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//ClipItemSortOption/LAST_USE"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//ClipItemSortOption/USING_COUNT"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//ClipItemSortOption/ACTIVE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pdetools.ecore#//CommandExecutionType">
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//CommandExecutionType/EXECUTING"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//CommandExecutionType/SUCCEED"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//CommandExecutionType/FAILED"/>
+      <genEnumLiterals ecoreEnumLiteral="pdetools.ecore#//CommandExecutionType/NOT_HANDLED"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="pdetools.ecore#//IFile"/>
+    <genDataTypes ecoreDataType="pdetools.ecore#//IFolder"/>
+    <genDataTypes ecoreDataType="pdetools.ecore#//ImageData"/>
+    <genDataTypes ecoreDataType="pdetools.ecore#//Clipboard"/>
+    <genDataTypes ecoreDataType="pdetools.ecore#//Exception"/>
+    <genDataTypes ecoreDataType="pdetools.ecore#//ImageDescriptor"/>
+    <genClasses ecoreClass="pdetools.ecore#//ClipboardElement"/>
+    <genClasses ecoreClass="pdetools.ecore#//ClipHistory">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pdetools.ecore#//ClipHistory/activeEntry"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//ClipHistory/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//ClipboardEntry" labelFeature="#//pdetools/ClipboardEntry/textContent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/usingCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/lastUsedTime"/>
+      <genFeatures createChild="false" propertyCategory="Content" propertyMultiLine="true"
+          ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/textContent"/>
+      <genFeatures createChild="false" propertyCategory="Content" propertyMultiLine="true"
+          ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/rtfContent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/takenTime"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/partId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/releatedFile"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference pdetools.ecore#//ClipboardEntry/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//ClipboardEntry/textRange"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//ClipboardEntry/javaInfo"/>
+      <genFeatures property="Readonly" createChild="false" propertyDescription="Whether it is current content of clipboard."
+          ecoreFeature="ecore:EAttribute pdetools.ecore#//ClipboardEntry/active"/>
+      <genOperations ecoreOperation="pdetools.ecore#//ClipboardEntry/transferTo">
+        <genParameters ecoreParameter="pdetools.ecore#//ClipboardEntry/transferTo/clipboard"/>
+      </genOperations>
+      <genOperations ecoreOperation="pdetools.ecore#//ClipboardEntry/increaseUsing"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//TextRange">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//TextRange/offset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//TextRange/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//TextRange/startLine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//TextRange/endLine"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//JavaInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//JavaInfo/qualifiedTypeName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//JavaInfo/enclosingElementName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pdetools.ecore#//FieldNameOwner">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//FieldNameOwner/fieldName"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//Palette">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pdetools.ecore#//Palette/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//Palette/folder"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//Palette/subPalettes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//Palette/imageFiles"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//ImageFile">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pdetools.ecore#//ImageFile/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ImageFile/file"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//SnapshotRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//SnapshotRepository/groups"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//SnapshotGroup">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pdetools.ecore#//SnapshotGroup/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotGroup/date"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//SnapshotGroup/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//SnapshotEntry">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pdetools.ecore#//SnapshotEntry/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/takenTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/originalFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/renderedFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/controlType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//SnapshotEntry/shellInfo"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//SnapshotEntry/absoulteVisibleFilePath"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//ShellInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ShellInfo/icon"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ShellInfo/shellStyle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//ShellInfo/shellTitle"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//CommandHistory">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//CommandHistory/events"/>
+    </genClasses>
+    <genClasses ecoreClass="pdetools.ecore#//CommandEvent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pdetools.ecore#//CommandEvent/children"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/commandId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/imageDescriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pdetools.ecore#//CommandEvent/exception"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

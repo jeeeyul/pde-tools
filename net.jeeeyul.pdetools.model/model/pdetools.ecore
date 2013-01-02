@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pdetools" nsURI="http://jeeeyul.net/pde-tools" nsPrefix="p">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="editDirectory" value="/net.jeeeyul.pdetools.edit/src-gen"/>
+    <details key="codeFormatting" value="true"/>
+    <details key="basePackage" value="net.jeeeyul.pdetools.model"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EDataType" name="IFile" instanceClassName="org.eclipse.core.resources.IFile"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IFolder" instanceClassName="org.eclipse.core.resources.IFolder"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ImageData" instanceClassName="org.eclipse.swt.graphics.ImageData"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Clipboard" instanceClassName="org.eclipse.swt.dnd.Clipboard"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Exception" instanceClassName="java.lang.Exception"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ImageDescriptor" instanceClassName="org.eclipse.jface.resource.ImageDescriptor"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ClipItemSortOption">
+    <eLiterals name="CAPTURED_ORDER" literal="captured-order"/>
+    <eLiterals name="LAST_USE" value="1" literal="last-use"/>
+    <eLiterals name="USING_COUNT" value="2" literal="using-count"/>
+    <eLiterals name="ACTIVE" value="3" literal="active"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClipboardElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClipHistory" eSuperTypes="#//ClipboardElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activeEntry" eType="#//ClipboardEntry"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//ClipboardEntry" containment="true" resolveProxies="false" eOpposite="#//ClipboardEntry/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClipboardEntry" eSuperTypes="#//ClipboardElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="labelFeature" value="textContent"/>
+    </eAnnotations>
+    <eOperations name="transferTo" unique="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value=""/>
+      </eAnnotations>
+      <eParameters name="clipboard" unique="false" eType="#//Clipboard"/>
+    </eOperations>
+    <eOperations name="increaseUsing" unique="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value=""/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usingCount" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUsedTime" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textContent" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="propertyMultiLine" value="true"/>
+        <details key="propertyCategory" value="Content"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rtfContent" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="propertyMultiLine" value="true"/>
+        <details key="propertyCategory" value="Content"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="takenTime" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partId" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="property" value="None"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="releatedFile" unique="false"
+        eType="#//IFile"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//ClipHistory"
+        eOpposite="#//ClipHistory/entries">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="property" value="None"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="textRange" eType="#//TextRange"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="javaInfo" eType="#//JavaInfo"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="현재 시스템 클립보드의 클립보드 컨텐츠인지 여부."/>
+        <details key="propertyDescription" value="Whether it is current content of clipboard."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextRange" eSuperTypes="#//ClipboardElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="offset" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startLine" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endLine" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaInfo" eSuperTypes="#//ClipboardElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedTypeName" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enclosingElementName" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FieldNameOwner" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldName" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Palette" eSuperTypes="#//FieldNameOwner">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Palette"
+        eOpposite="#//Palette/subPalettes"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="folder" unique="false"
+        eType="#//IFolder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="*&#xA;팔레트가 표현하는 워크스페이스상의 폴더."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subPalettes" upperBound="-1"
+        eType="#//Palette" containment="true" resolveProxies="false" eOpposite="#//Palette/parent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imageFiles" upperBound="-1"
+        eType="#//ImageFile" containment="true" resolveProxies="false" eOpposite="#//ImageFile/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImageFile" eSuperTypes="#//FieldNameOwner">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Palette"
+        eOpposite="#//Palette/imageFiles"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" unique="false" eType="#//IFile"
+        iD="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="*&#xA;워크스페이스 상의 실제 IFile"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SnapshotRepository">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
+        eType="#//SnapshotGroup" containment="true" resolveProxies="false" eOpposite="#//SnapshotGroup/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SnapshotGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//SnapshotRepository"
+        eOpposite="#//SnapshotRepository/groups"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//SnapshotEntry" containment="true" resolveProxies="false" eOpposite="#//SnapshotEntry/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SnapshotEntry">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//SnapshotGroup"
+        eOpposite="#//SnapshotGroup/entries"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="takenTime" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalFile" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="renderedFile" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="controlType" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shellInfo" eType="#//ShellInfo"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="absoulteVisibleFilePath"
+        unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShellInfo">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" unique="false" eType="#//ImageData"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shellStyle" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shellTitle" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommandHistory">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
+        eType="#//CommandEvent" containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommandEvent">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//CommandEvent" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="commandId" unique="false"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageDescriptor" unique="false"
+        eType="#//ImageDescriptor"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" eType="#//CommandExecutionType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exception" unique="false"
+        eType="#//Exception"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CommandExecutionType">
+    <eLiterals name="EXECUTING"/>
+    <eLiterals name="SUCCEED"/>
+    <eLiterals name="FAILED"/>
+    <eLiterals name="NOT_HANDLED"/>
+  </eClassifiers>
+</ecore:EPackage>
