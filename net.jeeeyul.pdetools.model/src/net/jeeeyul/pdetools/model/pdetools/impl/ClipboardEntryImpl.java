@@ -42,49 +42,26 @@ import org.eclipse.xtext.xbase.lib.Conversions;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getUsingCount
- * <em>Using Count</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getLastUsedTime
- * <em>Last Used Time</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTextContent
- * <em>Text Content</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getRtfContent
- * <em>Rtf Content</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTakenTime
- * <em>Taken Time</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getPartId
- * <em>Part Id</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getReleatedFile
- * <em>Releated File</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getParent
- * <em>Parent</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTextRange
- * <em>Text Range</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getJavaInfo
- * <em>Java Info</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#isActive
- * <em>Active</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getUsingCount <em>Using Count</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getLastUsedTime <em>Last Used Time</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTextContent <em>Text Content</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getRtfContent <em>Rtf Content</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTakenTime <em>Taken Time</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getPartId <em>Part Id</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getReleatedFile <em>Releated File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getTextRange <em>Text Range</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#getJavaInfo <em>Java Info</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.ClipboardEntryImpl#isActive <em>Active</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ClipboardEntryImpl extends ClipboardElementImpl implements ClipboardEntry {
 	/**
-	 * The default value of the '{@link #getUsingCount() <em>Using Count</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getUsingCount() <em>Using Count</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getUsingCount()
 	 * @generated
 	 * @ordered
@@ -92,9 +69,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final int USING_COUNT_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getUsingCount() <em>Using Count</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getUsingCount() <em>Using Count</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getUsingCount()
 	 * @generated
 	 * @ordered
@@ -102,10 +78,9 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected int usingCount = USING_COUNT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLastUsedTime()
-	 * <em>Last Used Time</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The default value of the '{@link #getLastUsedTime() <em>Last Used Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getLastUsedTime()
 	 * @generated
 	 * @ordered
@@ -113,10 +88,9 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final Date LAST_USED_TIME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getLastUsedTime()
-	 * <em>Last Used Time</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getLastUsedTime() <em>Last Used Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getLastUsedTime()
 	 * @generated
 	 * @ordered
@@ -124,9 +98,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected Date lastUsedTime = LAST_USED_TIME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTextContent() <em>Text Content</em>}
-	 * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTextContent() <em>Text Content</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTextContent()
 	 * @generated
 	 * @ordered
@@ -134,9 +107,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final String TEXT_CONTENT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTextContent() <em>Text Content</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTextContent() <em>Text Content</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTextContent()
 	 * @generated
 	 * @ordered
@@ -144,9 +116,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected String textContent = TEXT_CONTENT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getRtfContent() <em>Rtf Content</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getRtfContent() <em>Rtf Content</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getRtfContent()
 	 * @generated
 	 * @ordered
@@ -154,9 +125,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final String RTF_CONTENT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getRtfContent() <em>Rtf Content</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getRtfContent() <em>Rtf Content</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getRtfContent()
 	 * @generated
 	 * @ordered
@@ -164,9 +134,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected String rtfContent = RTF_CONTENT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTakenTime() <em>Taken Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTakenTime() <em>Taken Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTakenTime()
 	 * @generated
 	 * @ordered
@@ -174,9 +143,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final Date TAKEN_TIME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTakenTime() <em>Taken Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTakenTime() <em>Taken Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTakenTime()
 	 * @generated
 	 * @ordered
@@ -184,9 +152,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected Date takenTime = TAKEN_TIME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getPartId() <em>Part Id</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getPartId() <em>Part Id</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getPartId()
 	 * @generated
 	 * @ordered
@@ -194,9 +161,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final String PART_ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getPartId() <em>Part Id</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getPartId() <em>Part Id</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getPartId()
 	 * @generated
 	 * @ordered
@@ -204,10 +170,9 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected String partId = PART_ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getReleatedFile()
-	 * <em>Releated File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The default value of the '{@link #getReleatedFile() <em>Releated File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getReleatedFile()
 	 * @generated
 	 * @ordered
@@ -215,10 +180,9 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected static final IFile RELEATED_FILE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getReleatedFile()
-	 * <em>Releated File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getReleatedFile() <em>Releated File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getReleatedFile()
 	 * @generated
 	 * @ordered
@@ -226,9 +190,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected IFile releatedFile = RELEATED_FILE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTextRange() <em>Text Range</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTextRange() <em>Text Range</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTextRange()
 	 * @generated
 	 * @ordered
@@ -236,9 +199,8 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	protected TextRange textRange;
 
 	/**
-	 * The cached value of the '{@link #getJavaInfo() <em>Java Info</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getJavaInfo() <em>Java Info</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getJavaInfo()
 	 * @generated
 	 * @ordered
@@ -248,7 +210,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 	/**
 	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #isActive()
 	 * @generated
 	 * @ordered
@@ -257,7 +218,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ClipboardEntryImpl() {
@@ -266,7 +226,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -276,7 +235,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getUsingCount() {
@@ -285,7 +243,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setUsingCount(int newUsingCount) {
@@ -298,7 +255,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Date getLastUsedTime() {
@@ -307,7 +263,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setLastUsedTime(Date newLastUsedTime) {
@@ -320,7 +275,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getTextContent() {
@@ -329,7 +283,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTextContent(String newTextContent) {
@@ -342,7 +295,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getRtfContent() {
@@ -351,7 +303,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setRtfContent(String newRtfContent) {
@@ -364,7 +315,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Date getTakenTime() {
@@ -373,7 +323,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTakenTime(Date newTakenTime) {
@@ -386,7 +335,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getPartId() {
@@ -395,7 +343,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setPartId(String newPartId) {
@@ -408,7 +355,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public IFile getReleatedFile() {
@@ -417,7 +363,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setReleatedFile(IFile newReleatedFile) {
@@ -430,7 +375,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ClipHistory getParent() {
@@ -441,7 +385,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ClipHistory basicGetParent() {
@@ -452,7 +395,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(ClipHistory newParent, NotificationChain msgs) {
@@ -462,7 +404,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setParent(ClipHistory newParent) {
@@ -486,7 +427,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TextRange getTextRange() {
@@ -495,7 +435,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetTextRange(TextRange newTextRange, NotificationChain msgs) {
@@ -514,7 +453,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTextRange(TextRange newTextRange) {
@@ -536,7 +474,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public JavaInfo getJavaInfo() {
@@ -545,7 +482,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetJavaInfo(JavaInfo newJavaInfo, NotificationChain msgs) {
@@ -564,7 +500,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setJavaInfo(JavaInfo newJavaInfo) {
@@ -659,7 +594,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -675,7 +609,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -693,7 +626,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -708,7 +640,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -744,7 +675,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -786,7 +716,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -828,7 +757,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -864,7 +792,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -882,7 +809,6 @@ public class ClipboardEntryImpl extends ClipboardElementImpl implements Clipboar
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

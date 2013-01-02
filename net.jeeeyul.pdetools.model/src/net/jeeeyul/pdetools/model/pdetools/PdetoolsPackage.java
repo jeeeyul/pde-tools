@@ -1735,7 +1735,6 @@ public interface PdetoolsPackage extends EPackage {
 	 * @return the meta object for data type '<em>IFile</em>'.
 	 * @see org.eclipse.core.resources.IFile
 	 * @model instanceClass="org.eclipse.core.resources.IFile"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel create='<%org.eclipse.core.resources.IFile%> _xblockexpression = null;\n{\n\tboolean _or = false;\n\tboolean _equals = <%com.google.common.base.Objects%>.equal(it, null);\n\tif (_equals)\n\t{\n\t\t_or = true;\n\t} else\n\t{\n\t\t<%java.lang.String%> _trim = it.trim();\n\t\tboolean _isEmpty = _trim.isEmpty();\n\t\t_or = (_equals || _isEmpty);\n\t}\n\tif (_or)\n\t{\n\t\treturn null;\n\t}\n\t<%org.eclipse.core.resources.IWorkspace%> _workspace = <%org.eclipse.core.resources.ResourcesPlugin%>.getWorkspace();\n\t<%org.eclipse.core.resources.IWorkspaceRoot%> _root = _workspace.getRoot();\n\t<%org.eclipse.core.runtime.Path%> _path = new <%org.eclipse.core.runtime.Path%>(it);\n\t<%org.eclipse.core.resources.IFile%> _file = _root.getFile(_path);\n\t_xblockexpression = (_file);\n}\nreturn _xblockexpression;' convert='<%java.lang.String%> _xblockexpression = null;\n{\n\tboolean _equals = <%com.google.common.base.Objects%>.equal(it, null);\n\tif (_equals)\n\t{\n\t\treturn \"\";\n\t}\n\t<%org.eclipse.core.runtime.IPath%> _fullPath = it.getFullPath();\n\t<%java.lang.String%> _portableString = _fullPath.toPortableString();\n\t_xblockexpression = (_portableString);\n}\nreturn _xblockexpression;'"
 	 * @generated
 	 */
 	EDataType getIFile();
@@ -1747,7 +1746,6 @@ public interface PdetoolsPackage extends EPackage {
 	 * @return the meta object for data type '<em>IFolder</em>'.
 	 * @see org.eclipse.core.resources.IFolder
 	 * @model instanceClass="org.eclipse.core.resources.IFolder"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel create='<%org.eclipse.core.resources.IWorkspace%> _workspace = <%org.eclipse.core.resources.ResourcesPlugin%>.getWorkspace();\n<%org.eclipse.core.resources.IWorkspaceRoot%> _root = _workspace.getRoot();\n<%org.eclipse.core.runtime.Path%> _path = new <%org.eclipse.core.runtime.Path%>(it);\n<%org.eclipse.core.resources.IFolder%> _folder = _root.getFolder(_path);\nreturn _folder;' convert='<%org.eclipse.core.runtime.IPath%> _fullPath = it.getFullPath();\n<%java.lang.String%> _portableString = _fullPath.toPortableString();\nreturn _portableString;'"
 	 * @generated
 	 */
 	EDataType getIFolder();
@@ -1759,7 +1757,6 @@ public interface PdetoolsPackage extends EPackage {
 	 * @return the meta object for data type '<em>Image Data</em>'.
 	 * @see org.eclipse.swt.graphics.ImageData
 	 * @model instanceClass="org.eclipse.swt.graphics.ImageData"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel create='<%org.eclipse.swt.graphics.ImageData%> _deserialize = <%net.jeeeyul.pdetools.shared.ImageDataSerializer%>.deserialize(it);\nreturn _deserialize;' convert='<%java.lang.String%> _serialize = <%net.jeeeyul.pdetools.shared.ImageDataSerializer%>.serialize(it);\nreturn _serialize;'"
 	 * @generated
 	 */
 	EDataType getImageData();

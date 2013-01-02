@@ -5,6 +5,7 @@ package net.jeeeyul.pdetools.model.pdetools.provider;
 import java.util.Collection;
 import java.util.List;
 
+
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
 import net.jeeeyul.pdetools.model.pdetools.ShellInfo;
 
@@ -190,7 +191,7 @@ public class ShellInfoItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return PdetoolsEditPlugin.INSTANCE;
+		return net.jeeeyul.pdetools.model.PdetoolsEditPlugin.INSTANCE;
 	}
 
 }

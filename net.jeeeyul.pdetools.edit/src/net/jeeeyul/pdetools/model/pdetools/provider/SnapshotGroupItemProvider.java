@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
 import net.jeeeyul.pdetools.model.pdetools.SnapshotGroup;
@@ -209,7 +210,7 @@ public class SnapshotGroupItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return PdetoolsEditPlugin.INSTANCE;
+		return net.jeeeyul.pdetools.model.PdetoolsEditPlugin.INSTANCE;
 	}
 
 }

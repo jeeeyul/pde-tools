@@ -5,6 +5,7 @@ package net.jeeeyul.pdetools.model.pdetools.provider;
 import java.util.Collection;
 import java.util.List;
 
+
 import net.jeeeyul.pdetools.model.pdetools.CommandHistory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
@@ -159,7 +160,7 @@ public class CommandHistoryItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return PdetoolsEditPlugin.INSTANCE;
+		return net.jeeeyul.pdetools.model.PdetoolsEditPlugin.INSTANCE;
 	}
 
 }

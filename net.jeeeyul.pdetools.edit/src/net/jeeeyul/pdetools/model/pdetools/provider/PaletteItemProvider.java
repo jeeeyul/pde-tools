@@ -5,6 +5,7 @@ package net.jeeeyul.pdetools.model.pdetools.provider;
 import java.util.Collection;
 import java.util.List;
 
+
 import net.jeeeyul.pdetools.model.pdetools.Palette;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory;
 import net.jeeeyul.pdetools.model.pdetools.PdetoolsPackage;
@@ -233,7 +234,7 @@ public class PaletteItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return PdetoolsEditPlugin.INSTANCE;
+		return net.jeeeyul.pdetools.model.PdetoolsEditPlugin.INSTANCE;
 	}
 
 }

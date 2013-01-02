@@ -35,14 +35,13 @@ import org.eclipse.swt.graphics.ImageData;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static PdetoolsFactory init() {
@@ -59,9 +58,9 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PdetoolsFactoryImpl() {
@@ -70,7 +69,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -109,7 +107,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,7 +136,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -169,7 +165,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ClipboardElement createClipboardElement() {
@@ -179,7 +174,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ClipHistory createClipHistory() {
@@ -189,7 +183,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ClipboardEntry createClipboardEntry() {
@@ -199,7 +192,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TextRange createTextRange() {
@@ -209,7 +201,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public JavaInfo createJavaInfo() {
@@ -219,7 +210,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Palette createPalette() {
@@ -229,7 +219,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ImageFile createImageFile() {
@@ -239,7 +228,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SnapshotRepository createSnapshotRepository() {
@@ -249,7 +237,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SnapshotGroup createSnapshotGroup() {
@@ -259,7 +246,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SnapshotEntry createSnapshotEntry() {
@@ -269,7 +255,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ShellInfo createShellInfo() {
@@ -279,7 +264,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public CommandHistory createCommandHistory() {
@@ -289,7 +273,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public CommandEvent createCommandEvent() {
@@ -507,7 +490,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Exception createExceptionFromString(EDataType eDataType, String initialValue) {
@@ -516,7 +498,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String convertExceptionToString(EDataType eDataType, Object instanceValue) {
@@ -525,7 +506,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ImageDescriptor createImageDescriptorFromString(EDataType eDataType, String initialValue) {
@@ -534,7 +514,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String convertImageDescriptorToString(EDataType eDataType, Object instanceValue) {
@@ -543,7 +522,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PdetoolsPackage getPdetoolsPackage() {
@@ -552,7 +530,6 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */

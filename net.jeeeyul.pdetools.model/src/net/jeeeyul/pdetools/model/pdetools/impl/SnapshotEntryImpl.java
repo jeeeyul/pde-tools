@@ -37,40 +37,23 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getParent
- * <em>Parent</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getTakenTime
- * <em>Taken Time</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getOriginalFile
- * <em>Original File</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getRenderedFile
- * <em>Rendered File</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getControlType
- * <em>Control Type</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getName
- * <em>Name</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getShellInfo
- * <em>Shell Info</em>}</li>
- * <li>
- * {@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getAbsoulteVisibleFilePath
- * <em>Absoulte Visible File Path</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getTakenTime <em>Taken Time</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getOriginalFile <em>Original File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getRenderedFile <em>Rendered File</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getControlType <em>Control Type</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getName <em>Name</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getShellInfo <em>Shell Info</em>}</li>
+ *   <li>{@link net.jeeeyul.pdetools.model.pdetools.impl.SnapshotEntryImpl#getAbsoulteVisibleFilePath <em>Absoulte Visible File Path</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements SnapshotEntry {
 	/**
-	 * The default value of the '{@link #getTakenTime() <em>Taken Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getTakenTime() <em>Taken Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTakenTime()
 	 * @generated
 	 * @ordered
@@ -78,9 +61,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected static final Date TAKEN_TIME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTakenTime() <em>Taken Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTakenTime() <em>Taken Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTakenTime()
 	 * @generated
 	 * @ordered
@@ -88,10 +70,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected Date takenTime = TAKEN_TIME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getOriginalFile()
-	 * <em>Original File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The default value of the '{@link #getOriginalFile() <em>Original File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getOriginalFile()
 	 * @generated
 	 * @ordered
@@ -99,10 +80,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected static final String ORIGINAL_FILE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getOriginalFile()
-	 * <em>Original File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getOriginalFile() <em>Original File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getOriginalFile()
 	 * @generated
 	 * @ordered
@@ -110,10 +90,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected String originalFile = ORIGINAL_FILE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getRenderedFile()
-	 * <em>Rendered File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The default value of the '{@link #getRenderedFile() <em>Rendered File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getRenderedFile()
 	 * @generated
 	 * @ordered
@@ -121,10 +100,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected static final String RENDERED_FILE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getRenderedFile()
-	 * <em>Rendered File</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getRenderedFile() <em>Rendered File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #getRenderedFile()
 	 * @generated
 	 * @ordered
@@ -132,9 +110,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected String renderedFile = RENDERED_FILE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getControlType() <em>Control Type</em>}
-	 * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getControlType() <em>Control Type</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getControlType()
 	 * @generated
 	 * @ordered
@@ -142,9 +119,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected static final String CONTROL_TYPE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getControlType() <em>Control Type</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getControlType() <em>Control Type</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getControlType()
 	 * @generated
 	 * @ordered
@@ -154,7 +130,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -164,7 +139,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -172,9 +146,8 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getShellInfo() <em>Shell Info</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getShellInfo() <em>Shell Info</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getShellInfo()
 	 * @generated
 	 * @ordered
@@ -182,10 +155,9 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 	protected ShellInfo shellInfo;
 
 	/**
-	 * The default value of the '{@link #getAbsoulteVisibleFilePath()
-	 * <em>Absoulte Visible File Path</em>}' attribute. <!-- begin-user-doc -->
+	 * The default value of the '{@link #getAbsoulteVisibleFilePath() <em>Absoulte Visible File Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getAbsoulteVisibleFilePath()
 	 * @generated
 	 * @ordered
@@ -194,7 +166,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected SnapshotEntryImpl() {
@@ -203,7 +174,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -213,7 +183,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SnapshotGroup getParent() {
@@ -224,7 +193,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SnapshotGroup basicGetParent() {
@@ -235,7 +203,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(SnapshotGroup newParent, NotificationChain msgs) {
@@ -245,7 +212,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setParent(SnapshotGroup newParent) {
@@ -269,7 +235,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Date getTakenTime() {
@@ -278,7 +243,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTakenTime(Date newTakenTime) {
@@ -291,7 +255,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getOriginalFile() {
@@ -300,7 +263,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setOriginalFile(String newOriginalFile) {
@@ -313,7 +275,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getRenderedFile() {
@@ -322,7 +283,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setRenderedFile(String newRenderedFile) {
@@ -335,7 +295,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getControlType() {
@@ -344,7 +303,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setControlType(String newControlType) {
@@ -357,7 +315,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -366,7 +323,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -378,7 +334,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ShellInfo getShellInfo() {
@@ -387,7 +342,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetShellInfo(ShellInfo newShellInfo, NotificationChain msgs) {
@@ -406,7 +360,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setShellInfo(ShellInfo newShellInfo) {
@@ -466,7 +419,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -482,7 +434,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -498,7 +449,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -513,7 +463,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -543,7 +492,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -576,7 +524,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -609,7 +556,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -640,7 +586,6 @@ public class SnapshotEntryImpl extends MinimalEObjectImpl.Container implements S
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

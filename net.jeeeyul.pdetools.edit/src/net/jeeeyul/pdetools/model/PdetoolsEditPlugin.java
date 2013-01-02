@@ -1,10 +1,12 @@
 /**
  */
-package net.jeeeyul.pdetools.model.pdetools.provider;
+package net.jeeeyul.pdetools.model;
 
 import org.eclipse.emf.common.EMFPlugin;
 
 import org.eclipse.emf.common.util.ResourceLocator;
+
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 
 /**
  * This is the central singleton for the Pdetools edit plugin.
@@ -36,7 +38,7 @@ public final class PdetoolsEditPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public PdetoolsEditPlugin() {
-		super(new ResourceLocator[] {});
+		super(new ResourceLocator[] { EcoreEditPlugin.INSTANCE, });
 	}
 
 	/**

@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: net.jeeeyul.pdetools.edit;singleton:=true
 Bundle-Version: 1.1.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsEditPlugin$Implementation
+Bundle-Activator: net.jeeeyul.pdetools.model.PdetoolsEditPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -15,5 +15,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.ui,
  org.eclipse.ui.views,
- org.eclipse.emf.edit.ui
+ org.eclipse.emf.edit.ui,
+ org.eclipse.emf.ecore.edit
 Bundle-ActivationPolicy: lazy
