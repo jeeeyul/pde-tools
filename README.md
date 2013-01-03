@@ -95,5 +95,5 @@ Just press Ctrl(or Command) + 3 and type crazy.
 This software is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html)
 
 Basically this license allows almost everything what you want to except very rare case.
-And It doesn't provide any warrenties.
+And It doesn't provide any **Warranties**.
 Now you can launch other workspace rather than switch. It is more useful for MacOSX users.
