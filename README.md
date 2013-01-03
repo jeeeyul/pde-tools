@@ -90,10 +90,10 @@ Just press Ctrl(or Command) + 3 and type crazy.
 ## Workspace Launcher
 ![launcher](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/release-note/1.1/workspace-launcher.png)
 
+Now you can launch other workspace rather than switch. It is more useful for MacOSX users.
 
 ## License
 This software is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html)
 
 Basically this license allows almost everything what you want to except very rare case.
 And It doesn't provide any **Warranties**.
-Now you can launch other workspace rather than switch. It is more useful for MacOSX users.
