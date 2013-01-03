@@ -95,5 +95,5 @@ Now you can launch other workspace rather than switch. It is more useful for Mac
 ## License
 This software is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html)
 
-Basically this license allows almost everything what you want to except very rare case.
+Basically this license allows almost everything what you want to do include commerical purpose. Read details from [here](http://www.eclipse.org/legal/epl-v10.html).
 And It doesn't provide any **Warranties**.
