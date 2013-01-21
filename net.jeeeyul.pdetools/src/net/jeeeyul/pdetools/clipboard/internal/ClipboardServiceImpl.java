@@ -117,10 +117,6 @@ public class ClipboardServiceImpl implements IClipboardService {
 		PlatformUI.getWorkbench().addWindowListener(windowHook);
 	}
 
-	private void handlePaste(ExecutionEvent event) {
-		getHistory().getActiveEntry().increaseUsing();
-	}
-
 	public ClipboardEntry createClipEntry() {
 		ClipboardEntry entry = PdetoolsFactory.eINSTANCE.createClipboardEntry();
 		entry.setTextContent((String) getNativeClipboard().getContents(getTextTransfer()));
@@ -132,116 +128,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 		return entry;
 	}
 
-	public void dispose() {
-		PlatformUI.getWorkbench().removeWindowListener(windowHook);
-		nativeClipboard.dispose();
-		detector.dispose();
-	}
-
-	@Override
-	public void doSave() {
-		try {
-			getResource().save(new HashMap<Object, Object>());
-			println("Clipboard was saved.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private AdapterFactoryEditingDomain getEditingDomain() {
-		if (editingDomain == null) {
-			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
-					new BasicCommandStack());
-			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap()
-					.put("data", new BinaryResourceFactory());
-		}
-		return editingDomain;
-	}
-
-	@Override
-	public ClipHistory getHistory() {
-		if (history == null) {
-			Resource resource = getResource();
-			try {
-				resource.load(new HashMap<Object, Object>());
-				history = (ClipHistory) resource.getContents().get(0);
-				println("Clipboard was loaded.");
-			}
-
-			catch (Exception e) {
-				history = PdetoolsFactory.eINSTANCE.createClipHistory();
-				resource.getContents().clear();
-				resource.getContents().add(history);
-				println("Clipboard was created.");
-			}
-		}
-		return history;
-	}
-
-	@Override
-	public Clipboard getNativeClipboard() {
-		if (nativeClipboard == null) {
-			nativeClipboard = new Clipboard(Display.getDefault());
-		}
-		return nativeClipboard;
-	}
-
-	private URI getPersistanceURI() {
-		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
-		IPath clipboardURI = stateLocation.append("clipboard.data");
-		URI uri = URI.createFileURI(clipboardURI.toPortableString());
-		return uri;
-	}
-
-	private String getQualifiedName(IJavaElement element) {
-		long LABEL_FLAGS = new Long(JavaElementLabels.F_FULLY_QUALIFIED | JavaElementLabels.M_FULLY_QUALIFIED
-				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
-				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
-				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
-				.longValue();
-		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
-	}
-
-	private ResourceSet getResourceSet() {
-		return getEditingDomain().getResourceSet();
-	}
-
-	private Resource getResource() {
-		Resource resource = null;
-		try {
-			resource = getResourceSet().getResource(getPersistanceURI(), true);
-		} catch (Exception e) {
-			resource = getResourceSet().createResource(getPersistanceURI());
-			Debug.println("New resource for Clipboard History was created.");
-		}
-		return resource;
-	}
-
-	private RTFTransfer getRTFTransfer() {
-		return RTFTransfer.getInstance();
-	}
-
-	private TextTransfer getTextTransfer() {
-		return TextTransfer.getInstance();
-	}
-
-	private void handleCopy(ExecutionEvent event) {
-		boolean hasTextContents = hasDataFor(getTextTransfer());
-		if (!hasTextContents) {
-			return;
-		}
-
-		String textContents = (String) getNativeClipboard().getContents(getTextTransfer());
-		if (textContents == null || textContents.isEmpty()) {
-			return;
-		}
-
-		for (ClipboardEntry each : getHistory().getEntries()) {
-			if (textContents.equals(each.getTextContent())) {
-				return;
-			}
-		}
-
+	protected void createNewClipboardEntry(ExecutionEvent event) {
 		ClipboardEntry entry = createClipEntry();
 
 		// clip entry from outside of elcipse.
@@ -329,6 +216,124 @@ public class ClipboardServiceImpl implements IClipboardService {
 		editingDomain.getCommandStack().execute(command);
 	}
 
+	public void dispose() {
+		PlatformUI.getWorkbench().removeWindowListener(windowHook);
+		nativeClipboard.dispose();
+		detector.dispose();
+	}
+
+	@Override
+	public void doSave() {
+		try {
+			getResource().save(new HashMap<Object, Object>());
+			println("Clipboard was saved.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private AdapterFactoryEditingDomain getEditingDomain() {
+		if (editingDomain == null) {
+			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
+					new BasicCommandStack());
+			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap()
+					.put("data", new BinaryResourceFactory());
+		}
+		return editingDomain;
+	}
+
+	@Override
+	public ClipHistory getHistory() {
+		if (history == null) {
+			Resource resource = getResource();
+			try {
+				resource.load(new HashMap<Object, Object>());
+				history = (ClipHistory) resource.getContents().get(0);
+				println("Clipboard was loaded.");
+			}
+
+			catch (Exception e) {
+				history = PdetoolsFactory.eINSTANCE.createClipHistory();
+				resource.getContents().clear();
+				resource.getContents().add(history);
+				println("Clipboard was created.");
+			}
+		}
+		return history;
+	}
+
+	@Override
+	public Clipboard getNativeClipboard() {
+		if (nativeClipboard == null) {
+			nativeClipboard = new Clipboard(Display.getDefault());
+		}
+		return nativeClipboard;
+	}
+
+	private URI getPersistanceURI() {
+		IPath stateLocation = PDEToolsCore.getDefault().getStateLocation();
+		IPath clipboardURI = stateLocation.append("clipboard.data");
+		URI uri = URI.createFileURI(clipboardURI.toPortableString());
+		return uri;
+	}
+
+	private String getQualifiedName(IJavaElement element) {
+		long LABEL_FLAGS = new Long(JavaElementLabels.F_FULLY_QUALIFIED | JavaElementLabels.M_FULLY_QUALIFIED
+				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
+				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
+				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
+				.longValue();
+		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
+	}
+
+	private Resource getResource() {
+		Resource resource = null;
+		try {
+			resource = getResourceSet().getResource(getPersistanceURI(), true);
+		} catch (Exception e) {
+			resource = getResourceSet().createResource(getPersistanceURI());
+			Debug.println("New resource for Clipboard History was created.");
+		}
+		return resource;
+	}
+
+	private ResourceSet getResourceSet() {
+		return getEditingDomain().getResourceSet();
+	}
+
+	private RTFTransfer getRTFTransfer() {
+		return RTFTransfer.getInstance();
+	}
+
+	private TextTransfer getTextTransfer() {
+		return TextTransfer.getInstance();
+	}
+
+	private void handleCopy(ExecutionEvent event) {
+		boolean hasTextContents = hasDataFor(getTextTransfer());
+		if (!hasTextContents) {
+			return;
+		}
+
+		String textContents = (String) getNativeClipboard().getContents(getTextTransfer());
+		if (textContents == null || textContents.isEmpty()) {
+			return;
+		}
+
+		for (ClipboardEntry each : getHistory().getEntries()) {
+			if (textContents.equals(each.getTextContent())) {
+				makeActiveExistEntry(each);
+				return;
+			}
+		}
+
+		createNewClipboardEntry(event);
+	}
+
+	private void handlePaste(ExecutionEvent event) {
+		getHistory().getActiveEntry().increaseUsing();
+	}
+
 	private boolean hasDataFor(Transfer transfer) {
 		TransferData[] availableTypes = getNativeClipboard().getAvailableTypes();
 		for (TransferData eachData : availableTypes) {
@@ -337,5 +342,23 @@ public class ClipboardServiceImpl implements IClipboardService {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 17: Copy exist content will not update ordering.
+	 * https://github.com/jeeeyul/pde-tools/issues/issue/17
+	 * 
+	 * @param entry
+	 *            clipboard entry to make active.
+	 */
+	private void makeActiveExistEntry(ClipboardEntry entry) {
+		SetCommand setActiveCommand = new SetCommand(getEditingDomain(), getHistory(),
+				PdetoolsPackage.eINSTANCE.getClipHistory_ActiveEntry(), entry);
+		SetCommand setTakenTimeCommand = new SetCommand(getEditingDomain(), entry,
+				PdetoolsPackage.eINSTANCE.getClipboardEntry_TakenTime(), new Date());
+		CompoundCommand commands = new CompoundCommand();
+		commands.append(setActiveCommand);
+		commands.append(setTakenTimeCommand);
+		getEditingDomain().getCommandStack().execute(commands);
 	}
 }
