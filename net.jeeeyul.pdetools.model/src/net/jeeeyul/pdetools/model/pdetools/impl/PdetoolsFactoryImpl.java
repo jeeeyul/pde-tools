@@ -47,7 +47,7 @@ public class PdetoolsFactoryImpl extends EFactoryImpl implements PdetoolsFactory
 	public static PdetoolsFactory init() {
 		try {
 			PdetoolsFactory thePdetoolsFactory = (PdetoolsFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://jeeeyul.net/pde-tools");
+					.getEFactory(PdetoolsPackage.eNS_URI);
 			if (thePdetoolsFactory != null) {
 				return thePdetoolsFactory;
 			}
