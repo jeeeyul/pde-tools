@@ -116,6 +116,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.xtend2.lib"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
    </requires>
 
    <plugin
