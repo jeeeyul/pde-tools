@@ -6,19 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.build.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.core.resources,
- org.eclipse.xtend2.lib
+ org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
- lib/aopalliance.jar,
+ lib/ant.jar,
  lib/com.google.guava_10.0.1.v201203051515.jar,
- lib/guice-3.0.jar,
- lib/javax.inject.jar,
- lib/org.eclipse.nebula.widgets.compositetable_1.0.0.201206270822.jar,
- lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270822.jar,
- lib/org.eclipse.xtend.lib_2.4.0.v201207240245.jar,
- lib/org.eclipse.xtend2.lib_2.4.0.v201207240245.jar,
- lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207240245.jar,
- lib/ant.jar
+ lib/org.eclipse.xtend.lib_2.5.1.v201401280830.jar,
+ lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar
 
