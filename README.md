@@ -104,3 +104,7 @@ This software is distributed under the [EPL](http://www.eclipse.org/legal/epl-v1
 
 Basically this license allows almost everything what you want to do including commerical purpose. Read details from [here](http://www.eclipse.org/legal/epl-v10.html).
 And It doesn't provide any **Warranties**.
+
+## Donation
+<a href='http://www.pledgie.com/campaigns/18377'><img src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
+
