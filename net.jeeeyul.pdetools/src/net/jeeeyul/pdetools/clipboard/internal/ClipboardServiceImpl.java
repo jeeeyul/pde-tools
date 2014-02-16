@@ -262,7 +262,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 				history = PdetoolsFactory.eINSTANCE.createClipHistory();
 				resource.getContents().clear();
 				resource.getContents().add(history);
-				println("Clipboard was created.");
+				Debug.println("Clipboard was created.");
 			}
 		}
 		return history;
