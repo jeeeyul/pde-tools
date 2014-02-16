@@ -39,6 +39,13 @@ It was originated for me and my team. And it works great for me. I hope it helps
 eclipse -clearPersistedState
 </pre>
 
+### Eclipse 3.7
+What if you are using eclipse indigo, there is no default repository which contains "xtend library".
+It is required to run PDE-tools.
+So you have to install xtend manually first using this update site:
+<pre>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</pre>
+Recommanded xtend version is 2.4.3 for Eclipse 3.7
+
 ## Clipboard History
 Just press Control + Shift + V instead of Control + V, then you can paste contents from history of Clipboard.
 
