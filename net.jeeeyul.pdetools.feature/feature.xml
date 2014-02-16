@@ -92,6 +92,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <url>
       <update label="PDE-Tools from Jeeeyul" url="https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite"/>
+      <discovery label="Xtend" url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
    </url>
 
    <requires>
