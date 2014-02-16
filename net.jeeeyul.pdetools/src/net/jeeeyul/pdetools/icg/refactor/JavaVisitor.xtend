@@ -15,7 +15,7 @@ abstract class JavaVisitor<T> {
 		result
 	}
 	
-	def visit(IJavaElement element){
+	def void visit(IJavaElement element){
 		isCanceled = false
 		var visitChild = doVisit(element)
 		

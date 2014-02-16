@@ -1,6 +1,9 @@
 package net.jeeeyul.pdetools.decorator
 
+import java.util.ArrayList
 import java.util.HashMap
+import java.util.HashSet
+import net.jeeeyul.pdetools.shared.SharedImages
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
@@ -8,16 +11,12 @@ import org.eclipse.core.resources.IResourceDelta
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.jface.viewers.BaseLabelProvider
+import org.eclipse.jface.viewers.DecorationContext
 import org.eclipse.jface.viewers.IDecoration
 import org.eclipse.jface.viewers.ILightweightLabelDecorator
 import org.eclipse.jface.viewers.LabelProviderChangedEvent
 import org.eclipse.swt.graphics.ImageData
 import org.eclipse.swt.widgets.Display
-import java.util.ArrayList
-import org.eclipse.jface.viewers.DecorationContext
-import static net.jeeeyul.pdetools.decorator.IconDecorator.*
-import java.util.HashSet
-import net.jeeeyul.pdetools.shared.SharedImages
 
 class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecorator, IResourceChangeListener {
 	static val IMAGE_FILES = newArrayList("jpg", "gif", "png", "bmp")

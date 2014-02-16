@@ -112,7 +112,7 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 		}
 	'''
 
-	def private generateSubPalette(Palette palette) '''
+	def private String generateSubPalette(Palette palette) '''
 		/**
 		 * Constants set for folder '«palette.folder.projectRelativePath.toPortableString»'
 		 */

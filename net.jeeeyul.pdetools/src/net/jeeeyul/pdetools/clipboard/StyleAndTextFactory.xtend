@@ -62,7 +62,7 @@ class StyleAndTextFactory {
 		return result
 	}
 
-	def accept(Element element, (Element)=>void visitor){
+	def void accept(Element element, (Element)=>void visitor){
 		visitor.apply(element)
 		if(!element.leaf) {
 			for(i : 0..(element.elementCount-1)){

@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
+import net.jeeeyul.pdetools.PDEToolsCore
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
@@ -9,8 +10,6 @@ import org.eclipse.core.runtime.Path
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.pde.core.plugin.PluginRegistry
 import org.eclipse.ui.preferences.ScopedPreferenceStore
-
-import static net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration.*
 
 class ICGConfiguration {
 	private static val MONITORING_FOLDER = "monitoring-folder" ;
@@ -91,7 +90,7 @@ class ICGConfiguration {
 	def private store() {
 		if(_store == null) {
 			var projectScope = new ProjectScope(project)
-			_store = new ScopedPreferenceStore(projectScope, '''«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».icg''');
+			_store = new ScopedPreferenceStore(projectScope, '''«PDEToolsCore::getDefault.bundle.symbolicName».icg''');
 			_store.setDefault(GENERATE_TYPE, GENERATE_TYPE_STANDARD)
 		}
 		return _store;
@@ -140,7 +139,7 @@ class ICGConfiguration {
 	}
 	
 	def getSaveFile(){
-		project.getFile(new Path('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault().bundle.symbolicName».icg.prefs'''))
+		project.getFile(new Path('''.settings/«PDEToolsCore::getDefault().bundle.symbolicName».icg.prefs'''))
 	}
 	
 	def getGenerateType(){
