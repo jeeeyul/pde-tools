@@ -16,7 +16,7 @@ import net.jeeeyul.pdetools.shared.BitExtensions
 /**
  * converts RTF String to StyleAndText
  */
-class StyleAndTextFactory {
+class StyleAndTextFactory implements IStyleAndTextFactory{
 	extension BitExtensions = new BitExtensions()
 	IColorProvider colorProvider
 
@@ -24,7 +24,7 @@ class StyleAndTextFactory {
 		this.colorProvider = colorProvider
 	}
 
-	def StyleAndText createFromRTFString(String rtfString){
+	override StyleAndText createFromRTFString(String rtfString){
 		var result = new StyleAndText()
 		var kit = new RTFEditorKit()
 		val doc = kit.createDefaultDocument() as StyledDocument
@@ -62,7 +62,7 @@ class StyleAndTextFactory {
 		return result
 	}
 
-	def void accept(Element element, (Element)=>void visitor){
+	def private void accept(Element element, (Element)=>void visitor){
 		visitor.apply(element)
 		if(!element.leaf) {
 			for(i : 0..(element.elementCount-1)){
@@ -71,7 +71,7 @@ class StyleAndTextFactory {
 		}
 	}
 
-	def asRGB(Color awtColor){
+	def private asRGB(Color awtColor){
 		return new RGB(awtColor.red, awtColor.green, awtColor.blue)
 	}
 }
