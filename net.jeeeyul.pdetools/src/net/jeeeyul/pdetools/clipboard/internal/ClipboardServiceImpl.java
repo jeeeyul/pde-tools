@@ -1,5 +1,7 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import static net.jeeeyul.pdetools.Debug.println;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,13 +58,12 @@ import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import static net.jeeeyul.pdetools.Debug.*;
 
 public class ClipboardServiceImpl implements IClipboardService {
 	private static IClipboardService INSTANCE;
 	private static ILock lock = Job.getJobManager().newLock();
+	private ActivePartResolver activePartResolver = new ActivePartResolver();
 
 	public static IClipboardService getInstance() {
 		lock.acquire();
@@ -133,7 +134,12 @@ public class ClipboardServiceImpl implements IClipboardService {
 
 		// clip entry from outside of elcipse.
 		if (event != null) {
-			IWorkbenchPart part = HandlerUtil.getActivePart(event);
+			/*
+			 * 27: Capture Information is unavailable @ eclipse 4.3 ~ 4.4
+			 * http://github.com/jeeeyul/pde-tools/issues/issue/27
+			 */
+			IWorkbenchPart part = activePartResolver.resolve(event);
+
 			IFile file = null;
 			ITextSelection textSelection = null;
 
