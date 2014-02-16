@@ -33,11 +33,13 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Workspace Launcher](#workspace-launcher) **NEW!**
 
 ## Install
-* Update Site(Eclipse 3.7 ~ 4.2): https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite
-* If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update.
-<pre>
+* Update Site(Eclipse 3.7 ~ 4.2): 
+<pre>http://jeeeyul.github.io/pde-tools/update-site/</pre>
+
+If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update.
+```bash
 eclipse -clearPersistedState
-</pre>
+```
 
 ### Eclipse 3.7
 What if you are using eclipse indigo, there is no default repository which contains "xtend library".
