@@ -91,7 +91,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="PDE-Tools from Jeeeyul" url="https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.updatesite"/>
+      <update label="PDE-Tools from Jeeeyul" url="http://jeeeyul.github.io/pde-tools/update-site/"/>
    </url>
 
    <requires>
@@ -115,10 +115,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="net.jeeeyul.pdetools.edit" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.expressions"/>
-      <import plugin="org.eclipse.xtend2.lib"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import plugin="org.eclipse.xtend.lib"/>
    </requires>
 
    <plugin
