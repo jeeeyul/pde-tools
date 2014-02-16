@@ -15,9 +15,11 @@
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
 
+		<!--
 		<signjar jar="${build}/features/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 		<signjar jar="${build}/plugins/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
-
+		-->
+		
 		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="${repository-name}" artifactrepositoryname="${repository-name}" category="file:${basedir}/category.xml">
 			<features dir="${build}/features" includes="*.jar" />
 			<bundles dir="${build}/plugins" includes="*.jar" />
@@ -31,8 +33,10 @@
 			<fileset dir="${build}/repo/" includes="content.xml" />
 		</jar>
 		<delete dir="${build}/repo/" includes="*.xml" />
+		<!--
 		<signjar jar="${build}/repo/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
-
+		-->
+		
 		<copydir dest="${basedir}/../${update-project}" src="${build}/repo">
 		</copydir>
 
