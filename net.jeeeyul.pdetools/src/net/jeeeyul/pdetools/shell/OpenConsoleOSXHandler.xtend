@@ -8,9 +8,8 @@ class OpenConsoleOSXHandler extends AbstractFileBasedExecHandler {
 	override createLaunchCommand(File targetFile) {
 		new LaunchCommand() => [
 			commands += "open"
-			commands += "-n"
+			commands += "-a"
 			commands += "/Applications/Utilities/Terminal.app"
-			commands += "--args"
 			commands += targetFile.ensureDirectory.absolutePath
 		]
 	}
