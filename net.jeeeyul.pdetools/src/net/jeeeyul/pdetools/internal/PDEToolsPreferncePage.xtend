@@ -5,7 +5,9 @@ import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import net.jeeeyul.pdetools.shared.SWTExtensions
-import org.eclipse.swt.SWT
+import org.eclipse.swt.SWTimport net.jeeeyul.pdetools.shared.SharedImages
+import org.eclipse.swt.program.Program
+import org.eclipse.ui.dialogs.PreferencesUtil
 
 class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferencePage {
 	def static getId(){
@@ -16,7 +18,31 @@ class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferen
 
 	override protected createContents(Composite parent) {
 		var result = new Composite(parent, SWT::NORMAL) => [
-			layout = newGridLayout
+			layout = newGridLayout[
+				numColumns = 2
+			]
+			
+			newLabel[
+				image = SharedImages::getImage(SharedImages::GITHUB)
+			]
+			
+			newLink[
+				text = '''Fork me on <a href="https://github.com/jeeeyul/pde-tools">GitHub</a>, also don't forget <a href="https://marketplace.eclipse.org/content/pde-tools">favorite me on marketplace</a>.'''
+				onSelection = [
+					Program::launch(it.text)
+				]
+			]
+			
+			newLabel[
+				image = SharedImages::getImage(SharedImages::PLEDGIE)
+			]
+			newLink[
+				text = '''You can <a href="https://pledgie.com/campaigns/18377">donate to this project through Pledgie</a>.'''
+				onSelection = [
+					Program::launch(it.text)
+				]
+			]
+			
 		]
 		update()
 		return result
@@ -26,5 +52,9 @@ class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferen
 	}
 
 	override init(IWorkbench workbench) {
+	}
+	
+	def navigateToOtherPage(String pageId) {
+		PreferencesUtil::createPreferenceDialogOn(shell, pageId, null, null);
 	}
 }
