@@ -78,6 +78,11 @@
             name="Open Console Here">
       </command>
       <command
+            categoryId="net.jeeeyul.pdetools.category"
+            id="net.jeeeyul.pdetools.command.copy.resource.path"
+            name="Copy Resource Full Path">
+      </command>
+      <command
             defaultHandler="net.jeeeyul.pdetools.commandspy.ToggleGlobalCommandSpyHandler"
             id="net.jeeeyul.pdetools.command.toggleGlobalCommandSpy"
             name="Toggle Global Command Spy">
@@ -274,6 +279,12 @@
          </activeWhen>
          <class
                class="net.jeeeyul.pdetools.shell.OpenConsoleLinuxHandler">
+         </class>
+      </handler>
+      <handler
+            commandId="net.jeeeyul.pdetools.command.copy.resource.path">
+         <class
+               class="net.jeeeyul.pdetools.shell.CopyResourcePathHandler">
          </class>
       </handler>
    </extension>
@@ -497,10 +508,9 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <command
-               commandId="net.jeeeyul.pdetools.command.showInShell"
-               id="net.jeeeyul.pdetools.shell.menu.showInShell"
-               style="push">
+         <menu
+               id="net.jeeeyul.pdetools.shell.menu"
+               label="PDE-Tools Shell">
             <visibleWhen
                   checkEnabled="true">
                <and>
@@ -526,38 +536,99 @@
                   </iterate>
                </and>
             </visibleWhen>
-         </command>
-         <command
-               commandId="net.jeeeyul.pdetools.command.openConsole"
-               icon="icons/terminal.png"
-               id="net.jeeeyul.pdetools.shell.menu.openConsole"
-               style="push">
-            <visibleWhen
-                  checkEnabled="true">
-               <and>
-                  <with
-                        variable="net.jeeeyul.pdetools.workbench">
-                     <test
-                           args="net.jeeeyul.pdetools.capability.shell"
-                           property="net.jeeeyul.pdetools.isActivityEnabled">
-                     </test>
-                  </with>
-                  <count
-                        value="1">
-                  </count>
-                  <iterate
-                        ifEmpty="false"
-                        operator="and">
-                     <adapt
-                           type="org.eclipse.core.resources.IResource">
-                        <instanceof
-                              value="org.eclipse.core.resources.IResource">
-                        </instanceof>
-                     </adapt>
-                  </iterate>
-               </and>
-            </visibleWhen>
-         </command>
+            <command
+                  commandId="net.jeeeyul.pdetools.command.copy.resource.path"
+                  icon="icons/copy.gif"
+                  id="net.jeeeyul.pdetools.shell.menu.copy.resource.path"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <and>
+                     <with
+                           variable="net.jeeeyul.pdetools.workbench">
+                        <test
+                              args="net.jeeeyul.pdetools.capability.shell"
+                              property="net.jeeeyul.pdetools.isActivityEnabled">
+                        </test>
+                     </with>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.core.resources.IResource">
+                           <instanceof
+                                 value="org.eclipse.core.resources.IResource">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="net.jeeeyul.pdetools.command.showInShell"
+                  id="net.jeeeyul.pdetools.shell.menu.showInShell"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <and>
+                     <with
+                           variable="net.jeeeyul.pdetools.workbench">
+                        <test
+                              args="net.jeeeyul.pdetools.capability.shell"
+                              property="net.jeeeyul.pdetools.isActivityEnabled">
+                        </test>
+                     </with>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.core.resources.IResource">
+                           <instanceof
+                                 value="org.eclipse.core.resources.IResource">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="net.jeeeyul.pdetools.command.openConsole"
+                  icon="icons/terminal.png"
+                  id="net.jeeeyul.pdetools.shell.menu.openConsole"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <and>
+                     <with
+                           variable="net.jeeeyul.pdetools.workbench">
+                        <test
+                              args="net.jeeeyul.pdetools.capability.shell"
+                              property="net.jeeeyul.pdetools.isActivityEnabled">
+                        </test>
+                     </with>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <adapt
+                              type="org.eclipse.core.resources.IResource">
+                           <instanceof
+                                 value="org.eclipse.core.resources.IResource">
+                           </instanceof>
+                        </adapt>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+         </menu>
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -784,6 +855,12 @@
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+M3+2">
+      </key>
+      <key
+            commandId="net.jeeeyul.pdetools.command.openConsole"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+ENTER">
       </key>
    </extension>
    <extension

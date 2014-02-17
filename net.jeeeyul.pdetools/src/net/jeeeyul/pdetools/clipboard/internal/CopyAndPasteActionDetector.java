@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.jeeeyul.pdetools.Debug;
+import net.jeeeyul.pdetools.shell.CopyResourcePathHandler;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -55,7 +56,7 @@ public class CopyAndPasteActionDetector {
 
 	private static final String[] COPY_COMMANDS = new String[] {
 			"org.eclipse.jdt.ui.edit.text.java.copy.qualified.name", "org.eclipse.ui.edit.copy",
-			"org.eclipse.ui.edit.cut" };
+			"org.eclipse.ui.edit.cut", CopyResourcePathHandler.COMMAND_ID };
 	private static final String PASTE_COMMAND = "org.eclipse.ui.edit.paste";
 
 	private static final List<String> COPY_COMMAND_LIST = Arrays.asList(COPY_COMMANDS);

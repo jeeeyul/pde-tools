@@ -71,7 +71,9 @@ public abstract class AbstractFileBasedExecHandler extends AbstractHandler imple
 		}
 	}
 	
-	protected abstract String getLabel();
+	protected String getLabel(){
+		return null;
+	};
 
 	protected ImageDescriptor getImageDescriptor() {
 		return null;
