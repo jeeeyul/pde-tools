@@ -59,13 +59,12 @@ public class SWTExtensions {
 		return rect.x <= point.x && rect.y <= point.y && point.x <= rect.x + rect.width
 				&& point.y <= rect.y + rect.height;
 	}
-	
+
 	public Display display() {
 		Display _default = Display.getDefault();
 		return _default;
 	}
 
-	
 	public GC drawImage(GC gc, Image image, Point location) {
 		gc.drawImage(image, location.x, location.y);
 		return gc;
@@ -252,7 +251,8 @@ public class SWTExtensions {
 		return comp;
 	}
 
-	public Composite newCompositeWithStyle(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
+	public Composite newCompositeWithStyle(final Composite parent, int style,
+			final Procedure1<? super Composite> initializer) {
 		Composite _composite = new Composite(parent, style);
 		Composite comp = _composite;
 		initializer.apply(comp);
@@ -406,14 +406,14 @@ public class SWTExtensions {
 		initializer.apply(tree);
 		return tree;
 	}
-	
-	public Table newTable(Composite parent, final Procedure1<Table> initializer){
+
+	public Table newTable(Composite parent, final Procedure1<Table> initializer) {
 		Table table = new Table(parent, SWT.BORDER);
 		initializer.apply(table);
 		return table;
 	}
-	
-	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer){
+
+	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer) {
 		TableItem tableItem = new TableItem(parent, SWT.NORMAL);
 		initializer.apply(tableItem);
 		return tableItem;
@@ -508,56 +508,56 @@ public class SWTExtensions {
 		return rectangle;
 	}
 
-	public void setOnClick(final Control button, final Procedure1<Control> function) {
-		button.addListener(SWT.Selection, new Listener() {
+	public void setOnClick(final Control control, final Procedure1<Event> function) {
+		control.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				function.apply(button);
+				function.apply(event);
 			}
 		});
 	}
 
-	public <T extends Widget> void setOnEvent(final T w, int eventType, final Procedure1<T> handler) {
+	public <T extends Widget> void setOnEvent(final T w, int eventType, final Procedure1<Event> handler) {
 		w.addListener(eventType, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(w);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public void setOnFocus(final Control control, final Procedure1<? super Control> handler) {
+	public void setOnFocus(final Control control, final Procedure1<Event> handler) {
 		control.addListener(SWT.FocusIn, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(control);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public void setOnFocusOut(final Control control, final Procedure1<? super Control> handler) {
+	public void setOnFocusOut(final Control control, final Procedure1<Event> handler) {
 		control.addListener(SWT.FocusOut, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(control);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public <T extends Widget> void setOnModified(final T w, final Procedure1<T> handler) {
+	public <T extends Widget> void setOnModified(final T w, final Procedure1<Event> handler) {
 		w.addListener(SWT.Modify, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(w);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public <T extends Widget> void setOnSelection(final T w, final Procedure1<T> handler) {
+	public <T extends Widget> void setOnSelection(final T w, final Procedure1<Event> handler) {
 		w.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(w);
+				handler.apply(event);
 			}
 		});
 	}
@@ -594,12 +594,12 @@ public class SWTExtensions {
 	public Rectangle translate(Rectangle rectangle, Point delta) {
 		return translate(rectangle, delta.x, delta.y);
 	}
-	
-	public Color grayColor(){
+
+	public Color grayColor() {
 		return display().getSystemColor(SWT.COLOR_GRAY);
 	}
-	
-	public Color darkGrayColor(){
+
+	public Color darkGrayColor() {
 		return display().getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 }

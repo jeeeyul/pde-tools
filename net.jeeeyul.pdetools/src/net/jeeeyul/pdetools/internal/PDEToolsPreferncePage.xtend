@@ -22,6 +22,16 @@ class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferen
 				numColumns = 2
 			]
 			
+			newLink[
+				text = '''You can toggle each feature of PDE-Tools in <a href="org.eclipse.sdk.capabilities">Capabilities Page</a>.'''
+				layoutData = newGridData[
+					horizontalSpan = 2
+				]
+				onSelection = [
+					navigateToOtherPage(it.text)
+				]
+			]
+			
 			newLabel[
 				image = SharedImages::getImage(SharedImages::GITHUB)
 			]
@@ -55,6 +65,7 @@ class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferen
 	}
 	
 	def navigateToOtherPage(String pageId) {
+		println(pageId)
 		PreferencesUtil::createPreferenceDialogOn(shell, pageId, null, null);
 	}
 }
