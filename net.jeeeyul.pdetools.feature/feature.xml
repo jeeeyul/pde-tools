@@ -91,7 +91,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="PDE-Tools from Jeeeyul" url="http://jeeeyul.github.io/pde-tools/update-site/"/>
+      <update label="Jeeeyul&apos;s Eclipse Plugins" url="http://jeeeyul.github.io/update"/>
    </url>
 
    <requires>

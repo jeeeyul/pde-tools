@@ -1,6 +1,6 @@
 package net.jeeeyul.pdetools.snapshot.capture;
 
-import net.jeeeyul.pdetools.shared.SWTExtensions;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;

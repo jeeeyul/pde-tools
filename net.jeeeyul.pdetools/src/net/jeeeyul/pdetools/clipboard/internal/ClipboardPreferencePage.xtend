@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.clipboard.internal
 
 import net.jeeeyul.pdetools.PDEToolsCore
-import net.jeeeyul.pdetools.shared.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.PreferencePage
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Button

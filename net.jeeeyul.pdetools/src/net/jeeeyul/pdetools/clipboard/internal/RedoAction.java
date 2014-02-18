@@ -1,10 +1,10 @@
 package net.jeeeyul.pdetools.clipboard.internal;
 
+import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
+
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
-
-import net.jeeeyul.pdetools.model.pdetools.ClipHistory;
 
 public class RedoAction extends ClipboardHistoryAction {
 

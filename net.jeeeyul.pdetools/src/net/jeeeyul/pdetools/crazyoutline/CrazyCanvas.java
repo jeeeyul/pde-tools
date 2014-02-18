@@ -2,7 +2,7 @@ package net.jeeeyul.pdetools.crazyoutline;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
 import net.jeeeyul.pdetools.shared.HSB;
-import net.jeeeyul.pdetools.shared.SWTExtensions;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

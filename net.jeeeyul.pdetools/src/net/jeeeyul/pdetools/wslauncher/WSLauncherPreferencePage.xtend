@@ -1,12 +1,13 @@
 package net.jeeeyul.pdetools.wslauncher
 
-import net.jeeeyul.pdetools.shared.SWTExtensions
+import net.jeeeyul.pdetools.PDEToolsCore
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.PreferencePage
+import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
-import org.eclipse.swt.widgets.Button
-import net.jeeeyul.pdetools.PDEToolsCore
+
 import static net.jeeeyul.pdetools.wslauncher.IWSLauncherPreferernceConstants.*
 
 class WSLauncherPreferencePage extends PreferencePage implements IWorkbenchPreferencePage{

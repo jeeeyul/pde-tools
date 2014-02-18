@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.biv
 
-import net.jeeeyul.pdetools.shared.SWTExtensions
 import net.jeeeyul.pdetools.shared.SharedImages
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
@@ -26,7 +26,7 @@ class Filter {
 				text = "Bundle Filter:"
 			]
 			
-			newCompositeWithStyle(SWT::BORDER)[
+			newComposite(SWT::BORDER)[
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 2

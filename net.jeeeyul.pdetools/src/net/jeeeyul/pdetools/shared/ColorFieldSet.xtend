@@ -1,12 +1,11 @@
 package net.jeeeyul.pdetools.shared
 
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Text
-import org.eclipse.xtext.xbase.lib.Procedures$Procedure1
-import net.jeeeyul.pdetools.shared.IntRange
-import net.jeeeyul.pdetools.shared.FloatRange
+import org.eclipse.xtext.xbase.lib.Procedures
 
 class ColorFieldSet {
 	extension SWTExtensions = new SWTExtensions
@@ -24,7 +23,7 @@ class ColorFieldSet {
 	
 	Composite control
 	
-	@Property Procedures$Procedure1<HSB> selectionHandler
+	@Property Procedures.Procedure1<HSB> selectionHandler
 	
 	new(Composite parent){
 		create(parent)

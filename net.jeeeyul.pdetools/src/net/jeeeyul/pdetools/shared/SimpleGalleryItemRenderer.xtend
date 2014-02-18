@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.shared
 
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer
 import org.eclipse.nebula.widgets.gallery.GalleryItem
 import org.eclipse.nebula.widgets.gallery.RendererHelper
@@ -7,7 +8,6 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.xtend.lib.Property
 
 class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	extension SWTExtensions = SWTExtensions::INSTANCE

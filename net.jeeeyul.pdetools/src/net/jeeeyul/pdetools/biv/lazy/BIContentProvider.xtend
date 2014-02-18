@@ -3,11 +3,10 @@ package net.jeeeyul.pdetools.biv.lazy
 import java.util.ArrayList
 import java.util.List
 import net.jeeeyul.pdetools.PDEToolsCore
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.Viewer
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer
-import net.jeeeyul.pdetools.biv.lazy.BundleResolver
-import net.jeeeyul.pdetools.shared.SWTExtensions
 
 class BIContentProvider implements ITreeContentProvider {
 	extension SWTExtensions = SWTExtensions::INSTANCE

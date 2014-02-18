@@ -1,12 +1,13 @@
 package net.jeeeyul.pdetools.internal
 
+import net.jeeeyul.pdetools.shared.SharedImages
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.PreferencePage
-import org.eclipse.ui.IWorkbenchPreferencePage
+import org.eclipse.swt.SWT
+import org.eclipse.swt.program.Program
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
-import net.jeeeyul.pdetools.shared.SWTExtensions
-import org.eclipse.swt.SWTimport net.jeeeyul.pdetools.shared.SharedImages
-import org.eclipse.swt.program.Program
+import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.dialogs.PreferencesUtil
 
 class PDEToolsPreferncePage extends PreferencePage implements IWorkbenchPreferencePage {

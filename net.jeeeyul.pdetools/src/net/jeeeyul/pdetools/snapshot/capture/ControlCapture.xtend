@@ -1,12 +1,12 @@
 package net.jeeeyul.pdetools.snapshot.capture
 
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWTException
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell
-import net.jeeeyul.pdetools.shared.SWTExtensions
 
 class ControlCapture {
 	extension SWTExtensions = new SWTExtensions

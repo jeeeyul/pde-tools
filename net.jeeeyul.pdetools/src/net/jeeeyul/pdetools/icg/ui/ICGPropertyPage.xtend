@@ -1,9 +1,9 @@
 package net.jeeeyul.pdetools.icg.ui
 
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
-import net.jeeeyul.pdetools.shared.SWTExtensions
 import net.jeeeyul.pdetools.shared.SharedImages
 import net.jeeeyul.pdetools.shared.SimpleViewerFilter
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
@@ -50,7 +50,7 @@ class ICGPropertyPage extends PropertyPage {
 	]
 	
 	def void doValidate() {
-		(control as Composite).allContents.filter(typeof(Text)).forEach[
+		(control as Composite).allContent.filter(typeof(Text)).forEach[
 			it.errorMessage = null
 		]
 		
@@ -88,7 +88,7 @@ class ICGPropertyPage extends PropertyPage {
 			generateClassNameField.errorMessage = ("Invalid class name.")
 		}
 		
-		(control as Composite).allContents.filter(typeof(Text)).forEach[
+		(control as Composite).allContent.filter(typeof(Text)).forEach[
 			if(it.errorMessage != null){
 				it.decoration.descriptionText = it.errorMessage
 				it.decoration.show()
@@ -188,7 +188,7 @@ class ICGPropertyPage extends PropertyPage {
 				]
 			]
 		]
-		for(e : container.allContents.filter(typeof(Text)).toList){
+		for(e : container.allContent.filter(typeof(Text)).toList){
 			var gridData = e.layoutData as GridData
 			gridData.horizontalIndent = 16
 			var deco = new ControlDecoration(e, SWT::LEFT)

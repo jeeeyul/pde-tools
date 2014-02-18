@@ -1,8 +1,8 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
-import net.jeeeyul.pdetools.shared.SWTExtensions;
 import net.jeeeyul.pdetools.shared.SharedImages;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;

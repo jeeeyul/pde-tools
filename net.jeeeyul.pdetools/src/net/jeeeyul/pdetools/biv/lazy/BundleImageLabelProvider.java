@@ -6,9 +6,9 @@ import java.util.List;
 
 import net.jeeeyul.pdetools.shared.ImageLoadingEntry;
 import net.jeeeyul.pdetools.shared.ImageLoadingQueue;
-import net.jeeeyul.pdetools.shared.SWTExtensions;
 import net.jeeeyul.pdetools.shared.SharedImages;
 import net.jeeeyul.pdetools.shared.ThumbnailGenerator;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
