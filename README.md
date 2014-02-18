@@ -34,7 +34,9 @@ It was originated for me and my team. And it works great for me. I hope it helps
 
 ## Install
 * Update Site(Eclipse 3.7 ~ 4.2): 
-<pre>http://jeeeyul.github.io/update/</pre>
+```
+http://jeeeyul.github.io/update/
+```
 
 If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update.
 ```bash
