@@ -986,5 +986,22 @@
             type="org.eclipse.core.runtime.Platform">
       </propertyTester>
    </extension>
+   <extension
+         id="net.jeeeyul.pdetoos.java.proposal.color"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="false"
+            categoryId="net.jeeeyul.pdetoos.java.proposal"
+            class="net.jeeeyul.pdetools.jdt.DefaultProposalProvider"
+            needsSortingAfterFiltering="false">
+      </javaCompletionProposalComputer>
+   </extension>
+   <extension
+         id="net.jeeeyul.pdetoos.java.proposal"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <proposalCategory
+            icon="icons/palette.gif">
+      </proposalCategory>
+   </extension>
 
 </plugin>
