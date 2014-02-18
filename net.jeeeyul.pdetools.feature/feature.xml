@@ -2,7 +2,7 @@
 <feature
       id="net.jeeeyul.pdetools.feature"
       label="Jeeeyul&apos;s PDE-Tools"
-      version="1.1.0"
+      version="1.1.1"
       provider-name="jeeeyul@gmail.com">
 
    <description url="https://github.com/jeeeyul/pde-tools">
