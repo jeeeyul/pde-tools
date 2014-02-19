@@ -1008,19 +1008,5 @@
          </partition>
       </javaCompletionProposalComputer>
    </extension>
-   <extension
-         id="net.jeeeyul.pdetools.jdt.WordProposalComputer"
-         name="Word Proposal Computer"
-         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
-      <javaCompletionProposalComputer
-            activate="false"
-            categoryId="net.jeeeyul.pdetoos.java.proposal"
-            class="net.jeeeyul.pdetools.jdt.WordProposalComputer"
-            needsSortingAfterFiltering="false">
-         <partition
-               type="__java_string">
-         </partition>
-      </javaCompletionProposalComputer>
-   </extension>
 
 </plugin>
