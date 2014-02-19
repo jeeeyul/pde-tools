@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PDE-Tools
 Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
-Bundle-Version: 1.1.1
+Bundle-Version: 1.1.1.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
