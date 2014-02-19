@@ -28,11 +28,11 @@ class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 			
 			if(isSelected){
 				gc.background = item.display.getSystemColor(SWT::COLOR_LIST_SELECTION)
-				var selectionBounds = clientArea.copy.translate(selectionMargin, selectionMargin).expand(-selectionMargin * 2, -selectionMargin * 2)
+				var selectionBounds = clientArea.copy.translate(selectionMargin, selectionMargin).resize(-selectionMargin * 2, -selectionMargin * 2)
 				gc.fillRoundRectangle(selectionBounds, 14)
 			}
 			
-			val bounds = clientArea.getTranslated(margin, margin).expand(-margin*2, -margin*2)
+			val bounds = clientArea.getTranslated(margin, margin).resize(-margin*2, -margin*2)
 			val size = getBestSize(item.image.bounds.size, bounds.size)
 			val sizeDelta = size.getDifference(bounds.size).getScaled(0.5)
 			

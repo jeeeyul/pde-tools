@@ -29,7 +29,7 @@ class ControlCapture {
 		var clientArea = shell.clientArea
 		clientArea.location = shell.toDisplay(clientArea.location)
 		if(shell.menuBar != null) {
-			clientArea.translate(0, -menubarHeight).expand(0, menubarHeight)
+			clientArea.translate(0, -menubarHeight).resize(0, menubarHeight)
 		}
 		var image = new Image(display, clientArea.width, clientArea.height)
 		var gc = new GC(display)

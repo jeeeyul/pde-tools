@@ -53,7 +53,7 @@ public class CaptureBoundsIndicator {
 		}
 		region = new Region(display);
 		region.add(rectangle);
-		SWTExtensions.INSTANCE.expand(rectangle, -6, -6);
+		SWTExtensions.INSTANCE.resize(rectangle, -6, -6);
 		SWTExtensions.INSTANCE.translate(rectangle, 3, 3);
 		if (rectangle.width > 0 && rectangle.height > 0)
 			region.subtract(rectangle);
