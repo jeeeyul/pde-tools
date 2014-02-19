@@ -1,7 +1,7 @@
 package net.jeeeyul.pdetools.crazyoutline;
 
 import net.jeeeyul.pdetools.PDEToolsCore;
-import net.jeeeyul.pdetools.shared.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;

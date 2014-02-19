@@ -1,15 +1,15 @@
 package net.jeeeyul.pdetools.jdt
 
-import net.jeeeyul.pdetools.shared.ColorPicker
+import java.util.ArrayList
 import net.jeeeyul.pdetools.shared.SharedImages
+import net.jeeeyul.swtend.ui.ColorPicker
 import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.jdt.core.ICompilationUnit
 import org.eclipse.jdt.ui.text.java.JavaContentAssistInvocationContext
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.text.IDocument
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Display
-import org.eclipse.jdt.core.ICompilationUnit
-import java.util.ArrayList
 
 class ColorProposal extends AbstractJavaProposal{
 	String value

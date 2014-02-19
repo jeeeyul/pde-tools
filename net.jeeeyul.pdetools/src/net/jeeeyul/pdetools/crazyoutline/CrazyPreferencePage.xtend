@@ -1,19 +1,19 @@
 package net.jeeeyul.pdetools.crazyoutline
 
 import net.jeeeyul.pdetools.PDEToolsCore
-import net.jeeeyul.pdetools.shared.ColorPicker
-import net.jeeeyul.pdetools.shared.ColorWell
-import net.jeeeyul.pdetools.shared.HSB
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorPicker
+import net.jeeeyul.swtend.ui.ColorWell
+import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.PreferencePage
+import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Scale
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 
 import static net.jeeeyul.pdetools.crazyoutline.CrazyOutlineConstants.*
-import org.eclipse.swt.SWT
 
 class CrazyPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = "net.jeeeyul.pdetools.crazyoutline.CrazyPreferencePage"

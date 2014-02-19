@@ -2,8 +2,8 @@ package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider;
-import net.jeeeyul.pdetools.shared.KPoint;
-import net.jeeeyul.pdetools.shared.KRectangle;
+import net.jeeeyul.swtend.geometry.KPoint;
+import net.jeeeyul.swtend.geometry.KRectangle;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
