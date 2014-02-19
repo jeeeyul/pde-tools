@@ -987,21 +987,40 @@
       </propertyTester>
    </extension>
    <extension
-         id="net.jeeeyul.pdetoos.java.proposal.color"
-         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
-      <javaCompletionProposalComputer
-            activate="false"
-            categoryId="net.jeeeyul.pdetoos.java.proposal"
-            class="net.jeeeyul.pdetools.jdt.DefaultProposalProvider"
-            needsSortingAfterFiltering="false">
-      </javaCompletionProposalComputer>
-   </extension>
-   <extension
          id="net.jeeeyul.pdetoos.java.proposal"
+         name="PDE-Tools Java Sematics Proposal"
          point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
       <proposalCategory
             icon="icons/palette.gif">
       </proposalCategory>
+   </extension>
+   <extension
+         id="net.jeeeyul.pdetools.jdt.SematicsProposalComputer"
+         name="Java Semantics Proposal Computer"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="false"
+            categoryId="net.jeeeyul.pdetoos.java.proposal"
+            class="net.jeeeyul.pdetools.jdt.SematicsProposalComputer"
+            needsSortingAfterFiltering="false">
+         <partition
+               type="__dftl_partition_content_type">
+         </partition>
+      </javaCompletionProposalComputer>
+   </extension>
+   <extension
+         id="net.jeeeyul.pdetools.jdt.WordProposalComputer"
+         name="Word Proposal Computer"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="false"
+            categoryId="net.jeeeyul.pdetoos.java.proposal"
+            class="net.jeeeyul.pdetools.jdt.WordProposalComputer"
+            needsSortingAfterFiltering="false">
+         <partition
+               type="__java_string">
+         </partition>
+      </javaCompletionProposalComputer>
    </extension>
 
 </plugin>
