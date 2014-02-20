@@ -19,19 +19,20 @@ class ICGConfiguration {
 	private static val MARK_DEREIVED = "mark-derived" ;
 	private static val IMAGE_FILE_EXTENSIONS = "image-file-extensions";
 	private static val GENERATE_IMAGE_PREVIEW = "generate-image-preview";
-	private static val GENERATE_TYPE="generate-type"
-	
+	private static val GENERATE_TYPE = "generate-type"
+
 	public static val GENERATE_TYPE_STANDARD = "generate-type-standard"
-	public static val GENERATE_TYPE_GRAPHITI="generate-type-graphiti"
-	
+	public static val GENERATE_TYPE_GRAPHITI = "generate-type-graphiti"
+
 	IProject project ;
 	ScopedPreferenceStore _store ;
 
 	new(IProject project) {
-		Assert::isNotNull(project); this.project = project
+		Assert::isNotNull(project);
+		this.project = project
 	}
 
-	def IProject getProject(){
+	def IProject getProject() {
 		project
 	}
 
@@ -75,20 +76,20 @@ class ICGConfiguration {
 		store.setValue(MARK_DEREIVED, markDerived)
 	}
 
-	def String[ ] getImageFileExtensions() {
+	def String[] getImageFileExtensions() {
 		var expression = store.getString(IMAGE_FILE_EXTENSIONS)
-		if(expression == null) {
+		if (expression == null) {
 			return emptyList
 		}
-		return expression.split("[ ,]+").map[ it.trim ].filter[ length>0 ]
+		return expression.split("[ ,]+").map[it.trim].filter[length > 0]
 	}
 
-	def void setImageFileExtensions(String[ ] extensions) {
+	def void setImageFileExtensions(String[] extensions) {
 		store.setValue(IMAGE_FILE_EXTENSIONS, extensions.join(", "))
 	}
 
 	def private store() {
-		if(_store == null) {
+		if (_store == null) {
 			var projectScope = new ProjectScope(project)
 			_store = new ScopedPreferenceStore(projectScope, '''«PDEToolsCore::getDefault.bundle.symbolicName».icg''');
 			_store.setDefault(GENERATE_TYPE, GENERATE_TYPE_STANDARD)
@@ -98,14 +99,14 @@ class ICGConfiguration {
 
 	def private getFolder(IPreferenceStore store, String key) {
 		var value = store.getString(key)
-		if(value.nullOrEmpty) {
+		if (value.nullOrEmpty) {
 			return null;
 		}
 		project.getFolder(value)
 	}
 
 	def private setValue(IPreferenceStore store, String key, IFolder folder) {
-		if(folder == null) {
+		if (folder == null) {
 			store.setValue(key, "")
 		} else {
 			store.setValue(key, folder.projectRelativePath.toPortableString)
@@ -115,7 +116,7 @@ class ICGConfiguration {
 	def IFile getOuputFile() {
 		var segments = generatePackageName.split("\\.")
 		var pointer = generateSrcFolder
-		for(s : segments) {
+		for (s : segments) {
 			pointer = pointer.getFolder(s)
 		}
 		return pointer.getFile('''«generateClassName».java''')
@@ -137,16 +138,16 @@ class ICGConfiguration {
 	def setGenerateImagePreview(boolean generatePreview) {
 		store.setValue(GENERATE_IMAGE_PREVIEW, generatePreview)
 	}
-	
-	def getSaveFile(){
+
+	def getSaveFile() {
 		project.getFile(new Path('''.settings/«PDEToolsCore::getDefault().bundle.symbolicName».icg.prefs'''))
 	}
-	
-	def getGenerateType(){
+
+	def getGenerateType() {
 		store.getString(GENERATE_TYPE)
 	}
-	
-	def setGenerateType(String type){
+
+	def setGenerateType(String type) {
 		store.setValue(GENERATE_TYPE, type)
 	}
 }

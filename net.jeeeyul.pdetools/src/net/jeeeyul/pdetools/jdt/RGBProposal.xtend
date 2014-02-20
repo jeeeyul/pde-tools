@@ -12,7 +12,7 @@ import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Display
 import net.jeeeyul.pdetools.jdt.internal.PrefixUtil
 
-class ColorProposal extends AbstractJavaProposal {
+class RGBProposal extends AbstractJavaProposal {
 	String value
 	int expanded
 
@@ -37,7 +37,7 @@ class ColorProposal extends AbstractJavaProposal {
 			return result
 		} 
 		
-		else if ("Color".startsWith(prefix.trim)) {
+		else if ("RGB".startsWith(prefix.trim)) {
 			prefix = computeIndentifierPrefix(context.invocationOffset - prefix.length - 1)
 			result = result + prefix.length + 1
 			return result
@@ -60,17 +60,13 @@ class ColorProposal extends AbstractJavaProposal {
 
 			var rgb = picker.selection.toRGB
 
-			value = '''new «"org.eclipse.swt.graphics.Color".asTypeRef(cu)»(«"org.eclipse.swt.widgets.Display".
-				asTypeRef(cu)».getDefault(), «rgb.red», «rgb.green», «rgb.blue»)'''
+			value = '''new «"org.eclipse.swt.graphics.RGB".asTypeRef(cu)»(«rgb.red», «rgb.green», «rgb.blue»)'''
 			document.replace(context.invocationOffset - prefix, prefix, value)
 
 			var beforeImport = context.document.length
 
-			if (cu.canImport("org.eclipse.swt.graphics.Color"))
-				cu.createImport("org.eclipse.swt.graphics.Color", null, new NullProgressMonitor)
-
-			if (cu.canImport("org.eclipse.swt.widgets.Display"))
-				cu.createImport("org.eclipse.swt.widgets.Display", null, new NullProgressMonitor)
+			if (cu.canImport("org.eclipse.swt.graphics.RGB"))
+				cu.createImport("org.eclipse.swt.graphics.RGB", null, new NullProgressMonitor)
 
 			expanded = context.document.length - beforeImport
 
@@ -110,7 +106,7 @@ class ColorProposal extends AbstractJavaProposal {
 	}
 
 	override getDisplayString() {
-		"Pick a color..."
+		"Pick a RGB..."
 	}
 
 	override getImage() {

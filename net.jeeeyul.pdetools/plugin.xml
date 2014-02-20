@@ -991,7 +991,7 @@
          name="PDE-Tools Java Sematics Proposal"
          point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
       <proposalCategory
-            icon="icons/palette.gif">
+            icon="icons/plugins.gif">
       </proposalCategory>
    </extension>
    <extension
@@ -1007,6 +1007,28 @@
                type="__dftl_partition_content_type">
          </partition>
       </javaCompletionProposalComputer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <resolver
+            class="net.jeeeyul.pdetools.jdt.template.PluginVersionResolver"
+            contextTypeId="javadoc"
+            description="Resolves the version of plugin project"
+            icon="icons/plugins.gif"
+            name="Plugin Version"
+            type="pde_tools_plugin_version">
+      </resolver>
+      <template
+            autoinsert="true"
+            contextTypeId="javadoc"
+            description="Automatically inserts the version of plugin project."
+            icon="icons/plugins.gif"
+            id="net.jeeeyul.pdetools.template2"
+            name="@since">
+         <pattern>
+            @since ${pde_tools_plugin_version}
+         </pattern>
+      </template>
    </extension>
 
 </plugin>

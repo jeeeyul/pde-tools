@@ -9,6 +9,7 @@ import org.eclipse.xtend.lib.Property
 import org.eclipse.core.resources.IResource
 
 class ICGNature implements IProjectNature {
+	public static val String ID = "net.jeeeyul.pdetools.icg.nature"
 	@Property IProject project
 
 	override configure() throws CoreException {
@@ -17,8 +18,9 @@ class ICGNature implements IProjectNature {
 
 	override deconfigure() throws CoreException {
 		var description = project.description
-		var newBuildSpec = description.buildSpec.filter[ it.builderName != ICGConstants::BUILDER_ID ]
-		description.buildSpec = newBuildSpec; project.setDescription(description, new NullProgressMonitor());
+		var newBuildSpec = description.buildSpec.filter[it.builderName != ICGConstants::BUILDER_ID]
+		description.buildSpec = newBuildSpec;
+		project.setDescription(description, new NullProgressMonitor());
 		project.findMarkers(ICGConstants::PROBLEM_MARKER_TYPE, true, IResource::DEPTH_INFINITE).forEach[delete]
 	}
 }

@@ -3,6 +3,8 @@ package net.jeeeyul.pdetools.jdt;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jeeeyul.pdetools.jdt.internal.PrefixUtil;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer;
@@ -41,18 +43,26 @@ public class SematicsProposalComputer implements IJavaCompletionProposalComputer
 
 			if (jCtx.getExpectedType() != null
 					&& jCtx.getExpectedType().getFullyQualifiedName().equals("org.eclipse.swt.graphics.Color")) {
-				try {
-					result.add(new ColorProposal(jCtx, jCtx.computeIdentifierPrefix().length()));
-				} catch (BadLocationException e) {
-					e.printStackTrace();
-				}
+				result.add(new ColorProposal(jCtx));
 			}
 
-			else if ("Color".startsWith(prefix)) {
-				String previousToken = computeIdentifierPrefix(jCtx.getDocument(),
-						jCtx.getInvocationOffset() - prefix.length() - 1).toString();
+			else if ("Color".startsWith(prefix) && prefix.length() > 0) {
+				String previousToken = PrefixUtil.computeIdentifierPrefix(jCtx.getDocument(),
+						jCtx.getInvocationOffset() - prefix.length() - 1);
 				if (previousToken.equals("new"))
-					result.add(new ColorProposal(jCtx, jCtx.computeIdentifierPrefix().length()));
+					result.add(new ColorProposal(jCtx));
+			}
+
+			if (jCtx.getExpectedType() != null
+					&& jCtx.getExpectedType().getFullyQualifiedName().equals("org.eclipse.swt.graphics.RGB")) {
+				result.add(new RGBProposal(jCtx));
+			}
+
+			else if ("RGB".startsWith(prefix) && prefix.length() > 0) {
+				String previousToken = PrefixUtil.computeIdentifierPrefix(jCtx.getDocument(),
+						jCtx.getInvocationOffset() - prefix.length() - 1);
+				if (previousToken.equals("new"))
+					result.add(new RGBProposal(jCtx));
 			}
 
 		} catch (BadLocationException e1) {
