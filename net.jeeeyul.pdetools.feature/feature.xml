@@ -112,13 +112,13 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.jdt.core.manipulation"/>
       <import plugin="net.jeeeyul.pdetools.model" version="1.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="net.jeeeyul.pdetools.edit" version="1.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.expressions"/>
-      <import plugin="net.jeeeyul.swtend" version="1.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import plugin="net.jeeeyul.pdetools.edit" version="1.2.0" match="greaterOrEqual"/>
-      <import feature="net.jeeeyul.swtend.feature" version="1.2.0" match="greaterOrEqual"/>
+      <import feature="net.jeeeyul.swtend.feature" version="1.2.1" match="greaterOrEqual"/>
+      <import plugin="net.jeeeyul.swtend" version="1.2.1" match="greaterOrEqual"/>
    </requires>
 
    <plugin
