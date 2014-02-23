@@ -117,8 +117,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import feature="net.jeeeyul.swtend.feature" version="1.2.1" match="greaterOrEqual"/>
-      <import plugin="net.jeeeyul.swtend" version="1.2.1" match="greaterOrEqual"/>
+      <import feature="net.jeeeyul.swtend.feature" version="1.2.2" match="greaterOrEqual"/>
+      <import plugin="net.jeeeyul.swtend" version="1.2.2" match="greaterOrEqual"/>
    </requires>
 
    <plugin
