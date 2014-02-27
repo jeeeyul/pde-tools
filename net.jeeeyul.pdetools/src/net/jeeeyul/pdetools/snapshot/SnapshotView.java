@@ -8,17 +8,22 @@ import net.jeeeyul.pdetools.model.pdetools.provider.PdetoolsItemProviderAdapterF
 import net.jeeeyul.pdetools.shared.DeferredViewerUpdate;
 import net.jeeeyul.pdetools.shared.SimpleGalleryItemRenderer;
 import net.jeeeyul.pdetools.snapshot.editor.SnapshotEditor;
+import net.jeeeyul.pdetools.snapshot.handlers.CopyAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RedoAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RemoveAllAction;
+import net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapshotAction;
 import net.jeeeyul.pdetools.snapshot.handlers.UndoAction;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IOpenListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer;
 import org.eclipse.swt.SWT;
@@ -108,6 +113,13 @@ public class SnapshotView extends ViewPart {
 			}
 		});
 
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				updateActions();
+			}
+		});
+
 		configureDragSource();
 		updateActions();
 	}
@@ -131,6 +143,21 @@ public class SnapshotView extends ViewPart {
 		RedoAction redoAction = new RedoAction(SnapshotCore.getRepository());
 		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
 		snapshotActions.add(redoAction);
+
+		CopyAction copyAction = new CopyAction(SnapshotCore.getRepository());
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.COPY.getId(), copyAction);
+		snapshotActions.add(copyAction);
+		
+		RemoveSnapshotAction removeAction = new RemoveSnapshotAction(SnapshotCore.getRepository());
+		getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.DELETE.getId(), removeAction);
+		snapshotActions.add(removeAction);
+		
+		menuManager.add(undoAction);
+		menuManager.add(redoAction);
+		menuManager.add(new Separator("edit"));
+		menuManager.add(copyAction);
+		menuManager.add(removeAction);
+		menuManager.add(new Separator("additions"));
 	}
 
 	@Override
@@ -177,6 +204,7 @@ public class SnapshotView extends ViewPart {
 
 	private void updateActions() {
 		for (SnapshotAction eachAction : snapshotActions) {
+			eachAction.setSelection(getSelection());
 			eachAction.update();
 		}
 	}

@@ -149,34 +149,6 @@
          </class>
       </handler>
       <handler
-            commandId="org.eclipse.ui.edit.delete">
-         <activeWhen>
-            <and>
-               <iterate
-                     ifEmpty="false"
-                     operator="and">
-                  <instanceof
-                        value="net.jeeeyul.pdetools.model.pdetools.SnapshotEntry">
-                  </instanceof>
-               </iterate>
-            </and>
-         </activeWhen>
-         <enabledWhen>
-            <and>
-               <iterate>
-                  <instanceof
-                        value="net.jeeeyul.pdetools.model.pdetools.SnapshotEntry">
-                  </instanceof>
-               </iterate>
-               <count
-                     value="+">
-               </count>
-            </and></enabledWhen>
-         <class
-               class="net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapShotHandler">
-         </class>
-      </handler>
-      <handler
             commandId="net.jeeeyul.pdetools.clipboard.pasteHistory">
          <activeWhen>
             <with
@@ -424,22 +396,6 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:net.jeeeyul.pdetools.clipboard.ClipboardView">
-         <command
-               commandId="org.eclipse.ui.edit.delete"
-               style="push">
-         </command>
-         <separator
-               name="additions"
-               visible="true">
-         </separator>
-         <command
-               commandId="org.eclipse.ui.file.properties"
-               style="push">
-         </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:net.jeeeyul.pdetools.snapshot.SnapshotView">
          <command
                commandId="org.eclipse.ui.edit.delete"
                style="push">

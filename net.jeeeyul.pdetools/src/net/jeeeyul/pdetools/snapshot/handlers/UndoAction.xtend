@@ -2,12 +2,13 @@ package net.jeeeyul.pdetools.snapshot.handlers
 
 import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository
 import net.jeeeyul.pdetools.snapshot.SnapshotAction
-import net.jeeeyul.pdetools.snapshot.SnapshotCore
+import net.jeeeyul.pdetools.snapshot.SnapshotCoreimport org.eclipse.ui.actions.ActionFactory
 
 class UndoAction extends SnapshotAction{
 	
 	new(SnapshotRepository repository) {
 		super(repository)
+		actionDefinitionId = ActionFactory.UNDO.commandId
 	}
 	
 	override run() {
