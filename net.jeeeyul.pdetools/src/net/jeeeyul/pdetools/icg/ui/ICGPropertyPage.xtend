@@ -42,7 +42,7 @@ class ICGPropertyPage extends PropertyPage {
 	Button standardButton
 	Button graphitiButton
 	
-	UIJob validateJob = newUIJob[|
+	UIJob validateJob = newUIJob[
 		if(control == null || control.isDisposed()){
 			return;
 		}
