@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PDE-Tools
 Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.2.1.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.ui,
  net.jeeeyul.pdetools.edit;bundle-version="1.2.0",
  org.eclipse.core.filesystem,
  org.eclipse.core.expressions,
- net.jeeeyul.swtend;bundle-version="1.2.2"
+ net.jeeeyul.swtend;bundle-version="1.2.3"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
