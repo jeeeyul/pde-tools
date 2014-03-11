@@ -58,12 +58,12 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				
 				newLabel[
 					text = "0(no limit) to 100"
-					foreground = darkGrayColor
+					foreground = COLOR_DARK_GRAY
 				]
 				
 				newLabel[
 					text = "Setting takes effect at next copy operation."
-					foreground = darkGrayColor
+					foreground = COLOR_DARK_GRAY
 					layoutData = newGridData[
 						horizontalIndent = 16
 						horizontalSpan = 3
@@ -83,12 +83,12 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				
 				newLabel[
 					text = "1 to 10"
-					foreground = darkGrayColor
+					foreground = COLOR_DARK_GRAY
 				]
 				
 				newLabel[
 					text = "Clipboard view needs to be reopened for setting to take effect."
-					foreground = darkGrayColor
+					foreground = COLOR_DARK_GRAY
 					layoutData = newGridData[
 						horizontalIndent = 16
 						horizontalSpan = 3
