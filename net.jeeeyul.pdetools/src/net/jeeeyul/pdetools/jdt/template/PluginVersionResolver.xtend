@@ -13,7 +13,7 @@ class PluginVersionResolver extends TemplateVariableResolver {
 			return "Not a plugin project"
 		}
 		var version = model.bundleDescription.version
-		return '''«version.major».«version.minor».«version.micro»'''
+		return '''«version.major».«version.minor»'''
 	}
 
 }
