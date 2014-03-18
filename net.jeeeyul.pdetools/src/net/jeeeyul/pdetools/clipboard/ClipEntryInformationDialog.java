@@ -3,7 +3,7 @@ package net.jeeeyul.pdetools.clipboard;
 import net.jeeeyul.pdetools.clipboard.internal.OpenJavaElementFunction;
 import net.jeeeyul.pdetools.clipboard.internal.OpenResourceFunction;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
-import net.jeeeyul.swtend.geometry.KRectangle;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -14,6 +14,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -21,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 
 public class ClipEntryInformationDialog implements ISelectionChangedListener {
+	private SWTExtensions $ = SWTExtensions.INSTANCE;
 	private Shell parentShell;
 	private ISelectionProvider selectionProvider;
 	private Shell shell;
@@ -72,13 +74,15 @@ public class ClipEntryInformationDialog implements ISelectionChangedListener {
 			return;
 		}
 
-		KRectangle monitor = new KRectangle(parentShell.getMonitor().getClientArea());
-		KRectangle parentBounds = new KRectangle(parentShell.getBounds());
-		KRectangle newBounds = parentBounds.translate(parentBounds.width, 0);
-		if (!monitor.contains(newBounds.getRight())) {
-			newBounds.translate(parentBounds.width * -2, 0);
+		Rectangle monitor = parentShell.getMonitor().getClientArea();
+		Rectangle parentBounds = parentShell.getBounds();
+		Rectangle newBounds = $.getTranslated(parentBounds, parentBounds.width, 0);
+
+		if (!$.contains(monitor, $.getRight(newBounds))) {
+			$.translate(newBounds, parentBounds.width * -2, 0);
 		}
-		shell.setBounds(newBounds.toRectangle());
+		
+		shell.setBounds(newBounds);
 	}
 
 	@Override

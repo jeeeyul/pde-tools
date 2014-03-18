@@ -6,7 +6,7 @@ import net.jeeeyul.pdetools.clipboard.internal.ClipboardView;
 import net.jeeeyul.pdetools.clipboard.internal.DisposeShellJob;
 import net.jeeeyul.pdetools.clipboard.internal.FocusingJob;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
-import net.jeeeyul.swtend.geometry.KRectangle;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -37,6 +37,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.progress.UIJob;
 
 public class ClipEntrySelectionDialog {
+	private SWTExtensions $ = SWTExtensions.INSTANCE;
 	private static final int ST_VerifyKey = 3005;
 
 	Listener hostHook = new Listener() {
@@ -114,29 +115,29 @@ public class ClipEntrySelectionDialog {
 		int width = getDialogSettings().getInt("width");
 		int height = getDialogSettings().getInt("height");
 
-		KRectangle monitor = new KRectangle(parentShell.getMonitor().getClientArea());
-		KRectangle bounds = new KRectangle(0, 0, width, height);
+		Rectangle monitor = parentShell.getMonitor().getClientArea();
+		Rectangle bounds = new Rectangle(0, 0, width, height);
 
-		bounds.setSize(width, height);
+		$.setSize(bounds, width, height);
 		if (caretHint != null) {
-			bounds.setLocation(caretHint.getX(), caretHint.getY() + caretHint.getHeight());
+			$.setLocation(bounds, caretHint.getX(), caretHint.getY() + caretHint.getHeight());
 		} else {
 			bounds.x = (monitor.width - width) / 2 + monitor.x;
 			bounds.y = (monitor.height - height) / 2 + monitor.y;
 		}
 
-		if (!monitor.contains(bounds.getRight())) {
-			bounds.translate(-bounds.width, 0);
+		if (!$.contains(monitor, $.getRight(bounds))) {
+			$.translate(bounds, -bounds.width, 0);
 		}
 
-		if (!monitor.contains(bounds.getBottom())) {
-			bounds.translate(0, -bounds.height);
+		if (!$.contains(monitor, $.getBottom(bounds))) {
+			$.translate(bounds, 0, -bounds.height);
 			if (caretHint != null) {
-				bounds.translate(0, -caretHint.getHeight());
+				$.translate(bounds, 0, -caretHint.getHeight());
 			}
 		}
 
-		shell.setBounds(bounds.toRectangle());
+		shell.setBounds(bounds);
 	}
 
 	private void close() {
@@ -469,8 +470,7 @@ public class ClipEntrySelectionDialog {
 			@Override
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				String id = ClipboardPreferencePage.class.getName();
-				PreferenceDialog dialog = PreferencesUtil.createPreferenceDialogOn(null,
-						id, new String[]{id}, null);
+				PreferenceDialog dialog = PreferencesUtil.createPreferenceDialogOn(null, id, new String[] { id }, null);
 				dialog.open();
 				return Status.OK_STATUS;
 			}

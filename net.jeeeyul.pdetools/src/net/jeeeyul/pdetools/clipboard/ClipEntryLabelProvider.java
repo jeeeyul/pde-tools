@@ -2,8 +2,7 @@ package net.jeeeyul.pdetools.clipboard;
 
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.ElapsedTimeLabelProvider;
-import net.jeeeyul.swtend.geometry.KPoint;
-import net.jeeeyul.swtend.geometry.KRectangle;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -16,6 +15,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
@@ -25,6 +26,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewDescriptor;
 
 public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
+	private SWTExtensions $ = SWTExtensions.INSTANCE;
 	private StyleAndTextFactory factory;
 	private TextLayout sharedLayout;
 	private ElapsedTimeLabelProvider elapsedTimeLabelProvider = new ElapsedTimeLabelProvider();
@@ -49,7 +51,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 	private void drawBadge(Event event, ClipboardEntry entry) {
 		Table table = (Table) event.widget;
 		TableItem item = (TableItem) event.item;
-		KRectangle itemBounds = new KRectangle(event);
+		Rectangle itemBounds = $.newRectangle(event);
 		itemBounds.width = table.getClientArea().width;
 
 		ImageDescriptor iconDescriptor = getImageDescriptor(entry);
@@ -63,21 +65,22 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 
 		getSharedLayout().setFont(getViewer().getControl().getDisplay().getSystemFont());
 		getSharedLayout().setText(text);
-		KRectangle textBounds = new KRectangle(getSharedLayout().getBounds()).expand(r, 0);
+
+		Rectangle textBounds = $.resize(getSharedLayout().getBounds(), r, 0);
 		if (iconDescriptor != null) {
-			textBounds.expand(16, 0);
+			$.expand(textBounds, 16, 0);
 		}
 
-		KPoint textOffset = new KPoint(itemBounds.x + itemBounds.width - textBounds.width, itemBounds.y
+		Point textOffset = new Point(itemBounds.x + itemBounds.width - textBounds.width, itemBounds.y
 				+ itemBounds.height - textBounds.height);
 
-		KPoint boxOffset = textOffset.getCopy();
+		Point boxOffset = $.getCopy(textOffset);
 
-		textOffset.translate(-1, -1);
-		boxOffset.translate(-1, -1);
+		$.translate(textOffset, -1, -1);
+		$.translate(boxOffset, -1, -1);
 
 		if (iconDescriptor != null) {
-			textOffset.translate(16, 0);
+			$.translate(textOffset, 16, 0);
 		}
 
 		Path path = new Path(table.getDisplay());
@@ -96,7 +99,8 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 
 		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		event.gc.setAlpha(40);
-		boxOffset.translate(-1, -1);
+
+		$.translate(boxOffset, -1, -1);
 		path = new Path(table.getDisplay());
 		path.addArc(boxOffset.x - r, boxOffset.y - r, r * 2, r * 2, 90, 90);
 		path.lineTo(boxOffset.x - r, boxOffset.y + textBounds.height);
@@ -210,7 +214,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		Table table = item.getParent();
 		table.setToolTipText("");
 
-		KRectangle bounds = new KRectangle(event);
+		Rectangle bounds = $.newRectangle(event);
 		bounds.width = table.getClientArea().width;
 
 		ClipboardEntry entry = (ClipboardEntry) element;
@@ -227,7 +231,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 					getSharedLayout().setStyle(each, each.start, each.start + each.length);
 				}
 			} catch (Exception ie) {
-				
+
 			}
 		}
 		getSharedLayout().draw(event.gc, bounds.x, bounds.y);
