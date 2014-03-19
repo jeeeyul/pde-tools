@@ -38,7 +38,8 @@ It was originated for me and my team. And it works great for me. I hope it helps
 http://jeeeyul.github.io/update/
 ```
 
-If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update.
+If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update. 
+see [why](https://github.com/jeeeyul/pde-tools/wiki/Trouble-Shoot)
 ```bash
 eclipse -clearPersistedState
 ```
