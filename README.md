@@ -45,7 +45,7 @@ eclipse -clearPersistedState
 ```
 
 ## Clipboard History
-Just press Control + Shift + V instead of Control + V, then you can paste contents from history of Clipboard.
+Just press <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> instead of <kbd>Control</kbd> + <kbd>V</kbd>, then you can paste contents from history of Clipboard.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/clipboard-history-paste.png)
 
@@ -90,11 +90,11 @@ It supports not only text based editor also support multi-paged editors.
 Window >> Show View >> Others... >> Plug-in Development >> Crazy Outline
 </pre>
 or
-Just press Ctrl(or Command) + 3 and type crazy.
+Just press <kbd>Ctrl</kbd>(or Command) + <kbd>3</kbd> and type crazy.
 
 ## Screenshot tool
 
-Use Camera icon or <kbd>Alt+Shift+2</kbd> to take screenshots of Eclipse parts.
+Use Camera icon or <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>2</kbd> to take screenshots of Eclipse parts.
 
 When you taking snapshot, press Command(or CTRL) then click to make a shot, then you will see, result image is rendered with Windows Aero effect with transparency. 
 
