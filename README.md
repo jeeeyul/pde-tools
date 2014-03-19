@@ -29,7 +29,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Icon Previewing Decorator](#icon-preview)
 * [Enhanced Clipboard (History feature)](#clipboard-history)
 * [Bundle Image Resource Navigator](#bundle-image-navigator)
-* Screen shot tool
+* [Screenshot tool](#screenshot-tool)
 * [Workspace Launcher](#workspace-launcher) **NEW!**
 
 ## Install
@@ -91,6 +91,12 @@ Window >> Show View >> Others... >> Plug-in Development >> Crazy Outline
 </pre>
 or
 Just press Ctrl(or Command) + 3 and type crazy.
+
+## Screenshot tool
+
+Use Camera icon or <kbd>Alt+Shift+2</kbd> to take screenshots of Eclipse parts.
+
+When you taking snapshot, press Command(or CTRL) then click to make a shot, then you will see, result image is rendered with Windows Aero effect with transparency. 
 
 ## Workspace Launcher
 ![launcher](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/release-note/1.1/workspace-launcher.png)
