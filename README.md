@@ -29,7 +29,7 @@ It was originated for me and my team. And it works great for me. I hope it helps
 * [Icon Previewing Decorator](#icon-preview)
 * [Enhanced Clipboard (History feature)](#clipboard-history)
 * [Bundle Image Resource Navigator](#bundle-image-navigator)
-* Screen shot tool
+* [Screenshot tool](#screenshot-tool)
 * [Workspace Launcher](#workspace-launcher) **NEW!**
 
 ## Install
@@ -38,13 +38,14 @@ It was originated for me and my team. And it works great for me. I hope it helps
 http://jeeeyul.github.io/update/
 ```
 
-If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update.
+If you **updating PDE-Tools**, Please restart your eclipse with -clearPersistedState Options after update. 
+see [why](https://github.com/jeeeyul/pde-tools/wiki/Trouble-Shoot)
 ```bash
 eclipse -clearPersistedState
 ```
 
 ## Clipboard History
-Just press Control + Shift + V instead of Control + V, then you can paste contents from history of Clipboard.
+Just press <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> instead of <kbd>Control</kbd> + <kbd>V</kbd>, then you can paste contents from history of Clipboard.
 
 ![screenshot](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/clipboard-history-paste.png)
 
@@ -89,7 +90,13 @@ It supports not only text based editor also support multi-paged editors.
 Window >> Show View >> Others... >> Plug-in Development >> Crazy Outline
 </pre>
 or
-Just press Ctrl(or Command) + 3 and type crazy.
+Just press <kbd>Ctrl</kbd>(or Command) + <kbd>3</kbd> and type crazy.
+
+## Screenshot tool
+
+Use Camera icon or <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>2</kbd> to take screenshots of Eclipse parts.
+
+When you taking snapshot, press Command(or CTRL) then click to make a shot, then you will see, result image is rendered with Windows Aero effect with transparency. 
 
 ## Workspace Launcher
 ![launcher](https://raw.github.com/jeeeyul/pde-tools/master/net.jeeeyul.pdetools.resource/release-note/1.1/workspace-launcher.png)
