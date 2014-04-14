@@ -53,7 +53,11 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 				« eachFile.generateField() »
 			« ENDFOR »
 			private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());
-			
+			/**
+			 * @param key
+			 *            relative image path project.
+			 * @return An {@link Image} Object for given path.
+			 */
 			public static Image getImage(String key){
 				Image result = REGISTRY.get(key);
 				if(result == null){
@@ -63,6 +67,12 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 				return result;
 			}
 			
+			/**
+			 * 
+			 * @param key
+			 *            relative image path project.
+			 * @return An {@link ImageDescriptor} Object for given path.
+			 */
 			public static ImageDescriptor getImageDescriptor(String key){
 				ImageDescriptor result = REGISTRY.getDescriptor(key);
 				if(result == null){
