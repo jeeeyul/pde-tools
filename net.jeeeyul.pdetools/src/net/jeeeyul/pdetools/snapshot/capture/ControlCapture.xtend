@@ -10,14 +10,17 @@ import org.eclipse.swt.widgets.Shell
 
 class ControlCapture {
 	extension SWTExtensions = new SWTExtensions
+	CaptureBoundsComputer boundsComputer = new CaptureBoundsComputer
 	
 	def dispatch Image capture(Control control){
 		control.redraw();
 		control.update();
-		var size = control.size
-		var image = new Image(display, size.x, size.y)
-		var gc = new GC(control)
-		gc.copyArea(image, 0, 0)
+		
+		var bounds = boundsComputer.compute(control)
+
+		var image = new Image(display, bounds.width, bounds.height)
+		var gc = new GC(display)
+		gc.copyArea(image, bounds.x, bounds.y)
 		gc.dispose()
 		return image
 	}

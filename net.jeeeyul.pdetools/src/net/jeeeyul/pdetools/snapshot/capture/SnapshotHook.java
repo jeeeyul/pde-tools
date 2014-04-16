@@ -30,10 +30,11 @@ public class SnapshotHook {
 	private Listener dispatcher = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			event.doit = false;
 			if (state != HookingState.DISPOSED) {
 				SnapshotHook.this.handleEvent(event);
 			}
+			event.type = SWT.None;
+			event.doit = false;
 		}
 	};
 
@@ -158,8 +159,6 @@ public class SnapshotHook {
 			default:
 				break;
 		}
-
-		event.doit = false;
 	}
 
 	private void hook(int... eventTypes) {
@@ -201,8 +200,9 @@ public class SnapshotHook {
 					case SWT.ARROW_UP:
 						Composite parent = controlUnderMouse.getParent();
 						if (parent != null) {
-							controlUnderMouse = parent;
+							setControlUnderMouse(parent);
 							getCaptureBoundsShell().setTarget(controlUnderMouse);
+
 						}
 						break;
 				}
@@ -326,6 +326,10 @@ public class SnapshotHook {
 			newControl = (Control) event.widget;
 		}
 
+		setControlUnderMouse(newControl);
+	}
+
+	private void setControlUnderMouse(Control newControl) {
 		Control oldControl = this.controlUnderMouse;
 		if (oldControl == newControl) {
 			return;

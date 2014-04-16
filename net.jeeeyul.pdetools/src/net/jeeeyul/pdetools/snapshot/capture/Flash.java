@@ -7,7 +7,6 @@ import net.jeeeyul.pdetools.shared.AnimateJob;
 import net.jeeeyul.pdetools.shared.PlayThread;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -17,6 +16,7 @@ public class Flash {
 	private Control target;
 	private Shell shell;
 	private AnimateJob job;
+	private CaptureBoundsComputer boundsComputer = new CaptureBoundsComputer();
 
 	public AnimateJob getJob() {
 		if (job == null) {
@@ -34,7 +34,7 @@ public class Flash {
 					shell.dispose();
 				}
 			};
-			
+
 			job.setLength(600);
 		}
 		return job;
@@ -55,20 +55,11 @@ public class Flash {
 			shell.setVisible(false);
 			return;
 		}
+
+		Rectangle bounds = boundsComputer.compute(target);
+		shell.setBounds(bounds);
 		shell.setVisible(true);
 
-		Point size = null;
-		if (target instanceof Shell) {
-			Rectangle clientArea = ((Shell) target).getClientArea();
-			size = new Point(clientArea.width, clientArea.height);
-		} else {
-			size = target.getSize();
-		}
-
-		shell.setSize(size);
-		Point location = target.toDisplay(0, 0);
-
-		shell.setLocation(location);
 	}
 
 	private void create(Display display) {
