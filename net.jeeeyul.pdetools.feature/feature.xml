@@ -2,7 +2,7 @@
 <feature
       id="net.jeeeyul.pdetools.feature"
       label="Jeeeyul&apos;s PDE-Tools"
-      version="1.2.3.qualifier"
+      version="1.2.4.qualifier"
       provider-name="jeeeyul@gmail.com">
 
    <description url="https://github.com/jeeeyul/pde-tools">
@@ -113,10 +113,10 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.emf.edit.ui"/>
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.expressions"/>
-      <import plugin="net.jeeeyul.swtend" version="2.2.1" match="greaterOrEqual"/>
+      <import plugin="net.jeeeyul.swtend" version="2.2.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import feature="net.jeeeyul.swtend.feature" version="2.2.1" match="greaterOrEqual"/>
+      <import feature="net.jeeeyul.swtend.feature" version="2.2.2" match="greaterOrEqual"/>
    </requires>
 
    <plugin

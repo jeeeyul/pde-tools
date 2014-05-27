@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PDE-Tools
 Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
-Bundle-Version: 1.2.3.qualifier
+Bundle-Version: 1.2.4.qualifier
 Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
@@ -18,12 +18,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.ltk.core.refactoring,
  org.eclipse.jdt.core.manipulation,
- net.jeeeyul.pdetools.model;bundle-version="1.2.3",
+ net.jeeeyul.pdetools.model;bundle-version="1.2.4",
  org.eclipse.emf.edit.ui,
- net.jeeeyul.pdetools.edit;bundle-version="1.2.3",
+ net.jeeeyul.pdetools.edit;bundle-version="1.2.4",
  org.eclipse.core.filesystem,
  org.eclipse.core.expressions,
- net.jeeeyul.swtend;bundle-version="2.2.1"
+ net.jeeeyul.swtend;bundle-version="2.2.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
