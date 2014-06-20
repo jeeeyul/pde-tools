@@ -5,8 +5,8 @@ Bundle-SymbolicName: net.jeeeyul.pdetools.model;singleton:=true
 Bundle-Version: 1.2.4.qualifier
 Bundle-ClassPath: .,
  lib/com.google.guava_10.0.1.v201203051515.jar,
- lib/org.eclipse.xtend.lib_2.5.1.v201401280830.jar,
- lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar
+ lib/org.eclipse.xtend.lib_2.6.0.v201405210727.jar,
+ lib/org.eclipse.xtext.xbase.lib_2.6.0.v201405210727.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
