@@ -63,7 +63,7 @@ public class Flash {
 	}
 
 	private void create(Display display) {
-		shell = new Shell(display, SWT.NO_TRIM | SWT.ON_TOP);
+		shell = new Shell(display, SWT.NO_TRIM | SWT.ON_TOP | SWT.TOOL);
 		shell.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 		shell.setSize(0, 0);
 		shell.setVisible(false);
