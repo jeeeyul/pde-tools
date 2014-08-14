@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: PDE-Tools Capability
 Bundle-SymbolicName: net.jeeeyul.pdetools.capability;singleton:=true
+Bundle-Name: PDE-Tools Capability
 Bundle-Version: 1.2.4.qualifier
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
+Bundle-ManifestVersion: 2
 Bundle-Activator: net.jeeeyul.pdetools.capability.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: jeeeyul@gmail.com
+
