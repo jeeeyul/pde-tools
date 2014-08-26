@@ -12,7 +12,9 @@ import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
 import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
 import net.jeeeyul.pdetools.shared.ChaindComparator;
 import net.jeeeyul.pdetools.shared.UpdateJob;
+import net.jeeeyul.swtend.SWTExtensions;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -34,11 +36,16 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
 public class ClipboardViewer {
@@ -46,10 +53,23 @@ public class ClipboardViewer {
 	private SharedColor sharedColor;
 	private TableViewer viewer;
 	private TableViewerColumn column;
+
+	private IPreferenceStore textEditorStore;
+
 	private IPropertyChangeListener preferenceListener = new IPropertyChangeListener() {
 		@Override
 		public void propertyChange(PropertyChangeEvent event) {
 			handlePreferenceChange(event);
+		}
+	};
+
+	private IPropertyChangeListener editorPreferenceListener = new IPropertyChangeListener() {
+		@Override
+		public void propertyChange(PropertyChangeEvent event) {
+			SWTExtensions.INSTANCE.safeDispose(backgroundColor, foregroundColor);
+			backgroundColor = null;
+			foregroundColor = null;
+			updateColors();
 		}
 	};
 
@@ -60,6 +80,7 @@ public class ClipboardViewer {
 			super.notifyChanged(notification);
 		};
 	};
+
 	private int style;
 	private ClipEntryLabelProvider labelProvider;
 	private UpdateJob updateJob = new UpdateJob(new Procedure0() {
@@ -72,10 +93,13 @@ public class ClipboardViewer {
 		}
 	});
 
+	private Color backgroundColor;
+	private Color foregroundColor;
+
 	public ClipboardViewer(Composite parent, int style) {
 		this.style = style;
 		comparatorFactory = new ComparatorFactory();
-		
+
 		create(parent);
 		parent.addDisposeListener(new DisposeListener() {
 			@Override
@@ -85,12 +109,45 @@ public class ClipboardViewer {
 		});
 
 		getPreferenceStore().addPropertyChangeListener(preferenceListener);
+		getTextEditorStore().addPropertyChangeListener(editorPreferenceListener);
+	}
+
+	private Color computeBackgroundColor() {
+		if (backgroundColor != null) {
+			return backgroundColor;
+		}
+		IPreferenceStore store = getTextEditorStore();
+		boolean useDefault = store.getBoolean(AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND_SYSTEM_DEFAULT);
+		if (useDefault) {
+			return Display.getDefault().getSystemColor(SWT.COLOR_LIST_BACKGROUND);
+		}
+
+		RGB rgb = getRGBFromEditorPreference(store, AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND);
+		backgroundColor = new Color(Display.getDefault(), rgb);
+		return backgroundColor;
+	}
+
+	private Color computeForegroundColor() {
+		if (foregroundColor != null) {
+			return foregroundColor;
+		}
+		IPreferenceStore store = getTextEditorStore();
+		boolean useDefault = store.getBoolean(AbstractTextEditor.PREFERENCE_COLOR_FOREGROUND_SYSTEM_DEFAULT);
+		if (useDefault) {
+			return Display.getDefault().getSystemColor(SWT.COLOR_LIST_FOREGROUND);
+		}
+
+		RGB rgb = getRGBFromEditorPreference(store, AbstractTextEditor.PREFERENCE_COLOR_FOREGROUND);
+		foregroundColor = new Color(Display.getDefault(), rgb);
+		return foregroundColor;
 	}
 
 	private void create(Composite parent) {
 		sharedColor = new SharedColor(parent.getDisplay());
 		viewer = new TableViewer(parent, SWT.VIRTUAL | SWT.FULL_SELECTION | style);
 		viewer.setUseHashlookup(true);
+
+		updateColors();
 
 		column = new TableViewerColumn(viewer, SWT.NORMAL);
 		labelProvider = new ClipEntryLabelProvider(sharedColor);
@@ -143,7 +200,7 @@ public class ClipboardViewer {
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 		});
-		
+
 		updateViewerSorter();
 
 		viewer.setInput(ClipboardServiceImpl.getInstance().getHistory());
@@ -191,16 +248,34 @@ public class ClipboardViewer {
 
 	public void dispose() {
 		sharedColor.flush();
+		SWTExtensions.INSTANCE.safeDispose(backgroundColor, foregroundColor);
 		ClipboardServiceImpl.getInstance().getHistory().eAdapters().remove(historyListener);
 		getPreferenceStore().removePropertyChangeListener(preferenceListener);
+		getTextEditorStore().removePropertyChangeListener(editorPreferenceListener);
 	}
 
 	private IPreferenceStore getPreferenceStore() {
 		return PDEToolsCore.getDefault().getPreferenceStore();
 	}
 
+	private RGB getRGBFromEditorPreference(IPreferenceStore store, String key) {
+		String bgExp = store.getString(key);
+		String[] segments = bgExp.split("[\\s,]+");
+		int r = Integer.parseInt(segments[0], 10);
+		int g = Integer.parseInt(segments[1], 10);
+		int b = Integer.parseInt(segments[2], 10);
+		return new RGB(r, g, b);
+	}
+
 	public TableViewer getTableViewer() {
 		return viewer;
+	}
+
+	private IPreferenceStore getTextEditorStore() {
+		if (textEditorStore == null) {
+			textEditorStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.ui.editors");
+		}
+		return textEditorStore;
 	}
 
 	protected void handleNotification(Notification notification) {
@@ -216,23 +291,13 @@ public class ClipboardViewer {
 		updateJob.schedule();
 	}
 
-	private void updateViewerSorter() {
-		final ChaindComparator<ClipboardEntry> comparator = new ChaindComparator<ClipboardEntry>();
-		String configString = getPreferenceStore().getString(ClipboardPreferenceConstants.CLIPBOARD_SORT_ORDER);
-		for(String each : configString.split(",")){
-			comparator.add(comparatorFactory.getByLiteral(each));
-		}
-		viewer.setSorter(new ViewerSorter(){
-			@Override
-			public int compare(Viewer viewer, Object e1, Object e2) {
-				ClipboardEntry c1 = (ClipboardEntry) e1;
-				ClipboardEntry c2 = (ClipboardEntry) e2;
-				return comparator.compare(c1, c2);
-			}
-		});
+	public void setFocus() {
+		viewer.getControl().setFocus();
 	}
 
-	public void setFocus() {
+	private void updateColors() {
+		viewer.getControl().setBackground(computeBackgroundColor());
+		viewer.getControl().setForeground(computeForegroundColor());
 	}
 
 	private void updateLabelProvider() {
@@ -240,5 +305,21 @@ public class ClipboardViewer {
 				ClipboardPreferenceConstants.CLIPBOARD_COLORLIZE_IN_SELECTION));
 		labelProvider.setNumberOfLineForRow(getPreferenceStore().getInt(
 				ClipboardPreferenceConstants.CLIPBOARD_NUMBER_OF_LINES_PER_EACH_ITEM));
+	}
+
+	private void updateViewerSorter() {
+		final ChaindComparator<ClipboardEntry> comparator = new ChaindComparator<ClipboardEntry>();
+		String configString = getPreferenceStore().getString(ClipboardPreferenceConstants.CLIPBOARD_SORT_ORDER);
+		for (String each : configString.split(",")) {
+			comparator.add(comparatorFactory.getByLiteral(each));
+		}
+		viewer.setSorter(new ViewerSorter() {
+			@Override
+			public int compare(Viewer viewer, Object e1, Object e2) {
+				ClipboardEntry c1 = (ClipboardEntry) e1;
+				ClipboardEntry c2 = (ClipboardEntry) e2;
+				return comparator.compare(c1, c2);
+			}
+		});
 	}
 }

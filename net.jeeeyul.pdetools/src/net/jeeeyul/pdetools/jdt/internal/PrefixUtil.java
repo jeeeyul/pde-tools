@@ -12,7 +12,7 @@ public class PrefixUtil {
 		while (--start >= 0) {
 			char current = document.getChar(start);
 			if (!Character.isJavaIdentifierPart(current)
-					&& !(acceptWhiteSpace == true && Character.isWhitespace(current)))
+					&& !(acceptWhiteSpace == true && Character.isWhitespace(current)) && current != '.')
 				break;
 
 			if (!Character.isWhitespace(current)) {
