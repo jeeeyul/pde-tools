@@ -37,7 +37,7 @@ public class SematicsProposalComputer implements IJavaCompletionProposalComputer
 			IProgressMonitor monitor) {
 		JavaContentAssistInvocationContext jCtx = (JavaContentAssistInvocationContext) context;
 		ArrayList<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
-
+		
 		try {
 			String prefix = jCtx.computeIdentifierPrefix().toString();
 
