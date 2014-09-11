@@ -3,11 +3,10 @@ package net.jeeeyul.pdetools.icg.builder.parts
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.model.pdetools.ImageFile
 import net.jeeeyul.pdetools.model.pdetools.Palette
-import org.eclipse.xtend.lib.Property
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class StandardImageCosntantGenerator implements IConstantGenerator {
-	@Property
-	ICGConfiguration config ;
+	@Accessors ICGConfiguration config ;
 
 	val ImagePreviewGenerator previewGenerator = new ImagePreviewGenerator()
 

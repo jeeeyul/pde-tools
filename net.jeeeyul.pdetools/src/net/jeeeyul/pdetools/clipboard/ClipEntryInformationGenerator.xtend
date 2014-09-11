@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.ImageLoader
 import org.eclipse.swt.graphics.RGB
 import org.eclipse.swt.widgets.Display
 import org.eclipse.ui.PlatformUI
+import java.text.DateFormat
 
 class ClipEntryInformationGenerator {
 	ElapsedTimeLabelProvider elapsedTimeLabelProvider = new ElapsedTimeLabelProvider
@@ -121,7 +122,7 @@ class ClipEntryInformationGenerator {
 				
 				«IF entry.takenTime != null»
 					<li>
-						Time: «entry.takenTime.toLocaleString»
+						Time: «DateFormat.dateTimeInstance.format(entry.takenTime)»
 					</li>
 				«ENDIF»
 			</ul>

@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib.macro_2.7.1.v201409090713.jar"/>
 	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="lib/com.google.guava_10.0.1.v201203051515.jar"/>
 	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>

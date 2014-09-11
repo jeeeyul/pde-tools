@@ -1,11 +1,11 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
 import java.util.HashSet
-import org.eclipse.xtend.lib.Property
 import net.jeeeyul.pdetools.model.pdetools.Palette
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class PaletteModelGenerationContext {
-	@Property PaletteModelGenerationContext parent
+	@Accessors PaletteModelGenerationContext parent
 	
 	Palette palette
 	HashSet<String> takenNames

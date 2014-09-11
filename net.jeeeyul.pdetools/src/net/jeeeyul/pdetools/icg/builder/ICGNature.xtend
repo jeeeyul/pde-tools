@@ -3,14 +3,14 @@ package net.jeeeyul.pdetools.icg.builder
 import net.jeeeyul.pdetools.icg.ICGConstants
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IProjectNature
+import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.xtend.lib.Property
-import org.eclipse.core.resources.IResource
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class ICGNature implements IProjectNature {
 	public static val String ID = "net.jeeeyul.pdetools.icg.nature"
-	@Property IProject project
+	@Accessors IProject project
 
 	override configure() throws CoreException {
 		new InstallNatureJob(project).schedule()

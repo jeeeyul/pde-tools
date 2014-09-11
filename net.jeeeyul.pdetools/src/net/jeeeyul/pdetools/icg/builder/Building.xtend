@@ -71,7 +71,7 @@ class Building {
 			config.ouputFile.create(stream, true, new NullProgressMonitor())
 		}
 		stream.close()
-		config.ouputFile.derived = config.markDerived
+		config.ouputFile.setDerived(config.markDerived, new NullProgressMonitor)
 		
 		var uri = URI::createPlatformResourceURI(project.fullPath.append('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».palette.xml''').toPortableString, false)
 		var resource = new XMLResourceImpl(uri)

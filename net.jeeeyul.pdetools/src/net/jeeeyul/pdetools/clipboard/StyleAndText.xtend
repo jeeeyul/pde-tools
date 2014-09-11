@@ -1,14 +1,14 @@
 package net.jeeeyul.pdetools.clipboard
 
 import org.eclipse.swt.custom.StyleRange
-import org.eclipse.xtend.lib.Property
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * SWT RTF
  */
 class StyleAndText {
-	@Property StyleRange[] styleRanges
-	@Property String text
+	@Accessors StyleRange[] styleRanges
+	@Accessors String text
 
 	override String toString(){
 		text

@@ -11,7 +11,7 @@ import net.jeeeyul.pdetools.model.pdetools.PdetoolsFactory
 import net.jeeeyul.pdetools.model.pdetools.ImageFile
 
 /**
- * ¸ð´ÏÅÍ¸µ ÁßÀÎ Æú´õ¸¦ ¹ÙÅÁÀ¸·Î ÆÈ·¹Æ® ¸ðµ¨À» »ý¼ºÇÕ´Ï´Ù.
+ * ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È·ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
  */
 class PaletteModelGenerator {
 	Stack<PaletteModelGenerationContext> stack
@@ -139,7 +139,7 @@ class PaletteModelGenerator {
 			}
 		];
 		
-		list.sort[a, b|
+		list.sortWith[a, b|
 			if(a instanceof IFolder && b instanceof IFile) {
 				return -1;
 			} else

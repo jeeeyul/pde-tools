@@ -1,13 +1,13 @@
 package net.jeeeyul.pdetools.biv.lazy
 
 import java.net.URL
-import org.eclipse.xtend.lib.Property
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class URLImageEntry {
-	@Property BundleEntry parent
-	@Property URL url
-	@Property int width = -1
-	@Property int height = -1
+	@Accessors BundleEntry parent
+	@Accessors URL url
+	@Accessors int width = -1
+	@Accessors int height = -1
 	
 	new(BundleEntry parent, URL url){
 		this.parent = parent

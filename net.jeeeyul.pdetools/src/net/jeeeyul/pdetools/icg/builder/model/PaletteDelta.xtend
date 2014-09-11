@@ -1,11 +1,11 @@
 package net.jeeeyul.pdetools.icg.builder.model
 
-import org.eclipse.xtend.lib.Property
 import net.jeeeyul.pdetools.model.pdetools.FieldNameOwner
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class PaletteDelta {
-	@Property FieldNameOwner before
-	@Property FieldNameOwner after
+	@Accessors FieldNameOwner before
+	@Accessors FieldNameOwner after
 	
 	def boolean isRefactorTarget(){
 		before != null && after != null
