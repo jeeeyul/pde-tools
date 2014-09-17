@@ -39,7 +39,8 @@ public class SnapshotCore {
 
 	private static URI getPersistanceURI() {
 		IPath path = PDEToolsCore.getDefault().getStateLocation().append("snapshot");
-		File folder = path.setDevice(null).toFile();
+//		File folder = path.setDevice(null).toFile();
+		File folder = path.toFile();
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
