@@ -6,18 +6,27 @@ Bundle-ClassPath: .,
  lib/org.eclipse.nebula.widgets.compositetable_1.0.0.201206270822.jar,
  lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270822.jar,
  lib/aopalliance.jar,
- lib/com.google.guava_10.0.1.v201203051515.jar,
- lib/guice-3.0.jar,
- lib/javax.inject.jar
-Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.co
- re.resources,org.eclipse.jdt.core,org.eclipse.jdt.ui,org.eclipse.emf.
- ecore.xmi,org.eclipse.ui.ide,org.eclipse.pde.core;bundle-version="3.7
- .0",org.eclipse.ui.workbench.texteditor,org.eclipse.ui.editors,org.ec
- lipse.jface.text,org.eclipse.ltk.core.refactoring,org.eclipse.jdt.cor
- e.manipulation,net.jeeeyul.pdetools.model;bundle-version="1.2.5",org.
- eclipse.emf.edit.ui,net.jeeeyul.pdetools.edit;bundle-version="1.2.5",
- org.eclipse.core.filesystem,org.eclipse.core.expressions,net.jeeeyul.
- swtend;bundle-version="2.2.3"
+ lib/guice-3.0.jar
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.ui,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.ui.ide,
+ org.eclipse.pde.core;bundle-version="3.7.0",
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.editors,
+ org.eclipse.jface.text,
+ org.eclipse.ltk.core.refactoring,
+ org.eclipse.jdt.core.manipulation,
+ net.jeeeyul.pdetools.model;bundle-version="1.2.5",
+ org.eclipse.emf.edit.ui,
+ net.jeeeyul.pdetools.edit;bundle-version="1.2.5",
+ org.eclipse.core.filesystem,
+ org.eclipse.core.expressions,
+ net.jeeeyul.swtend;bundle-version="2.2.3",
+ org.eclipse.xtend.lib
 Bundle-ManifestVersion: 2
 Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

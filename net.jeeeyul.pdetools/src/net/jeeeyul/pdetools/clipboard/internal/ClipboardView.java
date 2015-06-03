@@ -146,6 +146,7 @@ public class ClipboardView extends ViewPart {
 		super.dispose();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (adapter == IPropertySheetPage.class) {

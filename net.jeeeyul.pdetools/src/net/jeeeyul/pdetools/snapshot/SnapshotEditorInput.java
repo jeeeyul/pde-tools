@@ -18,6 +18,7 @@ public class SnapshotEditorInput implements IEditorInput {
 		snapshot = snapshotEntry;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		return null;

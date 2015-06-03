@@ -92,7 +92,6 @@ public class GlobalCommandSpy {
 	}
 
 	private <T> T getService(Class<T> serviceType) {
-		@SuppressWarnings("unchecked")
 		T service = (T) PlatformUI.getWorkbench().getService(serviceType);
 		return service;
 	}

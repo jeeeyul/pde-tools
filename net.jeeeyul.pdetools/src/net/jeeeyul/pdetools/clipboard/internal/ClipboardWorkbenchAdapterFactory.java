@@ -8,6 +8,7 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
 
 public class ClipboardWorkbenchAdapterFactory implements IAdapterFactory {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		if (adaptableObject instanceof ClipboardElement && adapterType == IWorkbenchAdapter.class) {
@@ -16,7 +17,7 @@ public class ClipboardWorkbenchAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Class[] getAdapterList() {
 		return new Class[] { IWorkbenchAdapter.class };
