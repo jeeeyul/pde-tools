@@ -12,6 +12,7 @@ import net.jeeeyul.pdetools.snapshot.handlers.CopyAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RedoAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RemoveAllAction;
 import net.jeeeyul.pdetools.snapshot.handlers.RemoveSnapshotAction;
+import net.jeeeyul.pdetools.snapshot.handlers.ShowInShellAction;
 import net.jeeeyul.pdetools.snapshot.handlers.UndoAction;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -158,6 +159,10 @@ public class SnapshotView extends ViewPart {
 		menuManager.add(copyAction);
 		menuManager.add(removeAction);
 		menuManager.add(new Separator("additions"));
+		ShowInShellAction revealAction = new ShowInShellAction(SnapshotCore.getRepository());
+		
+		snapshotActions.add(revealAction);
+		menuManager.add(revealAction);
 	}
 
 	@Override
