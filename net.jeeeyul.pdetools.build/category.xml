@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<site>
-   <feature id="net.jeeeyul.pdetools.feature" url="features/net.jeeeyul.pdetools.feature_1.2.6.qualifier.jar" version="1.2.6.qualifier">
-      <category name="eclipse-jeeeyul"/>
-   </feature>
-   <category-def label="Jeeeyul's Eclipse Plugins" name="eclipse-jeeeyul"/>
-</site>

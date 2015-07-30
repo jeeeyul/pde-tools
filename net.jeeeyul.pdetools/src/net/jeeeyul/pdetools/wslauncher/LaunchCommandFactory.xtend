@@ -29,7 +29,7 @@ class LaunchCommandFactory {
 				case OS_MACOSX:{
 					commands += "open"
 					commands += "-n"
-					commands += launcher.name
+					commands += launcher.absolutePath
 					commands += "--args"
 					commands += "-data"
 					commands += workspace
@@ -57,7 +57,9 @@ class LaunchCommandFactory {
 	def File getLauncher(){
 		var result = new File(System::getProperty("eclipse.launcher"))
 		if(OS == OS_MACOSX){
-			result = result.parentFile.parentFile.parentFile
+			while(!result.name.endsWith(".app")){
+				result = result.parentFile;
+			}
 		}
 		return result
 	}
