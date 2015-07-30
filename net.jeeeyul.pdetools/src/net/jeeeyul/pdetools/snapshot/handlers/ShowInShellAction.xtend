@@ -25,12 +25,16 @@ class ShowInShellAction extends SnapshotAction {
 			command.execute()
 		}
 	}
+	
+	override update() {
+		setEnabled(selection != null && selection.size > 0)
+	}
 
-	def SnapshotEntry getFirstSelectedEntry() {
+	private def SnapshotEntry getFirstSelectedEntry() {
 		this.selection.head
 	}
 
-	def LaunchCommand createCommand() {
+	private def LaunchCommand createCommand() {
 		switch (Platform.OS) {
 			case Platform.OS_MACOSX: {
 				new LaunchCommand=>[
