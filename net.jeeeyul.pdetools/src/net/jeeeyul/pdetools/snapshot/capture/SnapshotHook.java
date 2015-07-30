@@ -261,6 +261,10 @@ public class SnapshotHook {
 	}
 
 	private void restoreCursor(Control control) {
+		if(control.isDisposed()){
+			return;
+		}
+		
 		Cursor oldCursor = (Cursor) control.getData("pdetools-old-cursor");
 		if (oldCursor != null && oldCursor.isDisposed()) {
 			oldCursor = null;
