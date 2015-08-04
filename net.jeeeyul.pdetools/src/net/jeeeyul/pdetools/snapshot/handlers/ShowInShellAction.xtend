@@ -1,5 +1,6 @@
 package net.jeeeyul.pdetools.snapshot.handlers
 
+import java.io.File
 import net.jeeeyul.pdetools.model.pdetools.SnapshotEntry
 import net.jeeeyul.pdetools.model.pdetools.SnapshotRepository
 import net.jeeeyul.pdetools.shared.LaunchCommand
@@ -41,6 +42,30 @@ class ShowInShellAction extends SnapshotAction {
 					commands += "osascript"
 					commands += "-e"
 					commands += '''tell app "Finder" to activate reveal Posix file "«firstSelectedEntry.absoulteVisibleFilePath»"'''.toString
+				]
+			}
+			
+			case Platform.OS_WIN32: {
+				new LaunchCommand => [
+					envMap.put("pde_tools_target_file", '''/select,"«firstSelectedEntry.absoulteVisibleFilePath»"'''.toString)
+					
+					commands += "cmd"
+					commands += "/c"
+					commands += "C:/windows/explorer"
+					commands += "%pde_tools_target_file%"
+				]
+			}
+			
+			case Platform.OS_LINUX : {
+				new LaunchCommand() => [
+					var folder = new File(firstSelectedEntry.absoulteVisibleFilePath)
+					if(!folder.directory){
+						folder = folder.parentFile
+					}
+					
+					commands += "/bin/bash"
+					commands += "-c"
+					commands += '''xdg-open "«folder.absolutePath»"'''.toString
 				]
 			}
 			
