@@ -28,9 +28,12 @@ class CopyRelativeResourcePath extends AbstractHandler implements IElementUpdate
 
 		var first = selection.get(0).asPath
 		var second = selection.get(1).asPath
-		var relPath = first.makeRelativeTo(second)
+		val relPath = first.makeRelativeTo(second)
 		try {
-			IClipboardService::INSTANCE.nativeClipboard.setContents(#[relPath.toOSString], #[TextTransfer.instance])
+			IClipboardService.INSTANCE => [
+				nativeClipboard.setContents(#[relPath.toOSString], #[TextTransfer.instance])
+				createSnapshotIfNeeded()
+			]
 		} catch (Exception e) {
 			e.printStackTrace()
 		}

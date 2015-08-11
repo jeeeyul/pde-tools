@@ -28,9 +28,12 @@ class CopyReversedRelativeResourcePath extends AbstractHandler implements IEleme
 
 		var first = selection.get(0).asPath
 		var second = selection.get(1).asPath
-		var relPath = second.makeRelativeTo(first)
+		val relPath = second.makeRelativeTo(first)
 		try {
-			IClipboardService::INSTANCE.nativeClipboard.setContents(#[relPath.toOSString], #[TextTransfer.instance])
+			IClipboardService.INSTANCE => [
+				nativeClipboard.setContents(#[relPath.toOSString], #[TextTransfer.instance])
+				createSnapshotIfNeeded()
+			]
 		} catch (Exception e) {
 			e.printStackTrace()
 		}

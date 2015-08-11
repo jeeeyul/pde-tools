@@ -30,8 +30,12 @@ class CopyResourcePathHandler extends AbstractHandler {
 		}
 
 		try {
-			var File file = EFS::getStore(uri).toLocalFile(0, new NullProgressMonitor)
-			IClipboardService::INSTANCE.nativeClipboard.setContents(#[file.absolutePath], #[TextTransfer.instance])
+			val File file = EFS::getStore(uri).toLocalFile(0, new NullProgressMonitor)
+
+			IClipboardService.INSTANCE => [
+				nativeClipboard.setContents(#[file.absolutePath], #[TextTransfer.instance])
+				createSnapshotIfNeeded()
+			]
 		} catch (Exception e) {
 			e.printStackTrace()
 		}

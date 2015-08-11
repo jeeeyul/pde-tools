@@ -129,6 +129,10 @@ public class ClipboardServiceImpl implements IClipboardService {
 		return entry;
 	}
 
+	public void createSnapshotIfNeeded() {
+		handleCopy(null);
+	}
+
 	protected void createNewClipboardEntry(ExecutionEvent event) {
 		ClipboardEntry entry = createClipEntry();
 
@@ -242,8 +246,8 @@ public class ClipboardServiceImpl implements IClipboardService {
 		if (editingDomain == null) {
 			editingDomain = new AdapterFactoryEditingDomain(new PdetoolsItemProviderAdapterFactory(),
 					new BasicCommandStack());
-			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap()
-					.put("data", new BinaryResourceFactory());
+			editingDomain.getResourceSet().getResourceFactoryRegistry().getExtensionToFactoryMap().put("data",
+					new BinaryResourceFactory());
 		}
 		return editingDomain;
 	}
@@ -288,7 +292,7 @@ public class ClipboardServiceImpl implements IClipboardService {
 				| JavaElementLabels.I_FULLY_QUALIFIED | JavaElementLabels.T_FULLY_QUALIFIED
 				| JavaElementLabels.M_PARAMETER_TYPES | JavaElementLabels.USE_RESOLVED
 				| JavaElementLabels.T_TYPE_PARAMETERS | JavaElementLabels.CU_QUALIFIED | JavaElementLabels.CF_QUALIFIED)
-				.longValue();
+						.longValue();
 		return TextProcessor.deprocess(JavaElementLabels.getTextLabel(element, LABEL_FLAGS));
 	}
 
