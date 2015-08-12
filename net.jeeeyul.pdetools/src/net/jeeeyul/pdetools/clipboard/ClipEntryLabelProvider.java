@@ -63,12 +63,11 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 
 		int r = 5;
 
-		getSharedLayout().setFont(getViewer().getControl().getDisplay().getSystemFont());
 		getSharedLayout().setText(text);
 
 		Rectangle textBounds = $.resize(getSharedLayout().getBounds(), r, 0);
 		if (iconDescriptor != null) {
-			$.expand(textBounds, 16, 0);
+			textBounds.width += iconDescriptor.getImageData().width;
 		}
 
 		Point textOffset = new Point(itemBounds.x + itemBounds.width - textBounds.width, itemBounds.y
@@ -77,7 +76,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		Point boxOffset = $.getCopy(textOffset);
 
 		$.translate(textOffset, -1, -1);
-		$.translate(boxOffset, -1, -1);
+		$.translate(boxOffset, 0, -1);
 
 		if (iconDescriptor != null) {
 			$.translate(textOffset, 16, 0);
@@ -90,13 +89,20 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		path.lineTo(boxOffset.x + textBounds.width, boxOffset.y - r);
 		path.lineTo(boxOffset.x, boxOffset.y - r);
 
+		// badge background
 		event.gc.setAlpha(255);
 		event.gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 		event.gc.fillPath(path);
 
+		// badge text
+		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		getSharedLayout().draw(event.gc, textOffset.x, textOffset.y - r / 2 + 1);
+		
+		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		getSharedLayout().draw(event.gc, textOffset.x, textOffset.y - r / 2);
 		path.dispose();
 
+		// badge border
 		event.gc.setForeground(item.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		event.gc.setAlpha(40);
 
@@ -110,6 +116,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		event.gc.drawPath(path);
 		path.dispose();
 
+		// badge icon
 		if (iconDescriptor != null) {
 			event.gc.setAlpha(255);
 			Image image = iconDescriptor.createImage();
