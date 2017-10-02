@@ -57,7 +57,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				]
 				
 				newLabel[
-					text = "0(no limit) to 100"
+					text = "0 (no limit) to 100"
 					foreground = COLOR_DARK_GRAY
 				]
 				
@@ -114,7 +114,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				layout = newGridLayout[]
 				
 				setActiveButton = newCheckbox[
-					text = "Set accepted clip as active clipbaord contents."
+					text = "Set accepted clip as active clipboard contents."
 				]
 			]
 			
@@ -125,7 +125,7 @@ class ClipboardPreferencePage extends PreferencePage implements IWorkbenchPrefer
 				
 				dontAskRemoveAllButton = newCheckbox[
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
-					text = "Do not ask when remove all clip board entries."
+					text = "Do not ask when removing all clipboard entries."
 				]
 			]
 		]
