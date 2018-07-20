@@ -36,6 +36,7 @@ public class ImageLoadingQueue<KeyType> extends Job {
 		} finally {
 			lock.release();
 		}
+		cancel();
 		schedule(10);
 	}
 

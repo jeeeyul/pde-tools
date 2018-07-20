@@ -279,6 +279,7 @@ public class ClipboardViewer {
 	}
 
 	protected void handleNotification(Notification notification) {
+		updateJob.cancel();
 		updateJob.schedule();
 	}
 
@@ -288,6 +289,7 @@ public class ClipboardViewer {
 		}
 		updateViewerSorter();
 		updateLabelProvider();
+		updateJob.cancel();
 		updateJob.schedule();
 	}
 

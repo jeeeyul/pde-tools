@@ -47,6 +47,7 @@ public class ClipboardView extends ViewPart {
 			if (notification.isTouch()) {
 				return;
 			}
+			updateJob.cancel();
 			updateJob.schedule();
 		};
 	};

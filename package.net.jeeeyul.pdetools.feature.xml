@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Assemble net.jeeeyul.pdetools.feature" default="main">
+	<property name="archiveName" value="net.jeeeyul.pdetools.feature-${buildId}.zip"/>
+	<property name="os" value="*"/>
+	<property name="ws" value="*"/>
+	<property name="arch" value="*"/>
+	<property name="jarProcessor.sign" value="false"/>
+	<property name="assemblyTempDir" value="${buildDirectory}/tmp"/>
+	<property name="eclipse.base" value="${assemblyTempDir}/${collectingFolder}"/>
+	<property name="eclipse.plugins" value="${eclipse.base}/plugins"/>
+	<property name="eclipse.features" value="${eclipse.base}/features"/>
+	<property name="archiveFullPath" value="${basedir}/${buildLabel}/${archiveName}"/>
+	<property name="equinoxLauncherJar" value="/Users/jeeeyul/Applications/Eclipse-Oxygen.app/Contents/Eclipse/plugins/org.eclipse.equinox.launcher_1.4.0.v20161219-1356.jar"/>
+	<property name="p2.build.repo" value="file:${buildDirectory}/buildRepo"/>
+	<property name="genericTargets" value="${eclipse.pdebuild.scripts}//genericTargets.xml"/>
+	<available property="customAssembly" file="${builder}/customAssembly.xml" value="${builder}/customAssembly.xml"/>
+	<property name="tarargs" value=""/>
+
+	<macrodef name="customGather">
+		<attribute name="dir" />
+		<attribute name="propertyName" />
+		<attribute name="propertyValue" />
+		<attribute name="subFolder" />
+		<attribute name="projectName" />
+		<sequential>
+			<ant antfile="build.xml" dir="@{dir}" target="gather.bin.parts">
+				<property name="@{propertyName}" value="@{propertyValue}"/>
+			</ant>
+			<antcall target="customAssembly">
+				<param name="projectLocation" value="${basedir}/@{dir}"/>
+				<param name="projectName" value="@{projectName}"/>
+				<param name="@{propertyName}" value="@{propertyValue}"/>
+				<param name="target.folder" value="@{propertyValue}@{subFolder}"/>
+				<param name="customTarget" value="gather.bin.parts"/>
+			</antcall>
+		</sequential>
+	</macrodef>
+
+	<!-- Beginning of the jarUp task -->
+	<target name="jarUp" description="Create a jar from the given location.">
+		<available property="${source}/${elementName}_exists" file="${source}/${elementName}"/>
+		<available property="jaringManifest" file="${source}/${elementName}/META-INF/MANIFEST.MF"/>
+		<condition property="jaringTask" value="jarIng" else="jarIng_NoManifest"		>
+			<isset property="jaringManifest"/>
+		</condition>
+		<antcall target="${jaringTask}">
+			<param name="source" value="${source}"/>
+			<param name="elementName" value="${elementName}"/>
+		</antcall>
+	</target>
+
+	<target name="jarIng" if="${source}/${elementName}_exists">
+		<jar destfile="${source}/${elementName}.jar" basedir="${source}/${elementName}" manifest="${source}/${elementName}/META-INF/MANIFEST.MF" filesetmanifest="skip"/>
+		<delete dir="${source}/${elementName}"/>
+	</target>
+
+	<target name="jarIng_NoManifest" if="${source}/${elementName}_exists">
+		<jar destfile="${source}/${elementName}.jar" basedir="${source}/${elementName}" filesetmanifest="merge"/>
+		<delete dir="${source}/${elementName}"/>
+	</target>
+	<!-- End of the jarUp task -->
+
+	<!-- Beginning of the jar signing  target -->
+	<target name="jarSigning" description="Sign a jar.">
+		<antcall target="customAssembly">
+			<param name="customTarget" value="pre.jarSigning"/>
+		</antcall>
+		<eclipse.jarProcessor sign="${jarProcessor.sign}" pack="${jarProcessor.pack200}" unsign="${jarProcessor.unsign}" jar="${source}/${elementName}.jar" alias="${sign.alias}" keystore="${sign.keystore}" storepass="${sign.storepass}" keypass="${sign.keypass}"/>
+	</target>
+	<!-- End of the jarUp task -->
+
+	<target name="main">
+		<condition property="pluginArchivePrefix" value="plugins">
+			<equals arg1="${archivePrefix}"  arg2="" trim="true"/>
+		</condition>
+		<property name="pluginArchivePrefix" value="${archivePrefix}/plugins"/>
+
+		<condition property="featureArchivePrefix" value="features">
+			<equals arg1="${archivePrefix}"  arg2="" trim="true"/>
+		</condition>
+		<property name="featureArchivePrefix" value="${archivePrefix}/features"/>
+
+		<dirname property="archiveParentFolder" file="${archiveFullPath}"/>
+		<mkdir dir="${archiveParentFolder}"/>
+		<mkdir dir="${assemblyTempDir}"/>
+		<mkdir dir="${buildLabel}"/>
+
+		<antcall target="gather.bin.parts"/>
+		<antcall target="customAssembly">
+			<param name="customTarget" value="post.gather.bin.parts"/>
+		</antcall>
+
+		<antcall target="jar.processing"/>
+
+		<eclipse.brand root="${eclipse.base}/ANY.ANY.ANY/${collectingFolder}" icons="${launcherIcons}" name="${launcherName}" os="${os}"		/>
+		<antcall target="assemble.archive"/>
+		<antcall target="cleanup.assembly"/>
+	</target>
+
+	<target name="gather.bin.parts">
+	</target>
+
+	<target name="jar.processing">
+		<antcall target="customAssembly">
+			<param name="customTarget" value="post.jarUp"/>
+		</antcall>
+	</target>
+
+	<target name="assemble.archive">
+		<antcall target="customAssembly">
+			<param name="rootFolder" value="${eclipse.base}/ANY.ANY.ANY/${collectingFolder}"/>
+			<param name="customTarget" value="pre.archive"/>
+		</antcall>
+	</target>
+
+	<target name="cleanup.assembly">
+		<delete dir="${assemblyTempDir}"/>
+	</target>
+
+	<target name="customAssembly" if="customAssembly">
+		<ant antfile="${customAssembly}" target="${customTarget}" inheritAll="true"/>
+	</target>
+
+	<target name="generate.p2.metadata" if="generate.p2.metadata">
+		<property name="p2.append" value="true"/>
+		<property name="p2.compress" value="false"/>
+		<property name="p2.metadata.repo.name" value=""/>
+		<property name="p2.artifact.repo.name" value=""/>
+		<p2.generator  source="${eclipse.base}" append="${p2.append}" flavor="${p2.flavor}" compress="${p2.compress}" metadataRepository="${p2.metadata.repo}" artifactRepository="${p2.artifact.repo}" metadataRepositoryName="${p2.metadata.repo.name}" artifactRepositoryName="${p2.artifact.repo.name}" publishArtifacts="${p2.publish.artifacts}" site="${p2.category.site}" siteVersion="${p2.category.version}" p2OS="*" mode="incremental"		/>
+	</target>
+
+	<target name="runDirector" unless="skipDirector">
+		<ant antfile="${genericTargets}" target="runDirector" inheritAll="true">
+			<property name="p2.director.installPath" value="${eclipse.base}"/>
+			<property name="os" value="${os}"/>
+			<property name="p2.repo" value="${p2.build.repo}"/>
+			<property name="arch" value="${arch}"/>
+			<property name="ws" value="${ws}"/>
+			<property name="p2.director.version" value="${p2.root.version}"/>
+			<property name="p2.director.iu" value="${p2.root.name}"/>
+		</ant>
+
+	</target>
+
+</project>

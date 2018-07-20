@@ -40,6 +40,7 @@ public class ImageLoadingQueue extends Job {
 		} finally {
 			lock.release();
 		}
+		cancel();
 		schedule(10);
 	}
 

@@ -95,8 +95,11 @@ public class BundleImageView extends ViewPart {
 		filter.getTextField().addListener(SWT.Modify, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				if (!ignoreFilterEvent)
+				if (!ignoreFilterEvent) {
+					refreshFilter.cancel();
 					refreshFilter.schedule(1000);
+				}
+					
 			}
 		});
 		String initialFilter = PDEToolsCore.getDefault().getPreferenceStore()
