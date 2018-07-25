@@ -27,8 +27,15 @@ public abstract class AbstractFileBasedExecHandler extends AbstractHandler imple
 	@Override
 	public final Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getCurrentSelection(event);
+		if(selection == null) {
+			return null;
+		}
 		IResource resource = (IResource) Platform.getAdapterManager().getAdapter(selection.getFirstElement(),
 				IResource.class);
+		
+		if(resource == null) {
+			return null;
+		}
 
 		URI uri = resource.getLocationURI();
 		if (resource.isLinked()) {

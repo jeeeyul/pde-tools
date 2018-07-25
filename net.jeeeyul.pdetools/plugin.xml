@@ -889,19 +889,19 @@
          point="org.eclipse.ui.bindings">
       <key
             commandId="net.jeeeyul.pdetools.clipboard.pasteHistory"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+V">
       </key>
       <key
             commandId="net.jeeeyul.pdetools.snapshot.screenshot"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+M3+2">
       </key>
       <key
             commandId="net.jeeeyul.pdetools.command.openConsole"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+ENTER">
       </key>
