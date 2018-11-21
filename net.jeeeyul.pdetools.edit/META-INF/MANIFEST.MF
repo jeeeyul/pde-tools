@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 aaa: a, b, c, d, e
 Bundle-SymbolicName: net.jeeeyul.pdetools.edit;singleton:=true
 Require-Bundle: org.eclipse.core.runtime,net.jeeeyul.pdetools.model;bu
- ndle-version="1.2.8",org.eclipse.emf.edit;visibility:=reexport,org.ec
+ ndle-version="1.2.9",org.eclipse.emf.edit;visibility:=reexport,org.ec
  lipse.emf.ecore;visibility:=reexport,org.eclipse.ui,org.eclipse.ui.vi
  ews,org.eclipse.emf.edit.ui,org.eclipse.emf.ecore.edit
 Bundle-ManifestVersion: 2
@@ -12,7 +12,7 @@ Bundle-Vendor: %providerName
 Ant-Version: Apache Ant 1.9.2
 Export-Package: net.jeeeyul.pdetools.model.pdetools.provider
 Bundle-Name: %pluginName
-Bundle-Version: 1.2.8.qualifier
+Bundle-Version: 1.2.9.qualifier
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Bundle-Activator: net.jeeeyul.pdetools.model.PdetoolsEditPlugin$Implem
