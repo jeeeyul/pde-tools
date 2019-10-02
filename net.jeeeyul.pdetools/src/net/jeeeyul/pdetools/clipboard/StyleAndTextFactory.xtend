@@ -45,7 +45,7 @@ class StyleAndTextFactory implements IStyleAndTextFactory{
 			each.start = it.startOffset
 			each.length = it.endOffset - it.startOffset
 			var foreground = it.attributes.getAttribute(StyleConstants::Foreground) as Color
-			if(foreground != null) {
+			if(foreground !== null) {
 				each.foreground = colorProvider.getColor(foreground.asRGB)
 			}
 			var fontStyle = SWT::NORMAL

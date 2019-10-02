@@ -2,6 +2,7 @@ package net.jeeeyul.pdetools.icg.refactor
 
 import java.util.HashMap
 import java.util.List
+import net.jeeeyul.pdetools.PDEToolsCore
 import net.jeeeyul.pdetools.icg.builder.model.ICGConfiguration
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelDeltaGenerator
 import net.jeeeyul.pdetools.icg.builder.model.PaletteModelGenerator
@@ -40,7 +41,7 @@ class RenamePaletteEntry extends RenameParticipant {
 		pm.beginTask("Update Shared Image References", workAmount)
 		result = newArrayList()
 		var palette = loadPreviousPaletteModel()
-		if(palette == null){
+		if(palette === null){
 			println("이전 팔레트를 찾지 못해 리팩토링을 취소함")
 			return null
 		}
@@ -97,7 +98,7 @@ class RenamePaletteEntry extends RenameParticipant {
 
 	def loadPreviousPaletteModel(){
 		try{
-			var uri = URI::createPlatformResourceURI(resource.project.fullPath.append('''.settings/«net::jeeeyul::pdetools::PDEToolsCore::getDefault.bundle.symbolicName».palette.xml''').toPortableString, true)
+			var uri = URI::createPlatformResourceURI(resource.project.fullPath.append('''.settings/«PDEToolsCore::getDefault.bundle.symbolicName».palette.xml''').toPortableString, true)
 			var resource = new XMLResourceImpl(uri)
 			resource.load(new HashMap)
 			resource.contents.get(0) as Palette

@@ -147,7 +147,7 @@ class GraphitiImageCosntantGenerator implements IConstantGenerator{
 	def private String qualifiedName(ImageFile file){
 		var result = newArrayList(file.fieldName)
 		var pointer = file.parent
-		while(pointer != null && pointer.fieldName != null && pointer.parent != null){
+		while(pointer !== null && pointer.fieldName !== null && pointer.parent !== null){
 			result.add(0, pointer.fieldName)
 			pointer = pointer.parent
 		}

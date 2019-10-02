@@ -30,7 +30,7 @@ class PaletteModelGenerationContext {
 			return true
 		}
 		
-		while(ctx != null && ctx.palette != null){
+		while(ctx !== null && ctx.palette !== null){
 			if(ctx.palette.fieldName == fieldName){
 				return true
 			}

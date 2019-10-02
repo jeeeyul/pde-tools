@@ -67,7 +67,7 @@ class JavaRefactor {
 		segments.add(owner.fieldName)
 		var parent = owner.parent
 		
-		while(parent != null && parent.fieldName != null && !parent.root){
+		while(parent !== null && parent.fieldName !== null && !parent.root){
 			segments.add(parent.fieldName)
 			parent = parent.parent
 		}
@@ -76,6 +76,6 @@ class JavaRefactor {
 	}
 	
 	def isRoot(Palette palette){
-		return palette.parent == null
+		return palette.parent === null
 	}
 }

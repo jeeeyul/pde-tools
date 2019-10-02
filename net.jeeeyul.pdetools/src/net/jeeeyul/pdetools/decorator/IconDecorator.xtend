@@ -46,7 +46,7 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 
 		else if(decoratedFiles.containsKey(file)) {
 			var data = decoratedFiles.get(file)
-			if(data != null)
+			if(data !== null)
 				decoration.replaceImage(ImageDescriptor::createFromImageData(data))
 		} 
 		
@@ -68,7 +68,7 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 		if(!file.exists) {
 			return false
 		}
-		if(file.projectRelativePath.fileExtension == null){
+		if(file.projectRelativePath.fileExtension === null){
 			return false;
 		}
 		return IMAGE_FILES.contains(file.projectRelativePath.fileExtension.toLowerCase)
@@ -76,12 +76,12 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 
 	override resourceChanged(IResourceChangeEvent event) {
 		var delta = event.delta
-		if(delta == null) {
+		if(delta === null) {
 			return
 		}
 		for(eachFile : new ArrayList(decoratedFiles.keySet)){
 			var eachDelta = delta.findMember(eachFile.fullPath)
-			if(eachDelta != null) {
+			if(eachDelta !== null) {
 				switch(eachDelta.kind) {
 					case IResourceDelta::REMOVED: {
 						decoratedFiles.remove(eachFile)
@@ -105,7 +105,7 @@ class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecora
 
 	def void loaded(ImageDataEntry[] datas) {
 		for(each : datas){
-			if(each.imageData != null){
+			if(each.imageData !== null){
 				decoratedFiles.put(each.file, each.imageData)
 			}else{
 				invalidFiles.add(each.file)

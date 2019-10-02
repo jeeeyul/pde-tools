@@ -31,7 +31,7 @@ class ControlCapture {
 		
 		var clientArea = shell.clientArea
 		clientArea.location = shell.toDisplay(clientArea.location)
-		if(shell.menuBar != null) {
+		if(shell.menuBar !== null) {
 			clientArea.translate(0, -menubarHeight).resize(0, menubarHeight)
 		}
 		var image = new Image(display, clientArea.width, clientArea.height)
@@ -42,7 +42,7 @@ class ControlCapture {
 	}
 
 	def private Display getDisplay(){
-		if(Display::current == null) {
+		if(Display::current === null) {
 			throw new SWTException("Invalid Thread Exception")
 		}
 		return Display::current

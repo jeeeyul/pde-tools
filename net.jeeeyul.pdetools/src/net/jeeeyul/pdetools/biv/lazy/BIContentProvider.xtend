@@ -17,7 +17,7 @@ class BIContentProvider implements ITreeContentProvider {
 	
 	new(){
 		resolver.resolvingHandler = [BundleEntry bundleEntry|
-			if(viewer == null || viewer.control.disposed){
+			if(viewer === null || viewer.control.disposed){
 				return
 			}
 			
@@ -39,7 +39,7 @@ class BIContentProvider implements ITreeContentProvider {
 						parentElement.state = BundleEntry::RESOLVING
 						resolver.add(parentElement)
 						schedule[
-							if(viewer == null || viewer.control.disposed){
+							if(viewer === null || viewer.control.disposed){
 								return
 							}
 							viewer?.update(parentElement, null)
@@ -60,7 +60,7 @@ class BIContentProvider implements ITreeContentProvider {
 	}
 	
 	override getElements(Object inputElement) {
-		if(model == null){
+		if(model === null){
 			model = new ArrayList<BundleEntry>
 			
 			for(each : PDEToolsCore::^default.bundle.bundleContext.bundles){

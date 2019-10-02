@@ -22,11 +22,11 @@ class CleanRepository {
 		filesToDelete.remove(repoPath.toFile)
 		
 		for(e : repo.eAllContents.filter(typeof(SnapshotEntry)).toList){
-			if(e.originalFile != null){
+			if(e.originalFile !== null){
 				filesToDelete.remove(repoFolderPath.append(e.originalFile).toFile)
 			}
 			
-			if(e.renderedFile != null){
+			if(e.renderedFile !== null){
 				filesToDelete.remove(repoFolderPath.append(e.renderedFile).toFile)
 			}
 		}

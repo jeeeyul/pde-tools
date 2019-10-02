@@ -43,7 +43,7 @@ class ICGPropertyPage extends PropertyPage {
 	Button graphitiButton
 	
 	UIJob validateJob = newUIJob[
-		if(control == null || control.isDisposed()){
+		if(control === null || control.isDisposed()){
 			return;
 		}
 		doValidate()
@@ -89,7 +89,7 @@ class ICGPropertyPage extends PropertyPage {
 		}
 		
 		(control as Composite).allContent.filter(typeof(Text)).forEach[
-			if(it.errorMessage != null){
+			if(it.errorMessage !== null){
 				it.decoration.descriptionText = it.errorMessage
 				it.decoration.show()
 			}else{
@@ -207,12 +207,12 @@ class ICGPropertyPage extends PropertyPage {
 	}
 
 	def private void refresh(){
-		if(config.monitoringFolder != null) {
+		if(config.monitoringFolder !== null) {
 			monitoringFolderField.text = config.monitoringFolder.projectRelativePath.toPortableString
 		} else {
 			monitoringFolderField.text = ""
 		}
-		if(config.generateSrcFolder != null) {
+		if(config.generateSrcFolder !== null) {
 			generateSrcFolderField.text = config.generateSrcFolder.projectRelativePath.toPortableString
 		} else {
 			generateSrcFolderField.text = ""
@@ -221,7 +221,7 @@ class ICGPropertyPage extends PropertyPage {
 		generateClassNameField.text = config.generateClassName.nullSafeString
 		generatePreviewField.selection = config.generateImagePreview
 		markDerivedField.selection = config.markDerived
-		if(config.imageFileExtensions != null) {
+		if(config.imageFileExtensions !== null) {
 			imageFileExtensionsField.text = config.imageFileExtensions.join(", ")
 		} else {
 			imageFileExtensionsField.text = ""
@@ -286,7 +286,7 @@ class ICGPropertyPage extends PropertyPage {
 	}
 
 	def private config(){
-		if(_config == null) {
+		if(_config === null) {
 			_config = new ICGConfiguration(project)
 		}
 		return _config
@@ -301,7 +301,7 @@ class ICGPropertyPage extends PropertyPage {
 	}
 
 	def nullSafeString(String string){
-		if(string == null) {
+		if(string === null) {
 			""
 		} else {
 			string

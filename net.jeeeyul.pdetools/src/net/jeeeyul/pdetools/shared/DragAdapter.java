@@ -27,6 +27,7 @@ public class DragAdapter {
 	};
 	private Control target;
 
+	@SuppressWarnings("deprecation")
 	public DragAdapter(Control target) {
 		this.target = target;
 		target.addListener(SWT.MouseDown, dispatcher);

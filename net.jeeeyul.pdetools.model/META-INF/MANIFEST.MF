@@ -1,12 +1,6 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: net.jeeeyul.pdetools.model
 Bundle-SymbolicName: net.jeeeyul.pdetools.model;singleton:=true
-Export-Package: net.jeeeyul.pdetools.model,net.jeeeyul.pdetools.model.
- pdetools,net.jeeeyul.pdetools.model.pdetools.impl,net.jeeeyul.pdetool
- s.model.pdetools.util,net.jeeeyul.pdetools.shared
-Bundle-Name: %pluginName
-Bundle-Version: 1.2.9.qualifier
-Bundle-ClassPath: .
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
  ity:=reexport,org.eclipse.ui,org.eclipse.core.resources,org.eclipse.u
  i.views,org.eclipse.xtend.lib
@@ -14,4 +8,11 @@ Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
+Export-Package: net.jeeeyul.pdetools.model,net.jeeeyul.pdetools.model.
+ pdetools,net.jeeeyul.pdetools.model.pdetools.impl,net.jeeeyul.pdetool
+ s.model.pdetools.util,net.jeeeyul.pdetools.shared
+Bundle-Name: %pluginName
+Bundle-Version: 1.2.11.qualifier
+Bundle-ClassPath: .
+Bundle-Localization: plugin
 

@@ -13,7 +13,7 @@ class BIVGroupRenderer extends DefaultGalleryGroupRenderer {
 	override layout(GC gc, GalleryItem group) {
 		super.layout(gc, group)
 		var BundleEntry bundle = group.data as BundleEntry
-		if(bundle != null){
+		if(bundle !== null){
 			group.setText(1, bundle.bundle.symbolicName)
 		}
 	}

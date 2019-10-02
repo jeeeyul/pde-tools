@@ -37,6 +37,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 		queue.setImageLoader(new Function1<URLImageEntry, ImageData>() {
 			@Override
 			public ImageData apply(URLImageEntry p) {
+				@SuppressWarnings("deprecation")
 				ImageData imageData = ImageDescriptor.createFromURL(p.getUrl()).getImageData();
 				p.setWidth(imageData.width);
 				p.setHeight(imageData.height);
@@ -69,6 +70,7 @@ public class BundleImageLabelProvider extends LabelProvider {
 		return RendererHelper.getBestSize(imageSize.x, imageSize.y, maxSize.x, maxSize.y);
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void handleLoad(List<ImageLoadingEntry<URLImageEntry>> p) {
 		for (ImageLoadingEntry<URLImageEntry> each : p) {
 			try {

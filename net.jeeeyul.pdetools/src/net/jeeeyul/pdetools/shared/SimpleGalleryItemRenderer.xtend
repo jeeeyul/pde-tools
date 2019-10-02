@@ -19,7 +19,7 @@ class SimpleGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	}
 	
 	override draw(GC gc, GalleryItem item, int index, int x, int y, int width, int height) {
-		if(item.image == null || gc.disposed){
+		if(item.image === null || gc.disposed){
 			return;
 		}
 		

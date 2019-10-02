@@ -36,11 +36,11 @@ class InstallNatureJob extends WorkbenchJob {
 		description.buildSpec = buildCommands;
 		project.setDescription(description, new NullProgressMonitor());
 		var config = new ICGConfiguration(project) =>[
-			if(monitoringFolder == null)
+			if(monitoringFolder === null)
 				monitoringFolder = project.getFolder("icons")
-			if(imageFileExtensions == null || imageFileExtensions.empty)
+			if(imageFileExtensions === null || imageFileExtensions.empty)
 				imageFileExtensions = newArrayList("jpg", "gif", "png")
-			if(generateSrcFolder == null)
+			if(generateSrcFolder === null)
 				generateSrcFolder = project.getFolder("src-gen")
 			if(generatePackageName.nullOrBlank)
 				generatePackageName = "shared"
@@ -56,7 +56,7 @@ class InstallNatureJob extends WorkbenchJob {
 	}
 
 	def nullOrBlank(String string){
-		if(string == null) {
+		if(string === null) {
 			true
 		} else {
 			string.trim.empty

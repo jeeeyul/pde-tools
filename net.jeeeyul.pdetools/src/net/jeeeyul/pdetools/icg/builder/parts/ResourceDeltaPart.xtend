@@ -48,12 +48,12 @@ class ResourceDeltaPart {
 		}
 		
 		var projectDelta = project.delta
-		if(projectDelta == null) {
+		if(projectDelta === null) {
 			return false;
 		}
 		
 		for(eachPath : affectPathList){
-			if(projectDelta.findMember(eachPath) != null){
+			if(projectDelta.findMember(eachPath) !== null){
 				return true
 			}
 		}		

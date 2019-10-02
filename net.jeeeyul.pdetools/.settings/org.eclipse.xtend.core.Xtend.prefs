@@ -1,6 +1,9 @@
+ValidatorConfiguration.is_project_specific=true
 autobuilding=true
 eclipse.preferences.version=1
 is_project_specific=true
+org.eclipse.xtend.core.Xtend.useProjectSettings=true
+org.eclipse.xtend.core.validation.IssueCodes.unnecessary_modifier=ignore
 org.eclipse.xtext.xbase.validation.IssueCodes.discouraged_reference=ignore
 outlet.DEFAULT_OUTPUT.createDirectory=true
 outlet.DEFAULT_OUTPUT.directory=src-gen

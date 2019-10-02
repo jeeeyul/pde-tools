@@ -23,7 +23,7 @@ class DisableICGNatureHandler extends AbstractHandler {
 		var selection = event.currentSelection as IStructuredSelection
 		for(each : selection.toArray){
 			var project = Platform::adapterManager.getAdapter(each, typeof(IProject)) as IProject;
-			if(project != null) {
+			if(project !== null) {
 				var description = project.description;
 				var natures = newArrayList(description.natureIds)
 				natures.remove(ICGConstants::NATURE_ID)

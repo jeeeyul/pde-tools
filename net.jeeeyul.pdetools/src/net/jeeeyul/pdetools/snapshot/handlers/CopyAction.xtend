@@ -21,7 +21,7 @@ class CopyAction extends SnapshotAction {
 	}
 
 	override update() {
-		setEnabled(selection != null && selection.size > 0)
+		setEnabled(selection !== null && selection.size > 0)
 	}
 
 	override run() {

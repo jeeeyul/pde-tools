@@ -78,7 +78,7 @@ class ICGConfiguration {
 
 	def String[] getImageFileExtensions() {
 		var expression = store.getString(IMAGE_FILE_EXTENSIONS)
-		if (expression == null) {
+		if (expression === null) {
 			return emptyList
 		}
 		return expression.split("[ ,]+").map[it.trim].filter[length > 0]
@@ -89,7 +89,7 @@ class ICGConfiguration {
 	}
 
 	def private store() {
-		if (_store == null) {
+		if (_store === null) {
 			var projectScope = new ProjectScope(project)
 			_store = new ScopedPreferenceStore(projectScope, '''«PDEToolsCore::getDefault.bundle.symbolicName».icg''');
 			_store.setDefault(GENERATE_TYPE, GENERATE_TYPE_STANDARD)
@@ -106,7 +106,7 @@ class ICGConfiguration {
 	}
 
 	def private setValue(IPreferenceStore store, String key, IFolder folder) {
-		if (folder == null) {
+		if (folder === null) {
 			store.setValue(key, "")
 		} else {
 			store.setValue(key, folder.projectRelativePath.toPortableString)

@@ -124,6 +124,7 @@ public class SnapshotHook {
 
 	private Cursor getCaptureCursor() {
 		if (captureCursor == null || captureCursor.isDisposed()) {
+			@SuppressWarnings("deprecation")
 			ImageData imageData = SharedImages.getImageDescriptor(SharedImages.CAMERA).getImageData();
 			captureCursor = new Cursor(display, imageData, 8, 8);
 		}

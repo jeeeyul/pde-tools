@@ -29,7 +29,7 @@ class LaunchWorkspaceMenu extends CompoundContributionItem {
 		var currentWorkspace = file.absolutePath
 
 		for (each : data.recentWorkspaces) {
-			if (each != null && each != currentWorkspace) {
+			if (each !== null && each != currentWorkspace) {
 				var param = new CommandContributionItemParameter(PlatformUI::workbench, each,
 					LaunchWorkspaceHandler::COMMNAD_ID, SWT::PUSH)
 				param.parameters = new HashMap<String, String> => [

@@ -46,7 +46,7 @@ class ErrorPart {
 	def generateMarkers(){
 		for(e : errors){
 			var resource = project as IResource
-			if(e.relatedResource != null){
+			if(e.relatedResource !== null){
 				resource = e.relatedResource
 			}
 			
@@ -54,7 +54,7 @@ class ErrorPart {
 				setAttribute(IMarker::MESSAGE, e.message)
 				setAttribute(IMarker::SEVERITY, e.markerSeverity)
 				setAttribute(IMarker::LOCATION, "ICG Configuration")
-				if(e.type != null){
+				if(e.type !== null){
 					setAttribute(ICGConstants::BUILD_ERROR_TYPE_MARKER_ATTRIBUTE, e.type)
 				}
 				if(e.lineNumber >= 0){
@@ -78,7 +78,7 @@ class ErrorPart {
 	}
 	
 	def void validate(){
-		if(config.monitoringFolder == null){
+		if(config.monitoringFolder === null){
 			error[
 				fatal = true
 				message = "Monitoring Folder is not set"
@@ -131,14 +131,14 @@ class ErrorPart {
 			]
 		}
 		
-		if(config.generateSrcFolder == null){
+		if(config.generateSrcFolder === null){
 			error[
 				fatal = true
 				message = "Source folder to generate is not setted"
 			]
 		}
 		
-		if(config.imageFileExtensions == null || config.imageFileExtensions.size == 0){
+		if(config.imageFileExtensions === null || config.imageFileExtensions.size == 0){
 			error[
 				fatal = false
 				message = "No image file extensions are setted"
@@ -147,7 +147,7 @@ class ErrorPart {
 	}
 	
 	def boolean isNullOrBlank(String src){
-		if(src == null){
+		if(src === null){
 			return true
 		}else{
 			return src.trim.empty

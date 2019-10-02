@@ -118,7 +118,7 @@ class ColorProposal extends AbstractJavaProposal {
 	}
 
 	override getSelection(IDocument document) {
-		if (value != null)
+		if (value !== null)
 			new Point(context.invocationOffset - prefix + value.length + expanded, 0)
 		else
 			null

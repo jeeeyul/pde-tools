@@ -15,7 +15,7 @@ class RemoveSnapshotAction extends SnapshotAction{
 	}
 	
 	override update() {
-		enabled = selection != null && selection.size > 0
+		enabled = selection !== null && selection.size > 0
 	}
 	
 	override run() {

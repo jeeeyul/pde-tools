@@ -4,16 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import net.jeeeyul.pdetools.PDEToolsCore;
-import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
-import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
-import net.jeeeyul.pdetools.clipboard.internal.ComparatorFactory;
-import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
-import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
-import net.jeeeyul.pdetools.shared.ChaindComparator;
-import net.jeeeyul.pdetools.shared.UpdateJob;
-import net.jeeeyul.swtend.SWTExtensions;
-
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -48,6 +38,17 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 
+import net.jeeeyul.pdetools.PDEToolsCore;
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardPreferenceConstants;
+import net.jeeeyul.pdetools.clipboard.internal.ClipboardServiceImpl;
+import net.jeeeyul.pdetools.clipboard.internal.ComparatorFactory;
+import net.jeeeyul.pdetools.clipboard.internal.SharedColor;
+import net.jeeeyul.pdetools.model.pdetools.ClipboardEntry;
+import net.jeeeyul.pdetools.shared.ChaindComparator;
+import net.jeeeyul.pdetools.shared.UpdateJob;
+import net.jeeeyul.swtend.SWTExtensions;
+
+@SuppressWarnings("deprecation")
 public class ClipboardViewer {
 	private ComparatorFactory comparatorFactory;
 	private SharedColor sharedColor;

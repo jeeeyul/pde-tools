@@ -55,6 +55,7 @@ public class CrazyDragger {
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	public Cursor getGrabCursor() {
 		grabCursor = new Cursor(canvas.getDisplay(), SharedImages.getImageDescriptor(SharedImages.GRAB).getImageData(),
 				8, 8);
@@ -67,6 +68,7 @@ public class CrazyDragger {
 		return grabCursor;
 	}
 
+	@SuppressWarnings("deprecation")
 	public Cursor getHandCursor() {
 		if (handCursor == null || handCursor.isDisposed()) {
 			handCursor = new Cursor(canvas.getDisplay(), SharedImages.getImageDescriptor(SharedImages.HAND)

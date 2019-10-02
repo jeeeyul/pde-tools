@@ -22,13 +22,13 @@ class ShowInShellAction extends SnapshotAction {
 
 	override run() {
 		var command = createCommand()
-		if(command != null){
+		if(command !== null){
 			command.execute()
 		}
 	}
 	
 	override update() {
-		setEnabled(selection != null && selection.size > 0)
+		setEnabled(selection !== null && selection.size > 0)
 	}
 
 	private def SnapshotEntry getFirstSelectedEntry() {

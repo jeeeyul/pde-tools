@@ -43,7 +43,7 @@ class CopyReversedRelativeResourcePath extends AbstractHandler implements IEleme
 
 	private def Path asPath(Object obj) {
 		var resource = Platform::adapterManager.getAdapter(obj, typeof(IResource)) as IResource
-		if(resource == null){
+		if(resource === null){
 			return null
 		}
 		var URI uri = null
@@ -59,7 +59,7 @@ class CopyReversedRelativeResourcePath extends AbstractHandler implements IEleme
 	override updateElement(UIElement element, Map parameters) {
 		var selection = (PlatformUI.workbench.activeWorkbenchWindow?.activePage?.selection as IStructuredSelection)?.
 			toArray
-		if (selection != null && selection.size == 2 && selection.forall[it.asPath != null]) {
+		if (selection !== null && selection.size == 2 && selection.forall[it.asPath !== null]) {
 			var first = selection.get(0).asPath
 			var second = selection.get(1).asPath
 			element.text = '''Copy Relative Path of ‘«second.lastSegment»’ to ‘«first.lastSegment»’'''

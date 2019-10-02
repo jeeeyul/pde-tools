@@ -83,7 +83,7 @@ class Building {
 	}
 	
 	def boolean isNullOrBlank(String src){
-		if(src == null){
+		if(src === null){
 			return true
 		}else{
 			return src.trim.empty

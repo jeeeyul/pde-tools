@@ -5,24 +5,22 @@ import org.eclipse.jdt.core.IParent
 
 abstract class JavaVisitor<T> {
 	T result
-	boolean isCanceled
-	
-	def setResult(T result){
+
+	def setResult(T result) {
 		this.result = result;
 	}
-	
-	def getResult(){
+
+	def getResult() {
 		result
 	}
-	
-	def void visit(IJavaElement element){
-		isCanceled = false
+
+	def void visit(IJavaElement element) {
 		var visitChild = doVisit(element)
-		
-		if(visitChild && element instanceof IParent){
+
+		if (visitChild && element instanceof IParent) {
 			(element as IParent).children.forEach[visit]
 		}
 	}
-	
+
 	def boolean doVisit(IJavaElement element)
 }

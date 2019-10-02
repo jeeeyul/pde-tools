@@ -30,7 +30,7 @@ class RemoveGroupIfEmptyCommand extends AbstractCommand {
 	}
 	
 	override undo() {
-		if(deleteCommand != null){
+		if(deleteCommand !== null){
 			deleteCommand.undo
 		}
 	}

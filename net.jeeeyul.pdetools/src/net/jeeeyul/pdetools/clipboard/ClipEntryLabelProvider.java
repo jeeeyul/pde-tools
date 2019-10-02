@@ -48,6 +48,7 @@ public class ClipEntryLabelProvider extends OwnerDrawLabelProvider {
 		super.dispose();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void drawBadge(Event event, ClipboardEntry entry) {
 		Table table = (Table) event.widget;
 		TableItem item = (TableItem) event.item;

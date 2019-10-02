@@ -89,6 +89,7 @@ public class SnapshotLabelProvider extends LabelProvider {
 		this.registry.dispose();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void handleLoad(final List<ImageLoadingEntry<SnapshotEntry>> result) {
 		final List<SnapshotEntry> changedElements = new ArrayList<SnapshotEntry>();
 		for (ImageLoadingEntry<SnapshotEntry> each : result) {

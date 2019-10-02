@@ -8,7 +8,7 @@ class PaletteDelta {
 	@Accessors FieldNameOwner after
 	
 	def boolean isRefactorTarget(){
-		before != null && after != null
+		before !== null && after !== null
 	}
 	
 }

@@ -13,7 +13,7 @@ class ActivePartResolver {
 	def IWorkbenchPart resolve(ExecutionEvent e) {
 		var result = HandlerUtil::getActivePart(e)
 
-		if (result == null) {
+		if (result === null) {
 			result = PlatformUI::workbench?.activeWorkbenchWindow?.activePage?.activePart
 		}
 

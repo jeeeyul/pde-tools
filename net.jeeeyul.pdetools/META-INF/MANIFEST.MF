@@ -1,22 +1,36 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: net.jeeeyul.pdetools
 Bundle-SymbolicName: net.jeeeyul.pdetools;singleton:=true
-Bundle-Name: PDE-Tools
-Bundle-Version: 1.2.9.qualifier
-Bundle-ClassPath: .,lib/org.eclipse.nebula.widgets.compositetable_1.0.
- 0.201206270822.jar,lib/org.eclipse.nebula.widgets.gallery_0.5.3.20120
- 6270822.jar,lib/aopalliance.jar,lib/guice-3.0.jar
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.co
  re.resources,org.eclipse.jdt.core,org.eclipse.jdt.ui,org.eclipse.emf.
  ecore.xmi,org.eclipse.ui.ide,org.eclipse.pde.core;bundle-version="3.7
  .0",org.eclipse.ui.workbench.texteditor,org.eclipse.ui.editors,org.ec
  lipse.jface.text,org.eclipse.ltk.core.refactoring,org.eclipse.jdt.cor
- e.manipulation,net.jeeeyul.pdetools.model;bundle-version="1.2.9",org.
- eclipse.emf.edit.ui,net.jeeeyul.pdetools.edit;bundle-version="1.2.9",
- org.eclipse.core.filesystem,org.eclipse.core.expressions,net.jeeeyul.
- swtend;bundle-version="2.2.3",org.eclipse.xtend.lib
+ e.manipulation,net.jeeeyul.pdetools.model;bundle-version="1.2.11",org
+ .eclipse.emf.edit.ui,net.jeeeyul.pdetools.edit;bundle-version="1.2.11
+ ",org.eclipse.core.filesystem,org.eclipse.core.expressions,net.jeeeyu
+ l.swtend;bundle-version="2.2.3",org.eclipse.xtend.lib,javax.inject
 Bundle-ManifestVersion: 2
-Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: jeeeyul@gmail.com
+Export-Package: net.jeeeyul.pdetools,net.jeeeyul.pdetools.biv,net.jeee
+ yul.pdetools.biv.lazy,net.jeeeyul.pdetools.clipboard,net.jeeeyul.pdet
+ ools.clipboard.internal;x-internal:=true,net.jeeeyul.pdetools.command
+ spy,net.jeeeyul.pdetools.crazyoutline,net.jeeeyul.pdetools.decorator,
+ net.jeeeyul.pdetools.icg,net.jeeeyul.pdetools.icg.builder,net.jeeeyul
+ .pdetools.icg.builder.model,net.jeeeyul.pdetools.icg.builder.parts,ne
+ t.jeeeyul.pdetools.icg.refactor,net.jeeeyul.pdetools.icg.ui,net.jeeey
+ ul.pdetools.internal;x-internal:=true,net.jeeeyul.pdetools.jdt,net.je
+ eeyul.pdetools.jdt.internal;x-internal:=true,net.jeeeyul.pdetools.jdt
+ .template,net.jeeeyul.pdetools.shared,net.jeeeyul.pdetools.shell,net.
+ jeeeyul.pdetools.snapshot,net.jeeeyul.pdetools.snapshot.capture,net.j
+ eeeyul.pdetools.snapshot.editor,net.jeeeyul.pdetools.snapshot.handler
+ s,net.jeeeyul.pdetools.wslauncher
+Bundle-Name: PDE-Tools
+Bundle-Version: 1.2.11.qualifier
+Bundle-ClassPath: .,lib/org.eclipse.nebula.widgets.compositetable_1.0.
+ 0.201206270822.jar,lib/org.eclipse.nebula.widgets.gallery_0.5.3.20120
+ 6270822.jar,lib/aopalliance.jar,lib/guice-3.0.jar
+Bundle-Activator: net.jeeeyul.pdetools.PDEToolsCore
 

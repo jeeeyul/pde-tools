@@ -13,7 +13,7 @@ class ClipboardEntryStatusMessgeGenerator {
 			«entry.usingCount» time used,
 		«ENDIF»
 		
-		«IF entry.releatedFile != null»
+		«IF entry.releatedFile !== null»
 			captured from "«entry.releatedFile.name»",
 		«ENDIF»
 		

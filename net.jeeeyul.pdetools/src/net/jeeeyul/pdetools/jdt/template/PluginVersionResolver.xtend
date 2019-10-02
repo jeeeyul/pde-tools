@@ -9,7 +9,7 @@ class PluginVersionResolver extends TemplateVariableResolver {
 
 	override protected resolve(TemplateContext context) {
 		var model = PluginRegistry::findModel(context.compilationUnit.javaProject.project)
-		if (model == null) {
+		if (model === null) {
 			return "Not a plugin project"
 		}
 		var version = model.bundleDescription.version
