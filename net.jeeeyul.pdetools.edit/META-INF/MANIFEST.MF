@@ -7,7 +7,7 @@ Require-Bundle: org.eclipse.core.runtime,net.jeeeyul.pdetools.model;bu
  clipse.emf.ecore;visibility:=reexport,org.eclipse.ui,org.eclipse.ui.v
  iews,org.eclipse.emf.edit.ui,org.eclipse.emf.ecore.edit
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Ant-Version: Apache Ant 1.9.2

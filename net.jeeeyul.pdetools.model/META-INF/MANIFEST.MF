@@ -5,7 +5,7 @@ Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
  ity:=reexport,org.eclipse.ui,org.eclipse.core.resources,org.eclipse.u
  i.views,org.eclipse.xtend.lib
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Export-Package: net.jeeeyul.pdetools.model,net.jeeeyul.pdetools.model.
