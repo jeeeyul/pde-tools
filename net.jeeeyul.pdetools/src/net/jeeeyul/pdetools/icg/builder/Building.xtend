@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl
 
 class Building {
-	extension ResourceExtensions = new ResourceExtensions()
+	extension ResourceExtensions = new ResourceExtensions() 
 	
 	@Inject
 	extension IncrementalProjectBuilder builder

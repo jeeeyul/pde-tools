@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.12.qualifier">
+<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.13.qualifier">
 
    <description url="https://github.com/jeeeyul/pde-tools">
       - History feature for clipboard
@@ -106,15 +106,16 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ltk.core.refactoring"/>
       <import plugin="org.eclipse.jdt.core.manipulation"/>
-      <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.model" version="1.2.11"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
-      <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.edit" version="1.2.11"/>
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.expressions"/>
       <import match="greaterOrEqual" plugin="net.jeeeyul.swtend" version="2.2.3"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
       <import feature="net.jeeeyul.swtend.feature" match="greaterOrEqual" version="2.2.3"/>
+      <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.model" version="1.2.12"/>
+      <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.edit" version="1.2.12"/>
+      <import match="greaterOrEqual" plugin="com.google.inject" version="3.0.0"/>
    </requires>
 
    <plugin download-size="0" id="net.jeeeyul.pdetools.model" install-size="0" unpack="false" version="0.0.0"/>
