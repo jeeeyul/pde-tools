@@ -1031,7 +1031,7 @@
    </extension>
    <extension
          id="net.jeeeyul.pdetoos.java.proposal"
-         name="PDE-Tools Java Sematics Proposal"
+         name="PDE-Tools Java Semantics Proposals"
          point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
       <proposalCategory
             icon="icons/plugins.gif">
