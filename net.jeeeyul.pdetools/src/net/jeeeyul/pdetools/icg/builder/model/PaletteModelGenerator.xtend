@@ -129,7 +129,13 @@ class PaletteModelGenerator {
 			if (it instanceof IFolder) {
 				true;
 			} else if (it.fileExtension !== null) {
-				config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
+				val name = it.projectRelativePath.removeFileExtension.lastSegment;
+				if (name.matches('''.*@2x$''')) {
+					false
+				} else {
+					config.imageFileExtensions.map[toLowerCase].contains(it.fileExtension.toLowerCase);
+				}
+
 			} else {
 				false
 			}
