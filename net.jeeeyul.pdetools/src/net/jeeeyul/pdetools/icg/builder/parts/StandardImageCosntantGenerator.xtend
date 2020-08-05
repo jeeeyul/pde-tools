@@ -61,7 +61,8 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 			public synchronized static Image getImage(String key){
 				Image result = REGISTRY.get(key);
 				if(result == null){
-					result = loadImage(key);
+					ImageDescriptor descriptor = getImageDescriptor(key);
+					result = descriptor.createImage();
 					REGISTRY.put(key, result);
 				}
 				return result;
@@ -80,25 +81,6 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 					REGISTRY.put(key, result);
 				}
 				return result;
-			}
-			
-			private static Image loadImage(String key) {
-				try {
-					Bundle bundle = Platform.getBundle("«config.bundleId»");
-					URL resource = null;
-					
-					if(bundle != null){
-						resource = Platform.getBundle("«config.bundleId»").getResource(key);
-					}else{
-						resource = new File(key).toURI().toURL();	
-					}
-					
-					Image image = new Image(null, resource.openStream());
-					return image;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
-				}
 			}
 			
 			private static ImageDescriptor loadImageDescriptor(String key) {
