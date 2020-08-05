@@ -61,7 +61,7 @@ class StandardImageCosntantGenerator implements IConstantGenerator {
 			public synchronized static Image getImage(String key){
 				Image result = REGISTRY.get(key);
 				if(result == null){
-					ImageDescriptor descriptor = getImageDescriptor(key);
+					ImageDescriptor descriptor = loadImageDescriptor(key);
 					result = descriptor.createImage();
 					REGISTRY.put(key, result);
 				}

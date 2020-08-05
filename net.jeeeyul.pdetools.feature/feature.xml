@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.15.qualifier">
+<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.16.qualifier">
 
    <description url="https://github.com/jeeeyul/pde-tools">
       - History feature for clipboard

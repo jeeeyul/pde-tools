@@ -3,7 +3,7 @@ Automatic-Module-Name: net.jeeeyul.pdetools.capability
 Bundle-SymbolicName: net.jeeeyul.pdetools.capability;singleton:=true
 Export-Package: net.jeeeyul.pdetools.capability
 Bundle-Name: PDE-Tools Capability
-Bundle-Version: 1.2.15.qualifier
+Bundle-Version: 1.2.16.qualifier
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
 Bundle-ManifestVersion: 2
 Bundle-Activator: net.jeeeyul.pdetools.capability.Activator
