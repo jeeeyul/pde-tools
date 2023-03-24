@@ -6,8 +6,8 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.core
  e.xmi,org.eclipse.ui.ide,org.eclipse.pde.core;bundle-version="3.7.0",or
  g.eclipse.ui.workbench.texteditor,org.eclipse.ui.editors,org.eclipse.jf
  ace.text,org.eclipse.ltk.core.refactoring,org.eclipse.jdt.core.manipula
- tion,net.jeeeyul.pdetools.model;bundle-version="1.2.18",org.eclipse.emf
- .edit.ui,net.jeeeyul.pdetools.edit;bundle-version="1.2.18",org.eclipse.
+ tion,net.jeeeyul.pdetools.model;bundle-version="1.2.19",org.eclipse.emf
+ .edit.ui,net.jeeeyul.pdetools.edit;bundle-version="1.2.19",org.eclipse.
  core.filesystem,org.eclipse.core.expressions,net.jeeeyul.swtend;bundle-
  version="2.2.7",org.eclipse.xtend.lib,com.google.inject;bundle-version=
  "3.0.0"
@@ -29,7 +29,7 @@ Export-Package: net.jeeeyul.pdetools,net.jeeeyul.pdetools.biv,net.jeeeyu
  ot.editor,net.jeeeyul.pdetools.snapshot.handlers,net.jeeeyul.pdetools.w
  slauncher
 Bundle-Name: PDE-Tools
-Bundle-Version: 1.2.18.qualifier
+Bundle-Version: 1.2.19.qualifier
 Bundle-ClassPath: .,lib/org.eclipse.nebula.widgets.compositetable_1.0.0.
  201206270822.jar,lib/org.eclipse.nebula.widgets.gallery_0.5.3.201206270
  822.jar,lib/aopalliance.jar,lib/guice-3.0.jar
