@@ -12,7 +12,7 @@ Export-Package: net.jeeeyul.pdetools.model,net.jeeeyul.pdetools.model.pd
  etools,net.jeeeyul.pdetools.model.pdetools.impl,net.jeeeyul.pdetools.mo
  del.pdetools.util,net.jeeeyul.pdetools.shared
 Bundle-Name: %pluginName
-Bundle-Version: 1.2.20.qualifier
+Bundle-Version: 1.2.21.qualifier
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 
