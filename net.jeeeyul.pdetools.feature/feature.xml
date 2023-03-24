@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.19.qualifier">
-                           
+<feature id="net.jeeeyul.pdetools.feature" label="Jeeeyul's PDE-Tools" provider-name="jeeeyul@gmail.com" version="1.2.20.qualifier">
+                               
+    
     
     
     
@@ -13,7 +14,8 @@
 - Screen shot tool
 - Console output enhancer
    </description>
-                           
+                               
+    
     
     
     
@@ -22,7 +24,8 @@
     <copyright url="https://github.com/jeeeyul/pde-tools">
       All Copyright 2012 reserved to jeeeyul@gmail.com
    </copyright>
-                           
+                               
+    
     
     
     
@@ -100,245 +103,280 @@ Everyone is permitted to copy and distribute copies of this Agreement, but in or
 
 This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.
    </license>
-                           
+                               
+    
     
     
     
     
     
     <url>
-                                                      
+                                                              
+        
         
         
         
         
         
         <update label="Jeeeyul's Eclipse Plugins" url="http://eclipse.jeeeyul.net/update"/>
-                                                   
+                                                           
+    
     
     
     
     
     
     </url>
-                           
+                               
+    
     
     
     
     
     
     <requires>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.core.runtime"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.emf.ecore"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ui"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.core.resources"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ui.views"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.xtend.lib"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.jdt.core"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.jdt.ui"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.emf.ecore.xmi"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ui.ide"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import match="greaterOrEqual" plugin="org.eclipse.pde.core" version="3.7.0"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ui.workbench.texteditor"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ui.editors"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.jface.text"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.ltk.core.refactoring"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.jdt.core.manipulation"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.emf.edit.ui"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.core.filesystem"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.core.expressions"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import match="greaterOrEqual" plugin="net.jeeeyul.swtend" version="2.2.4"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.emf.edit"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import plugin="org.eclipse.emf.ecore.edit"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.model" version="1.2.12"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import match="greaterOrEqual" plugin="net.jeeeyul.pdetools.edit" version="1.2.12"/>
-                                                      
+                                                              
+        
         
         
         
         
         
         <import match="greaterOrEqual" plugin="com.google.inject" version="3.0.0"/>
-                                                   
+                                                           
+    
     
     
     
     
     
     </requires>
-                           
+                               
+    
     
     
     
     
     
     <plugin download-size="0" id="net.jeeeyul.pdetools.model" install-size="0" unpack="false" version="0.0.0"/>
-                           
+                               
+    
     
     
     
     
     
     <plugin download-size="0" id="net.jeeeyul.pdetools" install-size="0" unpack="false" version="0.0.0"/>
-                           
+                               
+    
     
     
     
     
     
     <plugin download-size="0" id="net.jeeeyul.pdetools.edit" install-size="0" unpack="false" version="0.0.0"/>
-                           
+                               
+    
     
     
     
     
     
     <plugin download-size="0" id="net.jeeeyul.pdetools.capability" install-size="0" unpack="false" version="0.0.0"/>
-                        
+                            
+
 
 
 
